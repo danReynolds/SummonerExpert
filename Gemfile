@@ -3,9 +3,9 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'pg'
 gem 'google-cloud'
 gem 'puma', '~> 3.0'
-gem 'dotenv-rails'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'byebug', platform: :mri
 end
 
