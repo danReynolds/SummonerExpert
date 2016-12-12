@@ -1,1 +1,5 @@
-summoner_id: https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name
+season: SEASON2017
+summoner:
+  id: https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name
+  details: https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner
+champion: https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion
