@@ -15,12 +15,10 @@ class SummonerController < ApplicationController
   end
 
   def get_champion_from_cache(id)
-    champions_cache = Rails.cache.read(:champions) || Hash.new
-    return champions_cache[id] if champions_cache[id]
-
-    fetch_champion(id).tap do |champion|
-      champions_cache[id] = champion.except(:id)
-      Rails.cache.write(:champions, champions_cache)
+    Rails.cache.fetch(champions: id, expires_in: 24.hours) do
+      fetch_champion(id).tap do |champion|
+        champion.except(:id)
+      end
     end
   end
 
