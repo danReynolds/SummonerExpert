@@ -5,11 +5,11 @@ gem 'google-cloud'
 gem 'puma', '~> 3.0'
 
 group :development, :test do
-  gem 'dotenv-rails'
   gem 'byebug', platform: :mri
 end
 
 group :development do
+  gem 'dotenv-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry'
