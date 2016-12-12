@@ -12,7 +12,7 @@
         "intent": "assistant.intent.action.MAIN"
       },
       "httpExecution": {
-        "url": "https://google.ca"
+        "url": "https://summonerexpert.herokuapp.com/conversation"
       }
     }
   ]
