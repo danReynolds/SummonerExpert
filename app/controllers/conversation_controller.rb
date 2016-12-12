@@ -2,17 +2,13 @@ class ConversationController < ApplicationController
   def create
     response.headers['Google-Assistant-API-Version'] = 'v1'
 
-    request_id = request.headers['X-Request-Id']
-
     body = JSON.parse(request.body.read)
     conversation_id = body.with_indifferent_access[:conversation][:conversation_id]
-    Rails.logger.debug "[#{Time.now.strftime("%H:%M:%S.%N")} #{request_id}] received conversation object #{conversation_id}"
+    Rails.logger.debug "received conversation object #{conversation_id}"
 
     response = { :conversation_token => conversation_id }
 
     input = body.with_indifferent_access[:inputs][0]
-    Rails.logger.debug "[#{Time.now.strftime("%H:%M:%S.%N")} #{request_id}] conversation object input was #{input}"
-
     intent = input[:intent]
     if intent == "assistant.intent.action.MAIN"
       response[:expect_user_response] = true
@@ -26,9 +22,9 @@ class ConversationController < ApplicationController
             { :text_to_speech => "Terminating Summoner Expert." },
           ],
         },
-        :possible_intents => [{:intent => "assistant.intent.action.TEXT"}],
+        :possible_intents => [{ :intent => "summoner.input" }],
       }]
-      Rails.logger.debug "[#{Time.now.strftime("%H:%M:%S.%N")} #{request_id}] responded with #{response}"
+      Rails.logger.debug "responded with #{response}"
       return render json: response
     end
 

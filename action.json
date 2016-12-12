@@ -3,7 +3,7 @@
   "agentInfo": {
     "languageCode": "en-US",
     "projectId": "gh-league-of-legends",
-    "voiceName": "male_1"
+    "voiceName": "male_2"
   },
   "actions": [
     {
@@ -11,6 +11,16 @@
       "initialTrigger": {
         "intent": "assistant.intent.action.MAIN"
       },
+      "inDialogTriggers": [
+        {
+          "intent": "summoner.input",
+          "queryPatterns": [
+            {
+              "query_pattern": "tell me about $SchemaOrg_Text"
+            }
+          ]
+        }
+      ],
       "httpExecution": {
         "url": "https://summonerexpert.herokuapp.com/conversation"
       }
