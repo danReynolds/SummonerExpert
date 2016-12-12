@@ -1,25 +1,28 @@
 # SQLite version 3.x
-#   gem install sqlite3
+#   gem install postgresql
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
+#   gem 'postgresql'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
   pool: 5
   timeout: 5000
+  username: summoner_expert
+  password: password
 
 development:
+  database: summoner_expert_development
   <<: *default
-  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: summoner_expert
