@@ -47,7 +47,7 @@ class ChampionsController < ApplicationController
     render json: {
       speech: "
         #{champion_params[:champion]}'s #{ability} ability cooldown is
-        #{spell[:cooldown][rank].to_i} seconds at rank #{rank}.
+        #{spell[:cooldown][rank].to_i - 1} seconds at rank #{rank}.
       "
     }
   end
