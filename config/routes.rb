@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     post :ally_tips
     post :enemy_tips
     post :ability
+    post :cooldown
   end
 end

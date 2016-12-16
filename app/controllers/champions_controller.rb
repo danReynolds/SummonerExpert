@@ -39,6 +39,19 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def cooldown
+    ability = champion_params[:ability].to_sym
+    spell = @champion[:spells][ABILITIES[ability]]
+    rank = champion_params[:rank].split(' ').last.to_i
+
+    render json: {
+      speech: "
+        #{champion_params[:champion]}'s #{ability} cooldown is
+        #{spell[:cooldown][rank].to_i} seconds at rank #{rank}.
+      "
+    }
+  end
+
   def title
     render json: {
       speech: "#{@champion[:name]}'s title is #{@champion[:title]}"
@@ -68,6 +81,8 @@ class ChampionsController < ApplicationController
   end
 
   def champion_params
-    params.require(:result).require(:parameters).permit(:champion, :ability)
+    params.require(:result).require(:parameters).permit(
+      :champion, :ability, :rank
+    )
   end
 end
