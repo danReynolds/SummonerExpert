@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'index' => 'api#index'
-  root to: 'api#index'
+  match '/', to: 'api#index', via: :post
 
-  resources :conversation, only: [:create]
-  resources :summoner, only: [:show]
+  namespace :champions do
+    post :title
+  end
 end
