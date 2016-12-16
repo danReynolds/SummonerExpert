@@ -4,15 +4,15 @@ class ChampionsController < ApplicationController
 
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
   ABILITIES = {
-    'first ability': 0,
+    first: 0,
     q: 0,
-    'second ability': 1,
+    second: 1,
     w: 1,
-    'third abiltiy': 2,
+    third: 2,
     e: 2,
     r: 3,
-    'ultimate': 3,
-    'fourth ability': 3,
+    ultimate: 3,
+    fourth: 3
   }
 
   def description
@@ -30,10 +30,10 @@ class ChampionsController < ApplicationController
     else
       spell = @champion[:spells][ABILITIES[ability]]
     end
-    
+
     render json: {
       speech: "
-        #{champion_params[:champion]}'s #{ability} is called #{spell[:name]}.
+        #{champion_params[:champion]}'s #{ability} ability is called #{spell[:name]}.
         #{spell[:sanitizedDescription]}
       "
     }
@@ -46,7 +46,7 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: "
-        #{champion_params[:champion]}'s #{ability} cooldown is
+        #{champion_params[:champion]}'s #{ability} ability cooldown is
         #{spell[:cooldown][rank].to_i} seconds at rank #{rank}.
       "
     }
