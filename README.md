@@ -36,8 +36,6 @@ Response: "Here's a tip for playing as Jax: Jax can Leap Strike to friendly unit
 Query: Phrases like "What do they call Poppy?"
 Response: "Poppy's title is Keeper of the Hammer"
 
-Try it all out at the live text [demo](http://blog.danreynolds.ca/summoner_expert/).
-
 More features focused on champion statistics, about who is strong, who to play against, and items to build are coming soon.
 
 
