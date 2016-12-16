@@ -43,11 +43,11 @@ class ChampionsController < ApplicationController
     ability = champion_params[:ability].to_sym
     spell = @champion[:spells][ABILITIES[ability]]
     rank = champion_params[:rank].split(' ').last.to_i
-    binding.pry
+
     render json: {
       speech: "
         #{champion_params[:champion]}'s #{ability} ability cooldown is
-        #{spell[:cooldown][rank.to_i - 1]} seconds at rank #{rank}.
+        #{spell[:cooldown][rank - 1].to_i} seconds at rank #{rank}.
       "
     }
   end
