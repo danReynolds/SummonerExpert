@@ -14,7 +14,8 @@ module RiotApi
       private
 
       def fetch_response(endpoint)
-        uri = URI("#{endpoint}?api_key=#{ENV['RIOT_API_KEY']}")
+        append_symbol = endpoint.include?('?') ? '&' : '?'
+        uri = URI("#{endpoint}#{append_symbol}api_key=#{ENV['RIOT_API_KEY']}")
         JSON.parse(Net::HTTP.get(uri)).with_indifferent_access[:data]
       end
     end

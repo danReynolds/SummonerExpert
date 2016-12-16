@@ -3,5 +3,9 @@ Rails.application.routes.draw do
 
   namespace :champions do
     post :title
+    post :description
+    post :ally_tips
+    post :enemy_tips
+    post :ability
   end
 end
