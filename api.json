@@ -1,0 +1,174 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2016-12-16T19:45:59.337Z",
+	"__export_source": "insomnia.desktop.app:v4.0.9",
+	"resources": [
+		{
+			"_id": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"parentId": null,
+			"modified": 1481786661099,
+			"created": 1481786661099,
+			"name": "summoner_expert",
+			"description": "",
+			"certificates": [],
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_0d851fcce733473faf2afa9cce713676",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481786758469,
+			"created": 1481786758469,
+			"name": "Base Environment",
+			"data": {},
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481917482593,
+			"created": 1481786758558,
+			"name": "Default Jar",
+			"cookies": [],
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_420d468a6f164a43bfa8d832e3e318fb",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481917425032,
+			"created": 1481917417587,
+			"url": "localhost:3000",
+			"name": "champions/enemy_tips",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"3a258edd-d6b3-4803-b485-02779f67ce6e\",\n  \"timestamp\": \"2016-12-16T19:43:15.319Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play against LeBlanc?\",\n    \"action\": \"champions/enemy_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"LeBlanc\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"3d65f174-bd6b-4d59-be1b-a0fdc9f2c198\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/enemy_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\"\n        }\n      ]\n    },\n    \"score\": 0.76\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1481917417587,
+			"_type": "request"
+		},
+		{
+			"_id": "req_4ccd25e96e2044a39fdaeb0305b2739d",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481915720351,
+			"created": 1481915657521,
+			"url": "localhost:3000",
+			"name": "champions/cooldown",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"1547b5ec-13cf-49a6-8306-a95c9d58ce30\",\n  \"timestamp\": \"2016-12-16T19:13:17.883Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the cooldown of Yasuo's r at rank 3?\",\n    \"action\": \"champions/cooldown\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"ability\": \"fourth\",\n      \"champion\": \"Yasuo\",\n      \"rank\": \"Rank 3\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"7c13bfd9-fd64-458b-8c23-406df4875b01\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/cooldown\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\\n        Yasuo's fourth ability cooldown is\\n        0 seconds at rank 3.\\n      \",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\\n        Yasuo's fourth ability cooldown is\\n        0 seconds at rank 3.\\n      \"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1481915657521,
+			"_type": "request"
+		},
+		{
+			"_id": "req_4e326c5687454d7ea772a5ae3298a349",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481917481320,
+			"created": 1481917460884,
+			"url": "localhost:3000",
+			"name": "champions/description",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"6a307391-d309-46f8-9b8a-5a5a8e2cc6ee\",\n  \"timestamp\": \"2016-12-16T19:44:28.133Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Tell me about Katarina\",\n    \"action\": \"champions/description\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Katarina\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"17d44705-8abb-46e7-b61e-97af0819362f\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/description\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Katarina is a Assassin and Mage. Driven by an intense killer instinct, Katarina uses her talents as an assassin for the glory of Noxus, and the continued elevation of her family. While her fervor drives her to ever-greater feats, it can sometimes lead her astray.From ...\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Katarina is a Assassin and Mage. Driven by an intense killer instinct, Katarina uses her talents as an assassin for the glory of Noxus, and the continued elevation of her family. While her fervor drives her to ever-greater feats, it can sometimes lead her astray.From ...\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1481917460884,
+			"_type": "request"
+		},
+		{
+			"_id": "req_653ffbc0b2cc4404bd70e4eed4e0b6bd",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481917056626,
+			"created": 1481917042270,
+			"url": "localhost:3000",
+			"name": "champions/ability",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"d13c0ccd-c465-4812-8083-19e9089667d8\",\n  \"timestamp\": \"2016-12-16T19:37:09.612Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is Ivern's second ability?\",\n    \"action\": \"champions/ability\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"ability\": \"second\",\n      \"champion\": \"Ivern\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"1c370fa4-4e6e-41ab-90b6-649b5f83f47b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/ability\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Ivern's second ability is called\\nBrushmaker.In brush, Ivern's attacks are ranged and deal bonus magic damage. Ivern can activate this ability to create a patch of brush.\\n\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Ivern's second ability is called\\nBrushmaker.In brush, Ivern's attacks are ranged and deal bonus magic damage. Ivern can activate this ability to create a patch of brush.\\n\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1481917042270,
+			"_type": "request"
+		},
+		{
+			"_id": "req_a5b3713dfaed4bcb920824015180bc37",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481917283353,
+			"created": 1481917268252,
+			"url": "localhost:3000",
+			"name": "champions/ally_tips",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"7f821f0b-5965-4b9f-9c10-8d665378e2ef\",\n  \"timestamp\": \"2016-12-16T19:39:32.83Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play with Fiora?\",\n    \"action\": \"champions/ally_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Fiora\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"98098b8e-4952-413d-9fbb-6aa604d0ebdc\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/ally_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1481917268252,
+			"_type": "request"
+		},
+		{
+			"_id": "req_dada373cb4e4427b85a2cfaee9c59e64",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1481916316125,
+			"created": 1481786672032,
+			"url": "localhost:3000",
+			"name": "champions/title",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": " {\n  \"id\": \"012f4430-c330-4122-b0dc-21a24ae1f872\",\n  \"timestamp\": \"2016-12-16T05:30:13.648Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the title of Sona?\",\n    \"action\": \"champions/title\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Sona\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5a3e784d-0dae-42fc-bce9-957c07af09f9\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/title\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Sona's title is Maven of the Strings\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Sona's title is Maven of the Strings\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1481786672032,
+			"_type": "request"
+		}
+	]
+}
