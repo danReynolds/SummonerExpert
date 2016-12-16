@@ -34,7 +34,7 @@ class ChampionsController < ApplicationController
       speech: (
         <<~HEREDOC
           #{champion_params[:champion]}'s #{ability} ability is called
-          #{spell[:name]}.#{spell[:sanitizedDescription]}
+          #{spell[:name]}. #{spell[:sanitizedDescription]}
         HEREDOC
       )
     }
@@ -66,8 +66,8 @@ class ChampionsController < ApplicationController
     render json: {
       speech: (
         <<~HEREDOC
-          "Here's a tip for playing with #{@champion[:name]}:
-          #{@champion[:allytips].sample.to_s}"
+          Here's a tip for playing as #{@champion[:name]}:
+          #{@champion[:allytips].sample.to_s}
         HEREDOC
       )
     }
