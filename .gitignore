@@ -24,3 +24,4 @@
 # Ignore Google API cruft
 creds.data
 gactions
+app/scripts/*
