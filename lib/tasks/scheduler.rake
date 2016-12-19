@@ -9,7 +9,7 @@ task fetch_champion_gg: :environment do
   puts 'Fetching champion data from champion.gg'
 
   champions = RiotApi::RiotApi.get_champions
-  champions.each do |champion_name, champion_data|
+  champions.first(1).each do |champion_name, champion_data|
     puts "Fetching data for #{champion_name}"
 
     champion_data[:champion_gg] = ChampionGGApi::ChampionGGApi.get_champion(
