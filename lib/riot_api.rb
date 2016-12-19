@@ -4,13 +4,6 @@ module RiotApi
 
     class << self
       def get_champions
-        if Rails.cache.exist?(:champions)
-          Rails.cache.read(:champions)
-        else
-          response = fetch_response(RIOT_API[:champions])
-          Rails.cache.write(:champions, response)
-        end
-        return Rails.cache.read(:champions)
         Rails.cache.fetch('champions') do
           fetch_response(RIOT_API[:champions])
         end
