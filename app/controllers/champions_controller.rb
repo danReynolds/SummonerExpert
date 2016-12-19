@@ -25,12 +25,9 @@ class ChampionsController < ApplicationController
   def lane
     name = champion_params[:champion]
     role = champion_params[:lane]
-    role_data = find_by_role(name, role)
-    unless role_data
-      return render json: {
-        speech: "#{name} is not recommended to play #{role}."
-      }
-    end
+    return render json: {
+      speech: "#{name} is not recommended to play #{role}."
+    } unless role_data = find_by_role(name, role)
 
     overall = role_data[:overallPosition]
     change = overall[:change] > 0 ? 'better' : 'worse'
