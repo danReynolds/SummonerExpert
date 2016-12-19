@@ -4,13 +4,11 @@ module RiotApi
 
     class << self
       def get_champions
-        Rails.cache.fetch('champions') do
-          fetch_response(RIOT_API[:champions])
-        end
+        fetch_response(RIOT_API[:champions])
       end
 
       def get_champion(name)
-        get_champions.detect { |_, data| data[:name] == name }.last
+        Rails.cache.read(champions: name)
       end
 
       private

@@ -118,7 +118,7 @@ class ChampionsController < ApplicationController
   end
 
   def load_champion
-    @champion = RiotApi.get_champion(champion_params[:champion])
+    @champion = RiotApi.get_champion(champion_params[:champion].strip)
   end
 
   def champion_params
