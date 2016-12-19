@@ -7,7 +7,8 @@ module RiotApi
         if Rails.cache.exist?(:champions)
           Rails.cache.read(:champions)
         else
-          Rails.cache.write(:champions, fetch_response(RIOT_API[:champions]))
+          response = fetch_response(RIOT_API[:champions])
+          Rails.cache.write(:champions, response)
         end
         return Rails.cache.read(:champions)
         Rails.cache.fetch('champions') do
