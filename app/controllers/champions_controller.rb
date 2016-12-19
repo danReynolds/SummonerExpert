@@ -22,6 +22,30 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def lane
+    name = champion_params[:champion]
+    role = champion_params[:lane]
+    role_data = find_by_role(name, role)
+    unless role_data
+      return render json: {
+        speech: "#{name} is not recommended to play #{role}."
+      }
+    end
+
+    overall = role_data[:overallPosition]
+    change = overall[:change] > 0 ? 'better' : 'worse'
+
+    render json: {
+      speech: (
+        <<~HEREDOC
+          #{name} got #{change} in the last patch and is currently ranked
+          #{overall[:position]} with a #{role_data[:patchWin].last}% win rate
+          and a #{role_data[:patchPlay].last}% play rate as a #{role}.
+        HEREDOC
+      )
+    }
+  end
+
   def ability
     ability = champion_params[:ability].to_sym
     if ability == :passive
@@ -86,6 +110,12 @@ class ChampionsController < ApplicationController
 
   private
 
+  def find_by_role(name, role)
+    @champion[:champion_gg].detect do |champion_data|
+      champion_data[:role] == role
+    end
+  end
+
   def remove_html_tags(speech)
     speech.gsub!(HTML_TAGS, '')
   end
@@ -96,7 +126,7 @@ class ChampionsController < ApplicationController
 
   def champion_params
     params.require(:result).require(:parameters).permit(
-      :champion, :ability, :rank
+      :champion, :ability, :rank, :lane
     )
   end
 end

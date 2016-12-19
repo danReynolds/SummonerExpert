@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     post :enemy_tips
     post :ability
     post :cooldown
+    post :lane
   end
 end
