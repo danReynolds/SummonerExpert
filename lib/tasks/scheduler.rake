@@ -5,7 +5,7 @@ include RiotApi
 include ChampionGGApi
 
 desc 'Fetch all champion data from champion.gg nightly'
-task fetch_nightly: :environment do
+task fetch_champion_gg: :environment do
   puts 'Fetching champion data from champion.gg'
 
   champions = RiotApi::RiotApi.get_champions
