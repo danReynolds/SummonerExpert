@@ -1,5 +1,7 @@
 module RiotApi
-  class RiotApi
+  class RiotApi < ExternalApi
+    @api_key = ENV['RIOT_API_KEY']
+
     class << self
       def get_champions
         Rails.cache.fetch('champions') do
@@ -14,9 +16,7 @@ module RiotApi
       private
 
       def fetch_response(endpoint)
-        append_symbol = endpoint.include?('?') ? '&' : '?'
-        uri = URI("#{endpoint}#{append_symbol}api_key=#{ENV['RIOT_API_KEY']}")
-        JSON.parse(Net::HTTP.get(uri)).with_indifferent_access[:data]
+        super(endpoint).with_indifferent_access[:data]
       end
     end
   end
