@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     post :ability
     post :cooldown
     post :lane
+    post :build
   end
 end

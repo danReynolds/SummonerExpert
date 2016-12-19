@@ -22,6 +22,26 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def build
+    name = champion_params[:champion]
+    role = champion_params[:lane]
+    return render json: {
+      speech: (
+        <<~HEREDOC
+          There is no recommended way to build #{name} as #{role}. Please do not
+          make your team surrender at 20.
+        HEREDOC
+      )
+    } unless role_data = find_by_role(name, role)
+    build = role_data[:items][:highestWinPercent][:items].map do |item|
+      item[:name]
+    end.join(', ')
+
+    render json: {
+      speech: "The highest win rate build for #{name} #{role} is #{build}"
+    }
+  end
+
   def lane
     name = champion_params[:champion]
     role = champion_params[:lane]
