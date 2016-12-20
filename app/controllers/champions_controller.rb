@@ -2,7 +2,7 @@ class ChampionsController < ApplicationController
   include RiotApi
   before_action :load_champion
 
-  MIN_MATCHUPS = 50
+  MIN_MATCHUPS = 100
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
   ABILITIES = {
     first: 0,
