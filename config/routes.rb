@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     post :cooldown
     post :lane
     post :build
+    post :matchup
   end
 end

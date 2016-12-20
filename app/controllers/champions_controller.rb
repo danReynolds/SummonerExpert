@@ -2,6 +2,7 @@ class ChampionsController < ApplicationController
   include RiotApi
   before_action :load_champion
 
+  MIN_MATCHUPS = 50
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
   ABILITIES = {
     first: 0,
@@ -39,6 +40,31 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: "The highest win rate build for #{name} #{role} is #{build}"
+    }
+  end
+
+  def matchup
+    name = champion_params[:champion]
+    role = champion_params[:lane]
+    return render json: {
+      speech: (
+        <<~HEREDOC
+          Anyone would counter #{name} #{role}, they do not belong in that
+          role.
+        HEREDOC
+      )
+    } unless role_data = find_by_role(name, role)
+
+    counters = role_data[:matchups].select do |matchup|
+      matchup[:games] > MIN_MATCHUPS
+    end.sort_by do |matchup|
+      matchup[:statScore]
+    end.first(3).map do |counter|
+      "#{counter[:key]} at #{(100 - counter[:winRate]).round(2)}% win rate"
+    end.join(', ')
+
+    render json: {
+      speech: "The best counters for #{name} #{role} are #{counters}"
     }
   end
 
