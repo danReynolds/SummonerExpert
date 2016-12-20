@@ -1,6 +1,7 @@
 class ChampionsController < ApplicationController
   include RiotApi
   before_action :load_champion
+  before_action :verify_role, only: [:ability_order, :build,:matchup, :lane]
 
   MIN_MATCHUPS = 100
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
@@ -23,39 +24,31 @@ class ChampionsController < ApplicationController
     }
   end
 
-  def build
-    name = champion_params[:champion]
-    role = champion_params[:lane]
-    return render json: {
+  def ability_order
+    order = parse_ability_order(@role_data[:skills][:highestWinPercent][:order])
+    render json: {
       speech: (
         <<~HEREDOC
-          There is no recommended way to build #{name} as #{role}. Please do not
-          make your team surrender at 20.
+          The highest win rate on #{@name} #{@role} has you start
+          #{order[:firstOrder].join(', ')} and then max
+          #{order[:maxOrder].join(', ')}
         HEREDOC
       )
-    } unless role_data = find_by_role(name, role)
-    build = role_data[:items][:highestWinPercent][:items].map do |item|
+    }
+  end
+
+  def build
+    build = @role_data[:items][:highestWinPercent][:items].map do |item|
       item[:name]
     end.join(', ')
 
     render json: {
-      speech: "The highest win rate build for #{name} #{role} is #{build}"
+      speech: "The highest win rate build for #{@name} #{@role} is #{build}"
     }
   end
 
   def matchup
-    name = champion_params[:champion]
-    role = champion_params[:lane]
-    return render json: {
-      speech: (
-        <<~HEREDOC
-          Anyone would counter #{name} #{role}, they do not belong in that
-          role.
-        HEREDOC
-      )
-    } unless role_data = find_by_role(name, role)
-
-    counters = role_data[:matchups].select do |matchup|
+    counters = @role_data[:matchups].select do |matchup|
       matchup[:games] > MIN_MATCHUPS
     end.sort_by do |matchup|
       matchup[:statScore]
@@ -64,26 +57,20 @@ class ChampionsController < ApplicationController
     end.join(', ')
 
     render json: {
-      speech: "The best counters for #{name} #{role} are #{counters}"
+      speech: "The best counters for #{@name} #{@role} are #{counters}"
     }
   end
 
   def lane
-    name = champion_params[:champion]
-    role = champion_params[:lane]
-    return render json: {
-      speech: "#{name} is not recommended to play #{role}."
-    } unless role_data = find_by_role(name, role)
-
-    overall = role_data[:overallPosition]
+    overall = @role_data[:overallPosition]
     change = overall[:change] > 0 ? 'better' : 'worse'
 
     render json: {
       speech: (
         <<~HEREDOC
-          #{name} got #{change} in the last patch and is currently ranked
-          #{overall[:position]} with a #{role_data[:patchWin].last}% win rate
-          and a #{role_data[:patchPlay].last}% play rate as a #{role}.
+          #{@name} got #{change} in the last patch and is currently ranked
+          #{overall[:position]} with a #{@role_data[:patchWin].last}% win rate
+          and a #{@role_data[:patchPlay].last}% play rate as a #{@role}.
         HEREDOC
       )
     }
@@ -92,7 +79,7 @@ class ChampionsController < ApplicationController
   def ability
     ability = champion_params[:ability].to_sym
     if ability == :passive
-      spell  @champion[:passive]
+      spell = @champion[:passive]
     else
       spell = @champion[:spells][ABILITIES[ability]]
     end
@@ -159,12 +146,40 @@ class ChampionsController < ApplicationController
     end
   end
 
+  def parse_ability_order(abilities)
+    {
+      firstOrder: abilities.first(3),
+      maxOrder: abilities[3..-1].uniq.reject { |ability| ability == 'R' }
+    }
+  end
+
   def remove_html_tags(speech)
     speech.gsub!(HTML_TAGS, '')
   end
 
   def load_champion
     @champion = RiotApi.get_champion(champion_params[:champion].strip)
+  end
+
+  def do_not_play_response(name, role)
+    {
+      speech: (
+        <<~HEREDOC
+          There is no recommended way to play #{name} as #{role}. Please do not
+          make your team surrender at 20.
+        HEREDOC
+      )
+    }
+  end
+
+  def verify_role
+    @name = champion_params[:champion]
+    @role = champion_params[:lane]
+
+    unless @role_data = find_by_role(@name, @role)
+      render json: do_not_play_response(@name, @role)
+      return false
+    end
   end
 
   def champion_params
