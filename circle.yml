@@ -1,6 +1,16 @@
 machine:
+  environment:
+    REDIS_URL: redis://localhost:6391
+dependencies:
   pre:
     - sudo rm /etc/redis/redis.conf
     - sudo ln -s /home/ubuntu/summoner_expert/redis.conf.test /etc/redis/redis.conf
-  services:
-    - redis
+    - wget http://download.redis.io/releases/redis-3.2.0.tar.gz
+    - tar xzf redis-3.2.0.tar.gz
+    - cd redis-3.2.0 && make
+  cache_directories:
+    - redis-3.2.0
+test:
+  pre:
+    - sudo service redis-server stop
+    - ./redis-3.2.0/src/redis-server --port 6391 --daemonize yes
