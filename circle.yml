@@ -1,6 +1,6 @@
 machine:
   environment:
-    REDIS_URL: redis://localhost:6391
+    REDIS_URL: redis://localhost:6379/0/cache
 dependencies:
   pre:
     - sudo rm /etc/redis/redis.conf
