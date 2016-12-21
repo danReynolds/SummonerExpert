@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/danReynolds/summoner_expert/badge.svg?branch=master)](https://coveralls.io/github/danReynolds/summoner_expert?branch=master)
+
 # Summoner Expert
 
 Summoner Expert allows you to ask League of Legends questions using the Actions for Google API and the APIs provided by Champion.gg and Riot. Devices like Google Home, and Google Assistant enabled phones like the Pixel will be able to interact with Summoner Expert.
