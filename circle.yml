@@ -1,8 +1,6 @@
 machine:
   pre:
     - sudo rm /etc/redis/redis.conf
-    - sudo ln -s /home/ubuntu/summoner_expert/redis.conf /etc/redis/redis.conf
-  environment:
-    REDIS_URL: redis://localhost:6391
+    - sudo ln -s /home/ubuntu/summoner_expert/redis.conf.test /etc/redis/redis.conf
   services:
     - redis
