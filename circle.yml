@@ -12,5 +12,4 @@ dependencies:
     - redis-3.2.0
 test:
   pre:
-    - sudo service redis-server stop
     - ./redis-3.2.0/src/redis-server --port 6391 --daemonize yes
