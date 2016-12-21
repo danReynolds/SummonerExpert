@@ -18,6 +18,12 @@ Query: Ask for a champion's build in a given role such as "What should I build o
 
 Response: "The highest win rate build for Twitch ADC is Runaan's Hurricane, Infinity Edge, Berserker's Greaves, Statikk Shiv, The Bloodthirster, Lord Dominik's Regards"
 
+**Ability Order**:
+
+Query: Ask for the order to start and max abilities such as "What ability should I start on Fiora Top?"
+
+Response: "The highest win rate on Fiora Top has you start Q, E, Q and then max W, Q, E"
+
 **Abilities**:
 
 Query: Phrases like "What is Blitzcrank's second ability?" or "What is Aurelion Sol's ultimate"?
