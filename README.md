@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/danReynolds/summoner_expert.svg?style=svg)](https://circleci.com/gh/danReynolds/summoner_expert)
+
 [![Coverage Status](https://coveralls.io/repos/github/danReynolds/summoner_expert/badge.svg?branch=master)](https://coveralls.io/github/danReynolds/summoner_expert?branch=master)
 
 # Summoner Expert
