@@ -53,11 +53,27 @@ describe ChampionsController, type: :controller do
     let(:action) { :ability_order }
 
     context 'when valid' do
-      it 'should return the first order and max order for abilities' do
-        post action, params
-        expect(speech).to eq(
-        "There is no recommended way to play Leblanc as Jungle. Please do not\nmake your team surrender at 20.\n"
-        )
+      context 'with repeated 3 starting abililties' do
+        it 'should return the 4 first order and max order for abilities' do
+          post action, params
+          expect(speech).to eq(
+          "The highest win rate on Azir Middle has you start\nW, Q, Q, E and then max\nQ, W, E\n"
+          )
+        end
+      end
+
+      context 'with uniq starting 3 abilities' do
+        it 'should return the 3 first order and max order for abilities' do
+          champion = RiotApi::RiotApi.get_champion('Azir')
+          order = champion[:champion_gg].first[:skills][:highestWinPercent][:order]
+          order[2] = 'E'
+          order[3] = 'Q'
+          allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
+          post action, params
+          expect(speech).to eq(
+            "The highest win rate on Azir Middle has you start\nW, Q, E and then max\nQ, W, E\n"
+          )
+        end
       end
     end
 

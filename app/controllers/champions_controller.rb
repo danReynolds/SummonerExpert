@@ -147,9 +147,19 @@ class ChampionsController < ApplicationController
   end
 
   def parse_ability_order(abilities)
+    first_abilities = abilities.first(3)
+
+    # Handle the case where you take two of the same abililty to begin
+    if first_abilities == first_abilities.uniq
+      max_order_abilities = abilities[3..-1]
+    else
+      first_abilities = abilities.first(4)
+      max_order_abilities = abilities[4..-1]
+    end
+
     {
-      firstOrder: abilities.first(3),
-      maxOrder: abilities[3..-1].uniq.reject { |ability| ability == 'R' }
+      firstOrder: first_abilities,
+      maxOrder: max_order_abilities.uniq.reject { |ability| ability == 'R' }
     }
   end
 
