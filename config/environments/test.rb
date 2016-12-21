@@ -34,6 +34,8 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  config.cache_store = :redis_store, ENV['REDIS_URL']
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 

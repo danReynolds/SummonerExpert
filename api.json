@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2016-12-16T19:45:59.337Z",
+	"__export_date": "2016-12-20T23:55:53.650Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,23 +26,46 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481917482593,
+			"modified": 1482277705921,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
 			"_type": "cookie_jar"
 		},
 		{
+			"_id": "req_3b5d82d24e82457aad34441bcd0b07b4",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1482209635847,
+			"created": 1482188086561,
+			"url": "{{ url }}",
+			"name": "champions/build",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"f8b175f9-f2d7-4b32-8d79-1e225bcc219e\",\n  \"timestamp\": \"2016-12-19T22:54:30.706Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How do I build Twitch ADC?\",\n    \"action\": \"champions/build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Bard\",\n      \"lane\": \"Support\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"61d64176-8c08-4bf3-935d-a0397f7f3d1d\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/build\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: b79fbc2d-8eb3-4529-b025-b76f5437b4cc\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482188086561,
+			"_type": "request"
+		},
+		{
 			"_id": "req_420d468a6f164a43bfa8d832e3e318fb",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481917425032,
+			"modified": 1482186800956,
 			"created": 1481917417587,
-			"url": "localhost:3000",
+			"url": "{{ url }}",
 			"name": "champions/enemy_tips",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"3a258edd-d6b3-4803-b485-02779f67ce6e\",\n  \"timestamp\": \"2016-12-16T19:43:15.319Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play against LeBlanc?\",\n    \"action\": \"champions/enemy_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"LeBlanc\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"3d65f174-bd6b-4d59-be1b-a0fdc9f2c198\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/enemy_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\"\n        }\n      ]\n    },\n    \"score\": 0.76\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"3a258edd-d6b3-4803-b485-02779f67ce6e\",\n  \"timestamp\": \"2016-12-16T19:43:15.319Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play against LeBlanc?\",\n    \"action\": \"champions/enemy_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Leblanc\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"3d65f174-bd6b-4d59-be1b-a0fdc9f2c198\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/enemy_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\"\n        }\n      ]\n    },\n    \"score\": 0.76\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -58,9 +81,9 @@
 		{
 			"_id": "req_4ccd25e96e2044a39fdaeb0305b2739d",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481915720351,
+			"modified": 1482083805804,
 			"created": 1481915657521,
-			"url": "localhost:3000",
+			"url": "{{ url }}",
 			"name": "champions/cooldown",
 			"method": "POST",
 			"body": {
@@ -81,9 +104,9 @@
 		{
 			"_id": "req_4e326c5687454d7ea772a5ae3298a349",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481917481320,
+			"modified": 1482083797035,
 			"created": 1481917460884,
-			"url": "localhost:3000",
+			"url": "{{ url }}",
 			"name": "champions/description",
 			"method": "POST",
 			"body": {
@@ -104,9 +127,9 @@
 		{
 			"_id": "req_653ffbc0b2cc4404bd70e4eed4e0b6bd",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481917056626,
+			"modified": 1482083803460,
 			"created": 1481917042270,
-			"url": "localhost:3000",
+			"url": "{{ url }}",
 			"name": "champions/ability",
 			"method": "POST",
 			"body": {
@@ -125,11 +148,57 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_70e709bed44d44dba272397747057ae0",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1482192564691,
+			"created": 1482192290015,
+			"url": "{{ url }}",
+			"name": "champions/matchup",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"a8daca3a-01de-4395-b4a0-428aefe42f2e\",\n  \"timestamp\": \"2016-12-20T00:07:16.229Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who counters Jayce top?\",\n    \"action\": \"champions/matchup\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jayce\",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/matchup\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\"\n        }\n      ]\n    },\n    \"score\": 0.96\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482192290015,
+			"_type": "request"
+		},
+		{
+			"_id": "req_76fb69be6a6c438fa2c948845e1fc935",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1482184319606,
+			"created": 1482120899865,
+			"url": "{{url}}",
+			"name": "champions/lane",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"66827f75-87cd-4c6a-b7e2-f8bc88a2e2f3\",\n  \"timestamp\": \"2016-12-19T21:51:45.811Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Top\",\n    \"action\": \"champions/lane\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jax \",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/lane\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 4558b022-6510-4bc2-a100-5df3131986b4\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482120899865,
+			"_type": "request"
+		},
+		{
 			"_id": "req_a5b3713dfaed4bcb920824015180bc37",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481917283353,
+			"modified": 1482186856112,
 			"created": 1481917268252,
-			"url": "localhost:3000",
+			"url": "{{ url }}",
 			"name": "champions/ally_tips",
 			"method": "POST",
 			"body": {
@@ -150,9 +219,9 @@
 		{
 			"_id": "req_dada373cb4e4427b85a2cfaee9c59e64",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1481916316125,
+			"modified": 1482083070693,
 			"created": 1481786672032,
-			"url": "localhost:3000",
+			"url": "{{ url }}",
 			"name": "champions/title",
 			"method": "POST",
 			"body": {
@@ -169,6 +238,51 @@
 			"authentication": {},
 			"metaSortKey": -1481786672032,
 			"_type": "request"
+		},
+		{
+			"_id": "req_e3313ffbf8bc499cb9ddf908d9d9cad3",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1482277229398,
+			"created": 1482275704759,
+			"url": "{{ url }}",
+			"name": "champions/ability_order",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"06f07778-c7cc-4624-8604-d62118553223\",\n  \"timestamp\": \"2016-12-20T23:28:28.278Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What skill do I max first on Leblanc mid?\",\n    \"action\": \"champions/ability_order\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Leblanc\",\n      \"lane\": \"Jungle\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"988464be-d423-4f29-939c-47af4c9d6676\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ability_order\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: e090f3ea-5c77-4c70-b3a6-a3ad35f8eb48\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482275704759,
+			"_type": "request"
+		},
+		{
+			"_id": "env_bc20674a273c40cd971fb807c0847e30",
+			"parentId": "env_0d851fcce733473faf2afa9cce713676",
+			"modified": 1482083047752,
+			"created": 1482082903253,
+			"name": "Production",
+			"data": {
+				"url": "https://summonerexpert.herokuapp.com"
+			},
+			"_type": "environment"
+		},
+		{
+			"_id": "env_f8958a56bd434a2f9acfb21e27479e89",
+			"parentId": "env_0d851fcce733473faf2afa9cce713676",
+			"modified": 1482083011571,
+			"created": 1482082915947,
+			"name": "Development",
+			"data": {
+				"url": "http://localhost:3000"
+			},
+			"_type": "environment"
 		}
 	]
 }

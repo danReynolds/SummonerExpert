@@ -1,7 +1,7 @@
 class ChampionsController < ApplicationController
   include RiotApi
   before_action :load_champion
-  before_action :verify_role, only: [:ability_order, :build,:matchup, :lane]
+  before_action :verify_role, only: [:ability_order, :build, :matchup, :lane]
 
   MIN_MATCHUPS = 100
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
