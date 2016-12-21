@@ -27,14 +27,44 @@ describe ChampionsController, type: :controller do
   describe 'POST build' do
     let(:action) { :build }
 
-    context 'when valid' do
-      it 'should provide a build for a champion' do
-        post action, params
-        expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, Locket of the Iron Solari"
+    context 'when valid role specified' do
+      context 'when no role' do
+        before :each do
+          champion_params = params['result']['parameters']
+          champion_params['lane'] = nil
+        end
+
+        context 'champion has only one role' do
+          it 'should provide a build for a champion using their only role' do
+            post action, params
+            expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, Locket of the Iron Solari"
+          end
+        end
+
+        context 'when champion has more than one role' do
+          it 'should ask for the role' do
+            champion = RiotApi::RiotApi.get_champion('Bard')
+            champion[:champion_gg] << champion[:champion_gg].first
+            allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
+            post action, params
+
+            expect(speech).to eq controller.send(
+              :ask_for_role_response,
+              'Bard'
+            )[:speech]
+          end
+        end
+      end
+
+      context 'when role specified' do
+        it 'should provide a build for a champion' do
+          post action, params
+          expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, Locket of the Iron Solari"
+        end
       end
     end
 
-    context 'when invalid' do
+    context 'when invalid role specified' do
       it 'should return the do not play response' do
         champion_params = params['result']['parameters']
         champion_params['lane'] = 'Top'
@@ -52,7 +82,7 @@ describe ChampionsController, type: :controller do
   describe 'POST ability_order' do
     let(:action) { :ability_order }
 
-    context 'when valid' do
+    context 'when valid role specified' do
       context 'with repeated 3 starting abililties' do
         it 'should return the 4 first order and max order for abilities' do
           post action, params
@@ -77,7 +107,7 @@ describe ChampionsController, type: :controller do
       end
     end
 
-    context 'when invalid' do
+    context 'when invalid role specified' do
       it 'should return the do not play response' do
         champion_params = params['result']['parameters']
         champion_params['lane'] = 'Support'
@@ -95,7 +125,7 @@ describe ChampionsController, type: :controller do
   describe 'POST matchup' do
     let(:action) { :matchup }
 
-    context 'when valid' do
+    context 'when valid role specified' do
       it 'should return the best counters for the champion' do
         post action, params
         expect(speech).to eq(
@@ -104,7 +134,7 @@ describe ChampionsController, type: :controller do
       end
     end
 
-    context 'when invalid' do
+    context 'when invalid role specified' do
       it 'should return the do not play response' do
         champion_params = params['result']['parameters']
         champion_params['lane'] = 'Support'
@@ -122,7 +152,7 @@ describe ChampionsController, type: :controller do
   describe 'POST lane' do
     let(:action) { :lane }
 
-    context 'when valid' do
+    context 'when valid role specified' do
       it 'should indicate the strength of champions in the given lane' do
         post action, params
 
@@ -132,7 +162,7 @@ describe ChampionsController, type: :controller do
       end
     end
 
-    context 'when invalid' do
+    context 'when invalid role specified' do
       it 'should return the do not play response' do
         champion_params = params['result']['parameters']
         champion_params['lane'] = 'Support'

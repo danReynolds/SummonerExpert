@@ -141,7 +141,18 @@ class ChampionsController < ApplicationController
   private
 
   def find_by_role(name, role)
-    @champion[:champion_gg].detect do |champion_data|
+    champion_gg = @champion[:champion_gg]
+    if role.blank?
+      if champion_gg.length == 1
+        champion_role = champion_gg.first
+        @role = champion_role[:role]
+        return champion_role
+      else
+        return nil
+      end
+    end
+
+    champion_gg.detect do |champion_data|
       champion_data[:role] == role
     end
   end
@@ -182,12 +193,22 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def ask_for_role_response(name)
+    {
+      speech: "What role is #{name} in?"
+    }
+  end
+
   def verify_role
     @name = champion_params[:champion]
     @role = champion_params[:lane]
 
     unless @role_data = find_by_role(@name, @role)
-      render json: do_not_play_response(@name, @role)
+      if @role.blank?
+        render json: ask_for_role_response(@name)
+      else
+        render json: do_not_play_response(@name, @role)
+      end
       return false
     end
   end
