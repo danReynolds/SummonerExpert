@@ -13,6 +13,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
   gem 'dotenv-rails'
+  gem 'coveralls', require: false
 end
 
 group :development do
