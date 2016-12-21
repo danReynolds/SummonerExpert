@@ -1,0 +1,5 @@
+machine:
+  environment:
+    REDIS_URL: redis://localhost:6391
+  services:
+    - redis

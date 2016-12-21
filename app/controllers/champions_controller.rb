@@ -111,8 +111,6 @@ class ChampionsController < ApplicationController
   end
 
   def title
-    binding.pry
-    
     render json: {
       speech: "#{@champion[:name]}'s title is #{@champion[:title]}"
     }
