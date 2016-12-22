@@ -8,7 +8,7 @@ class ActionRouter
     body = input.read
 
     unless body.blank?
-      relative_path = JSON.parse(input.read).with_indifferent_access[:result][:action]
+      relative_path = JSON.parse(body).with_indifferent_access[:result][:action]
       env['PATH_INFO'] += relative_path
     end
 
