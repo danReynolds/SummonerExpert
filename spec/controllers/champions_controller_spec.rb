@@ -137,12 +137,13 @@ describe ChampionsController, type: :controller do
     context 'when invalid role specified' do
       it 'should return the do not play response' do
         champion_params = params['result']['parameters']
+        champion = RiotApi::RiotApi.get_champion(champion_params['champion'])
         champion_params['lane'] = 'Support'
 
         post action, params
         expect(speech).to eq controller.send(
           :do_not_play_response,
-          champion_params['champion'],
+          champion[:name],
           champion_params['lane']
         )[:speech]
       end
@@ -157,7 +158,7 @@ describe ChampionsController, type: :controller do
         post action, params
 
         expect(speech).to eq(
-          "Jax  got better in the last patch and is currently ranked\n41 with a 49.69% win rate\nand a 3.76% play rate as a Top.\n"
+          "Jax got better in the last patch and is currently ranked\n41 with a 49.69% win rate\nand a 3.76% play rate as a Top.\n"
         )
       end
     end
@@ -165,12 +166,13 @@ describe ChampionsController, type: :controller do
     context 'when invalid role specified' do
       it 'should return the do not play response' do
         champion_params = params['result']['parameters']
+        champion = RiotApi::RiotApi.get_champion(champion_params['champion'])
         champion_params['lane'] = 'Support'
 
         post action, params
         expect(speech).to eq controller.send(
           :do_not_play_response,
-          champion_params['champion'],
+          champion[:name],
           champion_params['lane']
         )[:speech]
       end

@@ -140,7 +140,7 @@ class ChampionsController < ApplicationController
 
   private
 
-  def find_by_role(name, role)
+  def find_by_role(role)
     champion_gg = @champion[:champion_gg]
     if role.blank?
       if champion_gg.length == 1
@@ -200,10 +200,10 @@ class ChampionsController < ApplicationController
   end
 
   def verify_role
-    @name = champion_params[:champion]
+    @name = @champion[:name]
     @role = champion_params[:lane]
 
-    unless @role_data = find_by_role(@name, @role)
+    unless @role_data = find_by_role(@role)
       if @role.blank?
         render json: ask_for_role_response(@name)
       else

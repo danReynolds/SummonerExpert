@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2016-12-21T22:24:02.863Z",
+	"__export_date": "2016-12-22T07:34:10.186Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482358994296,
+			"modified": 1482391431024,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
@@ -173,14 +173,14 @@
 		{
 			"_id": "req_76fb69be6a6c438fa2c948845e1fc935",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482184319606,
+			"modified": 1482392039792,
 			"created": 1482120899865,
 			"url": "{{url}}",
 			"name": "champions/lane",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"66827f75-87cd-4c6a-b7e2-f8bc88a2e2f3\",\n  \"timestamp\": \"2016-12-19T21:51:45.811Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Top\",\n    \"action\": \"champions/lane\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jax \",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/lane\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 4558b022-6510-4bc2-a100-5df3131986b4\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"66827f75-87cd-4c6a-b7e2-f8bc88a2e2f3\",\n  \"timestamp\": \"2016-12-19T21:51:45.811Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Top\",\n    \"action\": \"champions/lane\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jax\",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/lane\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 4558b022-6510-4bc2-a100-5df3131986b4\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
