@@ -6,6 +6,7 @@ gem 'google-cloud'
 gem 'puma', '~> 3.0'
 gem 'redis-rails'
 gem 'newrelic_rpm'
+gem 'rollbar'
 
 group :development, :test do
   gem 'pry'
