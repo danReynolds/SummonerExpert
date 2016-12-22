@@ -141,7 +141,18 @@ class ChampionsController < ApplicationController
   private
 
   def find_by_role(name, role)
-    @champion[:champion_gg].detect do |champion_data|
+    champion_gg = @champion[:champion_gg]
+    if role.blank?
+      if champion_gg.length == 1
+        champion_role = champion_gg.first
+        @role = champion_role[:role]
+        return champion_role
+      else
+        return nil
+      end
+    end
+
+    champion_gg.detect do |champion_data|
       champion_data[:role] == role
     end
   end
@@ -175,10 +186,16 @@ class ChampionsController < ApplicationController
     {
       speech: (
         <<~HEREDOC
-          There is no recommended way to play #{name} as #{role}. Please do not
-          make your team surrender at 20.
+          There is no recommended way to play #{name} as #{role}. This is not
+          a good idea in the current meta.
         HEREDOC
       )
+    }
+  end
+
+  def ask_for_role_response(name)
+    {
+      speech: "What role is #{name} in?"
     }
   end
 
@@ -187,7 +204,11 @@ class ChampionsController < ApplicationController
     @role = champion_params[:lane]
 
     unless @role_data = find_by_role(@name, @role)
-      render json: do_not_play_response(@name, @role)
+      if @role.blank?
+        render json: ask_for_role_response(@name)
+      else
+        render json: do_not_play_response(@name, @role)
+      end
       return false
     end
   end
