@@ -9,7 +9,7 @@ Summoner Expert allows you to ask League of Legends questions using the Actions 
 
 **Performance**:
 
-Query: Ask something like, "How is Bard doing as Support?"
+Query: Ask something like, "How is Bard doing?"
 
 Response: "Bard got worse in the last patch and is currently ranked 13 with a 47.68% win rate and a 7.46% play rate as a Support."
 
@@ -21,13 +21,13 @@ Response: "The best counters for Mordekaiser Top are Darius at 57.9% win rate, F
 
 **Builds**:
 
-Query: Ask for a champion's build in a given role such as "What should I build on Brand Mid?" or "How do I build Twitch ADC?"
+Query: Ask for a champion's build in a given role such as "What should I build on Brand?" or "How do I build Twitch ADC?"
 
 Response: "The highest win rate build for Twitch ADC is Runaan's Hurricane, Infinity Edge, Berserker's Greaves, Statikk Shiv, The Bloodthirster, Lord Dominik's Regards"
 
 **Ability Order**:
 
-Query: Ask for the order to start and max abilities such as "What ability should I start on Fiora Top?"
+Query: Ask for the order to start and max abilities such as "What ability should I start on Fiora?"
 
 Response: "The highest win rate on Fiora Top has you start Q, E, Q and then max W, Q, E"
 
