@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  match '/', to: 'api#index', via: :post
+  root to: 'application#status'
 
   namespace :champions do
     post :title

@@ -5,8 +5,13 @@ class ActionRouter
 
   def call(env)
     input = env['rack.input']
-    relative_path = JSON.parse(input.read).with_indifferent_access[:result][:action]
-    env['PATH_INFO'] += relative_path
+    body = input.read
+
+    unless body.blank?
+      relative_path = JSON.parse(input.read).with_indifferent_access[:result][:action]
+      env['PATH_INFO'] += relative_path
+    end
+
     input.rewind
     @app.call(env)
   end
