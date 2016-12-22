@@ -1,5 +1,9 @@
 [![CircleCI](https://circleci.com/gh/danReynolds/summoner_expert.svg?style=svg)](https://circleci.com/gh/danReynolds/summoner_expert) [![Coverage Status](https://coveralls.io/repos/github/danReynolds/summoner_expert/badge.svg?branch=master)](https://coveralls.io/github/danReynolds/summoner_expert?branch=master)
 
+### Try it out
+
+<iframe width="100%" height="430" src="https://console.api.ai/api-client/demo/embedded/a4a9061a-4d47-4f50-96c4-4bc40e9342f3"></iframe>
+
 # Summoner Expert
 
 Summoner Expert allows you to ask League of Legends questions using the Actions for Google API and the APIs provided by Champion.gg and Riot. Devices like Google Home, and Google Assistant enabled phones like the Pixel will be able to interact with Summoner Expert.
@@ -67,10 +71,6 @@ Response: "Mordekaiser, the the Iron Revenant, is a Fighter."
 Query: Phrases like "What do they call Poppy?"
 
 Response: "Poppy's title is Keeper of the Hammer"
-
-### Try it out
-
-<iframe width="350" height="430" src="https://console.api.ai/api-client/demo/embedded/a4a9061a-4d47-4f50-96c4-4bc40e9342f3"></iframe>
 
 You can also check out the text [demo](https://bot.api.ai/a4a9061a-4d47-4f50-96c4-4bc40e9342f3) here and wait for it to arrive on your Google Home or Google Assistant enabled device soon!
 
