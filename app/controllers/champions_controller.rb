@@ -186,8 +186,8 @@ class ChampionsController < ApplicationController
     {
       speech: (
         <<~HEREDOC
-          There is no recommended way to play #{name} as #{role}. Please do not
-          make your team surrender at 20.
+          There is no recommended way to play #{name} as #{role}. This is not
+          a good idea in the current meta.
         HEREDOC
       )
     }
