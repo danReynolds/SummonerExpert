@@ -5,6 +5,7 @@ gem 'pg'
 gem 'google-cloud'
 gem 'puma', '~> 3.0'
 gem 'redis-rails'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry'
