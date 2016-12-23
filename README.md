@@ -3,7 +3,7 @@
 
 # Summoner Expert
 
-Summoner Expert allows you to ask text and voice commands about League of Legends using the APIs provided by Champion.gg and Riot. It works on multiple platforms currently supporting:
+Summoner Expert allows you to ask text and voice commands about League of Legends using the APIs provided by Champion.gg and Riot. It works on multiple platforms and currently supports:
 
 Facebook: Send a message to https://www.facebook.com/summonerExpert
 
