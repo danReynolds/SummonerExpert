@@ -18,9 +18,15 @@ class ChampionsController < ApplicationController
   }.freeze
 
   def description
-    roles = @champion[:tags].join(' and ')
+    play_style = @champion[:tags].en.conjunction
+    roles = @champion[:champion_gg].map { |variant| variant[:role] }
+      .en.conjunction(article: false)
+
     render json: {
-      speech: "#{@name}, the #{@champion[:title]}, is a #{roles}."
+      speech: (
+        "#{@name}, the #{@champion[:title]}, is #{play_style} and " \
+        "is played as #{roles}."
+      )
     }
   end
 
@@ -30,7 +36,7 @@ class ChampionsController < ApplicationController
       speech: (
         "The highest win rate on #{@name} #{@role} has you start " \
         "#{order[:firstOrder].join(', ')} and then max " \
-        "#{order[:maxOrder].join(', ')}"
+        "#{order[:maxOrder].join(', ')}."
       )
     }
   end
@@ -38,10 +44,10 @@ class ChampionsController < ApplicationController
   def build
     build = @role_data[:items][:highestWinPercent][:items].map do |item|
       item[:name]
-    end.join(', ')
+    end.en.conjunction(article: false)
 
     render json: {
-      speech: "The highest win rate build for #{@name} #{@role} is #{build}"
+      speech: "The highest win rate build for #{@name} #{@role} is #{build}."
     }
   end
 
@@ -52,11 +58,11 @@ class ChampionsController < ApplicationController
       matchup[:statScore]
     end.first(3).map do |counter|
       counter_name = Rails.cache.fetch(champions: counter[:key])[:name]
-      "#{counter_name} at #{(100 - counter[:winRate]).round(2)}% win rate"
-    end.join(', ')
+      "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
+    end.en.conjunction(article: false)
 
     render json: {
-      speech: "The best counters for #{@name} #{@role} are #{counters}"
+      speech: "The best counters for #{@name} #{@role} are #{counters}."
     }
   end
 
@@ -67,8 +73,9 @@ class ChampionsController < ApplicationController
     render json: {
       speech: (
         "#{@name} got #{change} in the last patch and is currently ranked " \
-        "#{overall[:position]} with a #{@role_data[:patchWin].last}% win rate " \
-        "and a #{@role_data[:patchPlay].last}% play rate as #{@role}."
+        "#{overall[:position].en.ordinate} with a " \
+        "#{@role_data[:patchWin].last}% win rate and a " \
+        "#{@role_data[:patchPlay].last}% play rate as #{@role}."
       )
     }
   end
@@ -96,16 +103,15 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        "#{@name}'s #{ability} ability, #{spell[:name]}, " \
-        "has a cooldown of #{spell[:cooldown][rank - 1].to_i} seconds at rank " \
-        "#{rank}."
+        "#{@name}'s #{ability} ability, #{spell[:name]}, has a cooldown of " \
+        "#{spell[:cooldown][rank - 1].to_i} seconds at rank #{rank}."
       )
     }
   end
 
   def title
     render json: {
-      speech: "#{@name}'s title is #{@champion[:title]}"
+      speech: "#{@name}'s title is #{@champion[:title]}."
     }
   end
 
