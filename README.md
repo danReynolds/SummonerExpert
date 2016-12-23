@@ -3,7 +3,13 @@
 
 # Summoner Expert
 
-Summoner Expert allows you to ask League of Legends questions using the Actions for Google API and the APIs provided by Champion.gg and Riot. Devices like Google Home, and Google Assistant enabled phones like the Pixel will be able to have voice conversations with Summoner Expert.
+Summoner Expert allows you to ask text and voice commands about League of Legends using the APIs provided by Champion.gg and Riot. It works on multiple platforms currently supporting:
+
+Facebook: Send a message to https://www.facebook.com/summonerExpert
+
+Twitter: Send a DM to https://twitter.com/SummonerExpert
+
+Google Actions: Ask for Summoner Expert when using your Google Assistant enabled device such as a Pixel or Google Home.
 
 # Commands
 
