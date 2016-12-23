@@ -1,10 +1,10 @@
 # Summoner Expert Privacy Policy
 
-### What information do you collect?
-We do not collect any information about you or your usage.
+### What information do you retain?
+We do not retain any information about you or your usage after a message response is sent to you.
 
 ### How do you use the information?
-Not applicable.
+We use the information you provide us to give you the answer the service provides and then discard that information.
 
 ### What information do you share?
-Not applicable.
+We do not share the information you send us with any third parties.
