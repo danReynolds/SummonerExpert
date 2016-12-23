@@ -73,8 +73,9 @@ class ChampionsController < ApplicationController
     render json: {
       speech: (
         "#{@name} got #{change} in the last patch and is currently ranked " \
-        "#{overall[:position]} with a #{@role_data[:patchWin].last}% win rate " \
-        "and a #{@role_data[:patchPlay].last}% play rate as #{@role}."
+        "#{overall[:position].en.ordinate} with a " \
+        "#{@role_data[:patchWin].last}% win rate and a " \
+        "#{@role_data[:patchPlay].last}% play rate as #{@role}."
       )
     }
   end
@@ -102,9 +103,8 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        "#{@name}'s #{ability} ability, #{spell[:name]}, " \
-        "has a cooldown of #{spell[:cooldown][rank - 1].to_i} seconds at rank " \
-        "#{rank}."
+        "#{@name}'s #{ability} ability, #{spell[:name]}, has a cooldown of " \
+        "#{spell[:cooldown][rank - 1].to_i} seconds at rank #{rank}."
       )
     }
   end

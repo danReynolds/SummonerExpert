@@ -158,7 +158,7 @@ describe ChampionsController, type: :controller do
         post action, params
 
         expect(speech).to eq(
-          "Jax got better in the last patch and is currently ranked 41 with a 49.69% win rate and a 3.76% play rate as Top."
+          "Jax got better in the last patch and is currently ranked forty-first with a 49.69% win rate and a 3.76% play rate as Top."
         )
       end
     end
