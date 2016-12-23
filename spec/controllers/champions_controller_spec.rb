@@ -20,7 +20,7 @@ describe ChampionsController, type: :controller do
 
     it 'should return the champions title' do
       post action, params
-      expect(speech).to eq "Sona's title is Maven of the Strings"
+      expect(speech).to eq "Sona's title is Maven of the Strings."
     end
   end
 
@@ -37,7 +37,7 @@ describe ChampionsController, type: :controller do
         context 'champion has only one role' do
           it 'should provide a build for a champion using their only role' do
             post action, params
-            expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, Locket of the Iron Solari"
+            expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, and Locket of the Iron Solari."
           end
         end
 
@@ -59,7 +59,7 @@ describe ChampionsController, type: :controller do
       context 'when role specified' do
         it 'should provide a build for a champion' do
           post action, params
-          expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, Locket of the Iron Solari"
+          expect(speech).to eq "The highest win rate build for Bard Support is Boots of Mobility, Sightstone, Frost Queen's Claim, Redemption, Knight's Vow, and Locket of the Iron Solari."
         end
       end
     end
@@ -87,7 +87,7 @@ describe ChampionsController, type: :controller do
         it 'should return the 4 first order and max order for abilities' do
           post action, params
           expect(speech).to eq(
-          "The highest win rate on Azir Middle has you start W, Q, Q, E and then max Q, W, E"
+          "The highest win rate on Azir Middle has you start W, Q, Q, E and then max Q, W, E."
           )
         end
       end
@@ -101,7 +101,7 @@ describe ChampionsController, type: :controller do
           allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
           post action, params
           expect(speech).to eq(
-            "The highest win rate on Azir Middle has you start W, Q, E and then max Q, W, E"
+            "The highest win rate on Azir Middle has you start W, Q, E and then max Q, W, E."
           )
         end
       end
@@ -129,7 +129,7 @@ describe ChampionsController, type: :controller do
       it 'should return the best counters for the champion' do
         post action, params
         expect(speech).to eq(
-          "The best counters for Jayce Top are Jarvan IV at 58.19% win rate, Sion at 56.3% win rate, Nautilus at 60.3% win rate"
+          "The best counters for Jayce Top are Jarvan IV at a 58.19% win rate, Sion at a 56.3% win rate, and Nautilus at a 60.3% win rate."
         )
       end
     end
@@ -210,7 +210,7 @@ describe ChampionsController, type: :controller do
       post action, params
 
       expect(speech).to eq(
-        "Katarina, the the Sinister Blade, is a Assassin and Mage."
+        "Katarina, the the Sinister Blade, is an Assassin and a Mage and is played as Middle."
       )
     end
   end
