@@ -20,7 +20,7 @@ class ChampionsController < ApplicationController
   def description
     roles = @champion[:tags].join(' and ')
     render json: {
-      speech: "#{@champion[:name]}, the #{@champion[:title]}, is a #{roles}."
+      speech: "#{@name}, the #{@champion[:title]}, is a #{roles}."
     }
   end
 
@@ -28,11 +28,9 @@ class ChampionsController < ApplicationController
     order = parse_ability_order(@role_data[:skills][:highestWinPercent][:order])
     render json: {
       speech: (
-        <<~HEREDOC
-          The highest win rate on #{@name} #{@role} has you start
-          #{order[:firstOrder].join(', ')} and then max
-          #{order[:maxOrder].join(', ')}
-        HEREDOC
+        "The highest win rate on #{@name} #{@role} has you start " \
+        "#{order[:firstOrder].join(', ')} and then max " \
+        "#{order[:maxOrder].join(', ')}"
       )
     }
   end
@@ -53,7 +51,8 @@ class ChampionsController < ApplicationController
     end.sort_by do |matchup|
       matchup[:statScore]
     end.first(3).map do |counter|
-      "#{counter[:key]} at #{(100 - counter[:winRate]).round(2)}% win rate"
+      counter_name = Rails.cache.fetch(champions: counter[:key])[:name]
+      "#{counter_name} at #{(100 - counter[:winRate]).round(2)}% win rate"
     end.join(', ')
 
     render json: {
@@ -67,11 +66,9 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        <<~HEREDOC
-          #{@name} got #{change} in the last patch and is currently ranked
-          #{overall[:position]} with a #{@role_data[:patchWin].last}% win rate
-          and a #{@role_data[:patchPlay].last}% play rate as a #{@role}.
-        HEREDOC
+        "#{@name} got #{change} in the last patch and is currently ranked " \
+        "#{overall[:position]} with a #{@role_data[:patchWin].last}% win rate " \
+        "and a #{@role_data[:patchPlay].last}% play rate as #{@role}."
       )
     }
   end
@@ -86,10 +83,8 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        <<~HEREDOC
-          #{champion_params[:champion]}'s #{ability} ability is called
-          #{spell[:name]}. #{spell[:sanitizedDescription]}
-        HEREDOC
+        "#{@name}'s #{ability} ability is called " \
+        "#{spell[:name]}. #{spell[:sanitizedDescription]}"
       )
     }
   end
@@ -101,28 +96,24 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        <<~HEREDOC
-          #{champion_params[:champion]}'s #{ability} ability, #{spell[:name]},
-          has a cooldown of #{spell[:cooldown][rank - 1].to_i} seconds at rank
-          #{rank}.
-        HEREDOC
+        "#{@name}'s #{ability} ability, #{spell[:name]}, " \
+        "has a cooldown of #{spell[:cooldown][rank - 1].to_i} seconds at rank " \
+        "#{rank}."
       )
     }
   end
 
   def title
     render json: {
-      speech: "#{@champion[:name]}'s title is #{@champion[:title]}"
+      speech: "#{@name}'s title is #{@champion[:title]}"
     }
   end
 
   def ally_tips
     render json: {
       speech: (
-        <<~HEREDOC
-          Here's a tip for playing as #{@champion[:name]}:
-          #{@champion[:allytips].sample.to_s}
-        HEREDOC
+        "Here's a tip for playing as #{@name}: " \
+        "#{@champion[:allytips].sample.to_s}"
       )
     }
   end
@@ -130,10 +121,8 @@ class ChampionsController < ApplicationController
   def enemy_tips
     render json: {
       speech: (
-        <<~HEREDOC
-          "Here's a tip for playing against #{@champion[:name]}:
-          #{@champion[:enemytips].sample.to_s}"
-        HEREDOC
+        "Here's a tip for playing against #{@name}: " \
+        "#{@champion[:enemytips].sample.to_s}"
       )
     }
   end
@@ -180,6 +169,7 @@ class ChampionsController < ApplicationController
 
   def load_champion
     @champion = RiotApi.get_champion(champion_params[:champion].strip)
+    @name = @champion[:name]
   end
 
   def do_not_play_response(name, role)
@@ -200,7 +190,6 @@ class ChampionsController < ApplicationController
   end
 
   def verify_role
-    @name = @champion[:name]
     @role = champion_params[:lane]
 
     unless @role_data = find_by_role(@role)

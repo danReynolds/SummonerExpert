@@ -87,7 +87,7 @@ describe ChampionsController, type: :controller do
         it 'should return the 4 first order and max order for abilities' do
           post action, params
           expect(speech).to eq(
-          "The highest win rate on Azir Middle has you start\nW, Q, Q, E and then max\nQ, W, E\n"
+          "The highest win rate on Azir Middle has you start W, Q, Q, E and then max Q, W, E"
           )
         end
       end
@@ -101,7 +101,7 @@ describe ChampionsController, type: :controller do
           allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
           post action, params
           expect(speech).to eq(
-            "The highest win rate on Azir Middle has you start\nW, Q, E and then max\nQ, W, E\n"
+            "The highest win rate on Azir Middle has you start W, Q, E and then max Q, W, E"
           )
         end
       end
@@ -129,7 +129,7 @@ describe ChampionsController, type: :controller do
       it 'should return the best counters for the champion' do
         post action, params
         expect(speech).to eq(
-          "The best counters for Jayce Top are JarvanIV at 58.19% win rate, Sion at 56.3% win rate, Nautilus at 60.3% win rate"
+          "The best counters for Jayce Top are Jarvan IV at 58.19% win rate, Sion at 56.3% win rate, Nautilus at 60.3% win rate"
         )
       end
     end
@@ -158,7 +158,7 @@ describe ChampionsController, type: :controller do
         post action, params
 
         expect(speech).to eq(
-          "Jax got better in the last patch and is currently ranked\n41 with a 49.69% win rate\nand a 3.76% play rate as a Top.\n"
+          "Jax got better in the last patch and is currently ranked 41 with a 49.69% win rate and a 3.76% play rate as Top."
         )
       end
     end
@@ -186,7 +186,7 @@ describe ChampionsController, type: :controller do
       post action, params
 
       expect(speech).to eq(
-        "Ivern's second ability is called\nBrushmaker. In brush, Ivern's attacks are ranged and deal bonus magic damage. Ivern can activate this ability to create a patch of brush.\n"
+        "Ivern's second ability is called Brushmaker. In brush, Ivern's attacks are ranged and deal bonus magic damage. Ivern can activate this ability to create a patch of brush."
       )
     end
   end
@@ -198,7 +198,7 @@ describe ChampionsController, type: :controller do
       post action, params
 
       expect(speech).to eq(
-        "Yasuo's fourth ability, Last Breath,\nhas a cooldown of 0 seconds at rank\n3.\n"
+        "Yasuo's fourth ability, Last Breath, has a cooldown of 0 seconds at rank 3."
       )
     end
   end
@@ -227,7 +227,7 @@ describe ChampionsController, type: :controller do
       post action, params
 
       expect(speech).to eq(
-        "Here's a tip for playing as Fiora:\nGrand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\n"
+        "Here's a tip for playing as Fiora: Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line."
       )
     end
   end
@@ -244,7 +244,7 @@ describe ChampionsController, type: :controller do
       post action, params
 
       expect(speech).to eq(
-        "\"Here's a tip for playing against LeBlanc:\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\"\n"
+        "Here's a tip for playing against LeBlanc: Stunning or silencing LeBlanc will prevent her from activating the return part of Distortion."
       )
     end
   end
