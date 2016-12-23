@@ -9,6 +9,8 @@ Facebook: Send a message to https://www.facebook.com/summonerExpert
 
 Twitter: Send a DM to https://twitter.com/SummonerExpert
 
+Web: Converse at http://blog.danreynolds.ca/summoner_expert
+
 Google Actions: Ask for Summoner Expert when using your Google Assistant enabled device such as a Pixel or Google Home.
 
 # Commands
