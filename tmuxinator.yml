@@ -35,3 +35,5 @@ windows:
           - rails s
         - local_terminal:
           - git status
+        - redis:
+          - redis-server

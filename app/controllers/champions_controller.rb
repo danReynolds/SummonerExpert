@@ -176,10 +176,7 @@ class ChampionsController < ApplicationController
   def load_champion
     champion_query = champion_params[:champion].strip
     unless @champion = RiotApi.get_champion(champion_query)
-      render json: champion_not_found_response(
-        champion_query
-      ), status: :not_found
-
+      render json: champion_not_found_response(champion_query)
       return false
     end
 

@@ -167,8 +167,7 @@ describe ChampionsController, type: :controller do
         expect(controller).to receive(:render).with({
           json: controller.send(
             :champion_not_found_response, 'This is not a valid name'
-          ),
-          status: :not_found
+          )
         })
         expect(controller.send(:load_champion)).to eq false
       end
