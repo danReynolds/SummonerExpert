@@ -135,8 +135,8 @@ class ChampionsController < ApplicationController
 
   private
 
-  def find_by_role(role)
-    champion_gg = @champion[:champion_gg]
+  def find_by_role(champion, role)
+    champion_gg = champion[:champion_gg]
     if role.blank?
       if champion_gg.length == 1
         champion_role = champion_gg.first
@@ -174,7 +174,15 @@ class ChampionsController < ApplicationController
   end
 
   def load_champion
-    @champion = RiotApi.get_champion(champion_params[:champion].strip)
+    champion_query = champion_params[:champion].strip
+    unless @champion = RiotApi.get_champion(champion_query)
+      render json: champion_not_found_response(
+        champion_query
+      ), status: :not_found
+
+      return false
+    end
+
     @name = @champion[:name]
   end
 
@@ -189,16 +197,18 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def champion_not_found_response(name)
+    { speech: "I could not find a champion called '#{name}'" }
+  end
+
   def ask_for_role_response(name)
-    {
-      speech: "What role is #{name} in?"
-    }
+    { speech: "What role is #{name} in?" }
   end
 
   def verify_role
     @role = champion_params[:lane]
 
-    unless @role_data = find_by_role(@role)
+    unless @role_data = find_by_role(@champion, @role)
       if @role.blank?
         render json: ask_for_role_response(@name)
       else

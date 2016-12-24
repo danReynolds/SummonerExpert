@@ -7,6 +7,7 @@ gem 'puma', '~> 3.0'
 gem 'redis-rails'
 gem 'newrelic_rpm'
 gem 'rollbar'
+gem 'amatch'
 gem 'linguistics'
 
 group :development, :test do
