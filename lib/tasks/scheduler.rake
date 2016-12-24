@@ -9,6 +9,13 @@ task fetch_champion_gg: :environment do
   puts 'Fetching champion data from champion.gg'
 
   champions = RiotApi::RiotApi.get_champions
+  champion_names = champions.inject({}) do |names, (key, data)|
+    names.tap do |_|
+      names[key] = data[:name]
+    end
+  end
+  Rails.cache.write(:champions, champion_names)
+
   champions.each do |_, champion_data|
     key = champion_data[:key]
     puts "Fetching data for #{key}"

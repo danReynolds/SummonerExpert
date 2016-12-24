@@ -40,6 +40,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    amatch (0.3.0)
+      tins (~> 1.0)
     arel (7.1.4)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -343,6 +345,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  amatch
   better_errors
   binding_of_caller
   byebug
