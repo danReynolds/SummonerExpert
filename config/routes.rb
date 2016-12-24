@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     post :lane
     post :build
     post :ability_order
+    post :matchups
     post :matchup
   end
 end
