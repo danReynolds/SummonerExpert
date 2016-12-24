@@ -1,3 +1,5 @@
+require './lib/matcher.rb'
+
 module RiotApi
   class RiotApi < ExternalApi
     include Matcher
