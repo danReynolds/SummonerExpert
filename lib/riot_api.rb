@@ -1,5 +1,6 @@
 module RiotApi
   class RiotApi < ExternalApi
+    include Matcher
 
     @api_key = ENV['RIOT_API_KEY']
     SIMILARITY_THRESHOLD = 0.7
