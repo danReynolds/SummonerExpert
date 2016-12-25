@@ -1,7 +1,7 @@
 class ChampionsController < ApplicationController
   include RiotApi
   before_action :load_champion
-  before_action :verify_role, only: [:ability_order, :build, :matchups, :lane]
+  before_action :verify_role, only: [:ability_order, :build, :counters, :lane]
 
   MIN_MATCHUPS = 100
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
@@ -68,7 +68,7 @@ class ChampionsController < ApplicationController
     if shared_roles.length.zero? || !role.blank? && !shared_roles.include?(role)
       return render json: {
         speech: (
-          "#{@name} and #{other_champion[:name]} do not typically face " \
+          "#{@name} and #{other_champion[:name]} do not typically play " \
           "against eachother in #{role.blank? ? 'any role' : role}."
         )
       }
@@ -99,7 +99,7 @@ class ChampionsController < ApplicationController
     }
   end
 
-  def matchups
+  def counters
     counters = @role_data[:matchups].select do |matchup|
       matchup[:games] > MIN_MATCHUPS
     end.sort_by do |matchup|

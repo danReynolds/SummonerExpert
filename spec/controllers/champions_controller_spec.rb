@@ -194,7 +194,7 @@ describe ChampionsController, type: :controller do
 
       context 'with no shared roles' do
         let(:response_text) {
-          "Azir and Heimerdinger do not typically play together in any role."
+          "Azir and Heimerdinger do not typically play against eachother in any role."
         }
         before :each do
           @champion = RiotApi::RiotApi.get_champion(champion_name)
@@ -209,7 +209,9 @@ describe ChampionsController, type: :controller do
             .and_return(@champion, @other_champion)
         end
 
-        it 'should indicate that the two champions do not play together' do
+        it_should_behave_like 'load champion'
+
+        it 'should indicate that the two champions do not play against eachother' do
           post action, params
           expect(speech).to eq response_text
         end
@@ -259,6 +261,8 @@ describe ChampionsController, type: :controller do
             .and_return(champion, other_champion)
         end
 
+        it_should_behave_like 'load champion'
+
         it 'shoud ask for a role to be specified' do
           post action, params
           expect(speech).to eq controller.send(:ask_for_role_response)[:speech]
@@ -292,7 +296,7 @@ describe ChampionsController, type: :controller do
 
       context 'without both champions sharing the role' do
         let(:response_text) {
-          "Azir and Heimerdinger do not typically play together in Middle."
+          "Azir and Heimerdinger do not typically play against eachother in Middle."
         }
         before :each do
           champion = RiotApi::RiotApi.get_champion(champion_name)
@@ -372,8 +376,8 @@ describe ChampionsController, type: :controller do
     end
   end
 
-  describe 'POST matchups' do
-    let(:action) { :matchups }
+  describe 'POST counters' do
+    let(:action) { :counters }
     let(:response_text) {
       "The best counters for Jayce Top are Jarvan IV at a 58.19% win rate, Sion at a 56.3% win rate, and Nautilus at a 60.3% win rate."
     }
