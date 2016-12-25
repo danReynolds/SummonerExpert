@@ -1,9 +1,10 @@
 class ChampionsController < ApplicationController
   include RiotApi
-  before_action :load_champion
+  before_action :load_champion, except: [:ranking]
   before_action :verify_role, only: [:ability_order, :build, :counters, :lane]
 
   MIN_MATCHUPS = 100
+  LIST_SIZE = 1
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
   ABILITIES = {
     first: 0,
@@ -16,6 +17,35 @@ class ChampionsController < ApplicationController
     ultimate: 3,
     fourth: 3
   }.freeze
+
+  def ranking
+    role = champion_params[:lane]
+    list_size = champion_params[:list_size].to_i
+    list_size = LIST_SIZE unless list_size.positive?
+
+    champions = Rails.cache.read(:champions)
+    ranking = champions.keys.inject([]) do |acc, key|
+      acc.tap do |_|
+        role_data = Rails.cache.read(champions: key)[:champion_gg].detect do |role_data|
+          role_data[:role] == role
+        end
+        acc << role_data if role_data
+      end
+    end.sort_by do |role_data|
+      role_data[:overallPosition][:position]
+    end.first(list_size)
+
+    ranking_message = ranking.map do |role_data|
+      champions[role_data[:key]]
+    end.en.conjunction(article: false)
+
+    render json: {
+      speech: (
+        "The best #{"champion".pluralize(list_size)} in #{role} " \
+        "#{"is".en.plural_verb(list_size)} #{ranking_message}."
+      )
+    }
+  end
 
   def description
     play_style = @champion[:tags].en.conjunction
@@ -266,7 +296,7 @@ class ChampionsController < ApplicationController
 
   def champion_params
     params.require(:result).require(:parameters).permit(
-      :champion, :champion1, :ability, :rank, :lane
+      :champion, :champion1, :ability, :rank, :lane, :list_size
     )
   end
 end
