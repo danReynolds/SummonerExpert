@@ -5,13 +5,26 @@
 
 Summoner Expert allows you to ask text and voice commands about League of Legends using the APIs provided by Champion.gg and Riot. It works on multiple platforms and currently supports:
 
-Facebook: Send a message to https://www.facebook.com/summonerExpert
+## Facebook
 
-Twitter: Send a DM to https://twitter.com/SummonerExpert
+<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FsummonerExpert&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=215901852151837" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 
-Web: Converse at http://blog.danreynolds.ca/summoner_expert
+Send a message to https://www.facebook.com/summonerExpert
 
-Google Actions: Ask for Summoner Expert when using your Google Assistant enabled device such as a Pixel or Google Home.
+## Twitter
+
+<iframe border=0 frameborder=0 height=250 width=550 
+ src="http://twitframe.com/show?url=https://twitter.com/SummonerExpert/status/812378381362794496"></iframe>
+
+Send a DM to https://twitter.com/SummonerExpert
+
+## Web 
+
+Converse at http://blog.danreynolds.ca/summoner_expert
+
+## Google Actions
+
+Ask for Summoner Expert when using your Google Assistant enabled device such as a Pixel or Google Home.
 
 # Commands
 
