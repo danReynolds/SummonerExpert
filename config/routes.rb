@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     post :ability_order
     post :counters
     post :matchup
+    post :ranking
   end
 end

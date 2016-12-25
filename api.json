@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2016-12-25T04:52:02.979Z",
+	"__export_date": "2016-12-25T18:30:06.421Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482641515152,
+			"modified": 1482690452203,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
@@ -237,6 +237,29 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1481917268252,
+			"_type": "request"
+		},
+		{
+			"_id": "req_d80c7036b7114f4b8b2e7016164ddd6a",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1482690449396,
+			"created": 1482688888018,
+			"url": "{{ url }}",
+			"name": "champions/ranking",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"fae959ef-bcb9-4d72-9447-bdeeefa39cf3\",\n  \"timestamp\": \"2016-12-25T18:21:04.01Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who is the best top laner?\",\n    \"action\": \"champions/ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"lane\": \"Top\",\n      \"list_size\": \"3\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"c30d746b-3ea6-4e26-b07e-26f6432659bd\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: afc0d19c-d450-4541-a8a9-29decb387b3c\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482688888018,
 			"_type": "request"
 		},
 		{
