@@ -13,7 +13,7 @@ Send a message to https://www.facebook.com/summonerExpert
 
 ## Twitter
 
-<iframe border=0 frameborder=0 height=250 width=550 
+<iframe style="border:none" frameborder="0" height="250" width="550" 
  src="http://twitframe.com/show?url=https://twitter.com/SummonerExpert/status/812378381362794496"></iframe>
 
 Send a DM to https://twitter.com/SummonerExpert
