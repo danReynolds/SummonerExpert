@@ -15,6 +15,8 @@ Google Actions: Ask for Summoner Expert when using your Google Assistant enabled
 
 # Commands
 
+
+
 **Performance**:
 
 Query: Ask something like, "How is Bard doing?"
@@ -22,6 +24,12 @@ Query: Ask something like, "How is Bard doing?"
 Response: "Bard got worse in the last patch and is currently ranked 13 with a 47.68% win rate and a 7.46% play rate as a Support."
 
 **Matchups**:
+
+Query: Ask it how one champion is doing against another like "How is Nocturne doing against Vi?" or "Who wins in Jinx vs Caitlyn?"
+
+Answer: "Jinx got worse against Caitlyn in the latest patch and has a win rate of 50.02% against the Sheriff of Piltover in ADC."
+
+**Counters**:
 
 Query: Ask it who to play against a champion in a role like "Who counters Diana Mid?" or "Who should I play against Mordekaiser Top?"
 
