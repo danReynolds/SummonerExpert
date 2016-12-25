@@ -52,71 +52,49 @@ class ChampionsController < ApplicationController
   end
 
   def matchup
-    lane = champion_params[:lane]
+    role = champion_params[:lane]
     champion_query = champion_params[:champion1].strip
     unless other_champion = RiotApi.get_champion(champion_query)
       render json: champion_not_found_response(champion_query)
       return false
     end
 
-    champion_role = find_by_role(@champion, lane)
-    other_champion_role = find_by_role(other_champion, lane)
+    shared_roles = @champion[:champion_gg].map do |role_data|
+      role_data[:role]
+    end & other_champion[:champion_gg].map do |role_data|
+      role_data[:role]
+    end
 
-    if lane.blank?
-      if champion_role && other_champion_role.nil?
-        other_champion_role = find_by_role(other_champion, champion_role[:role])
-      elsif other_champion_role && champion_role.nil?
-        champion_role = find_by_role(@champion, other_champion_role[:role])
-      end
+    if shared_roles.length.zero? || !role.blank? && !shared_roles.include?(role)
+      return render json: {
+        speech: (
+          "#{@name} and #{other_champion[:name]} do not typically face " \
+          "against eachother in #{role.blank? ? 'any role' : role}."
+        )
+      }
+    end
 
-      if champion_role && other_champion_role && champion_role[:role] != other_champion_role[:role]
-        return render json: {
-          speech: (
-            "#{@name} does not play in the same role as " \
-            "#{other_champion[:name]}, either one could win."
-          )
-        }
-      elsif champion_role.nil? && other_champion_role.nil?
+    if role.blank?
+      if shared_roles.length == 1
+        role = shared_roles.first
+      else
         return render json: ask_for_role_response
       end
-
-      lane = champion_role[:role]
     end
 
-    if champion_role && other_champion_role
-      matchup = champion_role[:matchups].detect do |matchup|
-        matchup[:key] == other_champion[:key]
-      end
+    champion_role = find_by_role(@champion, role)
+    other_champion_role = find_by_role(other_champion, role)
 
-      change = matchup[:winRateChange] > 0 ? 'better' : 'worse'
-
-      return render json: {
-        speech: (
-          "#{@name} got #{change} against #{other_champion[:name]} in the " \
-          "latest patch and has a win rate of #{matchup[:winRate]}% against " \
-          "#{other_champion[:title]} in #{lane}."
-        )
-      }
-    elsif champion_role && other_champion_role.nil?
-      return render json: {
-        speech: (
-          "#{other_champion[:name]} does not play #{champion_role[:role]}, " \
-          "it is expected #{@name} will win."
-        )
-      }
-    elsif champion_role.nil? && other_champion_role
-      return render json: {
-        speech: (
-          "#{@name} does not play #{other_champion_role[:role]}, " \
-          "it is expected #{other_champion[:name]} will win."
-        )
-      }
+    matchup = champion_role[:matchups].detect do |matchup|
+      matchup[:key] == other_champion[:key]
     end
+    change = matchup[:winRateChange] > 0 ? 'better' : 'worse'
 
-    render json: {
+    return render json: {
       speech: (
-        "#{@name} does not play in the same role as " \
-        "#{other_champion[:name]}, either one could win."
+        "#{@name} got #{change} against #{other_champion[:name]} in the " \
+        "latest patch and has a win rate of #{matchup[:winRate]}% against " \
+        "#{other_champion[:title]} in #{role}."
       )
     }
   end

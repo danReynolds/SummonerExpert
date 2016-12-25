@@ -192,149 +192,68 @@ describe ChampionsController, type: :controller do
     context 'without a role specified' do
       let(:role) { '' }
 
-      context 'with neither having multiple roles' do
+      context 'with no shared roles' do
+        let(:response_text) {
+          "Azir and Heimerdinger do not typically play together in any role."
+        }
         before :each do
           @champion = RiotApi::RiotApi.get_champion(champion_name)
           @champion[:champion_gg] = @champion[:champion_gg].first(1)
           @other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
           @other_champion[:champion_gg] = @other_champion[:champion_gg].first(1)
 
+          @champion[:champion_gg].first[:role] = 'Top'
+          @other_champion[:champion_gg].first[:role] = 'Middle'
+
           allow(RiotApi::RiotApi).to receive(:get_champion)
             .and_return(@champion, @other_champion)
         end
 
-        context 'with matching roles' do
-          let(:response_text) {
-            'Azir got worse against Heimerdinger in the latest patch and has a win rate of 37.93% against the Revered Inventor in Middle.'
-          }
-          before :each do
-            role = 'Middle'
-            @champion[:champion_gg].first[:role] = role
-            @other_champion[:champion_gg].first[:role] = role
-          end
-
-          it 'should decide that the higher win rate champion should win' do
-            post action, params
-            expect(speech).to eq response_text
-          end
-        end
-
-        context 'with non-matching roles' do
-          let(:response_text) {
-            'Azir does not play in the same role as Heimerdinger, either one could win.'
-          }
-
-          before :each do
-            @champion[:champion_gg].first[:role] = 'Top'
-            @other_champion[:champion_gg].first[:role] = 'Middle'
-          end
-
-          it 'should decide that either could win' do
-            post action, params
-            expect(speech).to eq response_text
-          end
+        it 'should indicate that the two champions do not play together' do
+          post action, params
+          expect(speech).to eq response_text
         end
       end
 
-      context 'with first champion having one role' do
-        let(:role) { 'Middle' }
+      context 'with a single shared role' do
+        let(:response_text) {
+          'Azir got worse against Heimerdinger in the latest patch and has a win rate of 37.93% against the Revered Inventor in Middle.'
+        }
         before :each do
           @champion = RiotApi::RiotApi.get_champion(champion_name)
           @champion[:champion_gg] = @champion[:champion_gg].first(1)
+          @other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
+          @other_champion[:champion_gg] = @other_champion[:champion_gg].first(1)
+
+          role = 'Middle'
           @champion[:champion_gg].first[:role] = role
-          @other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          @other_champion[:champion_gg] << @other_champion[:champion_gg].first
-
-          allow(RiotApi::RiotApi).to receive(:get_champion)
-            .and_return(@champion, @other_champion)
-        end
-
-        context 'with second champion having matching role' do
-          let(:response_text) {
-            'Azir got worse against Heimerdinger in the latest patch and has a win rate of 37.93% against the Revered Inventor in Middle.'
-          }
-
-          before :each do
-            @other_champion[:champion_gg].first[:role] = role
-          end
-
-          it 'should decide that the higher win rate champion should win' do
-            post action, params
-            expect(speech).to eq response_text
-          end
-        end
-
-        context 'with second champion not having matching role' do
-          let(:response_text) {
-            'Heimerdinger does not play Middle, it is expected Azir will win.'
-          }
-
-          before :each do
-            @other_champion[:champion_gg].each do |role_data|
-              role_data[:role] = 'Top'
-            end
-          end
-
-          it 'should decide that the first champion will win' do
-            post action, params
-            expect(speech).to eq response_text
-          end
-        end
-      end
-
-      context 'with second champion having one role' do
-        let(:role) { 'Middle' }
-        before :each do
-          @champion = RiotApi::RiotApi.get_champion(champion_name)
-          @champion[:champion_gg] << @champion[:champion_gg].first
-          @other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
           @other_champion[:champion_gg].first[:role] = role
-          @other_champion[:champion_gg] = @other_champion[:champion_gg].first(1)
 
           allow(RiotApi::RiotApi).to receive(:get_champion)
             .and_return(@champion, @other_champion)
         end
 
-        context 'with first champion having matching role' do
-          let(:response_text) {
-            'Azir got worse against Heimerdinger in the latest patch and has a win rate of 37.93% against the Revered Inventor in Middle.'
-          }
-
-          before :each do
-            @champion[:champion_gg].first[:role] = role
-          end
-
-          it 'should decide that the higher win rate champion should win' do
-            post action, params
-            expect(speech).to eq response_text
-          end
-        end
-
-        context 'with first champion not having matching role' do
-          let(:response_text) {
-            'Azir does not play Middle, it is expected Heimerdinger will win.'
-          }
-
-          before :each do
-            @champion[:champion_gg].each do |role_data|
-              role_data[:role] = 'Top'
-            end
-          end
-
-          it 'should decide that the second champion will win' do
-            post action, params
-            expect(speech).to eq response_text
-          end
+        it 'should decide that the higher win rate champion should win' do
+          post action, params
+          expect(speech).to eq response_text
         end
       end
 
-      context 'with both champions having multiple roles' do
-        let(:response_text) { 'What role are they in?' }
+      context 'with multiple shared roles' do
         before :each do
           champion = RiotApi::RiotApi.get_champion(champion_name)
-          champion[:champion_gg] << champion[:champion_gg].first
+          first_role_data = champion[:champion_gg].first
+          first_role_data[:role] = 'Middle'
+          second_role_data = first_role_data.dup
+          second_role_data[:role] = 'Top'
+          champion[:champion_gg] = [first_role_data, second_role_data]
+
           other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          other_champion[:champion_gg] << other_champion[:champion_gg].first
+          first_role_data = other_champion[:champion_gg].first
+          first_role_data[:role] = 'Middle'
+          second_role_data = first_role_data.dup
+          second_role_data[:role] = 'Top'
+          other_champion[:champion_gg] = [first_role_data, second_role_data]
 
           allow(RiotApi::RiotApi).to receive(:get_champion)
             .and_return(champion, other_champion)
@@ -342,7 +261,7 @@ describe ChampionsController, type: :controller do
 
         it 'shoud ask for a role to be specified' do
           post action, params
-          expect(speech).to eq response_text
+          expect(speech).to eq controller.send(:ask_for_role_response)[:speech]
         end
       end
     end
@@ -350,70 +269,7 @@ describe ChampionsController, type: :controller do
     context 'with a role specified' do
       let(:role) { 'Middle' }
 
-      context 'with neither champion having the role' do
-        let(:response_text) {
-          "Azir does not play in the same role as Heimerdinger, either one could win."
-        }
-
-        before :each do
-          champion = RiotApi::RiotApi.get_champion(champion_name)
-          champion[:champion_gg] = []
-          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          other_champion[:champion_gg] = []
-
-          allow(RiotApi::RiotApi).to receive(:get_champion)
-            .and_return(champion, other_champion)
-        end
-
-        it 'should decide that either will win' do
-          post action, params
-          expect(speech).to eq response_text
-        end
-      end
-
-      context 'with first champion having the role' do
-        let(:response_text) {
-          "Heimerdinger does not play Middle, it is expected Azir will win."
-        }
-
-        before :each do
-          champion = RiotApi::RiotApi.get_champion(champion_name)
-          champion[:champion_gg].first[:role] = role
-          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          other_champion[:champion_gg] = []
-
-          allow(RiotApi::RiotApi).to receive(:get_champion)
-            .and_return(champion, other_champion)
-        end
-
-        it 'should decide that the first champion will win' do
-          post action, params
-          expect(speech).to eq response_text
-        end
-      end
-
-      context 'with second champion having the role' do
-        let(:response_text) {
-          "Azir does not play Middle, it is expected Heimerdinger will win."
-        }
-
-        before :each do
-          champion = RiotApi::RiotApi.get_champion(champion_name)
-          champion[:champion_gg] = []
-          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          other_champion[:champion_gg].first[:role] = role
-
-          allow(RiotApi::RiotApi).to receive(:get_champion)
-            .and_return(champion, other_champion)
-        end
-
-        it 'should decide that the second champion will win' do
-          post action, params
-          expect(speech).to eq response_text
-        end
-      end
-
-      context 'with both champions having the role' do
+      context 'with both champions sharing the role' do
         let(:response_text) {
           "Azir got worse against Heimerdinger in the latest patch and has a win rate of 37.93% against the Revered Inventor in Middle."
         }
@@ -429,6 +285,26 @@ describe ChampionsController, type: :controller do
         end
 
         it 'should decide that the higher win rate champion should win' do
+          post action, params
+          expect(speech).to eq response_text
+        end
+      end
+
+      context 'without both champions sharing the role' do
+        let(:response_text) {
+          "Azir and Heimerdinger do not typically play together in Middle."
+        }
+        before :each do
+          champion = RiotApi::RiotApi.get_champion(champion_name)
+          champion[:champion_gg] = []
+          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
+          other_champion[:champion_gg] = []
+
+          allow(RiotApi::RiotApi).to receive(:get_champion)
+            .and_return(champion, other_champion)
+        end
+
+        it 'should indicate that the two champions do not play together' do
           post action, params
           expect(speech).to eq response_text
         end
