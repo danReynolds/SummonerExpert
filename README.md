@@ -123,6 +123,4 @@ Ask: **"What do they call Poppy?"**
 
 Response: "Poppy's title is Keeper of the Hammer"
 
-You can also check out the text [demo](https://bot.api.ai/a4a9061a-4d47-4f50-96c4-4bc40e9342f3) here and wait for it to arrive on your Google Home or Google Assistant enabled device soon!
-
 We're looking to add more features as people request them so feel free to get in touch and suggest valuable advice we can provide to help summoners.
