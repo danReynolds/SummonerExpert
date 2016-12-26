@@ -251,6 +251,11 @@ class ChampionsController < ApplicationController
 
   def load_champion
     champion_query = champion_params[:champion].strip
+    if champion_query.blank?
+      render json: no_champion_specified_response
+      return false
+    end
+
     unless @champion = RiotApi.get_champion(champion_query)
       render json: champion_not_found_response(champion_query)
       return false
@@ -267,6 +272,12 @@ class ChampionsController < ApplicationController
           a good idea in the current meta.
         HEREDOC
       )
+    }
+  end
+
+  def no_champion_specified_response
+    {
+      speech: 'What champion are you looking for?'
     }
   end
 
