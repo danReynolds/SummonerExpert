@@ -6,6 +6,23 @@ module RiotApi
 
     @api_key = ENV['RIOT_API_KEY']
     SIMILARITY_THRESHOLD = 0.7
+    TOP = 'Top'.freeze
+    JUNGLE = 'Jungle'.freeze
+    SUPPORT = 'Support'.freeze
+    ADC = 'ADC'.freeze
+    MIDDLE = 'Middle'.freeze
+    ROLES = [TOP, JUNGLE, SUPPORT, ADC, MIDDLE]
+    ABILITIES = {
+      first: 0,
+      q: 0,
+      second: 1,
+      w: 1,
+      third: 2,
+      e: 2,
+      r: 3,
+      ultimate: 3,
+      fourth: 3
+    }.freeze
 
     class << self
       def get_champions

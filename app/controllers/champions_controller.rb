@@ -7,17 +7,6 @@ class ChampionsController < ApplicationController
   RANKING_LIST_SIZE = 1
   COUNTERS_LIST_SIZE = 3
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
-  ABILITIES = {
-    first: 0,
-    q: 0,
-    second: 1,
-    w: 1,
-    third: 2,
-    e: 2,
-    r: 3,
-    ultimate: 3,
-    fourth: 3
-  }.freeze
 
   def ranking
     role = champion_params[:lane]
@@ -25,18 +14,9 @@ class ChampionsController < ApplicationController
     list_size = RANKING_LIST_SIZE unless list_size.positive?
 
     champions = Rails.cache.read(:champions)
-    ranking = champions.keys.inject([]) do |acc, key|
-      acc.tap do |_|
-        role_data = Rails.cache.read(champions: key)[:champion_gg].detect do |role_data|
-          role_data[:role] == role
-        end
-        acc << role_data if role_data
-      end
-    end.sort_by do |role_data|
-      role_data[:overallPosition][:position]
-    end.first(list_size)
-
-    ranking_message = ranking.map do |role_data|
+    rankings = Rails.cache.read({ rankings: role }).first(list_size)
+    
+    ranking_message = rankings.map do |role_data|
       champions[role_data[:key]]
     end.en.conjunction(article: false)
     list_message = list_size_message(list_size)
@@ -169,7 +149,7 @@ class ChampionsController < ApplicationController
     if ability == :passive
       spell = @champion[:passive]
     else
-      spell = @champion[:spells][ABILITIES[ability]]
+      spell = @champion[:spells][RiotApi::ABILITIES[ability]]
     end
 
     render json: {
@@ -182,7 +162,7 @@ class ChampionsController < ApplicationController
 
   def cooldown
     ability = champion_params[:ability].to_sym
-    spell = @champion[:spells][ABILITIES[ability]]
+    spell = @champion[:spells][RiotApi::ABILITIES[ability]]
     rank = champion_params[:rank].split(' ').last.to_i
 
     render json: {
