@@ -19,7 +19,7 @@ Send a DM to https://twitter.com/SummonerExpert
 
 ## Web 
 
-Converse at http://blog.danreynolds.ca/SummonerExpert
+Converse at http://summonerexpert.com
 
 ## Google Actions
 
