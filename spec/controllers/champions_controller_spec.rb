@@ -183,7 +183,7 @@ describe ChampionsController, type: :controller do
       it 'determine the best champions for the specified list size and role' do
         post action, params
 
-        expect(speech).to eq "The best champions in Top are Darius, Nasus, and Jayce."
+        expect(speech).to eq "The best three champions in Top are Darius, Nasus, and Jayce."
       end
     end
 
@@ -194,6 +194,7 @@ describe ChampionsController, type: :controller do
           lane: 'Top'
         })
       end
+
       it 'determine the best champion for the specified role' do
         post action, params
         expect(speech).to eq "The best champion in Top is Darius."
@@ -404,7 +405,7 @@ describe ChampionsController, type: :controller do
   describe 'POST counters' do
     let(:action) { :counters }
     let(:response_text) {
-      "The best counters for Jayce Top are Jarvan IV at a 58.19% win rate, Sion at a 56.3% win rate, and Nautilus at a 60.3% win rate."
+      "The best three counters for Jayce Top are Jarvan IV at a 58.19% win rate, Sion at a 56.3% win rate, and Nautilus at a 60.3% win rate."
     }
 
     it_should_behave_like 'verify role'

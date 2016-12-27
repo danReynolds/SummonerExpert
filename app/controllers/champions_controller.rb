@@ -4,7 +4,8 @@ class ChampionsController < ApplicationController
   before_action :verify_role, only: [:ability_order, :build, :counters, :lane]
 
   MIN_MATCHUPS = 100
-  LIST_SIZE = 1
+  RANKING_LIST_SIZE = 1
+  COUNTERS_LIST_SIZE = 3
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
   ABILITIES = {
     first: 0,
@@ -21,7 +22,7 @@ class ChampionsController < ApplicationController
   def ranking
     role = champion_params[:lane]
     list_size = champion_params[:list_size].to_i
-    list_size = LIST_SIZE unless list_size.positive?
+    list_size = RANKING_LIST_SIZE unless list_size.positive?
 
     champions = Rails.cache.read(:champions)
     ranking = champions.keys.inject([]) do |acc, key|
@@ -38,11 +39,12 @@ class ChampionsController < ApplicationController
     ranking_message = ranking.map do |role_data|
       champions[role_data[:key]]
     end.en.conjunction(article: false)
+    list_message = list_size_message(list_size)
 
     render json: {
       speech: (
-        "The best #{"champion".pluralize(list_size)} in #{role} " \
-        "#{"is".en.plural_verb(list_size)} #{ranking_message}."
+        "The best #{list_message}#{"champion".pluralize(list_size)} in " \
+        "#{role} #{"is".en.plural_verb(list_size)} #{ranking_message}."
       )
     }
   end
@@ -130,6 +132,10 @@ class ChampionsController < ApplicationController
   end
 
   def counters
+    list_size = champion_params[:list_size].to_i
+    list_size = COUNTERS_LIST_SIZE unless list_size.positive?
+    list_message = list_size_message(list_size)
+
     counters = @role_data[:matchups].select do |matchup|
       matchup[:games] > MIN_MATCHUPS
     end.sort_by do |matchup|
@@ -139,7 +145,8 @@ class ChampionsController < ApplicationController
       "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
     render json: {
-      speech: "The best counters for #{@name} #{@role} are #{counters}."
+      speech: "The best #{list_message}counters for #{@name} #{@role} are " \
+      "#{counters}."
     }
   end
 
@@ -303,6 +310,10 @@ class ChampionsController < ApplicationController
     end
 
     @role = @role_data[:role] if @role.blank?
+  end
+
+  def list_size_message(size)
+    size == 1 ? '' : "#{size.en.numwords} "
   end
 
   def champion_params
