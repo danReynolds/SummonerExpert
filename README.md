@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/danReynolds/SummonerExpert/badge.svg?branch=master)](https://coveralls.io/github/danReynolds/SummonerExpert?branch=master)
 <iframe width="100%" height="430" src="https://console.api.ai/api-client/demo/embedded/a4a9061a-4d47-4f50-96c4-4bc40e9342f3"></iframe>
 [![CircleCI](https://circleci.com/gh/danReynolds/SummonerExpert.svg?style=svg)](https://circleci.com/gh/danReynolds/SummonerExpert)
 
