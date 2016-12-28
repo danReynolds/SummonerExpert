@@ -32,7 +32,7 @@ Ask for Summoner Expert when using your Google Assistant enabled device such as 
 
 Purpose: Determine the current best champions by role.
 
-Ask: **"Who are the best 4 top laners?"** or **"Who are the top 4 best supports?"**
+Ask: **"Who are the best 3 top laners?"** or **"Who are the top 4 best supports?"**
 
 Response: "The best champions in Support are Janna, Nami, Zyra, and Morgana."
 
