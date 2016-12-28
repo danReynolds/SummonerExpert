@@ -14,7 +14,7 @@ Send a message to https://www.facebook.com/summonerExpert
 
 ## Twitter
 
-<iframe src="http://twitframe.com/show?url=https://twitter.com/SummonerExpert/status/812378381362794496" scrolling="no" frameborder="0" allowTransparency="true" width="340" height="240"></iframe>
+<iframe src="http://twitframe.com/show?url=https://twitter.com/SummonerExpert/status/813881070957588481" scrolling="no" frameborder="0" allowTransparency="true" width="340" height="240"></iframe>
 
 Send a DM to https://twitter.com/SummonerExpert
 
