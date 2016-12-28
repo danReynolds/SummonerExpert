@@ -130,6 +130,6 @@ Ask: **"What do they call Poppy?"**
 
 Response: "Poppy's title is Keeper of the Hammer"
 
-## Give us your own Tips!
+## We Want more Features!
 
-We're looking to add more features as people request them so feel free to get in touch and suggest valuable advice we can provide to help summoners.
+We're looking to add more functionality as people request them so feel free to get in touch and suggest valuable advice we can provide to help summoners.
