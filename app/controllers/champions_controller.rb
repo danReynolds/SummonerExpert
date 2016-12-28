@@ -120,7 +120,7 @@ class ChampionsController < ApplicationController
       matchup[:games] > MIN_MATCHUPS
     end.sort_by do |matchup|
       matchup[:statScore]
-    end.first(3).map do |counter|
+    end.first(list_size).map do |counter|
       counter_name = Rails.cache.fetch(champions: counter[:key])[:name]
       "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
