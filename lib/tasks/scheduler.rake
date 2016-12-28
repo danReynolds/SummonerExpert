@@ -47,6 +47,8 @@ namespace :fetch_champion_gg do
         end
       end.sort_by do |role_data|
         role_data[:overallPosition][:position]
+      end.map do |role_data|
+        role_data[:key]
       end
       Rails.cache.write({ rankings: role }, rankings)
 

@@ -15,9 +15,9 @@ class ChampionsController < ApplicationController
 
     champions = Rails.cache.read(:champions)
     rankings = Rails.cache.read({ rankings: role }).first(list_size)
-    
-    ranking_message = rankings.map do |role_data|
-      champions[role_data[:key]]
+
+    ranking_message = rankings.map do |key|
+      champions[key]
     end.en.conjunction(article: false)
     list_message = list_size_message(list_size)
 
