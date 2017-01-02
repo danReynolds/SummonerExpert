@@ -1,3 +1,14 @@
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63121002-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
 <iframe width="100%" height="430" src="https://console.api.ai/api-client/demo/embedded/a4a9061a-4d47-4f50-96c4-4bc40e9342f3"></iframe>
 
 [![CircleCI](https://circleci.com/gh/danReynolds/SummonerExpert.svg?style=svg)](https://circleci.com/gh/danReynolds/SummonerExpert) [![Coverage Status](https://coveralls.io/repos/github/danReynolds/SummonerExpert/badge.svg?branch=master)](https://coveralls.io/github/danReynolds/SummonerExpert?branch=master)
