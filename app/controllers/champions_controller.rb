@@ -4,8 +4,10 @@ class ChampionsController < ApplicationController
   before_action :verify_role, only: [:ability_order, :build, :counters, :lane]
 
   MIN_MATCHUPS = 100
-  RANKING_LIST_SIZE = 1
-  RANKING_LIST_POSITION = 1
+  RANKING_LIST_ORDER = {
+    asc: 'worst',
+    desc: 'best'
+  }
   COUNTERS_LIST_SIZE = 3
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
 
@@ -13,14 +15,13 @@ class ChampionsController < ApplicationController
     role = champion_params[:lane]
     list_position = champion_params[:list_position].to_i
     list_size = champion_params[:list_size].to_i
-    list_position = RANKING_LIST_POSITION unless list_position > 0
-    list_size = RANKING_LIST_SIZE unless list_size.positive?
+    list_order = champion_params[:list_order]
 
     champions = Rails.cache.read(:champions)
     rankings = Rails.cache.read({ rankings: role })[(list_position - 1)..-1]
-      .first(list_size)
+    rankings.reverse! if list_order == RANKING_LIST_ORDER[:asc]
 
-    ranking_message = rankings.map do |key|
+    ranking_message = rankings.first(list_size).map do |key|
       champions[key]
     end.en.conjunction(article: false)
     list_message = list_size_message(list_size)
@@ -28,7 +29,7 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        "The #{list_position_message}best #{list_message}" \
+        "The #{list_position_message}#{list_order} #{list_message}" \
         "#{"champion".pluralize(list_size)} in #{role} " \
         "#{"is".en.plural_verb(list_size)} #{ranking_message}."
       )
@@ -308,7 +309,8 @@ class ChampionsController < ApplicationController
 
   def champion_params
     params.require(:result).require(:parameters).permit(
-      :champion, :champion1, :ability, :rank, :lane, :list_size, :list_position
+      :champion, :champion1, :ability, :rank, :lane, :list_size, :list_position,
+      :list_order
     )
   end
 end

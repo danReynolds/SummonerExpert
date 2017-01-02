@@ -179,10 +179,36 @@ describe ChampionsController, type: :controller do
   describe 'POST ranking' do
     let(:action) { :ranking }
 
+    before :each do
+      allow(controller).to receive(:champion_params).and_return({
+        list_size: '3',
+        lane: 'Top',
+        list_position: '1',
+        list_order: 'best'
+      })
+    end
+
+    context 'with worst order' do
+      before :each do
+        allow(controller).to receive(:champion_params).and_return({
+          list_size: '1',
+          lane: 'Support',
+          list_position: '1',
+          list_order: 'worst'
+        })
+      end
+
+      it 'should determine the worst champions' do
+        post action, params
+        expect(speech).to eq 'The worst champion in Support is Nunu.'
+      end
+    end
+
     context 'with list position specified' do
       before :each do
         allow(controller).to receive(:champion_params).and_return({
           list_size: '1',
+          list_order: 'best',
           lane: 'Top',
           list_position: '2'
         })
@@ -190,21 +216,23 @@ describe ChampionsController, type: :controller do
 
       it 'should determine the best champion at that list position' do
         post action, params
-        expect(speech).to eq "The second best champion in Top is Nasus."
+        expect(speech).to eq 'The second best champion in Top is Nasus.'
       end
     end
 
-    context 'with list size specified' do
+    context 'with multiple list size specified' do
       it 'determine the best champions for the specified list size and role' do
         post action, params
         expect(speech).to eq "The best three champions in Top are Darius, Nasus, and Jayce."
       end
     end
 
-    context 'without list size specified' do
+    context 'with single list size specified' do
       before :each do
         allow(controller).to receive(:champion_params).and_return({
-          list_size: '',
+          list_size: '1',
+          list_position: '1',
+          list_order: 'best',
           lane: 'Top'
         })
       end
