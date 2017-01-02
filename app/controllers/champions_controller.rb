@@ -13,11 +13,11 @@ class ChampionsController < ApplicationController
     role = champion_params[:lane]
     list_position = champion_params[:list_position].to_i
     list_size = champion_params[:list_size].to_i
-    list_position = RANKING_LIST_POSITION unless list_position.positive?
+    list_position = RANKING_LIST_POSITION unless list_position > 0
     list_size = RANKING_LIST_SIZE unless list_size.positive?
 
     champions = Rails.cache.read(:champions)
-    rankings = Rails.cache.read({ rankings: role })[list_position..-1]
+    rankings = Rails.cache.read({ rankings: role })[(list_position - 1)..-1]
       .first(list_size)
 
     ranking_message = rankings.map do |key|

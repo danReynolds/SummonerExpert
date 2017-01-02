@@ -179,10 +179,24 @@ describe ChampionsController, type: :controller do
   describe 'POST ranking' do
     let(:action) { :ranking }
 
+    context 'with list position specified' do
+      before :each do
+        allow(controller).to receive(:champion_params).and_return({
+          list_size: '1',
+          lane: 'Top',
+          list_position: '2'
+        })
+      end
+
+      it 'should determine the best champion at that list position' do
+        post action, params
+        expect(speech).to eq "The second best champion in Top is Nasus."
+      end
+    end
+
     context 'with list size specified' do
       it 'determine the best champions for the specified list size and role' do
         post action, params
-
         expect(speech).to eq "The best three champions in Top are Darius, Nasus, and Jayce."
       end
     end
