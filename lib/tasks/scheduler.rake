@@ -3,10 +3,31 @@ require "#{Rails.root}/lib/riot_api.rb"
 require "#{Rails.root}/lib/champion_gg_api.rb"
 include RiotApi
 include ChampionGGApi
+include ActionView::Helpers::SanitizeHelper
 
 desc 'Fetch all champion data from champion.gg nightly'
 namespace :fetch_champion_gg do
   task all: [:cache_champions, :cache_lane_rankings]
+
+  def format_description(description)
+    prepared_text = description.split("<br>")
+      .reject { |effect| effect.blank? }.join("\n")
+    strip_tags(prepared_text)
+  end
+
+  desc 'Cache all items data'
+  task cache_items: :environment do
+    puts 'Fetching item data from champion.gg'
+
+    RiotApi::RiotApi.get_items.each do |_, item|
+      if item[:description]
+        item[:description] = format_description(item[:description])
+        Rails.cache.write({ items: item[:name] }, item)
+      end
+    end
+
+    puts 'Fetched item data from champion.gg'
+  end
 
   desc 'Cache all champion data'
   task cache_champions: :environment do

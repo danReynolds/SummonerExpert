@@ -16,4 +16,8 @@ Rails.application.routes.draw do
     post :ranking
     post :stats
   end
+
+  namespace :items do
+    post :show
+  end
 end
