@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-01-03T19:20:33.229Z",
+	"__export_date": "2017-01-03T19:54:25.607Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483470264389,
+			"modified": 1483473221484,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
