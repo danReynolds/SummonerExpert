@@ -107,7 +107,7 @@ Purpose: Determine a champion's base stats at a given level.
 
 Ask: **"What is Nocturne's ad at level 6?"**
 
-Response: "Nocturne has 74.71 attack damage at level 6."
+Response: "Nocturne has 75 attack damage at level 6."
 
 **Cooldowns**:
 
