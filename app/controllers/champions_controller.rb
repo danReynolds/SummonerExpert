@@ -4,9 +4,10 @@ class ChampionsController < ApplicationController
   before_action :verify_role, only: [:ability_order, :build, :counters, :lane]
 
   MIN_MATCHUPS = 100
+  STAT_PER_LEVEL = :perlevel
   RANKING_LIST_ORDER = {
-    asc: 'worst',
-    desc: 'best'
+    asc: :worst,
+    desc: :best
   }
   COUNTERS_LIST_SIZE = 3
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
@@ -19,7 +20,7 @@ class ChampionsController < ApplicationController
 
     champions = Rails.cache.read(:champions)
     rankings = Rails.cache.read({ rankings: role })[(list_position - 1)..-1]
-    rankings.reverse! if list_order == RANKING_LIST_ORDER[:asc]
+    rankings.reverse! if list_order.to_sym == RANKING_LIST_ORDER[:asc]
 
     ranking_message = rankings.first(list_size).map do |key|
       champions[key]
@@ -32,6 +33,24 @@ class ChampionsController < ApplicationController
         "The #{list_position_message}#{list_order} #{list_message}" \
         "#{"champion".pluralize(list_size)} in #{role} " \
         "#{"is".en.plural_verb(list_size)} #{ranking_message}."
+      )
+    }
+  end
+
+  def stats
+    stats = @champion[:stats]
+    stat = champion_params[:stat]
+    level = champion_params[:level].to_i
+    stat_value = stats[stat]
+    stat_name = RiotApi::STATS[stat.to_sym]
+
+    if stat_modifier = stats["#{stat}#{STAT_PER_LEVEL}"]
+      stat_value += stat_modifier * (level - 1)
+    end
+
+    render json: {
+      speech: (
+        "#{@name} has #{stat_value.round(2)} #{stat_name} at level #{level}."
       )
     }
   end
@@ -310,7 +329,7 @@ class ChampionsController < ApplicationController
   def champion_params
     params.require(:result).require(:parameters).permit(
       :champion, :champion1, :ability, :rank, :lane, :list_size, :list_position,
-      :list_order
+      :list_order, :stat, :level
     )
   end
 end

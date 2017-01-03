@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     post :counters
     post :matchup
     post :ranking
+    post :stats
   end
 end

@@ -1,13 +1,13 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2016-12-25T18:30:06.421Z",
+	"__export_date": "2017-01-03T00:00:07.110Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
 			"_id": "wrk_6d555102de1a469aa75025d23e488d2b",
 			"parentId": null,
-			"modified": 1482600491272,
+			"modified": 1483401589474,
 			"created": 1481786661099,
 			"name": "summoner_expert",
 			"description": "",
@@ -17,7 +17,7 @@
 		{
 			"_id": "env_0d851fcce733473faf2afa9cce713676",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491271,
+			"modified": 1483401589473,
 			"created": 1481786758469,
 			"name": "Base Environment",
 			"data": {},
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482690452203,
+			"modified": 1483401589472,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
@@ -35,7 +35,7 @@
 		{
 			"_id": "req_30337ed27c9444deb392be7f6b1ff2be",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482641511475,
+			"modified": 1483401589472,
 			"created": 1482600505061,
 			"url": "{{ url }}",
 			"name": "champions/counters",
@@ -58,7 +58,7 @@
 		{
 			"_id": "req_3b5d82d24e82457aad34441bcd0b07b4",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491268,
+			"modified": 1483401589471,
 			"created": 1482188086561,
 			"url": "{{ url }}",
 			"name": "champions/build",
@@ -81,7 +81,7 @@
 		{
 			"_id": "req_420d468a6f164a43bfa8d832e3e318fb",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491265,
+			"modified": 1483401589470,
 			"created": 1481917417587,
 			"url": "{{ url }}",
 			"name": "champions/enemy_tips",
@@ -104,7 +104,7 @@
 		{
 			"_id": "req_4ccd25e96e2044a39fdaeb0305b2739d",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491263,
+			"modified": 1483401589469,
 			"created": 1481915657521,
 			"url": "{{ url }}",
 			"name": "champions/cooldown",
@@ -127,7 +127,7 @@
 		{
 			"_id": "req_4e326c5687454d7ea772a5ae3298a349",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491262,
+			"modified": 1483401589467,
 			"created": 1481917460884,
 			"url": "{{ url }}",
 			"name": "champions/description",
@@ -150,7 +150,7 @@
 		{
 			"_id": "req_653ffbc0b2cc4404bd70e4eed4e0b6bd",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491261,
+			"modified": 1483401589465,
 			"created": 1481917042270,
 			"url": "{{ url }}",
 			"name": "champions/ability",
@@ -173,7 +173,7 @@
 		{
 			"_id": "req_70e709bed44d44dba272397747057ae0",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482603074709,
+			"modified": 1483401589464,
 			"created": 1482192290015,
 			"url": "{{ url }}",
 			"name": "champions/matchup",
@@ -196,7 +196,7 @@
 		{
 			"_id": "req_76fb69be6a6c438fa2c948845e1fc935",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491260,
+			"modified": 1483401589464,
 			"created": 1482120899865,
 			"url": "{{url}}",
 			"name": "champions/lane",
@@ -219,7 +219,7 @@
 		{
 			"_id": "req_a5b3713dfaed4bcb920824015180bc37",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491259,
+			"modified": 1483401589463,
 			"created": 1481917268252,
 			"url": "{{ url }}",
 			"name": "champions/ally_tips",
@@ -240,9 +240,32 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_d3151971776f4ed9b4b3f6e225b81fc1",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1483401023088,
+			"created": 1483401008313,
+			"url": "{{ url }}",
+			"name": "champions/stats",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"5bf6fa40-30bd-450d-bef2-99e3b1ff6ab4\",\n  \"timestamp\": \"2017-01-02T23:49:13.235Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is Zed's ad at level 5?\",\n    \"action\": \"champions/stats\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Zed\",\n      \"level\": \"5\",\n      \"stat\": \"attackdamage\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"1623dc2f-f9a5-4b91-8688-e4239d7d2a86\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/stats\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: fcf0da88-a5ff-4eb1-8799-104b7f577d0a\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1483401008313,
+			"_type": "request"
+		},
+		{
 			"_id": "req_d80c7036b7114f4b8b2e7016164ddd6a",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482690449396,
+			"modified": 1483401589462,
 			"created": 1482688888018,
 			"url": "{{ url }}",
 			"name": "champions/ranking",
@@ -265,7 +288,7 @@
 		{
 			"_id": "req_dada373cb4e4427b85a2cfaee9c59e64",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491258,
+			"modified": 1483401589461,
 			"created": 1481786672032,
 			"url": "{{ url }}",
 			"name": "champions/title",
@@ -288,7 +311,7 @@
 		{
 			"_id": "req_e3313ffbf8bc499cb9ddf908d9d9cad3",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1482600491257,
+			"modified": 1483401589460,
 			"created": 1482275704759,
 			"url": "{{ url }}",
 			"name": "champions/ability_order",
@@ -311,7 +334,7 @@
 		{
 			"_id": "env_bc20674a273c40cd971fb807c0847e30",
 			"parentId": "env_0d851fcce733473faf2afa9cce713676",
-			"modified": 1482600491254,
+			"modified": 1483401589459,
 			"created": 1482082903253,
 			"name": "Production",
 			"data": {
@@ -322,7 +345,7 @@
 		{
 			"_id": "env_f8958a56bd434a2f9acfb21e27479e89",
 			"parentId": "env_0d851fcce733473faf2afa9cce713676",
-			"modified": 1482600491245,
+			"modified": 1483401589453,
 			"created": 1482082915947,
 			"name": "Development",
 			"data": {

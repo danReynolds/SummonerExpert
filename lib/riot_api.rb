@@ -23,6 +23,18 @@ module RiotApi
       ultimate: 3,
       fourth: 3
     }.freeze
+    STATS = {
+      armor: 'armor',
+      attackdamage: 'attack damage',
+      attackrange: 'attack range',
+      crit: 'critical chance',
+      hp: 'health',
+      hpregen: 'health regeneration',
+      movespeed: 'movement speed',
+      mp: 'mana',
+      mpregen: 'mana regeneration',
+      spellblock: 'magic resist'
+    }.freeze
 
     class << self
       def get_champions

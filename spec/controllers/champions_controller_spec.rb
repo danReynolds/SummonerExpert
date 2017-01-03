@@ -180,22 +180,22 @@ describe ChampionsController, type: :controller do
     let(:action) { :ranking }
 
     before :each do
-      allow(controller).to receive(:champion_params).and_return({
+      allow(controller).to receive(:champion_params).and_return(
         list_size: '3',
         lane: 'Top',
         list_position: '1',
         list_order: 'best'
-      })
+      )
     end
 
     context 'with worst order' do
       before :each do
-        allow(controller).to receive(:champion_params).and_return({
+        allow(controller).to receive(:champion_params).and_return(
           list_size: '1',
           lane: 'Support',
           list_position: '1',
           list_order: 'worst'
-        })
+        )
       end
 
       it 'should determine the worst champions' do
@@ -206,12 +206,12 @@ describe ChampionsController, type: :controller do
 
     context 'with list position specified' do
       before :each do
-        allow(controller).to receive(:champion_params).and_return({
+        allow(controller).to receive(:champion_params).and_return(
           list_size: '1',
           list_order: 'best',
           lane: 'Top',
           list_position: '2'
-        })
+        )
       end
 
       it 'should determine the best champion at that list position' do
@@ -229,12 +229,12 @@ describe ChampionsController, type: :controller do
 
     context 'with single list size specified' do
       before :each do
-        allow(controller).to receive(:champion_params).and_return({
+        allow(controller).to receive(:champion_params).and_return(
           list_size: '1',
           list_position: '1',
           list_order: 'best',
           lane: 'Top'
-        })
+        )
       end
 
       it 'determine the best champion for the specified role' do
@@ -250,11 +250,11 @@ describe ChampionsController, type: :controller do
     let(:other_champion_name) { 'Heimerdinger' }
 
     before :each do
-      allow(controller).to receive(:champion_params).and_return({
+      allow(controller).to receive(:champion_params).and_return(
         champion: champion_name,
         champion1: other_champion_name,
         lane: role
-      })
+      )
     end
 
     context 'without a role specified' do
@@ -391,6 +391,18 @@ describe ChampionsController, type: :controller do
     it_should_behave_like 'load champion'
 
     it 'should return the champions title' do
+      post action, params
+      expect(speech).to eq response_text
+    end
+  end
+
+  describe 'POST stats' do
+    let(:action) { :stats }
+    let(:response_text) { 'Zed has 68.31 attack damage at level 5.' }
+
+    it_should_behave_like 'load champion'
+
+    it 'should calculate the stat for the champion' do
       post action, params
       expect(speech).to eq response_text
     end
