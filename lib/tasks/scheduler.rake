@@ -7,7 +7,7 @@ include ActionView::Helpers::SanitizeHelper
 
 desc 'Fetch all champion data from champion.gg nightly'
 namespace :fetch_champion_gg do
-  task all: [:cache_champions, :cache_lane_rankings]
+  task all: [:cache_champions, :cache_lane_rankings, :cache_items]
 
   def format_description(description)
     prepared_text = description.split("<br>")
