@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-01-03T00:00:07.110Z",
+	"__export_date": "2017-01-03T19:20:33.229Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589472,
+			"modified": 1483470264389,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
@@ -214,6 +214,29 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1482120899865,
+			"_type": "request"
+		},
+		{
+			"_id": "req_7cd5d9c73dca4175b0aea1c3fcd5fe62",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1483470117093,
+			"created": 1483470077177,
+			"url": "{{ url }}",
+			"name": "items/show",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"7f7b2994-551f-49a3-9809-0be01604adc4\",\n  \"timestamp\": \"2017-01-03T19:01:51.96Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of the Ruined King do?\",\n    \"action\": \"items/show\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"item\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: ef8e1507-35b0-40ae-8162-6b77596ff145\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1483470077177,
 			"_type": "request"
 		},
 		{

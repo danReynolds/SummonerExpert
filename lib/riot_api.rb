@@ -41,6 +41,10 @@ module RiotApi
         fetch_response(RIOT_API[:champions])
       end
 
+      def get_items
+        fetch_response(RIOT_API[:items])
+      end
+
       def get_champion(name)
         Rails.cache.read(champions: name) || match_champion(name)
       end
