@@ -398,13 +398,46 @@ describe ChampionsController, type: :controller do
 
   describe 'POST stats' do
     let(:action) { :stats }
-    let(:response_text) { 'Zed has 68.31 attack damage at level 5.' }
+    let(:response_text) { 'Zed has 68 attack damage at level 5.' }
 
     it_should_behave_like 'load champion'
 
-    it 'should calculate the stat for the champion' do
-      post action, params
-      expect(speech).to eq response_text
+    context 'with stat modifier' do
+      context 'with level specified' do
+        it 'should calculate the stat for the champion' do
+          post action, params
+          expect(speech).to eq response_text
+        end
+      end
+
+      context 'without level specified' do
+        before :each do
+          allow(controller).to receive(:champion_params).and_return(
+            champion: 'Zed',
+            stat: 'attackdamage'
+          )
+        end
+
+        it 'should ask for the level' do
+          post action, params
+          expect(speech).to eq controller.send(:ask_for_level_response)[:speech]
+        end
+      end
+    end
+
+    context 'without stat modifier' do
+      let(:response_text) { 'Zed has 345 movement speed.' }
+      before :each do
+        allow(controller).to receive(:champion_params).and_return(
+          champion: 'Zed',
+          stat: 'movespeed'
+        )
+      end
+
+      it 'should calculate the stat for the champion' do
+        post action, params
+        expect(speech).to eq response_text
+      end
     end
   end
 

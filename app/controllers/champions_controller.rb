@@ -43,14 +43,18 @@ class ChampionsController < ApplicationController
     level = champion_params[:level].to_i
     stat_value = stats[stat]
     stat_name = RiotApi::STATS[stat.to_sym]
+    level_message = ''
 
     if stat_modifier = stats["#{stat}#{STAT_PER_LEVEL}"]
+      return render json: ask_for_level_response unless level.positive?
+
+      level_message = " at level #{level}"
       stat_value += stat_modifier * (level - 1)
     end
 
     render json: {
       speech: (
-        "#{@name} has #{stat_value.round(2)} #{stat_name} at level #{level}."
+        "#{@name} has #{stat_value.round} #{stat_name}#{level_message}."
       )
     }
   end
@@ -301,7 +305,11 @@ class ChampionsController < ApplicationController
   end
 
   def ask_for_role_response
-    { speech: "What role are they in?" }
+    { speech: 'What role are they in?' }
+  end
+
+  def ask_for_level_response
+    { speech: 'What level is the champion?' }
   end
 
   def verify_role
