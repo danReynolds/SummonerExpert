@@ -101,6 +101,14 @@ Ask: **"What is Blitzcrank's second ability?"** or **"What is Aurelion Sol's ult
 
 Response: "Aurelion Sol's fourth ability is called Voice of Light. Aurelion Sol projects a blast of pure starfire, damaging and slowing all enemies caught in it and knocking nearby enemies back to a safer distance."
 
+**Stats**:
+
+Purpose: Determine a champion's base stats at a given level.
+
+Ask: **"What is Nocturne's ad at level 6?"**
+
+Response: "Nocturne has 74.71 attack damage at level 6."
+
 **Cooldowns**:
 
 Purpose: Determine the cooldowns of a champion's ability at a given rank.
