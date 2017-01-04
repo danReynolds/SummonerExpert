@@ -30,9 +30,24 @@ describe ItemsController, type: :controller do
 
     it_should_behave_like 'load item'
 
-    it 'should return the description of the item' do
-      post action, params
-      expect(speech).to eq response_text
+    context 'with exact name match' do
+      it 'should return the description of the item' do
+        post action, params
+        expect(speech).to eq response_text
+      end
+    end
+
+    context 'with fuzzy name match' do
+      before :each do
+        allow(controller).to receive(:item_params).and_return(
+          item: 'Blade of the Ruined'
+        )
+      end
+
+      it 'should match the item' do
+        post action, params
+        expect(speech).to eq response_text
+      end
     end
   end
 end
