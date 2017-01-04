@@ -101,6 +101,14 @@ Ask: **"What is Blitzcrank's second ability?"** or **"What is Aurelion Sol's ult
 
 Response: "Aurelion Sol's fourth ability is called Voice of Light. Aurelion Sol projects a blast of pure starfire, damaging and slowing all enemies caught in it and knocking nearby enemies back to a safer distance."
 
+**Items**:
+
+Purpose: Get descriptions of item stats
+
+Ask: **"What does Blade of the Ruined King do?"**
+
+Response: "Here are the stats for Blade of the Ruined King: +25 Attack Damage +40% Attack Speed +10% Life Steal UNIQUE Passive: Basic attacks deal 8% of the target's current Health in bonus physical damage (max 60 vs. monsters and minions) on hit. Life Steal applies to this damage. UNIQUE Active: Deals 10% of target champion's maximum Health (min. 100) as physical damage, heals for the same amount, and steals 25% of the target's Movement Speed for 3 seconds (90 second cooldown)."
+
 **Stats**:
 
 Purpose: Determine a champion's base stats at a given level.
