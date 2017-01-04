@@ -293,15 +293,11 @@ class ChampionsController < ApplicationController
   end
 
   def no_champion_specified_response
-    {
-      speech: 'What champion are you looking for?'
-    }
+    { speech: 'What champion are you looking for?' }
   end
 
   def champion_not_found_response(name)
-    {
-      speech: "I could not find a champion called '#{name}'."
-    }
+    { speech: "I could not find a champion called '#{name}'." }
   end
 
   def ask_for_role_response

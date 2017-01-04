@@ -30,9 +30,52 @@ describe ItemsController, type: :controller do
 
     it_should_behave_like 'load item'
 
-    it 'should return the description of the item' do
-      post action, params
-      expect(speech).to eq response_text
+    context 'with no name match' do
+      before :each do
+        @name = 'test item'
+        allow(controller).to receive(:item_params).and_return(item: @name)
+      end
+
+      it 'should indicate the item was not found' do
+        post action, params
+        expect(speech).to eq controller.send(
+          :item_not_found_response,
+          @name
+        )[:speech]
+      end
+    end
+
+    context 'with no item specified' do
+      before :each do
+        allow(controller).to receive(:item_params).and_return(item: '')
+      end
+
+      it 'should indicate that no item was specified' do
+        post action, params
+        expect(speech).to eq controller.send(
+          :no_item_specified_response
+        )[:speech]
+      end
+    end
+
+    context 'with exact name match' do
+      it 'should return the description of the item' do
+        post action, params
+        expect(speech).to eq response_text
+      end
+    end
+
+    context 'with fuzzy name match' do
+      before :each do
+        allow(controller).to receive(:item_params).and_return(
+          item: 'Blade of the Ruined'
+        )
+      end
+
+      it 'should match the item' do
+        post action, params
+        expect(speech).to eq response_text
+      end
     end
   end
 end

@@ -45,18 +45,24 @@ module RiotApi
         fetch_response(RIOT_API[:items])
       end
 
+      def get_item(name)
+        Rails.cache.read(items: name) || match_collection(name, :items)
+      end
+
       def get_champion(name)
-        Rails.cache.read(champions: name) || match_champion(name)
+        Rails.cache.read(champions: name) || match_collection(name, :champions)
       end
 
       private
 
-      def match_champion(name)
+      def match_collection(name, collection_key)
         matcher = Matcher::Matcher.new(name)
-        champions = Rails.cache.read(:champions).to_a
+        collection = Rails.cache.read(collection_key).to_a
+        search_key = Hash.new
 
-        if match = matcher.find_match(champions, SIMILARITY_THRESHOLD, :last)
-          Rails.cache.read(champions: match.result.last)
+        if match = matcher.find_match(collection, SIMILARITY_THRESHOLD, :last)
+          search_key[collection_key] = match.result.last
+          Rails.cache.read(search_key)
         end
       end
 

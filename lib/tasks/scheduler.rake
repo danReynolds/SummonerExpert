@@ -15,11 +15,21 @@ namespace :fetch_champion_gg do
     strip_tags(prepared_text)
   end
 
+  def parse_names(obj)
+    obj.inject({}) do |names, (key, data)|
+      names.tap { names[key] = data[:name] if data[:name] }
+    end
+  end
+
   desc 'Cache all items data'
   task cache_items: :environment do
     puts 'Fetching item data from champion.gg'
 
-    RiotApi::RiotApi.get_items.each do |_, item|
+    items = RiotApi::RiotApi.get_items
+    item_names = parse_names(items)
+    Rails.cache.write(:items, item_names)
+
+    items.each do |_, item|
       if item[:description]
         item[:description] = format_description(item[:description])
         Rails.cache.write({ items: item[:name] }, item)
@@ -34,11 +44,7 @@ namespace :fetch_champion_gg do
     puts 'Fetching champion data from champion.gg'
 
     champions = RiotApi::RiotApi.get_champions
-    champion_names = champions.inject({}) do |names, (key, data)|
-      names.tap do |_|
-        names[key] = data[:name]
-      end
-    end
+    champion_names = parse_names(champions)
     Rails.cache.write(:champions, champion_names)
 
     champions.each do |_, champion_data|
