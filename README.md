@@ -49,9 +49,9 @@ Ask for Summoner Expert when using your Google Assistant enabled device such as 
 
 Purpose: Determine the current best champions by role.
 
-Ask: **"Who are the best 3 top laners?"** or **"Who are the top 4 best supports?"**
+Ask: **"Who are the best 3 top laners?"** or **"Who are the top 4 best supports?"** or **"Who are the best 5 assassins in Top?"**
 
-Response: "The best champions in Support are Janna, Nami, Zyra, and Morgana."
+Response: "The best five assassins in Top are Irelia, Yasuo, Fiora, Teemo, and Tryndamere."
 
 **Performance**:
 
