@@ -17,13 +17,16 @@ class ChampionsController < ApplicationController
     list_position = champion_params[:list_position].to_i
     list_size = champion_params[:list_size].to_i
     list_order = champion_params[:list_order]
+    tag = champion_params[:tag]
 
     champions = Rails.cache.read(:champions)
-    rankings = Rails.cache.read({ rankings: role })[(list_position - 1)..-1]
+    rankings = Rails.cache.read({ rankings: role })
+    rankings = rankings.select { |ranking| ranking[:tags].include?(tag) } unless tag.blank?
+    rankings = rankings[(list_position - 1)..-1]
     rankings.reverse! if list_order.to_sym == RANKING_LIST_ORDER[:asc]
 
-    ranking_message = rankings.first(list_size).map do |key|
-      champions[key]
+    ranking_message = rankings.first(list_size).map do |role_data|
+      champions[role_data[:key]]
     end.en.conjunction(article: false)
     list_message = list_size_message(list_size)
     list_position_message = list_position_message(list_position)
@@ -333,7 +336,7 @@ class ChampionsController < ApplicationController
   def champion_params
     params.require(:result).require(:parameters).permit(
       :champion, :champion1, :ability, :rank, :lane, :list_size, :list_position,
-      :list_order, :stat, :level
+      :list_order, :stat, :level, :tag
     )
   end
 end

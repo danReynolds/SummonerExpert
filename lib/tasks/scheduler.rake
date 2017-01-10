@@ -67,15 +67,16 @@ namespace :fetch_champion_gg do
 
       rankings = champions.keys.inject([]) do |acc, key|
         acc.tap do |_|
-          role_data = Rails.cache.read(champions: key)[:champion_gg].detect do |role_data|
+          champion = Rails.cache.read(champions: key)
+          role_data = champion[:champion_gg].detect do |role_data|
             role_data[:role] == role
           end
-          acc << role_data if role_data
+          acc << role_data.merge!(champion.slice(:tags)) if role_data
         end
       end.sort_by do |role_data|
         role_data[:overallPosition][:position]
       end.map do |role_data|
-        role_data[:key]
+        role_data.slice(:key, :tags)
       end
       Rails.cache.write({ rankings: role }, rankings)
 

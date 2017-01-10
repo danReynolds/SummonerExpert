@@ -204,6 +204,23 @@ describe ChampionsController, type: :controller do
       end
     end
 
+    context 'with tag' do
+      before :each do
+        allow(controller).to receive(:champion_params).and_return(
+          list_size: '3',
+          lane: 'Top',
+          list_position: '1',
+          list_order: 'best',
+          tag: 'Assassin'
+        )
+      end
+
+      it 'should filter the ranking of the champions by the provided tag' do
+        post action, params
+        expect(speech).to eq 'The best three champions in Top are Irelia, Yasuo, and Fiora.'
+      end
+    end
+
     context 'with list position specified' do
       before :each do
         allow(controller).to receive(:champion_params).and_return(
