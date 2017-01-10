@@ -217,7 +217,7 @@ describe ChampionsController, type: :controller do
 
       it 'should filter the ranking of the champions by the provided tag' do
         post action, params
-        expect(speech).to eq 'The best three champions in Top are Irelia, Yasuo, and Fiora.'
+        expect(speech).to eq 'The best three assassins in Top are Irelia, Yasuo, and Fiora.'
       end
     end
 

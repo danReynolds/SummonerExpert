@@ -30,12 +30,13 @@ class ChampionsController < ApplicationController
     end.en.conjunction(article: false)
     list_message = list_size_message(list_size)
     list_position_message = list_position_message(list_position)
+    topic_message = tag_message(tag, list_size) || "champion".pluralize(list_size)
 
     render json: {
       speech: (
         "The #{list_position_message}#{list_order} #{list_message}" \
-        "#{"champion".pluralize(list_size)} in #{role} " \
-        "#{"is".en.plural_verb(list_size)} #{ranking_message}."
+        "#{topic_message} in #{role} #{"is".en.plural_verb(list_size)} " \
+        "#{ranking_message}."
       )
     }
   end
@@ -327,6 +328,11 @@ class ChampionsController < ApplicationController
 
   def list_size_message(size)
     size == 1 ? '' : "#{size.en.numwords} "
+  end
+
+  def tag_message(tag, size)
+    return if tag.blank?
+    tag.en.downcase.pluralize(size)
   end
 
   def list_position_message(size)
