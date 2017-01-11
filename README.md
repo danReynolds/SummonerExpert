@@ -112,18 +112,18 @@ Ask: **"What does Blade of the Ruined King do?"**
 
 Response:
 
-Here are the stats for Blade of the Ruined King:
-+25 Attack Damage +40%
-Attack Speed +10% Life Steal
-UNIQUE Passive: Basic attacks deal 8% of the target's current Health in bonus physical damage (max 60 vs. monsters and minions) on hit. Life Steal applies to this damage.
-UNIQUE Active: Deals 10% of target champion's maximum Health (min. 100) as physical damage, heals for the same amount, and steals 25% of the target's Movement Speed for 3 seconds (90 second cooldown).
+Here are the stats for Blade of the Ruined King:  
++25 Attack Damage +40%  
+Attack Speed +10% Life Steal  
+UNIQUE Passive: Basic attacks deal 8% of the target's current Health in bonus physical damage (max 60 vs. monsters and   minions) on hit. Life Steal applies to this damage.  
+UNIQUE Active: Deals 10% of target champion's maximum Health (min. 100) as physical damage, heals for the same amount, and   steals 25% of the target's Movement Speed for 3 seconds (90 second cooldown).  
 
-Here is the cost analysis:
-Cost: 3400
-Worth: 5250
-Efficiency: 154.4%
-Ignored Stats:
-- UNIQUE Active
+Here is the cost analysis:  
+Cost: 3400  
+Worth: 5250  
+Efficiency: 154.4%  
+Ignored Stats:  
+- UNIQUE Active  
 
 This item is gold efficient.
 
