@@ -165,6 +165,6 @@ Ask: **"What do they call Poppy?"**
 
 Response: "Poppy's title is Keeper of the Hammer"
 
-## We Want more Features!
+## We Want Your Suggestions!
 
-We're looking to add more functionality as people request them so feel free to get in touch and suggest valuable advice we can provide to help summoners.
+We're looking to add more functionality as people request them so leave feature requests, complaints and bugs [here](https://github.com/danReynolds/SummonerExpert/issues/new).
