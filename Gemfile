@@ -9,6 +9,7 @@ gem 'newrelic_rpm'
 gem 'rollbar'
 gem 'amatch'
 gem 'linguistics'
+gem 'thread'
 
 group :development, :test do
   gem 'pry'

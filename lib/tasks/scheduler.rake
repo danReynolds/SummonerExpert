@@ -2,6 +2,7 @@ require "#{Rails.root}/lib/external_api.rb"
 require "#{Rails.root}/lib/riot_api.rb"
 require "#{Rails.root}/lib/champion_gg_api.rb"
 require "#{Rails.root}/lib/league_thekev_api.rb"
+require 'thread/pool'
 include RiotApi
 include ChampionGGApi
 include LeagueThekevApi
@@ -25,21 +26,28 @@ namespace :fetch_champion_gg do
 
   desc 'Cache all items data'
   task cache_items: :environment do
+    THREAD_POOL_SIZE = 20
     puts 'Fetching item data from champion.gg'
 
     items = RiotApi::RiotApi.get_items
     item_names = parse_names(items)
     Rails.cache.write(:items, item_names)
 
+    pool = Thread.pool(THREAD_POOL_SIZE)
+
     items.each do |_, item|
       if item[:description]
-        efficiency = LeagueThekevApi::LeagueThekevApi.get_item(item[:id])
-        item[:description] = format_description(item[:description])
-        item[:cost_analysis] = efficiency.with_indifferent_access[:data]
+        pool.process do
+          efficiency = LeagueThekevApi::LeagueThekevApi.get_item(item[:id])
+          item[:description] = format_description(item[:description])
+          item[:cost_analysis] = efficiency.with_indifferent_access[:data]
           .first[:attributes]
-        Rails.cache.write({ items: item[:name] }, item)
+          Rails.cache.write({ items: item[:name] }, item)
+        end
       end
     end
+
+    pool.shutdown
     puts 'Fetched item data from champion.gg'
   end
 
