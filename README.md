@@ -24,13 +24,13 @@ Summoner Expert allows you to ask text and voice commands about League of Legend
 
 <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FsummonerExpert&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=215901852151837" width="340" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 
-Send a message to https://www.facebook.com/summonerExpert
+Send a message on [Facebook](https://www.facebook.com/summonerExpert).
 
 ## Twitter
 
 <iframe src="http://twitframe.com/show?url=https://twitter.com/SummonerExpert/status/813881070957588481" scrolling="no" frameborder="0" allowTransparency="true" width="340" height="240"></iframe>
 
-Send a DM to https://twitter.com/SummonerExpert
+Send a DM on [Twitter](https://twitter.com/SummonerExpert).
 
 ## Slack
 
@@ -40,7 +40,7 @@ Click the button above to add the Summoner Expert bot to your team.
 
 ## Web 
 
-Converse at http://summonerexpert.com
+Converse [online](http://summonerexpert.com).
 
 ## Google Actions
 
