@@ -165,6 +165,25 @@ Ask: **"What do they call Poppy?"**
 
 Response: "Poppy's title is Keeper of the Hammer"
 
+## Roadmap
+
+Things we want to have:
+
+1. Stats by ELO
+2. Stats about particular summoners
+3. Stats about team comps
+4. Champion synergy
+5. Champion performance over game length
+6. Item efficiency
+
+Why we don't:
+
+We are currently only using Champion.gg for our statistics, which has been a great experience. Champion.gg does not, however, expose all of the data on the site, such as synergy in their [public API](http://api.champion.gg/docs/).
+
+Send them a tweet [here](https://twitter.com/champion_gg?lang=en) to release synergy and performance over game length data!
+
+We're going to look into compiling stats ourselves to provide information like stats by ELO, synergy and item efficiency and are actively looking for other sources for this data.
+
 ## We Want Your Suggestions!
 
 We're looking to add more functionality as people request them so leave feature requests, complaints and bugs [here](https://github.com/danReynolds/SummonerExpert/issues/new).
