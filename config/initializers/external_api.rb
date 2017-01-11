@@ -5,3 +5,7 @@ RIOT_API = YAML.load_file(
 CHAMPION_GG_API = YAML.load_file(
   "#{Rails.root.to_s}/config/champion_gg_api.yml"
 ).with_indifferent_access
+
+LEAGUE_THEKEV_API = YAML.load_file(
+  "#{Rails.root.to_s}/config/league_thekev_api.yml"
+).with_indifferent_access
