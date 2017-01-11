@@ -27,7 +27,7 @@ namespace :fetch_champion_gg do
   desc 'Cache all items data'
   task cache_items: :environment do
     THREAD_POOL_SIZE = 20
-    puts 'Fetching item data from champion.gg'
+    puts 'Fetching item data from Riot and LeagueThekev'
 
     items = RiotApi::RiotApi.get_items
     item_names = parse_names(items)

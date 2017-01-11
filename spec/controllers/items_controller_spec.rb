@@ -25,7 +25,7 @@ describe ItemsController, type: :controller do
   describe 'POST show' do
     let(:action) { :show }
     let(:response_text) do
-      "Here are the stats for Blade of the Ruined King:\n+25 Attack Damage\n+40% Attack Speed\n+10% Life Steal\nUNIQUE Passive: Basic attacks deal 8% of the target's current Health in bonus physical damage (max 60 vs. monsters and minions) on hit. Life Steal applies to this damage.\nUNIQUE Active: Deals 10% of target champion's maximum Health (min. 100) as physical damage, heals for the same amount, and steals 25% of the target's Movement Speed for 3 seconds (90 second cooldown).\n\nHere is the cost analysis: \nCost: 3400\nWorth: 5250\nEfficiency: 100%\nIgnored Stats: \n- UNIQUE Active\n \nThis item is gold efficient."
+      "Here are the stats for Blade of the Ruined King:\n+25 Attack Damage\n+40% Attack Speed\n+10% Life Steal\nUNIQUE Passive: Basic attacks deal 8% of the target's current Health in bonus physical damage (max 60 vs. monsters and minions) on hit. Life Steal applies to this damage.\nUNIQUE Active: Deals 10% of target champion's maximum Health (min. 100) as physical damage, heals for the same amount, and steals 25% of the target's Movement Speed for 3 seconds (90 second cooldown).\n\nHere is the cost analysis: \nCost: 3400\nWorth: 5250\nEfficiency: 154.4%\nIgnored Stats: \n- UNIQUE Active\n \nThis item is gold efficient."
     end
 
     it_should_behave_like 'load item'
