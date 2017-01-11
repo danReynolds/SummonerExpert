@@ -1,8 +1,10 @@
 require "#{Rails.root}/lib/external_api.rb"
 require "#{Rails.root}/lib/riot_api.rb"
 require "#{Rails.root}/lib/champion_gg_api.rb"
+require "#{Rails.root}/lib/league_thekev_api.rb"
 include RiotApi
 include ChampionGGApi
+include LeagueThekevApi
 include ActionView::Helpers::SanitizeHelper
 
 desc 'Fetch all champion data from champion.gg nightly'
@@ -29,13 +31,19 @@ namespace :fetch_champion_gg do
     item_names = parse_names(items)
     Rails.cache.write(:items, item_names)
 
+    threads = []
     items.each do |_, item|
-      if item[:description]
-        item[:description] = format_description(item[:description])
-        Rails.cache.write({ items: item[:name] }, item)
+      threads << Thread.new do
+        if item[:description]
+          efficiency = LeagueThekevApi::LeagueThekevApi.get_item(item[:id])
+          item[:description] = format_description(item[:description])
+          item[:cost_analysis] = efficiency.with_indifferent_access[:data]
+            .first[:attributes]
+          Rails.cache.write({ items: item[:name] }, item)
+        end
       end
     end
-
+    threads.each { |thread| thread.join }
     puts 'Fetched item data from champion.gg'
   end
 

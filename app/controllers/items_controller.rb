@@ -3,8 +3,27 @@ class ItemsController < ApplicationController
   before_action :load_item
 
   def show
+    cost_analysis = @item[:cost_analysis]
+    ignored_stats = cost_analysis[:ignored_stats].keys.join("\n")
+    efficiency = cost_analysis[:efficiency]
+
+    cost_analysis_message = (
+      "Cost: #{cost_analysis[:cost].to_i}\n" \
+      "Worth: #{cost_analysis[:worth].to_i}\n" \
+      "Efficiency: #{efficiency}\n" \
+      "Ignored Stats: \n#{ignored_stats}\n"
+    )
+    efficiency_message = (
+      "This item #{efficiency.to_f.positive? ? 'is' : 'is not'} gold " \
+      "efficient."
+    )
+
     render json: {
-      speech: "Here are the stats for #{@item[:name]}:\n #{@item[:description]}"
+      speech: (
+        "Here are the stats for #{@item[:name]}:\n#{@item[:description]}\n\n" \
+        "Here is the cost analysis: \n#{cost_analysis_message} \n" \
+        "#{efficiency_message}"
+      )
     }
   end
 
