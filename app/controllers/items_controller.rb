@@ -8,16 +8,19 @@ class ItemsController < ApplicationController
     efficiency = cost_analysis[:efficiency]
 
     cost_analysis_message = (
-      "Cost: #{cost_analysis[:cost]}\n" \
-      "Worth: #{cost_analysis[:worth]}\n" \
+      "Cost: #{cost_analysis[:cost].to_i}\n" \
+      "Worth: #{cost_analysis[:worth].to_i}\n" \
       "Efficiency: #{efficiency}\n" \
       "Ignored Stats: \n#{ignored_stats}\n"
     )
-    efficiency_message = "This item #{efficiency.to_f.positive? ? 'is' : 'is not'} gold efficient."
+    efficiency_message = (
+      "This item #{efficiency.to_f.positive? ? 'is' : 'is not'} gold " \
+      "efficient."
+    )
 
     render json: {
       speech: (
-        "Here are the stats for #{@item[:name]}:\n #{@item[:description]} \n\n" \
+        "Here are the stats for #{@item[:name]}:\n#{@item[:description]}\n\n" \
         "Here is the cost analysis: \n#{cost_analysis_message} \n" \
         "#{efficiency_message}"
       )
