@@ -30,24 +30,20 @@ namespace :fetch_champion_gg do
     items = RiotApi::RiotApi.get_items
     item_names = parse_names(items)
     Rails.cache.write(:items, item_names)
-    failures = []
+
+    threads = []
     items.each do |_, item|
-      if item[:description]
-        begin
+      threads << Thread.new do
+        if item[:description]
           efficiency = LeagueThekevApi::LeagueThekevApi.get_item(item[:id])
           item[:description] = format_description(item[:description])
           item[:cost_analysis] = efficiency.with_indifferent_access[:data]
-          .first[:attributes]
-        rescue Exception => e
-          failures << {
-            id: item[:id],
-            error: e
-          }
+            .first[:attributes]
+          Rails.cache.write({ items: item[:name] }, item)
         end
-        Rails.cache.write({ items: item[:name] }, item)
       end
     end
-    binding.pry
+    threads.each { |thread| thread.join }
     puts 'Fetched item data from champion.gg'
   end
 
