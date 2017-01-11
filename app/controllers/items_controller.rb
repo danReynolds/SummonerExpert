@@ -4,14 +4,20 @@ class ItemsController < ApplicationController
 
   def show
     cost_analysis = @item[:cost_analysis]
-    ignored_stats = cost_analysis[:ignored_stats].keys.join("\n")
+    ignored_stats = cost_analysis[:ignored_stats].keys.map { |stat| "- #{stat}" }
     efficiency = cost_analysis[:efficiency]
+
+    ignored_stats_message = ''
+    unless ignored_stats.empty?
+      ignored_stats_message = (
+        "Ignored Stats: \n#{ignored_stats.join("\n")}\n"
+      )
+    end
 
     cost_analysis_message = (
       "Cost: #{cost_analysis[:cost].to_i}\n" \
       "Worth: #{cost_analysis[:worth].to_i}\n" \
-      "Efficiency: #{efficiency}\n" \
-      "Ignored Stats: \n#{ignored_stats}\n"
+      "Efficiency: #{efficiency}\n#{ignored_stats_message}" \
     )
     efficiency_message = (
       "This item #{efficiency.to_f.positive? ? 'is' : 'is not'} gold " \
