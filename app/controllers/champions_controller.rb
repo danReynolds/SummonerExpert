@@ -214,20 +214,16 @@ class ChampionsController < ApplicationController
   end
 
   def ally_tips
+    tip = remove_html_tags(@champion[:allytips].sample.to_s)
     render json: {
-      speech: (
-        "Here's a tip for playing as #{@name}: " \
-        "#{@champion[:allytips].sample.to_s}"
-      )
+      speech: "Here's a tip for playing as #{@name}: #{tip}"
     }
   end
 
   def enemy_tips
+    tip = remove_html_tags(@champion[:enemytips].sample.to_s)
     render json: {
-      speech: (
-        "Here's a tip for playing against #{@name}: " \
-        "#{@champion[:enemytips].sample.to_s}"
-      )
+      speech: "Here's a tip for playing against #{@name}: #{tip}"
     }
   end
 
@@ -267,7 +263,7 @@ class ChampionsController < ApplicationController
   end
 
   def remove_html_tags(speech)
-    speech.gsub!(HTML_TAGS, '')
+    speech.gsub(HTML_TAGS, '')
   end
 
   def load_champion
