@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       "Efficiency: #{efficiency.round(2)}%\n#{ignored_stats_message}" \
     )
     efficiency_message = (
-      "This item #{efficiency.to_f.positive? ? 'is' : 'is not'} gold " \
+      "This item #{efficiency > 100 ? 'is' : 'is not'} gold " \
       "efficient."
     )
 
