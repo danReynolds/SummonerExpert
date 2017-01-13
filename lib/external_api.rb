@@ -1,16 +1,21 @@
 class ExternalApi
   class << self
     attr_accessor :api
-    
+
     def fetch_response(endpoint)
       append_symbol = endpoint.include?('?') ? '&' : '?'
       uri = URI("#{endpoint}#{append_symbol}api_key=#{@api_key}")
-      response = JSON.parse(Net::HTTP.get(uri))
-      if response.is_a?(Hash)
-        response = response.with_indifferent_access
-        response[:data] ? response[:data] : response
+      response = Net::HTTP.get_response(uri)
+      return nil unless response.code.to_i == 200
+
+      body = JSON.parse(response.body)
+      if body.is_a?(Hash)
+        body = body.with_indifferent_access
+        body = body[:data] if body[:data]
       end
+      body
     end
+
     private
 
     def load_api(filename)
@@ -21,7 +26,7 @@ class ExternalApi
 
     def replace_url(url, args)
       args.inject(url) do |replaced_url, (key, val)|
-        replaced_url.gsub(/{#{key}}/, val)
+        replaced_url.gsub(/{#{key}}/, val.to_s)
       end
     end
   end

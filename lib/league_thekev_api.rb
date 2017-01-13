@@ -4,8 +4,9 @@ module LeagueThekevApi
     @api = load_api('league_thekev_api')
 
     class << self
-      def get_item(id)
-        fetch_response("#{@api[:item]}/#{id}/efficiency")
+      def get_item(args)
+        url = replace_url(@api[:item], args)
+        fetch_response(url).first[:attributes]
       end
     end
   end

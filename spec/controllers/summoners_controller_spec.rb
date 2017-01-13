@@ -15,6 +15,64 @@ describe SummonersController, type: :controller do
     JSON.parse(response.body).with_indifferent_access[:speech]
   end
 
+  shared_examples 'load summoner' do
+    it 'should load the summoner' do
+      expect(controller).to receive(:load_summoner).and_call_original
+      post action, params
+    end
+  end
+
+  describe '#load_summoner' do
+    context 'without valid region' do
+      before :each do
+        allow(controller).to receive(:summoner_params).and_return(
+          region: 'fake region',
+          summoner: 'mordequess'
+        )
+      end
+
+      it 'should state the region is invalid' do
+        expect(controller).to receive(:render).with(
+          json: { speech: 'region is not included in the list' }
+        )
+        expect(controller.send(:load_summoner)).to eq false
+      end
+    end
+
+    context 'without valid id' do
+      before :each do
+        allow(controller).to receive(:summoner_params).and_return(
+          region: 'na',
+          summoner: 'mordequess'
+        )
+        allow(RiotApi::RiotApi).to receive(:get_summoner_id).and_return(nil)
+      end
+
+      it 'should state the region is invalid' do
+        expect(controller).to receive(:render).with(
+          json: { speech: 'id could not be found for the given summoner name.' }
+        )
+        expect(controller.send(:load_summoner)).to eq false
+      end
+    end
+
+    context 'when valid' do
+      before :each do
+        allow(controller).to receive(:summoner_params).and_return(
+          region: 'na',
+          summoner: 'mordequess'
+        )
+        allow(RiotApi::RiotApi).to receive(:get_summoner_id).and_return(1)
+      end
+
+      it 'should assign the region and the summoner' do
+        expect(controller.send(:load_summoner)).to_not eq false
+        expect(assigns(:region).valid?).to eq true
+        expect(assigns(:summoner).valid?).to eq true
+      end
+    end
+  end
+
   describe 'POST show' do
     let(:action) { :show }
     let(:external_response) do
@@ -29,7 +87,10 @@ describe SummonersController, type: :controller do
       allow(RiotApi::RiotApi).to receive(:get_summoner_champions).and_return(
         external_response[:summoner_champions]
       )
+      allow(RiotApi::RiotApi).to receive(:get_summoner_id).and_return(1)
     end
+
+    it_should_behave_like 'load summoner'
 
     context 'on hot streak' do
       let(:response_text) do

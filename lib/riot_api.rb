@@ -38,10 +38,6 @@ module RiotApi
       mpregen: 'mana regeneration',
       spellblock: 'magic resist'
     }.freeze
-    QUEUE = {
-      RANKED_SOLO_5x5: 'Solo Queue',
-      RANKED_FLEX_SR: 'Flex Queue'
-    }.freeze
 
     class << self
       def get_champions
@@ -63,20 +59,22 @@ module RiotApi
 
       def get_summoner_stats(args)
         url = replace_url(@api[:summoner][:ranked], args)
-        id = args[:id]
+        id = args[:id].to_s
         fetch_response(url)[id].map do |division|
           division[:entries].detect do |entry|
             entry[:playerOrTeamId] == id
           end.merge(
-            queue: RiotApi::QUEUE[division[:queue].to_sym],
+            queue: RankedMode.new(mode: division[:queue].to_sym).mode,
             tier: division[:tier].downcase.capitalize
           )
         end
       end
 
       def get_summoner_id(args)
+        name = args[:name]
         url = "#{replace_url(@api[:summoner][:id], args)}/#{args[:name]}"
-        fetch_response(url)[args[:name]][:id].to_s
+        return unless response = fetch_response(url)
+        response[name][:id].to_i
       end
 
       def get_item(name)
@@ -91,11 +89,13 @@ module RiotApi
 
       def match_collection(name, collection_key)
         matcher = Matcher::Matcher.new(name)
-        collection = Rails.cache.read(collection_key).to_a
-        search_key = Hash.new
+        collection = Rails.cache.read(collection_key).values.map do |data|
+          data[:name]
+        end
 
-        if match = matcher.find_match(collection, SIMILARITY_THRESHOLD, :last)
-          search_key[collection_key] = match.result.last
+        search_key = Hash.new
+        if match = matcher.find_match(collection, SIMILARITY_THRESHOLD)
+          search_key[collection_key] = match.result
           Rails.cache.read(search_key)
         end
       end

@@ -4,8 +4,9 @@ module ChampionGGApi
     @api = load_api('champion_gg_api')
 
     class << self
-      def get_champion(name)
-        fetch_response("#{@api[:champion]}/#{name}")
+      def get_champion(args)
+        url = replace_url(@api[:champion], args)
+        a = fetch_response(url)
       end
     end
   end

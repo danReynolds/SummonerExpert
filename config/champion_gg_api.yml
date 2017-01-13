@@ -1,1 +1,1 @@
-champion: https://api.champion.gg/champion/
+champion: http://api.champion.gg/champion/{key}

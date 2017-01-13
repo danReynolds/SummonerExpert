@@ -1,6 +1,5 @@
 class SummonersController < ApplicationController
   include RiotApi
-  require 'thread/future'
   before_action :load_summoner
 
   BEST_CHAMPION_SIZE = 3
@@ -10,17 +9,14 @@ class SummonersController < ApplicationController
     id = @summoner.id
     region = @region.region
 
-    summoner_stats = Thread.future do
-      RiotApi.get_summoner_stats(id: id, region: region)
-    end
-    summoner_champions = Thread.future do
-      RiotApi.get_summoner_champions(id: id, region: region)
-    end
+    summoner_stats = RiotApi.get_summoner_stats(id: id, region: region)
+    summoner_champions = RiotApi.get_summoner_champions(id: id, region: region)
+
     render json: {
       speech: (
-        "#{name} #{summoner_stats_message(~summoner_stats)}. Playing " \
+        "#{name} #{summoner_stats_message(summoner_stats)}. Playing " \
         "#{name}'s most common champions, the summoner has a " \
-        "#{summoner_champions_message(~summoner_champions)}."
+        "#{summoner_champions_message(summoner_champions)}."
       )
     }
   end
@@ -60,7 +56,7 @@ class SummonersController < ApplicationController
   def load_summoner
     @region = Region.new(region: summoner_params[:region])
     unless @region.valid?
-      render json: @region.error_message
+      render json: { speech: @region.error_message }
       return false
     end
 
@@ -71,7 +67,7 @@ class SummonersController < ApplicationController
     )
 
     unless @summoner.valid?
-      render json: @summoner.error_message
+      render json: { speech: @summoner.error_message }
       return false
     end
   end
