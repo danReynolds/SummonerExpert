@@ -20,4 +20,8 @@ Rails.application.routes.draw do
   namespace :items do
     post :show
   end
+
+  namespace :summoners do
+    post :show
+  end
 end

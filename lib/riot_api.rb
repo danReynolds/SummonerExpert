@@ -5,6 +5,9 @@ module RiotApi
     include Matcher
 
     @api_key = ENV['RIOT_API_KEY']
+    @api = load_api('riot_api')
+
+    # Constants related to the Riot Api
     SIMILARITY_THRESHOLD = 0.7
     TOP = 'Top'.freeze
     JUNGLE = 'Jungle'.freeze
@@ -38,11 +41,40 @@ module RiotApi
 
     class << self
       def get_champions
-        fetch_response(RIOT_API[:champions])
+        fetch_response(@api[:champions])
       end
 
       def get_items
-        fetch_response(RIOT_API[:items])
+        fetch_response(@api[:items])
+      end
+
+      def get_summoner_champions(args)
+        url = "#{replace_url(@api[:summoner][:champions], args)}?season=#{@api[:season]}"
+        summoner_champions = fetch_response(url)[:champions]
+
+        summoner_champions.reject { |champ| champ[:id].zero? }.sort do |champ1, champ2|
+          champ2[:stats][:totalSessionsPlayed] <=> champ1[:stats][:totalSessionsPlayed]
+        end
+      end
+
+      def get_summoner_stats(args)
+        url = replace_url(@api[:summoner][:ranked], args)
+        id = args[:id].to_s
+        fetch_response(url)[id].map do |division|
+          division[:entries].detect do |entry|
+            entry[:playerOrTeamId] == id
+          end.merge(
+            queue: RankedMode.new(mode: division[:queue].to_sym).mode,
+            tier: division[:tier].downcase.capitalize
+          )
+        end
+      end
+
+      def get_summoner_id(args)
+        name = args[:name]
+        url = "#{replace_url(@api[:summoner][:id], args)}/#{args[:name]}"
+        return unless response = fetch_response(url)
+        response[name][:id].to_i
       end
 
       def get_item(name)
@@ -57,17 +89,15 @@ module RiotApi
 
       def match_collection(name, collection_key)
         matcher = Matcher::Matcher.new(name)
-        collection = Rails.cache.read(collection_key).to_a
-        search_key = Hash.new
+        collection = Rails.cache.read(collection_key).values.map do |data|
+          data[:name]
+        end
 
-        if match = matcher.find_match(collection, SIMILARITY_THRESHOLD, :last)
-          search_key[collection_key] = match.result.last
+        search_key = Hash.new
+        if match = matcher.find_match(collection, SIMILARITY_THRESHOLD)
+          search_key[collection_key] = match.result
           Rails.cache.read(search_key)
         end
-      end
-
-      def fetch_response(endpoint)
-        super(endpoint).with_indifferent_access[:data]
       end
     end
   end

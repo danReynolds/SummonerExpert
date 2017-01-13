@@ -13,6 +13,7 @@ gem 'thread'
 
 group :development, :test do
   gem 'pry'
+  gem 'rails-controller-testing'
   gem 'pry-stack_explorer'
   gem 'pry-byebug'
   gem 'byebug', platform: :mri

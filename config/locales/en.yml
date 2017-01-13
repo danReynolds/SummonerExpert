@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activemodel:
+    errors:
+      models:
+        summoner:
+          attributes:
+            id:
+              not_a_number: "could not be found for the given summoner name."

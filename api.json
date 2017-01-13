@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-01-03T19:54:25.607Z",
+	"__export_date": "2017-01-13T18:46:21.178Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483473221484,
+			"modified": 1484331985824,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
@@ -35,7 +35,7 @@
 		{
 			"_id": "req_30337ed27c9444deb392be7f6b1ff2be",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589472,
+			"modified": 1483487305966,
 			"created": 1482600505061,
 			"url": "{{ url }}",
 			"name": "champions/counters",
@@ -219,14 +219,14 @@
 		{
 			"_id": "req_7cd5d9c73dca4175b0aea1c3fcd5fe62",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483470117093,
+			"modified": 1484173733570,
 			"created": 1483470077177,
 			"url": "{{ url }}",
 			"name": "items/show",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"7f7b2994-551f-49a3-9809-0be01604adc4\",\n  \"timestamp\": \"2017-01-03T19:01:51.96Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of the Ruined King do?\",\n    \"action\": \"items/show\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"item\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: ef8e1507-35b0-40ae-8162-6b77596ff145\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}"
+				"text": "{\n  \"id\": \"29c86ade-734a-4a97-aada-692db2b89ca0\",\n  \"timestamp\": \"2017-01-03T20:00:49.236Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of Ruined King do?\",\n    \"action\": \"items/show\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"item\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: cd8e53c5-2a8e-4e13-baf6-01b41284b1df\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}\n"
 			},
 			"parameters": [],
 			"headers": [
@@ -237,6 +237,29 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1483470077177,
+			"_type": "request"
+		},
+		{
+			"_id": "req_8a9b75d53d5e479e96ace9d7ef3845db",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1484333173782,
+			"created": 1484257755665,
+			"url": "{{ url }}",
+			"name": "summoners/show",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"aa3606ab-f191-4234-b55c-8796708a70e6\",\n  \"timestamp\": \"2017-01-12T21:48:59.443Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"look up mordequess\",\n    \"action\": \"summoners/show\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"summoner\": \"mordequess\",\n\t  \"region\": \"na\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"mordequess\",\n          \"summoner\": \"mordequess\",\n          \"champion.original\": \"lookup mordequess\",\n          \"lane\": \"\",\n          \"champion\": \"lookup mordequess\"\n        },\n        \"lifespan\": 4\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"b89e6c2a-3925-4cd5-89c1-5e77b3a0ac37\",\n      \"webhookUsed\": \"false\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"19a23ebb-39ff-407c-9654-fe4b6eac9815\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1484257755665,
 			"_type": "request"
 		},
 		{
@@ -288,14 +311,14 @@
 		{
 			"_id": "req_d80c7036b7114f4b8b2e7016164ddd6a",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589462,
+			"modified": 1484006878476,
 			"created": 1482688888018,
 			"url": "{{ url }}",
 			"name": "champions/ranking",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"fae959ef-bcb9-4d72-9447-bdeeefa39cf3\",\n  \"timestamp\": \"2016-12-25T18:21:04.01Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who is the best top laner?\",\n    \"action\": \"champions/ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"lane\": \"Top\",\n      \"list_size\": \"3\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"c30d746b-3ea6-4e26-b07e-26f6432659bd\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: afc0d19c-d450-4541-a8a9-29decb387b3c\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
+				"text": "{\n  \"id\": \"fae959ef-bcb9-4d72-9447-bdeeefa39cf3\",\n  \"timestamp\": \"2016-12-25T18:21:04.01Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who is the best top laner?\",\n    \"action\": \"champions/ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"lane\": \"Top\",\n      \"list_size\": \"3\",\n\t  \"list_order\": \"best\",\n\t  \"list_position\": \"1\",\n\t  \"tag\": \"Assassin\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"c30d746b-3ea6-4e26-b07e-26f6432659bd\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: afc0d19c-d450-4541-a8a9-29decb387b3c\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -311,14 +334,14 @@
 		{
 			"_id": "req_dada373cb4e4427b85a2cfaee9c59e64",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589461,
+			"modified": 1483487633670,
 			"created": 1481786672032,
 			"url": "{{ url }}",
 			"name": "champions/title",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": " {\n  \"id\": \"012f4430-c330-4122-b0dc-21a24ae1f872\",\n  \"timestamp\": \"2016-12-16T05:30:13.648Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the title of Sona?\",\n    \"action\": \"champions/title\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Sona\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5a3e784d-0dae-42fc-bce9-957c07af09f9\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/title\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Sona's title is Maven of the Strings\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Sona's title is Maven of the Strings\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": " {\n  \"id\": \"012f4430-c330-4122-b0dc-21a24ae1f872\",\n  \"timestamp\": \"2016-12-16T05:30:13.648Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the title of Sona?\",\n    \"action\": \"champions/title\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Sonas\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5a3e784d-0dae-42fc-bce9-957c07af09f9\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/title\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Sona's title is Maven of the Strings\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Sona's title is Maven of the Strings\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [

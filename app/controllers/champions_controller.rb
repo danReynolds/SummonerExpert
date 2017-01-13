@@ -26,7 +26,7 @@ class ChampionsController < ApplicationController
     rankings.reverse! if list_order.to_sym == RANKING_LIST_ORDER[:asc]
 
     ranking_message = rankings.first(list_size).map do |role_data|
-      champions[role_data[:key]]
+      champions[role_data[:key]][:name]
     end.en.conjunction(article: false)
     list_message = list_size_message(list_size)
     list_position_message = list_position_message(list_position)
@@ -248,7 +248,7 @@ class ChampionsController < ApplicationController
   def parse_ability_order(abilities)
     first_abilities = abilities.first(3)
 
-    # Handle the case where you take two of the same abililty to begin
+    # Handle the case where you take two of the same ability to begin
     if first_abilities == first_abilities.uniq
       max_order_abilities = abilities[3..-1]
     else
