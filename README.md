@@ -48,6 +48,14 @@ Ask for Summoner Expert when using your Google Assistant enabled device such as 
 
 # Commands
 
+**Summoners**:
+
+Purpose: Determine how a Summoner is doing.
+
+Ask: **Lookup Imaqtpie in NA**
+
+Response: "Imaqtpie is ranked Challenger I with 462LP in Solo Queue. Playing Imaqtpie's most common champions, the summoner has a a 75.0% win rate on Twitch in 52 games, a 54.05% win rate on Vayne in 37 games, and a 61.76% win rate on Jhin in 34 games."
+
 **Best Champions**:
 
 Purpose: Determine the current best champions by role.
