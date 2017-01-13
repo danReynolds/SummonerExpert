@@ -74,7 +74,7 @@ module RiotApi
         name = args[:name]
         url = "#{replace_url(@api[:summoner][:id], args)}/#{args[:name]}"
         return unless response = fetch_response(url)
-        response[name][:id].to_i
+        response.values.first[:id].to_i
       end
 
       def get_item(name)
