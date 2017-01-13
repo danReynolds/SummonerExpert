@@ -11,7 +11,7 @@ class SummonersController < ApplicationController
     render json: {
       speech: (
         "#{@name} #{summoner_stats_message(~summoner_stats)}. Playing " \
-        "#{@name}'s best champions, the summoner has a " \
+        "#{@name}'s most common champions, the summoner has a " \
         "#{summoner_champions_message(~summoner_champions)}."
       )
     }
@@ -20,11 +20,16 @@ class SummonersController < ApplicationController
   private
 
   def summoner_stats_message(summoner_stats)
-    summoner_stats.map do |stats|
-      hot_streak_message = stats[:isHotStreak] ? 'and is on a hot streak ' : ''
+    hot_streak = false
+    message = summoner_stats.map do |stats|
+      hot_streak ||= stats[:isHotStreak]
       "is ranked #{stats[:tier]} #{stats[:division]} with " \
-      "#{stats[:leaguePoints]}LP #{hot_streak_message}in #{stats[:queue]}"
+      "#{stats[:leaguePoints]}LP in #{stats[:queue]}"
     end.en.conjunction(article: false)
+
+    message.tap do
+      message.prepend('is on a hot streak. The player ') if hot_streak
+    end
   end
 
   def summoner_champions_message(summoner_champions)

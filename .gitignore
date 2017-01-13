@@ -25,3 +25,4 @@
 creds.data
 gactions
 app/scripts/*
+coverage/*
