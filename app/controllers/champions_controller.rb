@@ -248,7 +248,7 @@ class ChampionsController < ApplicationController
   def parse_ability_order(abilities)
     first_abilities = abilities.first(3)
 
-    # Handle the case where you take two of the same abililty to begin
+    # Handle the case where you take two of the same ability to begin
     if first_abilities == first_abilities.uniq
       max_order_abilities = abilities[3..-1]
     else

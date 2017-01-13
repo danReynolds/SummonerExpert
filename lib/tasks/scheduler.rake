@@ -18,9 +18,11 @@ namespace :fetch_champion_gg do
     strip_tags(prepared_text)
   end
 
-  def parse_names(obj)
-    obj.inject({}) do |names, (key, data)|
-      names.tap { names[key] = data[:name] if data[:name] }
+  def parse_objects(obj)
+    obj.inject({}) do |objs, (key, data)|
+      objs.tap do
+        objs[key] = data.slice(:name, :id) if data[:name]
+      end
     end
   end
 
@@ -30,8 +32,7 @@ namespace :fetch_champion_gg do
     puts 'Fetching item data from Riot and LeagueThekev'
 
     items = RiotApi::RiotApi.get_items
-    item_names = parse_names(items)
-    Rails.cache.write(:items, item_names)
+    Rails.cache.write(:items, parse_objects(items))
 
     pool = Thread.pool(THREAD_POOL_SIZE)
 
@@ -56,8 +57,7 @@ namespace :fetch_champion_gg do
     puts 'Fetching champion data from champion.gg'
 
     champions = RiotApi::RiotApi.get_champions
-    champion_names = parse_names(champions)
-    Rails.cache.write(:champions, champion_names)
+    Rails.cache.write(:champions, parse_objects(champions))
 
     champions.each do |_, champion_data|
       key = champion_data[:key]

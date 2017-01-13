@@ -35,6 +35,10 @@ module RiotApi
       mpregen: 'mana regeneration',
       spellblock: 'magic resist'
     }.freeze
+    QUEUE = {
+      RANKED_SOLO_5x5: 'Solo Queue',
+      RANKED_FLEX_SR: 'Flex Queue'
+    }.freeze
 
     class << self
       def get_champions
@@ -43,6 +47,32 @@ module RiotApi
 
       def get_items
         fetch_response(RIOT_API[:items])
+      end
+
+      def get_summoner_champions(id)
+        url = "#{RIOT_API[:summoner][:champions]}/#{id}/ranked?season=#{RIOT_API[:season]}"
+        summoner_champions = fetch_response(url)[:champions]
+
+        champions = Rails.cache.read(:champions)
+        summoner_champions.reject { |champ| champ[:id].zero? }.each do |champion|
+          details = champions.detect do |_, data|
+            data[:id] == champion[:id]
+          end
+          champion[:key] = details.first
+          champion[:name] = details.last[:name]
+        end
+      end
+
+      def get_summoner_stats(id)
+        fetch_response("#{RIOT_API[:summoner][:ranked]}/#{id}")[id].map do |division|
+          division[:entries].detect do |entry|
+            entry[:playerOrTeamId] == id
+          end.merge(queue: RiotApi::QUEUE[division[:queue].to_sym])
+        end
+      end
+
+      def get_summoner_id(name)
+        fetch_response("#{RIOT_API[:summoner][:id]}/#{name}")[name][:id].to_s
       end
 
       def get_item(name)
@@ -64,10 +94,6 @@ module RiotApi
           search_key[collection_key] = match.result.last
           Rails.cache.read(search_key)
         end
-      end
-
-      def fetch_response(endpoint)
-        super(endpoint).with_indifferent_access[:data]
       end
     end
   end
