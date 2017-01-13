@@ -42,7 +42,7 @@ namespace :fetch_champion_gg do
           efficiency = LeagueThekevApi::LeagueThekevApi.get_item(item[:id])
           item[:description] = format_description(item[:description])
           item[:cost_analysis] = efficiency.with_indifferent_access[:data]
-          .first[:attributes]
+            .first[:attributes]
           Rails.cache.write({ items: item[:name] }, item)
         end
       end

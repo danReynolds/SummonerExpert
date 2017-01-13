@@ -53,13 +53,8 @@ module RiotApi
         url = "#{RIOT_API[:summoner][:champions]}/#{id}/ranked?season=#{RIOT_API[:season]}"
         summoner_champions = fetch_response(url)[:champions]
 
-        champions = Rails.cache.read(:champions)
-        summoner_champions.reject { |champ| champ[:id].zero? }.each do |champion|
-          details = champions.detect do |_, data|
-            data[:id] == champion[:id]
-          end
-          champion[:key] = details.first
-          champion[:name] = details.last[:name]
+        summoner_champions.reject { |champ| champ[:id].zero? }.sort do |champ1, champ2|
+          champ2[:stats][:totalSessionsPlayed] <=> champ1[:stats][:totalSessionsPlayed]
         end
       end
 
@@ -67,7 +62,10 @@ module RiotApi
         fetch_response("#{RIOT_API[:summoner][:ranked]}/#{id}")[id].map do |division|
           division[:entries].detect do |entry|
             entry[:playerOrTeamId] == id
-          end.merge(queue: RiotApi::QUEUE[division[:queue].to_sym])
+          end.merge(
+            queue: RiotApi::QUEUE[division[:queue].to_sym],
+            tier: division[:tier].downcase.capitalize
+          )
         end
       end
 
