@@ -1,8 +1,8 @@
 season: SEASON2017
 summoner:
-  ranked: https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner
-  champions: https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner
-  id: https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name
-  details: https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner
+  ranked: https://{region}.api.pvp.net/api/lol/{region}/v2.5/league/by-summoner/{id}
+  champions: https://{region}.api.pvp.net/api/lol/{region}/v1.3/stats/by-summoner/{id}/ranked
+  id: https://{region}.api.pvp.net/api/lol/{region}/v1.4/summoner/by-name
+  details: https://{region}.api.pvp.net/api/lol/{region}/v1.3/stats/by-summoner
 champions: https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=all
 items: https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=stats

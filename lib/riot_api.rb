@@ -5,6 +5,9 @@ module RiotApi
     include Matcher
 
     @api_key = ENV['RIOT_API_KEY']
+    @api = load_api('riot_api')
+
+    # Constants related to the Riot Api
     SIMILARITY_THRESHOLD = 0.7
     TOP = 'Top'.freeze
     JUNGLE = 'Jungle'.freeze
@@ -42,15 +45,15 @@ module RiotApi
 
     class << self
       def get_champions
-        fetch_response(RIOT_API[:champions])
+        fetch_response(@api[:champions])
       end
 
       def get_items
-        fetch_response(RIOT_API[:items])
+        fetch_response(@api[:items])
       end
 
-      def get_summoner_champions(id)
-        url = "#{RIOT_API[:summoner][:champions]}/#{id}/ranked?season=#{RIOT_API[:season]}"
+      def get_summoner_champions(args)
+        url = "#{replace_url(@api[:summoner][:champions], args)}?season=#{@api[:season]}"
         summoner_champions = fetch_response(url)[:champions]
 
         summoner_champions.reject { |champ| champ[:id].zero? }.sort do |champ1, champ2|
@@ -58,8 +61,10 @@ module RiotApi
         end
       end
 
-      def get_summoner_stats(id)
-        fetch_response("#{RIOT_API[:summoner][:ranked]}/#{id}")[id].map do |division|
+      def get_summoner_stats(args)
+        url = replace_url(@api[:summoner][:ranked], args)
+        id = args[:id]
+        fetch_response(url)[id].map do |division|
           division[:entries].detect do |entry|
             entry[:playerOrTeamId] == id
           end.merge(
@@ -69,8 +74,9 @@ module RiotApi
         end
       end
 
-      def get_summoner_id(name)
-        fetch_response("#{RIOT_API[:summoner][:id]}/#{name}")[name][:id].to_s
+      def get_summoner_id(args)
+        url = "#{replace_url(@api[:summoner][:id], args)}/#{args[:name]}"
+        fetch_response(url)[args[:name]][:id].to_s
       end
 
       def get_item(name)
