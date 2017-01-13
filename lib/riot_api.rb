@@ -60,7 +60,10 @@ module RiotApi
       def get_summoner_stats(args)
         url = replace_url(@api[:summoner][:ranked], args)
         id = args[:id].to_s
-        fetch_response(url)[id].map do |division|
+
+        return unless stats = fetch_response(url)
+
+        stats[id].map do |division|
           division[:entries].detect do |entry|
             entry[:playerOrTeamId] == id
           end.merge(

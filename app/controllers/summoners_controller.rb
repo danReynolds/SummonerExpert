@@ -10,6 +10,7 @@ class SummonersController < ApplicationController
     region = @region.region
 
     summoner_stats = RiotApi.get_summoner_stats(id: id, region: region)
+    return render json: no_games_response unless summoner_stats
     summoner_champions = RiotApi.get_summoner_champions(id: id, region: region)
 
     render json: {
@@ -22,6 +23,10 @@ class SummonersController < ApplicationController
   end
 
   private
+
+  def no_games_response
+    { speech: "#{@summoner.name} has not played any games this season." }
+  end
 
   def summoner_stats_message(summoner_stats)
     hot_streak = false
