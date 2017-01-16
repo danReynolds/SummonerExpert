@@ -42,7 +42,8 @@ class ChampionsController < ApplicationController
   end
 
   def stats
-    stats = @champion[:stats]
+    name = @champion.name
+    stats = @champion.stats
     stat = champion_params[:stat]
     level = champion_params[:level].to_i
     stat_value = stats[stat]
@@ -58,19 +59,19 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        "#{@name} has #{stat_value.round} #{stat_name}#{level_message}."
+        "#{name} has #{stat_value.round} #{stat_name}#{level_message}."
       )
     }
   end
 
   def description
-    play_style = @champion[:tags].en.conjunction
-    roles = @champion[:champion_gg].map { |variant| variant[:role] }
+    play_style = @champion.tags.en.conjunction
+    roles = @champion.roles.map { |variant| variant[:role] }
       .en.conjunction(article: false)
 
     render json: {
       speech: (
-        "#{@name}, the #{@champion[:title]}, is #{play_style} and " \
+        "#{@champion.name}, the #{@champion.title}, is #{play_style} and " \
         "is played as #{roles}."
       )
     }
@@ -80,7 +81,7 @@ class ChampionsController < ApplicationController
     order = parse_ability_order(@role_data[:skills][:highestWinPercent][:order])
     render json: {
       speech: (
-        "The highest win rate on #{@name} #{@role} has you start " \
+        "The highest win rate on #{@champion.name} #{@role} has you start " \
         "#{order[:firstOrder].join(', ')} and then max " \
         "#{order[:maxOrder].join(', ')}."
       )
@@ -93,29 +94,33 @@ class ChampionsController < ApplicationController
     end.en.conjunction(article: false)
 
     render json: {
-      speech: "The highest win rate build for #{@name} #{@role} is #{build}."
+      speech: (
+        "The highest win rate build for #{@champion.name} #{@role} is #{build}."
+      )
     }
   end
 
   def matchup
     role = champion_params[:lane]
     champion_query = champion_params[:champion1].strip
-    unless other_champion = RiotApi.get_champion(champion_query)
-      render json: champion_not_found_response(champion_query)
+    other_champion = Champion.new(name: champion_query)
+
+    unless other_champion.valid?
+      render json: { speech: other_champion.error_message }
       return false
     end
 
-    shared_roles = @champion[:champion_gg].map do |role_data|
+    shared_roles = @champion.roles.map do |role_data|
       role_data[:role]
-    end & other_champion[:champion_gg].map do |role_data|
+    end & other_champion.roles.map do |role_data|
       role_data[:role]
     end
 
     if shared_roles.length.zero? || !role.blank? && !shared_roles.include?(role)
       return render json: {
         speech: (
-          "#{@name} and #{other_champion[:name]} do not typically play " \
-          "against eachother in #{role.blank? ? 'any role' : role}."
+          "#{@champion.name} and #{other_champion.name} do not typically " \
+          "play against eachother in #{role.blank? ? 'any role' : role}."
         )
       }
     end
@@ -128,19 +133,19 @@ class ChampionsController < ApplicationController
       end
     end
 
-    champion_role = find_by_role(@champion, role)
-    other_champion_role = find_by_role(other_champion, role)
+    champion_role = @champion.find_by_role(role)
+    other_champion_role = other_champion.find_by_role(role)
 
     matchup = champion_role[:matchups].detect do |matchup|
-      matchup[:key] == other_champion[:key]
+      matchup[:key] == other_champion.key
     end
     change = matchup[:winRateChange] > 0 ? 'better' : 'worse'
 
     return render json: {
       speech: (
-        "#{@name} got #{change} against #{other_champion[:name]} in the " \
-        "latest patch and has a win rate of #{matchup[:winRate]}% against " \
-        "#{other_champion[:title]} in #{role}."
+        "#{@champion.name} got #{change} against #{other_champion.name} in " \
+        "the latest patch and has a win rate of #{matchup[:winRate]}% " \
+        "against #{other_champion.title} in #{role}."
       )
     }
   end
@@ -159,19 +164,22 @@ class ChampionsController < ApplicationController
       "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
     render json: {
-      speech: "The best #{list_message}counters for #{@name} #{@role} are " \
-      "#{counters}."
+      speech: (
+        "The best #{list_message}counters for #{@champion.name} " \
+        "#{@role} are #{counters}."
+      )
     }
   end
 
   def lane
     overall = @role_data[:overallPosition]
+    role_size = Rails.cache.read(rankings: @role).length.en.numwords
     change = overall[:change] > 0 ? 'better' : 'worse'
 
     render json: {
       speech: (
-        "#{@name} got #{change} in the last patch and is currently ranked " \
-        "#{overall[:position].en.ordinate} with a " \
+        "#{@champion.name} got #{change} in the last patch and is currently " \
+        "ranked #{overall[:position].en.ordinate} out of #{role_size} with a " \
         "#{@role_data[:patchWin].last}% win rate and a " \
         "#{@role_data[:patchPlay].last}% play rate as #{@role}."
       )
@@ -181,14 +189,14 @@ class ChampionsController < ApplicationController
   def ability
     ability = champion_params[:ability].to_sym
     if ability == :passive
-      spell = @champion[:passive]
+      spell = @champion.passive
     else
-      spell = @champion[:spells][RiotApi::ABILITIES[ability]]
+      spell = @champion.spells[RiotApi::ABILITIES[ability]]
     end
 
     render json: {
       speech: (
-        "#{@name}'s #{ability} ability is called " \
+        "#{@champion.name}'s #{ability} ability is called " \
         "#{spell[:name]}. #{spell[:sanitizedDescription]}"
       )
     }
@@ -196,54 +204,38 @@ class ChampionsController < ApplicationController
 
   def cooldown
     ability = champion_params[:ability].to_sym
-    spell = @champion[:spells][RiotApi::ABILITIES[ability]]
+    spell = @champion.spells[RiotApi::ABILITIES[ability]]
     rank = champion_params[:rank].split(' ').last.to_i
 
     render json: {
       speech: (
-        "#{@name}'s #{ability} ability, #{spell[:name]}, has a cooldown of " \
-        "#{spell[:cooldown][rank - 1].to_i} seconds at rank #{rank}."
+        "#{@champion.name}'s #{ability} ability, #{spell[:name]}, has a " \
+        "cooldown of #{spell[:cooldown][rank - 1].to_i} seconds at rank #{rank}."
       )
     }
   end
 
   def title
     render json: {
-      speech: "#{@name}'s title is #{@champion[:title]}."
+      speech: "#{@champion.name}'s title is #{@champion.title}."
     }
   end
 
   def ally_tips
-    tip = remove_html_tags(@champion[:allytips].sample.to_s)
+    tip = remove_html_tags(@champion.allytips.sample.to_s)
     render json: {
-      speech: "Here's a tip for playing as #{@name}: #{tip}"
+      speech: "Here's a tip for playing as #{@champion.name}: #{tip}"
     }
   end
 
   def enemy_tips
-    tip = remove_html_tags(@champion[:enemytips].sample.to_s)
+    tip = remove_html_tags(@champion.enemytips.sample.to_s)
     render json: {
-      speech: "Here's a tip for playing against #{@name}: #{tip}"
+      speech: "Here's a tip for playing against #{@champion.name}: #{tip}"
     }
   end
 
   private
-
-  def find_by_role(champion, role)
-    champion_gg = champion[:champion_gg]
-    if role.blank?
-      if champion_gg.length == 1
-        champion_role = champion_gg.first
-        return champion_role
-      else
-        return nil
-      end
-    end
-
-    champion_gg.detect do |champion_data|
-      champion_data[:role] == role
-    end
-  end
 
   def parse_ability_order(abilities)
     first_abilities = abilities.first(3)
@@ -267,18 +259,11 @@ class ChampionsController < ApplicationController
   end
 
   def load_champion
-    champion_query = champion_params[:champion].strip
-    if champion_query.blank?
-      render json: no_champion_specified_response
+    @champion = Champion.new(name: champion_params[:champion])
+    unless @champion.valid?
+      render json: { speech: @champion.error_message }
       return false
     end
-
-    unless @champion = RiotApi.get_champion(champion_query)
-      render json: champion_not_found_response(champion_query)
-      return false
-    end
-
-    @name = @champion[:name]
   end
 
   def do_not_play_response(name, role)
@@ -292,14 +277,6 @@ class ChampionsController < ApplicationController
     }
   end
 
-  def no_champion_specified_response
-    { speech: 'What champion are you looking for?' }
-  end
-
-  def champion_not_found_response(name)
-    { speech: "I could not find a champion called '#{name}'." }
-  end
-
   def ask_for_role_response
     { speech: 'What role are they in?' }
   end
@@ -310,7 +287,7 @@ class ChampionsController < ApplicationController
 
   def verify_role
     @role = champion_params[:lane]
-    unless @role_data = find_by_role(@champion, @role)
+    unless @role_data = @champion.find_by_role(@role)
       if @role.blank?
         render json: ask_for_role_response
       else

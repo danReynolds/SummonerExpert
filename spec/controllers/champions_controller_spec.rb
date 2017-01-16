@@ -29,68 +29,27 @@ describe ChampionsController, type: :controller do
     end
   end
 
-  describe '#find_by_role' do
-    let(:champion) { Rails.cache.read(champions: 'Bard') }
-
-    context 'with a role provided' do
-      let(:role) { 'Support' }
-      context 'with a matching role' do
-        it 'should return the data for that role' do
-          expect(controller.send(:find_by_role, champion, role)).to eq(
-            champion[:champion_gg].first
-          )
-        end
-      end
-
-      context 'without a matching role' do
-        let(:role) { 'Made up role' }
-
-        it 'should return no data' do
-          expect(controller.send(:find_by_role, champion, role)).to eq nil
-        end
-      end
-    end
-
-    context 'without a role provided' do
-      let(:role) { '' }
-
-      context 'with multiple roles' do
-        before :each do
-          champion[:champion_gg] << champion[:champion_gg].first
-        end
-
-        it 'should return no data' do
-          expect(controller.send(:find_by_role, champion, role)).to eq nil
-        end
-      end
-
-      context 'with only one role' do
-        it 'should return the data for that role' do
-          expect(controller.send(:find_by_role, champion, role)).to eq(
-            champion[:champion_gg].first
-          )
-        end
-      end
-    end
-  end
-
   describe '#verify_role' do
-    let(:champion) { 'Bard' }
+    let(:champion) { Champion.new(name: 'Bard') }
+
+    before :each do
+      controller.instance_variable_set(:@champion, champion)
+    end
 
     context 'with role' do
       let(:role) { 'Support' }
 
       context 'with role data' do
         let(:role_data) {
-          Rails.cache.read(champions: 'Bard')[:champion_gg].first
+          champion.roles.first
         }
 
         it 'should return the role data' do
           allow(controller).to receive(:champion_params).and_return({
-            champion: champion,
+            champion: champion.name,
             lane: role
           })
-          expect(controller).to receive(:find_by_role).and_return(role_data)
+          expect(champion).to receive(:find_by_role).and_return(role_data)
           controller.send(:verify_role)
         end
       end
@@ -98,10 +57,10 @@ describe ChampionsController, type: :controller do
       context 'without role data' do
         it 'should return the do not play response' do
           allow(controller).to receive(:champion_params).and_return({
-            champion: champion,
+            champion: champion.name,
             lane: role
           })
-          expect(controller).to receive(:find_by_role).and_return(nil)
+          expect(champion).to receive(:find_by_role).and_return(nil)
           expect(controller).to receive(:render).with({
             json: controller.send(:do_not_play_response, nil, role)
           })
@@ -115,14 +74,14 @@ describe ChampionsController, type: :controller do
 
       context 'with only one role' do
         let(:role_data) {
-          Rails.cache.read(champions: 'Bard')[:champion_gg].first
+          Champion.new(name: 'Bard').roles.first
         }
 
         it 'should return the only role data' do
           allow(controller).to receive(:champion_params).and_return({
-            champion: champion
+            champion: champion.name
           })
-          expect(controller).to receive(:find_by_role).and_return(role_data)
+          expect(champion).to receive(:find_by_role).and_return(role_data)
           controller.send(:verify_role)
         end
       end
@@ -130,9 +89,9 @@ describe ChampionsController, type: :controller do
       context 'with multiple roles' do
         it 'should return the ask for role response' do
           allow(controller).to receive(:champion_params).and_return({
-            champion: champion
+            champion: champion.name
           })
-          expect(controller).to receive(:find_by_role).and_return(nil)
+          expect(champion).to receive(:find_by_role).and_return(nil)
           expect(controller).to receive(:render).with({
             json: controller.send(:ask_for_role_response)
           })
@@ -148,7 +107,11 @@ describe ChampionsController, type: :controller do
         allow(controller).to receive(:champion_params).and_return({
           champion: 'Bard'
         })
-        expect(controller.send(:load_champion)).to eq 'Bard'
+
+        controller.send(:load_champion)
+
+        expect(assigns(:champion).valid?).to eq true
+        expect(assigns(:champion).name).to eq 'Bard'
       end
     end
 
@@ -157,7 +120,11 @@ describe ChampionsController, type: :controller do
         allow(controller).to receive(:champion_params).and_return({
           champion: 'Bardo'
         })
-        expect(controller.send(:load_champion)).to eq 'Bard'
+
+        controller.send(:load_champion)
+
+        expect(assigns(:champion).valid?).to eq true
+        expect(assigns(:champion).name).to eq 'Bard'
       end
     end
 
@@ -166,12 +133,12 @@ describe ChampionsController, type: :controller do
         allow(controller).to receive(:champion_params).and_return({
           champion: 'This is not a valid name'
         })
-        expect(controller).to receive(:render).with({
-          json: controller.send(
-            :champion_not_found_response, 'This is not a valid name'
-          )
-        })
+
+        expect(controller).to receive(:render).with(
+          json: { speech: 'name provided is not a valid champion name, to the best of my knowledge.' }
+        )
         expect(controller.send(:load_champion)).to eq false
+        expect(assigns(:champion).valid?).to eq false
       end
     end
   end
@@ -282,15 +249,15 @@ describe ChampionsController, type: :controller do
           "Azir and Heimerdinger do not typically play against eachother in any role."
         }
         before :each do
-          @champion = RiotApi::RiotApi.get_champion(champion_name)
-          @champion[:champion_gg] = @champion[:champion_gg].first(1)
-          @other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          @other_champion[:champion_gg] = @other_champion[:champion_gg].first(1)
+          @champion = Champion.new(name: champion_name)
+          @champion.roles = @champion.roles.first(1)
+          @other_champion = Champion.new(name: other_champion_name)
+          @other_champion.roles = @other_champion.roles.first(1)
 
-          @champion[:champion_gg].first[:role] = 'Top'
-          @other_champion[:champion_gg].first[:role] = 'Middle'
+          @champion.roles.first[:role] = 'Top'
+          @other_champion.roles.first[:role] = 'Middle'
 
-          allow(RiotApi::RiotApi).to receive(:get_champion)
+          allow(Champion).to receive(:new)
             .and_return(@champion, @other_champion)
         end
 
@@ -307,16 +274,16 @@ describe ChampionsController, type: :controller do
           'Azir got worse against Heimerdinger in the latest patch and has a win rate of 37.93% against the Revered Inventor in Middle.'
         }
         before :each do
-          @champion = RiotApi::RiotApi.get_champion(champion_name)
-          @champion[:champion_gg] = @champion[:champion_gg].first(1)
-          @other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          @other_champion[:champion_gg] = @other_champion[:champion_gg].first(1)
+          @champion = Champion.new(name: champion_name)
+          @champion.roles = @champion.roles.first(1)
+          @other_champion = Champion.new(name: other_champion_name)
+          @other_champion.roles = @other_champion.roles.first(1)
 
           role = 'Middle'
-          @champion[:champion_gg].first[:role] = role
-          @other_champion[:champion_gg].first[:role] = role
+          @champion.roles.first[:role] = role
+          @other_champion.roles.first[:role] = role
 
-          allow(RiotApi::RiotApi).to receive(:get_champion)
+          allow(Champion).to receive(:new)
             .and_return(@champion, @other_champion)
         end
 
@@ -328,21 +295,21 @@ describe ChampionsController, type: :controller do
 
       context 'with multiple shared roles' do
         before :each do
-          champion = RiotApi::RiotApi.get_champion(champion_name)
-          first_role_data = champion[:champion_gg].first
+          champion = Champion.new(name: champion_name)
+          first_role_data = champion.roles.first
           first_role_data[:role] = 'Middle'
           second_role_data = first_role_data.dup
           second_role_data[:role] = 'Top'
-          champion[:champion_gg] = [first_role_data, second_role_data]
+          champion.roles = [first_role_data, second_role_data]
 
-          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          first_role_data = other_champion[:champion_gg].first
+          other_champion = Champion.new(name: other_champion_name)
+          first_role_data = other_champion.roles.first
           first_role_data[:role] = 'Middle'
           second_role_data = first_role_data.dup
           second_role_data[:role] = 'Top'
-          other_champion[:champion_gg] = [first_role_data, second_role_data]
+          other_champion.roles = [first_role_data, second_role_data]
 
-          allow(RiotApi::RiotApi).to receive(:get_champion)
+          allow(Champion).to receive(:new)
             .and_return(champion, other_champion)
         end
 
@@ -364,12 +331,12 @@ describe ChampionsController, type: :controller do
         }
 
         before :each do
-          champion = RiotApi::RiotApi.get_champion(champion_name)
-          champion[:champion_gg].first[:role] = role
-          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          other_champion[:champion_gg].first[:role] = role
+          champion = Champion.new(name: champion_name)
+          champion.roles.first[:role] = role
+          other_champion = Champion.new(name: other_champion_name)
+          other_champion.roles.first[:role] = role
 
-          allow(RiotApi::RiotApi).to receive(:get_champion)
+          allow(Champion).to receive(:new)
             .and_return(champion, other_champion)
         end
 
@@ -384,12 +351,12 @@ describe ChampionsController, type: :controller do
           "Azir and Heimerdinger do not typically play against eachother in Middle."
         }
         before :each do
-          champion = RiotApi::RiotApi.get_champion(champion_name)
-          champion[:champion_gg] = []
-          other_champion = RiotApi::RiotApi.get_champion(other_champion_name)
-          other_champion[:champion_gg] = []
+          champion = Champion.new(name: champion_name)
+          champion.roles = []
+          other_champion = Champion.new(name: other_champion_name)
+          other_champion.roles = []
 
-          allow(RiotApi::RiotApi).to receive(:get_champion)
+          allow(Champion).to receive(:new)
             .and_return(champion, other_champion)
         end
 
@@ -495,11 +462,11 @@ describe ChampionsController, type: :controller do
       }
 
       it 'should return the 3 first order and max order for abilities' do
-        champion = RiotApi::RiotApi.get_champion('Azir')
-        order = champion[:champion_gg].first[:skills][:highestWinPercent][:order]
+        champion = Champion.new(name: 'Azir')
+        order = champion.roles.first[:skills][:highestWinPercent][:order]
         order[2] = 'E'
         order[3] = 'Q'
-        allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
+        allow(Champion).to receive(:new).and_return(champion)
         post action, params
         expect(speech).to eq response_text
       end
@@ -524,7 +491,7 @@ describe ChampionsController, type: :controller do
   describe 'POST lane' do
     let(:action) { :lane }
     let(:response_text) {
-      "Jax got better in the last patch and is currently ranked forty-first with a 49.69% win rate and a 3.76% play rate as Top."
+      "Jax got better in the last patch and is currently ranked forty-first out of fifty-seven with a 49.69% win rate and a 3.76% play rate as Top."
     }
 
     it_should_behave_like 'verify role'
@@ -586,10 +553,10 @@ describe ChampionsController, type: :controller do
     it_should_behave_like 'load champion'
 
     it 'should provide tips for playing the champion' do
-      champion = RiotApi::RiotApi.get_champion('Fiora')
-      allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
-      allow(champion[:allytips]).to receive(:sample).and_return(
-        champion[:allytips].last
+      champion = Champion.new(name: 'Fiora')
+      allow(Champion).to receive(:new).and_return(champion)
+      allow(champion.allytips).to receive(:sample).and_return(
+        champion.allytips.last
       )
 
       post action, params
@@ -606,10 +573,10 @@ describe ChampionsController, type: :controller do
     it_should_behave_like 'load champion'
 
     it 'should provide tips for beating the enemy champion' do
-      champion = RiotApi::RiotApi.get_champion('Leblanc')
-      allow(RiotApi::RiotApi).to receive(:get_champion).and_return(champion)
-      allow(champion[:enemytips]).to receive(:sample).and_return(
-        champion[:enemytips].last
+      champion = Champion.new(name: 'Leblanc')
+      allow(Champion).to receive(:new).and_return(champion)
+      allow(champion.enemytips).to receive(:sample).and_return(
+        champion.enemytips.last
       )
 
       post action, params

@@ -8,7 +8,6 @@ module RiotApi
     @api = load_api('riot_api')
 
     # Constants related to the Riot Api
-    SIMILARITY_THRESHOLD = 0.7
     TOP = 'Top'.freeze
     JUNGLE = 'Jungle'.freeze
     SUPPORT = 'Support'.freeze
@@ -50,11 +49,7 @@ module RiotApi
 
       def get_summoner_champions(args)
         url = "#{replace_url(@api[:summoner][:champions], args)}?season=#{@api[:season]}"
-        summoner_champions = fetch_response(url)[:champions]
-
-        summoner_champions.reject { |champ| champ[:id].zero? }.sort do |champ1, champ2|
-          champ2[:stats][:totalSessionsPlayed] <=> champ1[:stats][:totalSessionsPlayed]
-        end
+        fetch_response(url)[:champions].reject { |champ| champ[:id].zero? }
       end
 
       def get_summoner_stats(args)
@@ -78,29 +73,6 @@ module RiotApi
         url = "#{replace_url(@api[:summoner][:id], args)}/#{name}"
         return unless response = fetch_response(url)
         response.values.first[:id].to_i
-      end
-
-      def get_item(name)
-        Rails.cache.read(items: name) || match_collection(name, :items)
-      end
-
-      def get_champion(name)
-        Rails.cache.read(champions: name) || match_collection(name, :champions)
-      end
-
-      private
-
-      def match_collection(name, collection_key)
-        matcher = Matcher::Matcher.new(name)
-        collection = Rails.cache.read(collection_key).values.map do |data|
-          data[:name]
-        end
-
-        search_key = Hash.new
-        if match = matcher.find_match(collection, SIMILARITY_THRESHOLD)
-          search_key[collection_key] = match.result
-          Rails.cache.read(search_key)
-        end
       end
     end
   end

@@ -1,6 +1,7 @@
 class SummonersController < ApplicationController
   include RiotApi
   before_action :load_summoner
+  before_action :load_champion, only: :champion
 
   BEST_CHAMPION_SIZE = 3
 
@@ -20,6 +21,14 @@ class SummonersController < ApplicationController
         "#{summoner_champions_message(summoner_champions)}."
       )
     }
+  end
+
+  def champion
+    name = @summoner.name
+    id = @summoner.id
+    region = @region.region
+
+    summoner_champions = RiotApi.get_summoner_champions(id: id, region: region)
   end
 
   private
@@ -43,19 +52,29 @@ class SummonersController < ApplicationController
 
   def summoner_champions_message(summoner_champions)
     champions = Rails.cache.read(:champions)
-    summoner_champions.first(BEST_CHAMPION_SIZE).each do |champion|
-      details = champions.detect { |_, data| data[:id] == champion[:id] }
-      champion[:name] = details.last[:name]
-    end.map do |champion|
+
+    summoner_champions.sort do |champ1, champ2|
+      champ2[:stats][:totalSessionsPlayed] <=> champ1[:stats][:totalSessionsPlayed]
+    end.first(BEST_CHAMPION_SIZE).map do |champion|
+      name = champions.values.detect do |data|
+        data[:id] == champion[:id]
+      end[:name]
+
       stats = champion[:stats]
       winrate = stats[:totalSessionsWon] / stats[:totalSessionsPlayed].to_f * 100
-      "#{winrate.round(2)}% win rate on #{champion[:name]} in " \
+      "#{winrate.round(2)}% win rate on #{name} in " \
       "#{stats[:totalSessionsPlayed]} games"
     end.en.conjunction
   end
 
   def summoner_params
-    params.require(:result).require(:parameters).permit(:summoner, :region)
+    params.require(:result).require(:parameters).permit(
+      :summoner, :region, :champion
+    )
+  end
+
+  def load_champion
+    @champion = Champion.new(summoner_params[:champion])
   end
 
   def load_summoner

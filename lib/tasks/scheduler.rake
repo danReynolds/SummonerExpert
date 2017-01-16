@@ -55,7 +55,7 @@ namespace :fetch_champion_gg do
 
     champions.each do |_, champion_data|
       key = champion_data[:key]
-      champion_data[:champion_gg] = ChampionGGApi::ChampionGGApi.get_champion(key: key)
+      champion_data[:roles] = ChampionGGApi::ChampionGGApi.get_champion(key: key)
       Rails.cache.write({ champions: champion_data[:name] }, champion_data)
       puts "Wrote data for #{key}"
     end
@@ -70,10 +70,10 @@ namespace :fetch_champion_gg do
     RiotApi::RiotApi::ROLES.each do |role|
       puts "Caching rankings for #{role}."
 
-      rankings = champions.keys.inject([]) do |acc, key|
+      rankings = champions.values.inject([]) do |acc, data|
         acc.tap do |_|
-          champion = Rails.cache.read(champions: key)
-          role_data = champion[:champion_gg].detect do |role_data|
+          champion = Rails.cache.read(champions: data[:name])
+          role_data = champion[:roles].detect do |role_data|
             role_data[:role] == role
           end
           acc << role_data.merge!(champion.slice(:tags)) if role_data
