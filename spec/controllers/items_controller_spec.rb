@@ -22,6 +22,62 @@ describe ItemsController, type: :controller do
     end
   end
 
+  describe '#load_item' do
+    context 'with exact item name' do
+      it 'should load the item' do
+        allow(controller).to receive(:item_params).and_return({
+          item: 'Blade of the Ruined King'
+        })
+
+        controller.send(:load_item)
+
+        expect(assigns(:item).valid?).to eq true
+        expect(assigns(:item).name).to eq 'Blade of the Ruined King'
+      end
+    end
+
+    context 'with similar item name' do
+      it 'should load the item' do
+        allow(controller).to receive(:item_params).and_return({
+          item: 'Blade of the Ruined Kings'
+        })
+
+        controller.send(:load_item)
+
+        expect(assigns(:item).valid?).to eq true
+        expect(assigns(:item).name).to eq 'Blade of the Ruined King'
+      end
+    end
+
+    context 'with dissimilar item name' do
+      it 'should respond with item not found' do
+        allow(controller).to receive(:item_params).and_return({
+          item: 'This is not a valid name'
+        })
+
+        expect(controller).to receive(:render).with(
+          json: { speech: 'name provided is not a valid item name, to the best of my knowledge.' }
+        )
+        expect(controller.send(:load_item)).to eq false
+        expect(assigns(:item).valid?).to eq false
+      end
+    end
+
+    context 'with no item name' do
+      it 'should respond with item not specified' do
+        allow(controller).to receive(:item_params).and_return({
+          item: ''
+        })
+
+        expect(controller).to receive(:render).with(
+          json: { speech: 'name of item was not provided.' }
+        )
+        expect(controller.send(:load_item)).to eq false
+        expect(assigns(:item).valid?).to eq false
+      end
+    end
+  end
+
   describe 'POST show' do
     let(:action) { :show }
     let(:response_text) do
@@ -30,52 +86,10 @@ describe ItemsController, type: :controller do
 
     it_should_behave_like 'load item'
 
-    context 'with no name match' do
-      before :each do
-        @name = 'test item'
-        allow(controller).to receive(:item_params).and_return(item: @name)
-      end
 
-      it 'should indicate the item was not found' do
-        post action, params
-        expect(speech).to eq controller.send(
-          :item_not_found_response,
-          @name
-        )[:speech]
-      end
-    end
-
-    context 'with no item specified' do
-      before :each do
-        allow(controller).to receive(:item_params).and_return(item: '')
-      end
-
-      it 'should indicate that no item was specified' do
-        post action, params
-        expect(speech).to eq controller.send(
-          :no_item_specified_response
-        )[:speech]
-      end
-    end
-
-    context 'with exact name match' do
-      it 'should return the description of the item' do
-        post action, params
-        expect(speech).to eq response_text
-      end
-    end
-
-    context 'with fuzzy name match' do
-      before :each do
-        allow(controller).to receive(:item_params).and_return(
-          item: 'Blade of the Ruined'
-        )
-      end
-
-      it 'should match the item' do
-        post action, params
-        expect(speech).to eq response_text
-      end
+    it 'should match the item' do
+      post action, params
+      expect(speech).to eq response_text
     end
   end
 end

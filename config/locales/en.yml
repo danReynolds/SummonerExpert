@@ -27,6 +27,11 @@ en:
           attributes:
             id:
               not_a_number: 'could not be found for the given summoner name.'
+        item:
+          attributes:
+            name:
+              blank: 'of item was not provided.'
+              inclusion: 'provided is not a valid item name, to the best of my knowledge.'
         champion:
           attributes:
             name:

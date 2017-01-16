@@ -141,6 +141,18 @@ describe ChampionsController, type: :controller do
         expect(assigns(:champion).valid?).to eq false
       end
     end
+
+    context 'with no champion name' do
+      it 'should respond with champion not specified' do
+        allow(controller).to receive(:champion_params).and_return(champion: '')
+
+        expect(controller).to receive(:render).with(
+          json: { speech: 'name of champion was not provided.' }
+        )
+        expect(controller.send(:load_champion)).to eq false
+        expect(assigns(:champion).valid?).to eq false
+      end
+    end
   end
 
   describe 'POST ranking' do

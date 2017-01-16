@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :load_item
 
   def show
-    cost_analysis = @item[:cost_analysis]
+    cost_analysis = @item.cost_analysis
     ignored_stats = cost_analysis[:ignored_stats].keys.map { |stat| "- #{stat}" }
     efficiency = cost_analysis[:efficiency].to_f * 100
 
@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
 
     render json: {
       speech: (
-        "Here are the stats for #{@item[:name]}:\n#{@item[:description]}\n\n" \
+        "Here are the stats for #{@item.name}:\n#{@item.description}\n\n" \
         "Here is the cost analysis: \n#{cost_analysis_message} \n" \
         "#{efficiency_message}"
       )
@@ -48,14 +48,10 @@ class ItemsController < ApplicationController
   end
 
   def load_item
-    item_query = item_params[:item].strip
-    if item_query.blank?
-      render json: no_item_specified_response
-      return false
-    end
+    @item = Item.new(name: item_params[:item])
 
-    unless @item = RiotApi.get_item(item_query)
-      render json: item_not_found_response(item_query)
+    unless @item.valid?
+      render json: { speech: @item.error_message }
       return false
     end
   end
