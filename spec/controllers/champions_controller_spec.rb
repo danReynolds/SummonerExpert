@@ -62,7 +62,7 @@ describe ChampionsController, type: :controller do
           })
           expect(champion).to receive(:find_by_role).and_return(nil)
           expect(controller).to receive(:render).with({
-            json: controller.send(:do_not_play_response, nil, role)
+            json: controller.send(:do_not_play_response, champion.name, role)
           })
           expect(controller.send(:verify_role)).to eq false
         end

@@ -291,7 +291,7 @@ class ChampionsController < ApplicationController
       if @role.blank?
         render json: ask_for_role_response
       else
-        render json: do_not_play_response(@name, @role)
+        render json: do_not_play_response(@champion.name, @role)
       end
       return false
     end
