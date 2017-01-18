@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-01-13T18:46:21.178Z",
+	"__export_date": "2017-01-18T21:34:27.318Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,7 +26,7 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484331985824,
+			"modified": 1484775237533,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
@@ -35,14 +35,14 @@
 		{
 			"_id": "req_30337ed27c9444deb392be7f6b1ff2be",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483487305966,
+			"modified": 1484532963135,
 			"created": 1482600505061,
 			"url": "{{ url }}",
 			"name": "champions/counters",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"a8daca3a-01de-4395-b4a0-428aefe42f2e\",\n  \"timestamp\": \"2016-12-20T00:07:16.229Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who counters Jayce top?\",\n    \"action\": \"champions/counters\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jayce\",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/counters\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\"\n        }\n      ]\n    },\n    \"score\": 0.96\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n\t\"id\": \"a8daca3a-01de-4395-b4a0-428aefe42f2e\",\n\t\"timestamp\": \"2016-12-20T00:07:16.229Z\",\n\t\"result\": {\n\t\t\"source\": \"agent\",\n\t\t\"resolvedQuery\": \"Who counters Jayce top?\",\n\t\t\"action\": \"champions/counters\",\n\t\t\"actionIncomplete\": false,\n\t\t\"parameters\": {\n\t\t\t\"champion\": \"Jayce\",\n\t\t\t\"lane\": \"Top\"\n\t\t},\n\t\t\"contexts\": [],\n\t\t\"metadata\": {\n\t\t\t\"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n\t\t\t\"webhookUsed\": \"true\",\n\t\t\t\"webhookForSlotFillingUsed\": \"false\",\n\t\t\t\"intentName\": \"champions/counters\"\n\t\t},\n\t\t\"fulfillment\": {\n\t\t\t\"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\",\n\t\t\t\"messages\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": 0,\n\t\t\t\t\t\"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t\"score\": 0.96\n\t},\n\t\"status\": {\n\t\t\"code\": 200,\n\t\t\"errorType\": \"success\"\n\t},\n\t\"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -127,7 +127,7 @@
 		{
 			"_id": "req_4e326c5687454d7ea772a5ae3298a349",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589467,
+			"modified": 1484533423237,
 			"created": 1481917460884,
 			"url": "{{ url }}",
 			"name": "champions/description",
@@ -196,14 +196,14 @@
 		{
 			"_id": "req_76fb69be6a6c438fa2c948845e1fc935",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589464,
+			"modified": 1484775232637,
 			"created": 1482120899865,
 			"url": "{{url}}",
 			"name": "champions/lane",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"66827f75-87cd-4c6a-b7e2-f8bc88a2e2f3\",\n  \"timestamp\": \"2016-12-19T21:51:45.811Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Top\",\n    \"action\": \"champions/lane\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jax\",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/lane\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 4558b022-6510-4bc2-a100-5df3131986b4\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"66827f75-87cd-4c6a-b7e2-f8bc88a2e2f3\",\n  \"timestamp\": \"2016-12-19T21:51:45.811Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Support\",\n    \"action\": \"champions/lane\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jax\",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/lane\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 4558b022-6510-4bc2-a100-5df3131986b4\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -242,7 +242,7 @@
 		{
 			"_id": "req_8a9b75d53d5e479e96ace9d7ef3845db",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484333173782,
+			"modified": 1484775257449,
 			"created": 1484257755665,
 			"url": "{{ url }}",
 			"name": "summoners/show",
@@ -260,6 +260,29 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1484257755665,
+			"_type": "request"
+		},
+		{
+			"_id": "req_9f008ddeeac445098da6d6e8da34269e",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1484774571801,
+			"created": 1484769646719,
+			"url": "{{ url }}",
+			"name": "summoners/champion",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"9089f12d-824e-4829-a45a-d54a0d011ca4\",\n  \"timestamp\": \"2017-01-18T20:02:58.722Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Is wingilote good at Jhin?\",\n    \"action\": \"summoners/champion\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Nocturne\",\n      \"summoner\": \"wingilote\",\n\t  \"region\": \"na\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"summoner.original\": \"wingilote\",\n          \"summoner\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"na\",\n          \"champion.original\": \"Jhin\",\n          \"champion\": \"Jhin\"\n        },\n        \"lifespan\": 5\n      },\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"wingilote\",\n          \"summoner\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"na\",\n          \"champion.original\": \"Jhin\",\n          \"lane\": \"\",\n          \"champion\": \"Jhin\"\n        },\n        \"lifespan\": 2\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"7e6840cd-70cb-47ad-8583-056a1cbdfc77\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/champion\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 5481cfe7-0233-493c-b9b6-212a7c657ad6\"\n  },\n  \"sessionId\": \"20de7667-e229-43c4-80d9-a3e538b96781\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1484769646719,
 			"_type": "request"
 		},
 		{

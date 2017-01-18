@@ -32,14 +32,37 @@ class SummonersController < ApplicationController
   end
 
   def champion
-    name = @summoner.name
     id = @summoner.id
     region = @region.region
 
-    summoner_champions = RiotApi.get_summoner_champions(id: id, region: region)
+    summoner_champion_data = RiotApi.get_summoner_champions(
+    id: id,
+    region: region
+    ).detect do |champion|
+      champion[:id] == @champion.id
+    end
+    return render json: does_not_play_response unless summoner_champion_data
+
+    summoner_champion = SummonerChampion.new(summoner_champion_data)
+    towers = summoner_champion.towers
+
+    render json: {
+      speech: (
+        "#{@summoner.name} has a #{summoner_champion.kda} KDA and " \
+        "#{summoner_champion.win_rate}% win rate on #{@champion.name} " \
+        "overall. The summoner gets first blood " \
+        "#{summoner_champion.first_blood}% of the time and takes an average " \
+        "of #{towers} #{'tower'.en.pluralize(towers)}, " \
+        "#{summoner_champion.cs} cs and #{summoner_champion.gold} gold per game."
+      )
+    }
   end
 
   private
+
+  def does_not_play_response
+    { speech: "#{@summoner.name} does not play #{@champion.name}." }
+  end
 
   def no_games_response
     { speech: "#{@summoner.name} has not played any games this season." }
@@ -77,12 +100,12 @@ class SummonersController < ApplicationController
 
   def summoner_params
     params.require(:result).require(:parameters).permit(
-      :summoner, :region, :champion
+      :summoner, :region, :champion, :lane
     )
   end
 
   def load_champion
-    @champion = Champion.new(summoner_params[:champion])
+    @champion = Champion.new(name: summoner_params[:champion])
   end
 
   def load_summoner

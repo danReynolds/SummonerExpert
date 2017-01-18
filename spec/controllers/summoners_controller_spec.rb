@@ -73,6 +73,41 @@ describe SummonersController, type: :controller do
     end
   end
 
+  describe 'POST champion' do
+    let(:action) { :champion }
+    let(:external_response) do
+      JSON.parse(File.read('external_response.json'))
+        .with_indifferent_access[:summoners][action]
+    end
+
+    before :each do
+      allow(RiotApi::RiotApi).to receive(:get_summoner_champions).and_return(
+        external_response
+      )
+      allow(RiotApi::RiotApi).to receive(:get_summoner_id).and_return(1)
+    end
+
+    context 'with summoner champion data' do
+      it "should show data for the summoner's performance with that champion" do
+        post action, params
+        expect(speech).to eq "wingilote has a 10/8/6 KDA and 44.0% win rate on Nocturne overall. The summoner gets first blood 0% of the time and takes an average of 1 tower, 70 cs and 14667 gold per game."
+      end
+    end
+
+    context 'without summoner champion data' do
+      before :each do
+        allow(RiotApi::RiotApi).to receive(:get_summoner_champions).and_return(
+          []
+        )
+      end
+
+      it 'should indicatae that the summoner does not play that champion' do
+        post action, params
+        expect(speech).to eq controller.send(:does_not_play_response)[:speech]
+      end
+    end
+  end
+
   describe 'POST show' do
     let(:action) { :show }
     let(:external_response) do
