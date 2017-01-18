@@ -50,9 +50,9 @@ class SummonersController < ApplicationController
       speech: (
         "#{@summoner.name} has a #{summoner_champion.kda} KDA and " \
         "#{summoner_champion.win_rate}% win rate on #{@champion.name} " \
-        "overall. The summoner gets first blood " \
-        "#{summoner_champion.first_blood}% of the time and takes an average " \
-        "of #{towers} #{'tower'.en.pluralize(towers)}, " \
+        "overall in #{summoner_champion.total_sessions} games. The summoner " \
+        "gets first blood #{summoner_champion.first_blood}% of the time and " \
+        "takes an average of #{towers} #{'tower'.en.pluralize(towers)}, " \
         "#{summoner_champion.cs} cs and #{summoner_champion.gold} gold per game."
       )
     }

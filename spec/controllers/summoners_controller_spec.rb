@@ -90,7 +90,7 @@ describe SummonersController, type: :controller do
     context 'with summoner champion data' do
       it "should show data for the summoner's performance with that champion" do
         post action, params
-        expect(speech).to eq "wingilote has a 10/8/6 KDA and 44.0% win rate on Nocturne overall. The summoner gets first blood 0% of the time and takes an average of 1 tower, 70 cs and 14667 gold per game."
+        expect(speech).to eq "wingilote has a 10/8/6 KDA and 44.0% win rate on Nocturne overall in 25 games. The summoner gets first blood 0% of the time and takes an average of 1 tower, 70 cs and 14667 gold per game."
       end
     end
 
