@@ -100,7 +100,7 @@ class SummonersController < ApplicationController
 
   def summoner_params
     params.require(:result).require(:parameters).permit(
-      :summoner, :region, :champion, :lane
+      :summoner, :region, :champion
     )
   end
 
