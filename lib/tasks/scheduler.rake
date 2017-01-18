@@ -2,6 +2,7 @@ require "#{Rails.root}/lib/external_api.rb"
 require "#{Rails.root}/lib/riot_api.rb"
 require "#{Rails.root}/lib/champion_gg_api.rb"
 require "#{Rails.root}/lib/league_thekev_api.rb"
+require 'thread/pool'
 include RiotApi
 include ChampionGGApi
 include ActionView::Helpers::SanitizeHelper
@@ -33,16 +34,21 @@ namespace :fetch_champion_gg do
     items = RiotApi::RiotApi.get_items
     Rails.cache.write(:items, parse_objects(items))
 
+    pool = Thread.pool(THREAD_POOL_SIZE)
+
     items.each do |_, item|
       if item[:description]
-        efficiency = LeagueThekevApi::LeagueThekevApi.get_item(id: item[:id])
-        item[:description] = format_description(item[:description])
-        item[:cost_analysis] = efficiency
-        Rails.cache.write({ items: item[:name] }, item)
-        puts "Cached data for #{item[:name]}"
+        pool.process do
+          efficiency = LeagueThekevApi::LeagueThekevApi.get_item(id: item[:id])
+          item[:description] = format_description(item[:description])
+          item[:cost_analysis] = efficiency
+          Rails.cache.write({ items: item[:name] }, item)
+          print "Cached data for #{item[:name]}\n"
+        end
       end
     end
 
+    pool.shutdown
     puts 'Fetched item data from Riot and LeagueTheKev'
   end
 
@@ -52,14 +58,18 @@ namespace :fetch_champion_gg do
 
     champions = RiotApi::RiotApi.get_champions
     Rails.cache.write(:champions, parse_objects(champions))
+    pool = Thread.pool(THREAD_POOL_SIZE)
 
     champions.each do |_, champion_data|
-      key = champion_data[:key]
-      champion_data[:roles] = ChampionGGApi::ChampionGGApi.get_champion(key: key)
-      Rails.cache.write({ champions: champion_data[:name] }, champion_data)
-      puts "Wrote data for #{key}"
+      pool.process do
+        key = champion_data[:key]
+        champion_data[:roles] = ChampionGGApi::ChampionGGApi.get_champion(key: key)
+        Rails.cache.write({ champions: champion_data[:name] }, champion_data)
+        print "Wrote data for #{key}\n"
+      end
     end
 
+    pool.shutdown
     puts 'Succeeded fetching champion data'
   end
 

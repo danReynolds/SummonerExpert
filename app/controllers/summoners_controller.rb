@@ -1,5 +1,6 @@
 class SummonersController < ApplicationController
   include RiotApi
+  require 'thread/future'
   before_action :load_summoner
   before_action :load_champion, only: :champion
 
@@ -10,15 +11,22 @@ class SummonersController < ApplicationController
     id = @summoner.id
     region = @region.region
 
-    summoner_stats = RiotApi.get_summoner_stats(id: id, region: region)
-    return render json: no_games_response unless summoner_stats
-    summoner_champions = RiotApi.get_summoner_champions(id: id, region: region)
+    summoner_stats = Thread.future do
+      RiotApi.get_summoner_stats(id: id, region: region)
+    end
+    summoner_champions = Thread.future do
+      RiotApi.get_summoner_champions(id: id, region: region)
+    end
+
+    stats = ~summoner_stats
+    champions = ~summoner_champions
+    return render json: no_games_response unless stats
 
     render json: {
       speech: (
-        "#{name} #{summoner_stats_message(summoner_stats)}. Playing " \
+        "#{name} #{summoner_stats_message(stats)}. Playing " \
         "#{name}'s most common champions, the summoner has a " \
-        "#{summoner_champions_message(summoner_champions)}."
+        "#{summoner_champions_message(champions)}."
       )
     }
   end
