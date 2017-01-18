@@ -56,6 +56,14 @@ Ask: **Lookup Imaqtpie in NA**
 
 Response: "Imaqtpie is ranked Challenger I with 462LP in Solo Queue. Playing Imaqtpie's most common champions, the summoner has a a 75.0% win rate on Twitch in 52 games, a 54.05% win rate on Vayne in 37 games, and a 61.76% win rate on Jhin in 34 games."
 
+**Summoner Champion**:
+
+Purpose: Determine how proficient a summoner is with a champion.
+
+Ask **How is Imaqtpie's Zac?**
+
+Response: "Imaqtpie has a 5/4/9 KDA and 33.33% win rate on Zac overall. The summoner gets first blood 0% of the time and takes an average of 0 towers, 35 cs and 10810 gold per game."
+
 **Best Champions**:
 
 Purpose: Determine the current best champions by role.
