@@ -129,7 +129,7 @@ describe SummonersController, type: :controller do
 
     context 'on hot streak' do
       let(:response_text) do
-        "mordequess is on a hot streak. The player is ranked Silver V with 23LP in Solo Queue and is ranked Bronze I with 44LP in Flex Queue. Playing mordequess's most common champions, the summoner has a a 51.61% win rate on Jhin in 31 games, a 54.17% win rate on Caitlyn in 24 games, and a 36.36% win rate on Garen in 11 games."
+        "mordequess is on a hot streak. The player is ranked Silver V with 23LP in Solo Queue and is ranked Bronze I with 44LP in Flex Queue. Playing mordequess's most common champions, the summoner has a 51.61% win rate on Jhin in 31 games, a 54.17% win rate on Caitlyn in 24 games, and a 36.36% win rate on Garen in 11 games."
       end
 
       before :each do
@@ -144,7 +144,7 @@ describe SummonersController, type: :controller do
 
     context 'not on hot streak' do
       let(:response_text) do
-        "mordequess is ranked Silver V with 23LP in Solo Queue and is ranked Bronze I with 44LP in Flex Queue. Playing mordequess's most common champions, the summoner has a a 51.61% win rate on Jhin in 31 games, a 54.17% win rate on Caitlyn in 24 games, and a 36.36% win rate on Garen in 11 games."
+        "mordequess is ranked Silver V with 23LP in Solo Queue and is ranked Bronze I with 44LP in Flex Queue. Playing mordequess's most common champions, the summoner has a 51.61% win rate on Jhin in 31 games, a 54.17% win rate on Caitlyn in 24 games, and a 36.36% win rate on Garen in 11 games."
       end
 
       it 'should return the stats and champions for the player' do

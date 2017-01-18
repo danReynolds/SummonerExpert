@@ -25,7 +25,7 @@ class SummonersController < ApplicationController
     render json: {
       speech: (
         "#{name} #{summoner_stats_message(stats)}. Playing " \
-        "#{name}'s most common champions, the summoner has a " \
+        "#{name}'s most common champions, the summoner has " \
         "#{summoner_champions_message(champions)}."
       )
     }
