@@ -45,14 +45,16 @@ class SummonersController < ApplicationController
 
     summoner_champion = SummonerChampion.new(summoner_champion_data)
     towers = summoner_champion.towers
+    total_games = summoner_champion.total_sessions
 
     render json: {
       speech: (
         "#{@summoner.name} has a #{summoner_champion.kda} KDA and " \
         "#{summoner_champion.win_rate}% win rate on #{@champion.name} " \
-        "overall in #{summoner_champion.total_sessions} games. The summoner " \
-        "takes an average of #{towers} #{'tower'.en.pluralize(towers)}, " \
-        "#{summoner_champion.cs} cs and #{summoner_champion.gold} gold per game."
+        "overall in #{total_games} #{'game'.en.pluralize(total_games)}. The " \
+        "summoner takes an average of #{towers} " \
+        "#{'tower'.en.pluralize(towers)}, #{summoner_champion.cs} cs and " \
+        "#{summoner_champion.gold} gold per game."
       )
     }
   end
