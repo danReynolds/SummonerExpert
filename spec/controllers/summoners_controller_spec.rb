@@ -87,7 +87,8 @@ describe SummonersController, type: :controller do
       allow(RiotApi::RiotApi).to receive(:get_summoner_id).and_return(1)
     end
 
-    context 'with summoner champion data' do
+
+    context 'with summoner champion data and stats' do
       it "should show data for the summoner's performance with that champion" do
         post action, params
         expect(speech).to eq "wingilote has a 10/8/6 KDA and 44.0% win rate on Nocturne overall in 25 games. The summoner takes an average of 1 tower, 70 cs and 14667 gold per game."
@@ -101,7 +102,7 @@ describe SummonersController, type: :controller do
         )
       end
 
-      it 'should indicatae that the summoner does not play that champion' do
+      it 'should indicate that the summoner does not play that champion' do
         post action, params
         expect(speech).to eq controller.send(:does_not_play_response)[:speech]
       end
@@ -127,22 +128,18 @@ describe SummonersController, type: :controller do
 
     it_should_behave_like 'load summoner'
 
-    context 'on hot streak' do
-      let(:response_text) do
-        "mordequess is on a hot streak. The player is ranked Silver V with 23LP in Solo Queue and is ranked Bronze I with 44LP in Flex Queue. Playing mordequess's most common champions, the summoner has a 51.61% win rate on Jhin in 31 games, a 54.17% win rate on Caitlyn in 24 games, and a 36.36% win rate on Garen in 11 games."
-      end
-
+    context 'without summoner stats data' do
       before :each do
-        external_response[:summoner_stats].first[:isHotStreak] = true
+        allow(RiotApi::RiotApi).to receive(:get_summoner_stats).and_return(nil)
       end
 
-      it 'should return the stats, champions, and hot streak for the player' do
+      it 'should indicate that the summoner has not played this season' do
         post action, params
-        expect(speech).to eq response_text
+        expect(speech).to eq controller.send(:no_games_response)[:speech]
       end
     end
 
-    context 'not on hot streak' do
+    context 'when valid' do
       let(:response_text) do
         "mordequess is ranked Silver V with 23LP in Solo Queue and is ranked Bronze I with 44LP in Flex Queue. Playing mordequess's most common champions, the summoner has a 51.61% win rate on Jhin in 31 games, a 54.17% win rate on Caitlyn in 24 games, and a 36.36% win rate on Garen in 11 games."
       end

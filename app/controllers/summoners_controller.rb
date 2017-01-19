@@ -19,8 +19,8 @@ class SummonersController < ApplicationController
     end
 
     stats = ~summoner_stats
-    champions = ~summoner_champions
     return render json: no_games_response unless stats
+    champions = ~summoner_champions
 
     render json: {
       speech: (
