@@ -10,8 +10,7 @@ gem 'rollbar'
 gem 'amatch'
 gem 'linguistics'
 gem 'thread'
-gem 'scout_apm'
-gem 'wrenchmode-rack'
+gem 'keen'
 
 group :development, :test do
   gem 'pry'
