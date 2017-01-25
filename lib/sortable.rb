@@ -14,14 +14,14 @@ module Sortable
 
     DEFAULTS = {
       list_position: 1,
-      list_size: 3,
+      list_size: 1,
       list_order: ORDER[:desc]
     }.freeze
 
     def initialize(attributes = {})
       attributes = attributes.with_indifferent_access
       self.class::ACCESSORS.each do |key|
-        instance_variable_set("@#{key}", attributes[key] || DEFAULTS[key])
+        instance_variable_set("@#{key}", attributes[key].present? ? attributes[key] : DEFAULTS[key])
       end
     end
 
