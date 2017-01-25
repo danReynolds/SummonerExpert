@@ -1,42 +1,36 @@
 class ChampionsController < ApplicationController
   include RiotApi
+  include Sortable
   before_action :load_champion, except: [:ranking]
   before_action :verify_role, only: [:ability_order, :build, :counters, :lane]
 
   MIN_MATCHUPS = 100
   STAT_PER_LEVEL = :perlevel
-  RANKING_LIST_ORDER = {
-    asc: :worst,
-    desc: :best
-  }
-  COUNTERS_LIST_SIZE = 3
   HTML_TAGS = /<("[^"]*"|'[^']*'|[^'">])*>/
 
   def ranking
     role = champion_params[:lane]
-    list_position = champion_params[:list_position].to_i
-    list_size = champion_params[:list_size].to_i
-    list_order = champion_params[:list_order]
     tag = champion_params[:tag]
 
     champions = Rails.cache.read(:champions)
     rankings = Rails.cache.read({ rankings: role })
     rankings = rankings.select { |ranking| ranking[:tags].include?(tag) } unless tag.blank?
-    rankings = rankings[(list_position - 1)..-1]
-    rankings.reverse! if list_order.to_sym == RANKING_LIST_ORDER[:asc]
+    sortable_rankings = Sortable.new({
+      collection: rankings
+    }.merge(champion_params.slice(:list_position, :list_size, :list_order)))
 
-    ranking_message = rankings.first(list_size).map do |role_data|
+    ranking_message = sortable_rankings.sort.map do |role_data|
       champions[role_data[:key]][:name]
     end.en.conjunction(article: false)
-    list_message = list_size_message(list_size)
-    list_position_message = list_position_message(list_position)
-    topic_message = tag_message(tag, list_size) || "champion".pluralize(list_size)
+    list_size_message = sortable_rankings.list_size_message
+    list_position_message = sortable_rankings.list_position_message
+    topic_message = tag_message(tag, sortable_rankings.list_size.to_i)
 
     render json: {
       speech: (
-        "The #{list_position_message}#{list_order} #{list_message}" \
-        "#{topic_message} in #{role} #{"is".en.plural_verb(list_size)} " \
-        "#{ranking_message}."
+        "The #{list_position_message}#{sortable_rankings.list_order} " \
+        "#{list_size_message}#{topic_message} in #{role} " \
+        "#{"is".en.plural_verb(sortable_rankings.list_size)} #{ranking_message}."
       )
     }
   end
@@ -151,22 +145,23 @@ class ChampionsController < ApplicationController
   end
 
   def counters
-    list_size = champion_params[:list_size].to_i
-    list_size = COUNTERS_LIST_SIZE unless list_size.positive?
-    list_message = list_size_message(list_size)
+    sortable_counters = Sortable.new({
+      collection: @role_data[:matchups].select do |matchup|
+        matchup[:games] > MIN_MATCHUPS
+      end,
+      sort_order: -> matchup { matchup[:statScore] }
+    }.merge(champion_params.slice(:list_size, :list_position, :list_order)))
 
-    counters = @role_data[:matchups].select do |matchup|
-      matchup[:games] > MIN_MATCHUPS
-    end.sort_by do |matchup|
-      matchup[:statScore]
-    end.first(list_size).map do |counter|
+    counters = sortable_counters.sort.map do |counter|
       counter_name = Rails.cache.fetch(champions: counter[:key])[:name]
       "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
+    list_size_message = sortable_counters.list_size_message
+
     render json: {
       speech: (
-        "The best #{list_message}counters for #{@champion.name} " \
-        "#{@role} are #{counters}."
+        "The #{sortable_counters.list_order} #{list_size_message}counters for " \
+        "#{@champion.name} #{@role} are #{counters}."
       )
     }
   end
@@ -299,17 +294,8 @@ class ChampionsController < ApplicationController
     @role = @role_data[:role] if @role.blank?
   end
 
-  def list_size_message(size)
-    size == 1 ? '' : "#{size.en.numwords} "
-  end
-
   def tag_message(tag, size)
-    return if tag.blank?
-    tag.en.downcase.pluralize(size)
-  end
-
-  def list_position_message(size)
-    size == 1 ? '' : "#{size.en.ordinate} "
+    tag.blank? ? 'champion'.pluralize(size) : tag.en.downcase.pluralize(size)
   end
 
   def champion_params
