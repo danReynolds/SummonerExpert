@@ -167,6 +167,21 @@ describe ChampionsController, type: :controller do
       )
     end
 
+    context 'with list position' do
+      before :each do
+        allow(controller).to receive(:champion_params).and_return(
+          list_size: '1',
+          lane: 'Support',
+          list_position: '2'
+        )
+      end
+
+      it 'should determine the worst champions' do
+        post action, params
+        expect(speech).to eq 'The second best champion in Support is Nami.'
+      end
+    end
+
     context 'with worst order' do
       before :each do
         allow(controller).to receive(:champion_params).and_return(
@@ -493,6 +508,46 @@ describe ChampionsController, type: :controller do
 
     it_should_behave_like 'verify role'
     it_should_behave_like 'load champion'
+
+    context 'with worst order' do
+      let(:response_text) {
+        "The worst four counters for Jayce Top are Singed at a 43.12% win rate, Dr. Mundo at a 44.37% win rate, Teemo at a 47.78% win rate, and Garen at a 47.8% win rate."
+      }
+      before :each do
+        allow(controller).to receive(:champion_params).and_return(
+          list_size: '4',
+          lane: 'Top',
+          list_position: '1',
+          list_order: 'worst',
+          champion: 'Jayce'
+        )
+      end
+
+      it 'should return the worst counters for the champion' do
+        post action, params
+        expect(speech).to eq response_text
+      end
+    end
+
+    context 'with list position' do
+      let(:response_text) {
+        "The second best counter for Jayce Top is Sion at a 56.3% win rate."
+      }
+      before :each do
+        allow(controller).to receive(:champion_params).and_return(
+          list_size: '1',
+          lane: 'Top',
+          list_position: '2',
+          list_order: 'best',
+          champion: 'Jayce'
+        )
+      end
+
+      it 'should return the champion at that list position for the champion' do
+        post action, params
+        expect(speech).to eq response_text
+      end
+    end
 
     it 'should return the best counters for the champion' do
       post action, params

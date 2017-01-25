@@ -157,11 +157,13 @@ class ChampionsController < ApplicationController
       "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
     list_size_message = sortable_counters.list_size_message
+    list_position_message = sortable_counters.list_position_message
+    list_size = sortable_counters.list_size.to_i
 
     render json: {
       speech: (
-        "The #{sortable_counters.list_order} #{list_size_message}counters for " \
-        "#{@champion.name} #{@role} are #{counters}."
+        "The #{list_position_message}#{sortable_counters.list_order} #{list_size_message}#{'counter'.en.pluralize(list_size)} for " \
+        "#{@champion.name} #{@role} #{'is'.en.plural_verb(list_size)} #{counters}."
       )
     }
   end
