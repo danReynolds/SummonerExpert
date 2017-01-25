@@ -162,8 +162,10 @@ class ChampionsController < ApplicationController
 
     render json: {
       speech: (
-        "The #{list_position_message}#{sortable_counters.list_order} #{list_size_message}#{'counter'.en.pluralize(list_size)} for " \
-        "#{@champion.name} #{@role} #{'is'.en.plural_verb(list_size)} #{counters}."
+        "The #{list_position_message}#{sortable_counters.list_order} " \
+        "#{list_size_message}#{'counter'.en.pluralize(list_size)} for " \
+        "#{@champion.name} #{@role} #{'is'.en.plural_verb(list_size)} " \
+        "#{counters}."
       )
     }
   end
