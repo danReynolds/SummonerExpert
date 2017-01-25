@@ -503,7 +503,7 @@ describe ChampionsController, type: :controller do
   describe 'POST counters' do
     let(:action) { :counters }
     let(:response_text) {
-      "The best three counters for Jayce Top are Jarvan IV at a 58.19% win rate, Sion at a 56.3% win rate, and Nautilus at a 60.3% win rate."
+      "The best counter for Jayce Top is Jarvan IV at a 58.19% win rate."
     }
 
     it_should_behave_like 'verify role'
