@@ -154,8 +154,10 @@ class ChampionsController < ApplicationController
     champions = Rails.cache.read(:champions)
 
     counters = sortable_counters.sort.map do |counter|
-      "#{champions[counter[:key]][:name]} at a #{(100 - counter[:winRate]).round(2)}% win rate"
+      "#{champions[counter[:key]][:name]} at a " \
+      "#{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
+    
     list_size_message = sortable_counters.list_size_message
     list_position_message = sortable_counters.list_position_message
     list_size = sortable_counters.list_size.to_i
