@@ -151,10 +151,10 @@ class ChampionsController < ApplicationController
       end,
       sort_order: -> matchup { matchup[:statScore] }
     }.merge(champion_params.slice(:list_size, :list_position, :list_order)))
+    champions = Rails.cache.read(:champions)
 
     counters = sortable_counters.sort.map do |counter|
-      counter_name = Rails.cache.fetch(champions: counter[:key])[:name]
-      "#{counter_name} at a #{(100 - counter[:winRate]).round(2)}% win rate"
+      "#{champions[counter[:key]][:name]} at a #{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
     list_size_message = sortable_counters.list_size_message
     list_position_message = sortable_counters.list_position_message

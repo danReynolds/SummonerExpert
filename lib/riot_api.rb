@@ -16,13 +16,8 @@ module RiotApi
     ROLES = [TOP, JUNGLE, SUPPORT, ADC, MIDDLE]
     ABILITIES = {
       first: 0,
-      q: 0,
       second: 1,
-      w: 1,
       third: 2,
-      e: 2,
-      r: 3,
-      ultimate: 3,
       fourth: 3
     }.freeze
     STATS = {
