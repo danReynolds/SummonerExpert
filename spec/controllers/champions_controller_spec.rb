@@ -509,6 +509,28 @@ describe ChampionsController, type: :controller do
     it_should_behave_like 'verify role'
     it_should_behave_like 'load champion'
 
+    context 'without sufficient matchups' do
+      let(:champion) { Champion.new(name: 'Bard') }
+      let(:role_data) do
+        champion.roles.first.tap do |role|
+          role[:matchups].map! { |matchup| { games: 10 } }
+        end
+      end
+
+      before :each do
+        allow(controller).to receive(:champion_params).and_return({
+          champion: champion.name
+        })
+        allow(Champion).to receive(:new).and_return(champion)
+        allow(champion).to receive(:find_by_role).and_return(role_data)
+      end
+
+      it 'should specify that there is not enough data in the current patch' do
+        post action, params
+        expect(speech).to eq 'There is not enough data for Bard in the current patch.'
+      end
+    end
+
     context 'with worst order' do
       let(:response_text) {
         "The worst four counters for Jayce Top are Singed at a 43.12% win rate, Dr. Mundo at a 44.37% win rate, Teemo at a 47.78% win rate, and Garen at a 47.8% win rate."

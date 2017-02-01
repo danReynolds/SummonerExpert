@@ -15,7 +15,8 @@ module Sortable
     DEFAULTS = {
       list_position: 1,
       list_size: 1,
-      list_order: ORDER[:desc]
+      list_order: ORDER[:desc],
+      collection: []
     }.freeze
 
     def initialize(attributes = {})

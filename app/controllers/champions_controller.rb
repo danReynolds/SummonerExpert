@@ -145,10 +145,20 @@ class ChampionsController < ApplicationController
   end
 
   def counters
+    matchups = @role_data[:matchups].select do |matchup|
+      matchup[:games] > MIN_MATCHUPS
+    end
+
+    if matchups.blank?
+      return render json: {
+        speech: (
+          "There is not enough data for #{@champion.name} in the current patch."
+        )
+      }
+    end
+
     sortable_counters = Sortable.new({
-      collection: @role_data[:matchups].select do |matchup|
-        matchup[:games] > MIN_MATCHUPS
-      end,
+      collection: matchups,
       sort_order: -> matchup { matchup[:statScore] }
     }.merge(champion_params.slice(:list_size, :list_position, :list_order)))
     champions = Rails.cache.read(:champions)
@@ -157,7 +167,7 @@ class ChampionsController < ApplicationController
       "#{champions[counter[:key]][:name]} at a " \
       "#{(100 - counter[:winRate]).round(2)}% win rate"
     end.en.conjunction(article: false)
-    
+
     list_size_message = sortable_counters.list_size_message
     list_position_message = sortable_counters.list_position_message
     list_size = sortable_counters.list_size.to_i
