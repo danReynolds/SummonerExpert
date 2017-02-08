@@ -35,7 +35,7 @@ module Sortable
     end
 
     def list_size_message
-      @list_size.to_i == 1 ? '' : "#{@list_size.en.numwords} "
+      @list_size.to_i == 1 || @collection.size == 1 ? '' : "#{@list_size.en.numwords} "
     end
 
     def list_position_message

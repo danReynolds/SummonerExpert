@@ -167,6 +167,29 @@ describe ChampionsController, type: :controller do
       )
     end
 
+    context 'without enough champions' do
+      let(:champion) { Champion.new(name: 'Bard') }
+      let(:role_data) do
+        champion.roles.first.tap do |role|
+          role[:matchups] = role[:matchups].select do |matchup|
+            matchup[:games] >= 100
+          end.first(1)
+        end
+      end
+
+      before :each do
+        allow(Rails.cache).to receive(:read).with(rankings: 'Top').and_return(
+          Rails.cache.read(rankings: 'Top').first(1)
+        )
+        allow(Rails.cache).to receive(:read).with(:champions).and_call_original
+      end
+
+      it 'should indicate that there were not enough champions' do
+        post action, params
+        expect(speech).to eq 'The current patch only has enough data for one ranking. The best champion in Top are Darius.'
+      end
+    end
+
     context 'with list position' do
       before :each do
         allow(controller).to receive(:champion_params).and_return(
@@ -509,11 +532,36 @@ describe ChampionsController, type: :controller do
     it_should_behave_like 'verify role'
     it_should_behave_like 'load champion'
 
-    context 'without sufficient matchups' do
+    context 'without enough matchups' do
       let(:champion) { Champion.new(name: 'Bard') }
       let(:role_data) do
         champion.roles.first.tap do |role|
-          role[:matchups].map! { |matchup| { games: 10 } }
+          role[:matchups] = role[:matchups].select do |matchup|
+            matchup[:games] >= 100
+          end.first(1)
+        end
+      end
+
+      before :each do
+        allow(controller).to receive(:champion_params).and_return(
+          champion: champion.name,
+          list_size: 2
+        )
+        allow(Champion).to receive(:new).and_return(champion)
+        allow(champion).to receive(:find_by_role).and_return(role_data)
+      end
+
+      it 'should indicate that there was not the correct number of results' do
+        post action, params
+        expect(speech).to eq 'The current patch only has enough data for one counter. The best counter for Bard Support is Taric at a 57.9% win rate.'
+      end
+    end
+
+    context 'without any matchups' do
+      let(:champion) { Champion.new(name: 'Bard') }
+      let(:role_data) do
+        champion.roles.first.tap do |role|
+          role[:matchups].map! { |_| { games: 10 } }
         end
       end
 

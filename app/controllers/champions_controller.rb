@@ -13,24 +13,26 @@ class ChampionsController < ApplicationController
     tag = champion_params[:tag]
 
     champions = Rails.cache.read(:champions)
-    rankings = Rails.cache.read({ rankings: role })
+    rankings = Rails.cache.read(rankings: role)
     rankings = rankings.select { |ranking| ranking[:tags].include?(tag) } unless tag.blank?
     sortable_rankings = Sortable.new({
       collection: rankings
     }.merge(champion_params.slice(:list_position, :list_size, :list_order)))
 
-    ranking_message = sortable_rankings.sort.map do |role_data|
+    rankings = sortable_rankings.sort.map do |role_data|
       champions[role_data[:key]][:name]
-    end.en.conjunction(article: false)
+    end
     list_size_message = sortable_rankings.list_size_message
     list_position_message = sortable_rankings.list_position_message
-    topic_message = tag_message(tag, sortable_rankings.list_size.to_i)
+    topic_message = tag_message(tag, rankings.size)
 
     render json: {
       speech: (
-        "The #{list_position_message}#{sortable_rankings.list_order} " \
+        "#{insufficient_champions_message(rankings.size, 'ranking')}The " \
+        "#{list_position_message}#{sortable_rankings.list_order} " \
         "#{list_size_message}#{topic_message} in #{role} " \
-        "#{"is".en.plural_verb(sortable_rankings.list_size)} #{ranking_message}."
+        "#{"is".en.plural_verb(sortable_rankings.list_size)} " \
+        "#{rankings.en.conjunction(article: false)}."
       )
     }
   end
@@ -146,7 +148,7 @@ class ChampionsController < ApplicationController
 
   def counters
     matchups = @role_data[:matchups].select do |matchup|
-      matchup[:games] > MIN_MATCHUPS
+      matchup[:games] >= MIN_MATCHUPS
     end
 
     if matchups.blank?
@@ -166,18 +168,18 @@ class ChampionsController < ApplicationController
     counters = sortable_counters.sort.map do |counter|
       "#{champions[counter[:key]][:name]} at a " \
       "#{(100 - counter[:winRate]).round(2)}% win rate"
-    end.en.conjunction(article: false)
-
+    end
     list_size_message = sortable_counters.list_size_message
     list_position_message = sortable_counters.list_position_message
     list_size = sortable_counters.list_size.to_i
 
     render json: {
       speech: (
-        "The #{list_position_message}#{sortable_counters.list_order} " \
-        "#{list_size_message}#{'counter'.en.pluralize(list_size)} for " \
-        "#{@champion.name} #{@role} #{'is'.en.plural_verb(list_size)} " \
-        "#{counters}."
+        "#{insufficient_champions_message(counters.size, 'counter')}The " \
+        "#{list_position_message}#{sortable_counters.list_order} " \
+        "#{list_size_message}#{'counter'.en.pluralize(counters.size)} " \
+        "for #{@champion.name} #{@role} #{'is'.en.plural_verb(counters.size)} " \
+        "#{counters.en.conjunction(article: false)}."
       )
     }
   end
@@ -247,6 +249,12 @@ class ChampionsController < ApplicationController
   end
 
   private
+
+  def insufficient_champions_message(size, type)
+    return '' if champion_params[:list_size].to_i == size
+    "The current patch only has enough data for #{size.en.numwords} " \
+    "#{type.en.pluralize(size)}. "
+  end
 
   def parse_ability_order(abilities)
     first_abilities = abilities.first(3)

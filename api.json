@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-01-18T21:34:27.318Z",
+	"__export_date": "2017-02-08T16:10:34.242Z",
 	"__export_source": "insomnia.desktop.app:v4.0.9",
 	"resources": [
 		{
@@ -26,23 +26,46 @@
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484775237533,
+			"modified": 1486568006016,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
 			"_type": "cookie_jar"
 		},
 		{
+			"_id": "req_2e0b78dced0245b597503925353df8db",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1486404348206,
+			"created": 1486404289271,
+			"url": "{{ url }}",
+			"name": "lcs/standings",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"a66c4148-69c9-435a-8371-2ca182ef67b4\",\n  \"timestamp\": \"2017-02-06T18:05:43.598Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who is winning the LCS in NA?\",\n    \"action\": \"competitions/standings\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"competition\": \"LCS\",\n      \"region\": \"na\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lcs\",\n        \"parameters\": {\n          \"competition.original\": \"LCS\",\n          \"competition\": \"LCS\",\n          \"region.original\": \"NA\",\n          \"region\": \"na\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"2b515a9a-eaf0-4123-9cdf-8921c4278c50\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"lcs/standings\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: a6fdcb3e-dcbe-4fd0-b3d4-4373a844c8c2\"\n  },\n  \"sessionId\": \"95bcfd3e-53e7-4fbc-9ca8-6454421879bd\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1486404289271,
+			"_type": "request"
+		},
+		{
 			"_id": "req_30337ed27c9444deb392be7f6b1ff2be",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484532963135,
+			"modified": 1486570164131,
 			"created": 1482600505061,
 			"url": "{{ url }}",
 			"name": "champions/counters",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"id\": \"a8daca3a-01de-4395-b4a0-428aefe42f2e\",\n\t\"timestamp\": \"2016-12-20T00:07:16.229Z\",\n\t\"result\": {\n\t\t\"source\": \"agent\",\n\t\t\"resolvedQuery\": \"Who counters Jayce top?\",\n\t\t\"action\": \"champions/counters\",\n\t\t\"actionIncomplete\": false,\n\t\t\"parameters\": {\n\t\t\t\"champion\": \"Jayce\",\n\t\t\t\"lane\": \"Top\"\n\t\t},\n\t\t\"contexts\": [],\n\t\t\"metadata\": {\n\t\t\t\"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n\t\t\t\"webhookUsed\": \"true\",\n\t\t\t\"webhookForSlotFillingUsed\": \"false\",\n\t\t\t\"intentName\": \"champions/counters\"\n\t\t},\n\t\t\"fulfillment\": {\n\t\t\t\"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\",\n\t\t\t\"messages\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": 0,\n\t\t\t\t\t\"speech\": \"The best counters for Jayce Top are Talon at 70.38% win rate, Rammus at 68.0% win rate, Warwick at 62.5% win rate\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t\"score\": 0.96\n\t},\n\t\"status\": {\n\t\t\"code\": 200,\n\t\t\"errorType\": \"success\"\n\t},\n\t\"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"07f9a83a-69e1-4812-a15f-77222d39b083\",\n  \"timestamp\": \"2017-01-25T06:45:31.508Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Second best counter Jayce Top\",\n    \"action\": \"champions/counters\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jayce\",\n      \"lane\": \"Top\",\n      \"list_order\": \"best\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"counters\",\n        \"parameters\": {\n          \"lane.original\": \"Top\",\n          \"order.original\": \"worst\",\n          \"list_position.original\": \"Second\",\n          \"list_size\": \"\",\n          \"list_order.original\": \"best\",\n          \"rank.original\": \"\",\n          \"list_position\": \"2\",\n          \"list_order\": \"best\",\n          \"rank\": \"\",\n          \"list_size.original\": \"\",\n          \"champion.original\": \"Jayce\",\n          \"lane\": \"Top\",\n          \"champion\": \"Jayce\",\n          \"order\": \"worst\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/counters\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 5e65555c-7410-4683-be86-89041884be31\"\n  },\n  \"sessionId\": \"20de7667-e229-43c4-80d9-a3e538b96781\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -242,7 +265,7 @@
 		{
 			"_id": "req_8a9b75d53d5e479e96ace9d7ef3845db",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484775257449,
+			"modified": 1486570228905,
 			"created": 1484257755665,
 			"url": "{{ url }}",
 			"name": "summoners/show",
@@ -265,7 +288,7 @@
 		{
 			"_id": "req_9f008ddeeac445098da6d6e8da34269e",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484774571801,
+			"modified": 1486570222207,
 			"created": 1484769646719,
 			"url": "{{ url }}",
 			"name": "summoners/champion",
