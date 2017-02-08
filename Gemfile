@@ -11,6 +11,8 @@ gem 'amatch'
 gem 'linguistics'
 gem 'thread'
 gem 'keen'
+gem 'capybara'
+gem 'poltergeist'
 
 group :development, :test do
   gem 'pry'

@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     post :show
   end
 
+  namespace :competitions do
+    post :standings
+  end
+
   namespace :summoners do
     post :show
     post :champion

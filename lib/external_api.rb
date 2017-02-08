@@ -7,7 +7,7 @@ class ExternalApi
       uri = URI("#{endpoint}#{append_symbol}api_key=#{@api_key}")
       response = Net::HTTP.get_response(uri)
       return nil unless response.code.to_i == 200
-
+      binding.pry
       body = JSON.parse(response.body)
       if body.is_a?(Hash)
         body = body.with_indifferent_access

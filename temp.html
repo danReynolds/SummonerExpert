@@ -1,0 +1,1287 @@
+<!DOCTYPE html><html class="js flexbox flexboxlegacy canvas canvastext webgl touch no-geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths tablesaw-enhanced" lang="en_US" data-nonce="3" style=""><head><script type="text/javascript" src="http://bam.nr-data.net/1/db0e86c688?a=6474028&amp;sa=1&amp;pl=1486407209777&amp;v=632.2b17625&amp;t=Unnamed%20Transaction&amp;be=331&amp;fe=6292&amp;dc=840&amp;f=%5B%22err%22,%22xhr%22%5D&amp;perf=%7B%22timing%22:%7B%22of%22:1486407209777,%22n%22:0,%22dl%22:324,%22di%22:1171,%22ds%22:1171,%22de%22:1175,%22dc%22:6577,%22l%22:6623,%22le%22:6624,%22f%22:0,%22dn%22:0,%22dne%22:0,%22c%22:0,%22ce%22:0,%22rq%22:0,%22rp%22:0,%22rpe%22:341%7D,%22navigation%22:%7B%7D%7D&amp;jsonp=NREUM.setToken"></script><script src="http://js-agent.newrelic.com/nr-632.min.js"></script><script type="text/javascript" async="" src="//s3.amazonaws.com/ki.js/51398/bo9.js"></script><script async="" src="//www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="http://riot-dradis-assets-oregon.s3.amazonaws.com/dradis-0.5.0-prod.min.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-MBFKBN"></script><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t){try{i.console&&console.log(t)}catch(e){}}var n,r=t("ee"),o=t(1),i={};try{n=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(i.console=!0,-1!==n.indexOf("dev")&&(i.dev=!0),-1!==n.indexOf("nr_dev")&&(i.nrDev=!0))}catch(a){}i.nrDev&&r.on("internal-error",function(t){e(t.stack)}),i.dev&&r.on("fn-err",function(t,n,r){e(r.stack)}),i.dev&&(e("NR AGENT IN DEVELOPMENT MODE"),e("flags: "+o(i,function(t){return t}).join(", ")))},{1:22,ee:"QJf3ax"}],4:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,t(5),window.onerror=e;try{throw new Error}catch(f){"stack"in f&&(t(1),t(2),"addEventListener"in window&&t(3),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)&&t(4),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:9,2:8,3:6,4:10,5:3,6:23,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t){function e(){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var n=t("ee"),r=t("handle"),o=t(1),i=t(2);t("loader").features.stn=!0,t(3),n.on("fn-start",function(t){var e=t[0];e instanceof Event&&(this.bstStart=Date.now())}),n.on("fn-end",function(t,e){var n=t[0];n instanceof Event&&r("bst",[n,e,this.bstStart,Date.now()])}),o.on("fn-start",function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),o.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),this.bstType])}),i.on("fn-start",function(){this.bstStart=Date.now()}),i.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),"requestAnimationFrame"])}),n.on("pushState-start",function(){this.time=Date.now(),this.startPath=location.pathname+location.hash}),n.on("pushState-end",function(){r("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),"addEventListener"in window.performance&&(window.performance.addEventListener("webkitresourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.webkitClearResourceTimings()},!1),window.performance.addEventListener("resourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.clearResourceTimings()},!1)),document.addEventListener("scroll",e,!1),document.addEventListener("keypress",e,!1),document.addEventListener("click",e,!1)}},{1:9,2:8,3:7,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],6:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:23,2:24,ee:"QJf3ax",gos:"7eSDFh"}],7:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window.history,["pushState"],"-")},{1:24,2:23,ee:"QJf3ax"}],8:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:24,2:23,ee:"QJf3ax"}],9:[function(t,e){function n(t,e,n){t[0]=o(t[0],"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:24,2:23,ee:"QJf3ax"}],10:[function(t,e){function n(){f.inPlace(this,p,"fn-")}function r(t,e){f.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}function i(t,e){for(var n in t)e[n]=t[n];return e}var a=t("ee").create(),s=t(1),c=t(2),f=c(a),u=c(s),d=window.XMLHttpRequest,p=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=a,window.XMLHttpRequest=function(t){var e=new d(t);try{a.emit("new-xhr",[],e),u.inPlace(e,["addEventListener","removeEventListener"],"-",o),e.addEventListener("readystatechange",n,!1)}catch(r){try{a.emit("internal-error",[r])}catch(i){}}return e},i(d,XMLHttpRequest),XMLHttpRequest.prototype=d.prototype,f.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),a.on("send-xhr-start",r),a.on("open-xhr-start",r)},{1:6,2:24,ee:"QJf3ax"}],11:[function(t){function e(t){var e=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!e.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){e.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=n(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(e.cat=d.split(", ").pop())}}else e.status=0;r.cbTime=this.cbTime,o("xhr",[e,r,this.startTime])}}}function n(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=e,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,e){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=n(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof e.onload))&&i.end(e)}catch(n){try{a.emit("internal-error",[n])}catch(r){}}};for(var u=0;c>u;u++)e.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:12,3:10,4:6,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],12:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],13:[function(t,e){function n(t){return function(){r(t,[(new Date).getTime()].concat(i(arguments)))}}var r=t("handle"),o=t(1),i=t(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(t,e){window.NREUM[e]=n("api-"+e)}),e.exports=window.NREUM},{1:22,2:23,handle:"D5DuLP"}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info,e=f.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){s(d,function(e,n){e in t||(t[e]=n)});var n="https"===u.split(":")[0]||t.sslForHttp;p.proto=n?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=p.proto+t.agent,e.parentNode.insertBefore(r,e)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=t(1),c=(t(2),window),f=c.document,u=(""+location).split("?")[0],d={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-632.min.js"},p=e.exports={offset:i(),origin:u,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),c.addEventListener("load",n,!1)):(f.attachEvent("onreadystatechange",r),c.attachEvent("onload",n)),a("mark",["firstbyte",i()])},{1:22,2:13,handle:"D5DuLP"}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],22:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],23:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],24:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:23,ee:"QJf3ax"}]},{},["G9z0Bl",4,11,5]);;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"db0e86c688",applicationID:"6474028",sa:1,agent:"js-agent.newrelic.com/nr-632.min.js"}</script><meta name="google-site-verification" content="LBX8GbQ_txmX1JaZuakhZr2wwEwt56uYGds4H2K6oYQ"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta property="og:image" content="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/site-logo.png"><title>Bracket | LoL Esports</title><link rel="stylesheet" href="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/css/app.css"><!--[if IE]><link rel="shortcut icon" href="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/favicon.ico"><![endif]--><link rel="icon" href="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/site-logo-small.png"><script>if (document.documentElement.lang === 'kr_KR') {document.documentElement.lang = 'ko_KR';}</script><link rel="apple-touch-icon-precomposed" href="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/site-logo.png"><script>var TRANSLATIONS = {heading: "World Championship",playerStats: "Player KDA, CS & Gold",offline: "Broadcast offline",standings: {champions: "2015 WORLD CHAMPIONS"},nav: {copyright1: "© 2016 RIOT GAMES.",copyright2: "ALL RIGHTS RESERVED.",watchlive: "Watch Live",schedule: "SCHEDULE",scheduleLower: "Schedule",standings: "TEAMS & STANDINGS",bracket: "BRACKET",bracketLower: "Bracket",teams: "TEAMS",teamsLower: "Teams",vods: "VODS",articles: "ARTICLES",articlesLower: "Articles",stats: "STATS",ptl: "PTL",about: "ABOUT",aboutLower: "About",stats: "STATS",statsLower: "Stats",allstars: "ALL-STAR",allstarsLower: "All-Star",pickem: "PICK'EM",otherleagues: "OTHER LEAGUES",titleBase: "LoL Esports",bracket1v1: "1v1 BRACKET",home: "HOME",regular_season_2015: "2015 REGULAR SEASON",previous_competitions: "PREVIOUS COMPETITIONS",more_competitions: "MORE COMPETITIONS"},marquee:  {topstories: "TOP STORIES",alllink: "All Articles & Videos",trending: "TRENDING",videos: "VIDEOS",},tabs: {stats: "Stats",tweets: "Twitter",schedule: "Schedule"},stage: {"na-lcs-summer-playoffs": "NA LCS Playoffs","iwc-pax-prime": "PAX International Wildcard","group-a": "Group A","group-b": "Group B","group-c": "Group C","group-d": "Group D","group_a": "Group A","group_b": "Group B","group_c": "Group C","group_d": "Group D","knockout-stage": "Final","roundOne": "Round 1","roundTwo": "Round 2","roundThree": "Round 3","quarter-final": "Quarterfinals","semi-final": "Semifinals","grand-final": "Final","finals": "Finals","firstPlaceBye": "1ST PLACE BYE","secondPlaceBye": "2ND PLACE BYE","thirdPlaceBye": "3RD PLACE BYE","fourthPlaceBye": "4TH PLACE BYE","eu-spring-promotion": "EU Promotion Tournament","na-spring-promotion": "NA Promotion Tournament","thirdPlace": "Third place","summersplit": "Summer Split","summerqualifier": "Summer Qualifier","summerplayoffs": "Summer Playoffs","win": "W","loss": "L","tie": "T","rank": "RANK","round_robin": "GROUP STAGE","groups": "GROUP STAGE","group_stage": "GROUP STAGE","regular_season": "Regular Season","single_elim": "KNOCKOUT STAGE","split": "split","stage": "stage","elim": "KNOCKOUT STAGE","all-star": "ALL-STAR","all_star_1v1": "1v1","all_star_2015": "2015 All-Star","all_star_5v5": "5v5","all_star_2015_main": "2015 All-Star","all_star_2015_1v1": "2015 All-Star 1v1","all_star_2016": "2016 All-Star","all_star_2016_main": "2016 All-Star","all_star_2016_1v1": "2016 All-Star 1v1","lpl_group_a": "Regular Season","lpl_group_b": "Regular Season","lpl_group_ab": "Regular Season","spring_split": "Spring Split","summer_split": "Summer Split","playoffs": "PLAYOFFS","promotion_relegation": "PROMOTION","regionals": "REGIONALS","winnerToLCS": "WINNER TO LCS","winnerToLCK": "WINNER TO LCK","winnerToLMS": "WINNER TO LMS","winnerToLPL": "WINNER TO LPL","loserOfFinalOne": "Loser of Final #1","loserOfFinalTwo": "Loser of Final #2",},match: {match: "MATCH",matches: "MATCHES",best_of: "Best of",game: "Game",lineups: "LINE-UPS",vote: "VOTE",voteTweet: "I picked {0} to win their match against {1}",victory: "VICTORY",defeat: "DEFEAT",tie: "TIE",complete: "Match Complete",of: "of",current_standings: "CURRENT STANDINGS",game_of: "Game {0} of {1}",not_yet_completed: "This game has not yet been completed.",concluded_before_played: "Series concluded before this game was played.",no_vod_yet: "The VOD for this game is not yet available.",view_stats: "VIEW PLAYER BUILDS & GAME ANALYSIS",team_win: "{0} Win",details: "Match details",vs: "vs",done: "COMPLETE",live: "LIVE"},role: {"toplane": "Top","jungle":  "Jungle","midlane": "Mid","adcarry": "ADC","support": "Support"},loginCta: {line1: "Sign In",line2: "with your PVP.net account for:",reason1: "Live Scoreboard",reason2: "Gold Advantage",reason3: "Lane-by-Lane comparisons",cta: "Sign in for live stats"},tooltip: {barons: "Barons Killed",dragons: "Dragons Killed",towers: "Towers Destroyed",inhibitors: "Inhibitors Destroyed",minions: "Minions Killed",kda: "KDA"},schedule: {week:"Week",day:"Day",today:"Today",tomorrow:"Tomorrow",approx:"APPROX.",upcoming:"UPCOMING MATCHES",no_upcoming:"There are no upcoming matches",days_ago:"{i18n schedule.days_ago}",full:"FULL<br />SCHEDULE"},social: {share:"SHARE",},footer: {copyright: "© 2016 Riot Games. All Rights Reserved.",terms: "TERMS OF USE",privacy: "PRIVACY POLICY",},language: {"en": "English","zh": "中文","es": "Español","ru": "Русский","fr": "Français","de": "Deutsch","ja": "日本語","pl": "Polski","kr": "한국어","pt": "Português","it": "Italiano","el": "Ελληνικά","tr": "Türkçe","th": "ภาษาไทย","vn": "Tiếng Việt","bg": "Български","ro": "Română","sv": "Svenska","cs": "Čeština","es1": "Español (LATAM)","id": "Bahasa Indonesia"},worlds: {logo:"WORLD CHAMPIONSHIP",year:"2015 LEAGUE OF LEGENDS",},allstar: {logo:"ALL-STAR EVENT",year:"2015 LEAGUE OF LEGENDS",},countdown: {match:"NEXT MATCH IN",groupdraw:"GROUP DRAW SHOW IN",day:"D",hour:"H",minute:"M",second:"S",},article: {title: "Articles",by: "BY",comment: "COMMENT",comments: "COMMENTS",},player: {bio: "BIOGRAPHY",kda_ratio: "KDA RATIO",cs_per_min: "CS PER MIN",kill_participation: "KILL PARTICIPATION",league_context: "#{0} IN {1}",champion: "CHAMPION",played: "PLAYED",win_loss: "WIN-LOSS",most_played: "MOST PLAYED CHAMPIONS",played_amount: "{0} times",match_history: "MATCH HISTORY",versus: "VERSUS",when: "WHEN",kda: "KDA",cs_min: "CS / MIN"},teams: {overview: "OVERVIEW",roster: "ROSTER",summoner: "SUMMONER",name: "NAME",position: "POSITION",win: "Win",loss: "Loss",comp: "TEAM COMP",kda: "TEAM KDA"},error: {msg_404_1: "Looks like you're lost.<br>Need a map?",msg_404_2: "Error 404: We couldn't find the page you're looking for.",msg_500_1: "Oops.  How'd this hole get in our site?",msg_500_2: "Error 500",vods_placeholder_title: "Coming Soon",vods_placeholder_body: "<p>Check back after matches start for VODs!</p>",vods_placeholder_link_text: "Looking for",vods_placeholder_link: "Worlds VODS?",schedule_placeholder_title: "Coming Soon",schedule_placeholder_body: "<p>Please check back soon for the daily schedule.</p>",bracket_placeholder_title: "1v1 Bracket",bracket_placeholder_body: "The All-Star 1v1 Bracket is a 30-man, single-elimination tournament. The bracket will be revealed on Nov 20th.",stats_placeholder_title: "Coming Soon",stats_placeholder_body: "<p>Check back after matches start for the stats table!</p>",stats_placeholder_link_text: "Looking for",stats_placeholder_link: "Worlds Stats?"},banner: {live: "LIVE",watch: "WATCH LIVE",worlds: "2015 WORLD CHAMPIONSHIP",rebroadcast: "REBROADCAST","opening-ceremony": "OPENING CEREMONY","ptl": "PRIMETIME LEAGUE","worlds-tonight": "WORLDS TONIGHT","group-draw-show": "GROUP DRAW SHOW","bracket-draw-show": "BRACKET DRAW SHOW",rebroadcast_capcase: "Rebroadcast","opening-ceremony_capcase": "Opening Ceremony","worlds-tonight_capcase": "Worlds Tonight","iem": "INTEL EXTREME MASTERS","iwc-all-star": "IWC ALL-STAR","lck": "LCK - CHAMPIONS KOREA","lpl": "LPL CHINA","nalcs_promo": "NA PROMOTION","eulcs_promo": "EU PROMOTION","nalcs-promo": "NA PROMOTION","eulcs-promo": "EU PROMOTION","nacs-qualifier": "NA Challenger Qualifier","eucs-qualifier": "EU Challenger Qualifier",},miniabout: {header: "MATCHES START OCTOBER 1",body: "The Group Draw Show is complete and groups have been identified. Come back on September 18 for the full schedule. Matches start on October 1!"},stats: {all: "All",all_players: "All Players",all_teams: "All Teams",all_positions: "All Positions",search_players: "Search Players by name...",search_teams: "Search Teams by name...",search_positions: "Search Positions by name...",update: "Update",cancel: "Cancel",name: "Name",team: "Team",position: "Position",kda: "KDA (ratio)",kills: "Kills (total)",deaths: "Deaths (total)",assists: "Assists (total)",killParticipation: "Kill Participation",csPerMin: "CS (per minute)",cs: "CS (total)",minutesPlayed: "Minutes Played",gamesPlayed: "Games Played"},gameMode: {"lol:classic":     "Normal","lol:duel":        "1v1","lol:voted_picks": "Pick-10","lol:marksmen":    "Marksmen Mode","lol:assassin":    "Assassin Mode","lol:tandem":      "Tandem Mode","lol:one_for_all": "One for All","lol:poro_king": "Poro King"},top20: {title: "The Worlds Top 20",intro: "League of Legends is a team game, no doubt about it. And while the 2015 World Championship is sure to deliver scads of epic team plays, there's something to be said for the sheer talent and mastery of the individual. In the lead up to the Group Stage, we'll be counting down our picks for the Top 20 players competing at Worlds. These players are masters of their craft, one and all. But only one can be named No. 1.",home: "Home",share: "Share",next: "Next",read: "Read the Story",locked: "Locked",view: "View All",close: "Close",number_denote: "N&deg;"},top2016: {title: "The Worlds Top 20",intro: "Every year, the World Championship is the final challenge for the best League teams and players on the planet. What we’ll see on stage is the culmination of a yearlong quest to be crowned the best. These are the players who have refined their craft to the utmost in this pursuit for perfection and for the Summoner’s Cup. Every blade steeled and sharpened. Every spell recited and fired. Every tactic learned and mastered. These are our picks for the Top 20 players of 2016 who have come to lay claim to the pinnacle of League of Legends. ",home: "Home",share: "Share",next: "Next",read: "Read the Story",locked: "Locked",view: "View All",close: "Close",number_denote: "N&deg;"},ptw: {NAtitle: "NA Players To Watch",EUtitle: "EU Players To Watch",title: "Players to Watch",video: "Watch the Start of Season video",NAintro: "Doublelift to TSM, Huni in NA, Froggen in NA?! What the heck is going on?! If you haven't been following all of the changes in the offseason, well, you've got some catching up to do. Read on for some of the most interesting storylines coming into the 2016 Spring Split, and be sure to tune in for the TSM vs. CLG opener on January 16!",EUintro: "The EU LCS is a merry mix of talent, ambition, and mechanical skill, and we think you’ll find Players to Watch all over the map. In this series, we're highlighting standout members of each EU LCS team and delving into why these are the guys you should be keeping an eye on this season.",home: "Home",share: "Share",next: "Next",read: "Read the Story",locked: "Locked",view: "View All",close: "Close",back: "Back to"},allstars: {landing: {title: "2016 All-Star Voting",mainHeader: "2016 ALL-STAR VOTING",description: "At the 2016 All-Star Event, pro players from around the globe will meet in Barcelona, Spain for regional matches, the 1v1 tournament, fun game modes, and a few surprises. It’s up to you to decide which pros are worthy of the ‘All-Star’ title.<br> <br>Cast your vote before November 8th, and prepare yourself: There will be mayhem.",pickYour: "PICK YOUR",allStars: "ALL-STARS"},help: {playerVote: {header: "Help!  What do I do?",line1: "<b>Who can I vote for?</b><br>For each of the five major regions you can vote once on one player per position.<br><br><b>Is cross-regional voting weighted?</b><br>Yup! No more than 20% of the votes for pros can come from outside that player's region.",line2: "<br><br><b>Which pros are eligible?</b><br>Eligible pros need to have either played in 20% of the games in his region's Summer Split or 20% of Worlds 2016. No more than two players from the same team can attend. If more than two players from the same team are elected, the two with the highest post-weighted vote totals will be invited.",line3: "<br><br><b>What about International Wildcard pros?</b><br>The IWC Regions will determine their pros via the IWC All-Star Event on December 1-4.<br><br><b>Do I get free stuff?</b><br>Yup! You get a Summoner Icon just for voting! It may take 1-3 days after voting ends for the All-Star Event Summoner Icon to appear in your account."}},playerVote: {title: "2016 All-Star Voting",voteFor: "VOTE FOR",twoPlayerLimit: "Sorry!  You can only vote for two players from each team.",nextVote: "Next Vote",confirmResults: "Confirm<br>Results"},playerConfirm: {title: "2016 All-Star Voting",submitVotes: "SUBMIT<br>VOTES",yourVotes: "YOUR VOTES",changeVote: "CHANGE VOTE",alsoVoteFor: "You can also vote for {0}",noVote: "No Vote",voteNow: "VOTE NOW",wildCardInfo: "The IWC Regions will determine their pros via the IWC All-Star Event on December 1-4.",moreInfo: "MORE INFO",numberOfVotes: "{0} OF 5 VOTES",warning: "Your votes have not been submitted yet. Leaving this page will lose your votes.",confirmDialog: {header: "LOCK IT IN!",content: "Bold.  That's all I'll say.  Just, bold.",submit: "SUBMIT & LOCK VOTES",keepVoting: "KEEP VOTING"},loginDialog: {header: "LOGIN TO SUBMIT VOTES",login: "LOGIN"},},playerResults: {title: "2016 All-Star Voting",backToLolesports: "BACK TO LOLESPORTS.COM",help: "HELP & VOTING INFO",thanks: "THANKS FOR VOTING!",youDidIt: "YOU DID IT!",summonerIcon: "After all that work, you know what you need?  A new Summoner Icon!  You can't just go buy this little guy, so wear it with pride, knowing you just made All-Stars 2016 better than it would have been otherwise.*",goVote: "GO VOTE",current: "CURRENT",final: "FINAL",standings: "STANDINGS",yourPick: "YOUR PICK",votesUpdated: "*Updated daily.  Voting concludes November 8th.",iconMessage: "*It may take 1-3 days after voting ends for the All-Star Event Summoner Icon to appear in your account."},leagueNav: {review: "REVIEW YOUR VOTES",help: "HELP & VOTING INFO",results: "RESULTS"},teamNav: {teamFire: "TEAM FIRE",teamIce: "TEAM ICE"}}};</script><script src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/js/vendor.js"></script><meta class="foundation-data-attribute-namespace"><meta class="foundation-mq-xxlarge"><meta class="foundation-mq-xlarge"><meta class="foundation-mq-large"><meta class="foundation-mq-medium"><meta class="foundation-mq-small"><style></style><script async="async">var pCfg = {messageType: 'lolesports',appname: 'lolesports-feapp'}</script><script src="http://s.lolstatic.com/ping/ping-0.1.236.min.js" async="async"></script><script type="text/javascript" async="async">rg_force_manifest = 'http://ddragon.leagueoflegends.com/realms/na.js';rg_force_language = document.documentElement.lang;</script><script async="async">window.Intl || document.write('<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.'+ document.documentElement.lang.replace('_', '-') + '" async="async"><\/script>');</script><script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en-US" async="async"></script><script type="text/javascript" src="https://lolstatic-a.akamaihd.net/ping/ping-0.1.651.min.js"></script><style type="text/css">@font-face{font-family:BeaufortLoL;src:url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.eot?#iefix) format("embedded-opentype"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.woff) format("woff"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.ttf) format("truetype"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.svg#svgFontName) format("svg")}@font-face{font-family:BeaufortLoL;src:url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.eot?#iefix) format("embedded-opentype"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.woff) format("woff"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.ttf) format("truetype"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.svg#svgFontName) format("svg");font-weight:700}@font-face{font-family:BeaufortLoL;src:url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Italic.eot?#iefix) format("embedded-opentype"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Italic.woff) format("woff"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Italic.ttf) format("truetype"),url(https://s.lolstatic.com/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Italic.svg#svgFontName) format("svg");font-style:italic}body.riotbar-present{margin:0;margin-top:52px;overflow-x:hidden;padding:0;position:relative}.riotbar-clearfix{zoom:1}.riotbar-clearfix:after,.riotbar-clearfix:before{content:"";display:table}.riotbar-clearfix:after{clear:both}.riotbar-base-element,.riotbar-base-element a,.riotbar-base-element div,.riotbar-base-element em,.riotbar-base-element h1,.riotbar-base-element h2,.riotbar-base-element h3,.riotbar-base-element h4,.riotbar-base-element h5,.riotbar-base-element h6,.riotbar-base-element img,.riotbar-base-element li,.riotbar-base-element ol,.riotbar-base-element span,.riotbar-base-element strong,.riotbar-base-element ul{margin:0;padding:0;border:0;outline:0;font-size:100%;font:inherit;vertical-align:baseline;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-font-smoothing:antialiased}.riotbar-base-element ol,.riotbar-base-element ul{list-style:none}.riotbar-base-element,.riotbar-base-element *{box-sizing:border-box}.riotbar-base-element .riotbar-pagewidth{position:relative;width:100%;margin:0 auto;padding:0 5px}.riotbar-base-element a,.riotbar-base-element a:link,.riotbar-base-element a:visited{text-decoration:none;color:#c9aa71}.riotbar-base-element a:hover{color:#f1e6d0}.riotbar-base-element a.active,.riotbar-base-element a:active{color:#FFF}#riotbar-bar{background-color:#121212;border-bottom:2px solid #262626;font-family:BeaufortLoL,"Times New Roman";font-size:14px!important;font-weight:700;height:52px;line-height:normal;position:absolute;text-align:left;top:-52px;width:100%;z-index:3000000}#riotbar-bar .riotbar-bar-content{text-align:center}#riotbar-bar .riotbar-left-content,#riotbar-bar .riotbar-right-content{bottom:0;position:absolute;top:0}#riotbar-bar .riotbar-left-content{left:5px}#riotbar-bar .riotbar-right-content{right:5px}#riotbar-subbar{position:absolute;top:0;width:100%;z-index:10;pointer-events:none;text-align:left}#riotbar-subbar .riotbar-subcontent{pointer-events:auto}#riotbar-alerts{position:absolute;width:100%;z-index:10}#riotbar-alerts a:link,#riotbar-alerts a:visited{color:#71B5BD;text-decoration:none}#riotbar-alerts a.active,#riotbar-alerts a:active,#riotbar-alerts a:hover{color:#FFF}#riotbar-alerts a.btn-gold-trim:link,#riotbar-alerts a.btn-gold-trim:visited{font-family:BeaufortLoL,"Times New Roman";color:#dec58d;font-weight:700;padding:2px 10px;border-radius:4px;text-decoration:none;margin:-2px 0 -2px 10px;display:inline;display:inline-block;cursor:pointer;background-color:#151515;background:linear-gradient(to bottom,#313131 0,#000 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#313131', endColorstr='#000000', GradientType=0);border:1px solid #766e4c;text-transform:uppercase}#riotbar-alerts a.btn-gold-trim.active,#riotbar-alerts a.btn-gold-trim:active,#riotbar-alerts a.btn-gold-trim:hover{color:#F7DA9B}@charset "UTF-8";#riotbar-navbar{display:inline-block;font-size:0;height:52px;margin-right:0;max-width:100%;opacity:1;overflow:hidden;text-align:center}#riotbar-navbar a{border-bottom:2px solid transparent;color:#c9aa71;display:inline-block;font-size:14px;font-weight:700;line-height:48px;margin:0 .85em;overflow:hidden;padding-top:2px;text-transform:uppercase;transition:color 1s cubic-bezier(.06,.81,0,.98)}#riotbar-navbar a:hover{color:#f1e6d0}#riotbar-navbar a.riotbar-navbar-title{font-size:18px;color:#f1e6d0;line-height:50px;padding-top:0}#riotbar-navbar a.riotbar-navbar-title:hover{color:#f1e6d0}#riotbar-navbar a.riotbar-active-link{border-color:#c79a3c;color:#fff}#riotbar-navbar .riotbar-explore-label{display:none;line-height:1.2;margin-top:8px;text-transform:uppercase}#riotbar-navbar .riotbar-explore-subtitle{color:#a09a8e;font-size:10px}#riotbar-navbar .riotbar-explore-title{color:#f1e6d0;font-size:18px}#riotbar-navbar .riotbar-navbar-separator{border-left:2px solid #262626;display:inline-block;font-size:14px;height:30px;margin:10px .25em;vertical-align:top}#riotbar-navbar .riotbar-navbar-separator.riotbar-title-separator{margin-right:.85em}#riotbar-navbar.riotbar-fade-left{margin-right:10%;opacity:0}#riotbar-navbar.riotbar-fade-right{margin-right:-10%;opacity:0}@media (max-width:1115px){#riotbar-navbar a{margin:0 .6375em}#riotbar-navbar .riotbar-navbar-separator.riotbar-title-separator{margin-right:.6375em}}@media (max-width:1115px){#riotbar-navbar a{margin:0 .6375em}#riotbar-navbar .riotbar-navbar-separator.riotbar-title-separator{margin-right:.6375em}}@media (max-width:1024px){.riotbar-mobile-responsive #riotbar-navbar .riotbar-navbar-link,.riotbar-mobile-responsive #riotbar-navbar .riotbar-navbar-separator{display:none}.riotbar-mobile-responsive #riotbar-navbar .riotbar-explore-label{display:inline-block}}#riotbar-navmenu{color:#c9aa71;float:right;font-size:14px;height:50px}#riotbar-navmenu .riotbar-explore{cursor:pointer;display:inline-block;font-size:0;font-weight:700;height:50px;line-height:1;min-width:36px;text-transform:uppercase}#riotbar-navmenu .riotbar-explore:hover .riotbar-explore-subtitle{color:#f1e6d0}#riotbar-navmenu .riotbar-logo{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/navigation/icon-game-lol.png?1484769719) no-repeat 5px 8px;display:inline-block;height:50px;padding-left:50px}#riotbar-navmenu .riotbar-explore-label{display:none;opacity:0;position:relative;transition:opacity .5s linear}#riotbar-navmenu .riotbar-explore-subtitle{color:#a09a8e;display:inline-block;font-size:10px;margin:11px 13px 1px -200px;transition:color 1s cubic-bezier(.06,.81,0,.98),padding-left 1.5s cubic-bezier(0,.98,.25,1)}#riotbar-navmenu .riotbar-explore-title{color:#f1e6d0;font-size:18px;margin:0 13px 0 -200px;opacity:1;transition:padding-left .5s linear}#riotbar-navmenu .riotbar-explore-arrow{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/bar/dropdown-trigger.png?1484769719) no-repeat center top;display:none;float:right;height:5px;margin:25px 0 0 0;opacity:0;transition:opacity .5s linear,transform .5s ease-out;width:8px}#riotbar-navmenu .riotbar-navmenu-dropdown{background:#111;border-top:2px solid #262626;box-shadow:-3px 3px 6px rgba(0,0,0,.5);left:-5px;margin:0;opacity:0;overflow:hidden;padding:18px;position:absolute;text-align:left;transform:translateY(-5%);top:50px;visibility:hidden;width:460px;z-index:10}#riotbar-navmenu a.riotbar-back-link{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/navigation/arrow-left.png?1484769719) no-repeat left 2px;border-bottom:2px dotted #262626;cursor:pointer;display:block;font-size:14px;line-height:16px;margin-bottom:18px;padding:0 0 9px 18px;position:relative;text-transform:uppercase;transition:color 1s cubic-bezier(.06,.81,0,.98)}#riotbar-navmenu a.riotbar-back-link div{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/navigation/arrow-left-hover.png?1484769719) no-repeat;height:14px;left:0;opacity:0;position:absolute;top:2px;transition:opacity 1s cubic-bezier(.06,.81,0,.98);width:14px}#riotbar-navmenu a.riotbar-back-link:hover div{opacity:1}#riotbar-navmenu .riotbar-navmenu-category{border-top:2px solid #262626;margin-top:18px;padding-top:18px;overflow:visible;position:relative}#riotbar-navmenu .riotbar-navmenu-category .riotbar-category-name{color:#f1e6d0;font-size:14px;margin-bottom:9px;text-transform:uppercase}#riotbar-navmenu .riotbar-navmenu-category.riotbar-first-category{border-top:0;margin-top:0;padding-top:0}#riotbar-navmenu .riotbar-navmenu-category:after,#riotbar-navmenu .riotbar-navmenu-category:before{content:' ';display:table}#riotbar-navmenu .riotbar-navmenu-category:after{clear:both}#riotbar-navmenu .riotbar-left-column{border-right:2px dotted #262626;float:left;width:50%}#riotbar-navmenu .riotbar-right-column{margin-left:212px;padding-left:1em}#riotbar-navmenu .riotbar-navmenu-links,#riotbar-navmenu .riotbar-navmenu-touchpoints{transition:opacity .2s linear}#riotbar-navmenu .riotbar-navmenu-touchpoints{display:block}#riotbar-navmenu .riotbar-navmenu-links{display:none}#riotbar-navmenu a.riotbar-navmenu-link{display:block;font-size:18px;margin:1em 0;text-transform:uppercase;transition:color 1s cubic-bezier(.06,.81,0,.98)}#riotbar-navmenu a.riotbar-navmenu-link .riotbar-link-subtext{color:#a09a8e;display:block;font-family:helvetica,arial,sans-serif;font-size:11px;text-transform:none}#riotbar-navmenu a.riotbar-navmenu-link.riotbar-active-link{color:#fff}#riotbar-navmenu a.riotbar-navmenu-link:first-child{margin-top:0}#riotbar-navmenu a.riotbar-navmenu-link:last-child{margin-bottom:0}#riotbar-navmenu .riotbar-navmenu-dropdown{transition:transform .5s,opacity .5s}#riotbar-navmenu .riotbar-explore-arrow,#riotbar-navmenu .riotbar-explore-label{opacity:1}#riotbar-navmenu .riotbar-explore-subtitle{padding-left:200px}#riotbar-navmenu .riotbar-explore-title{padding-left:200px}#riotbar-navmenu.riotbar-has-links .riotbar-explore-label{display:inline-block}#riotbar-navmenu.riotbar-has-links .riotbar-explore-arrow{display:block}#riotbar-navmenu.riotbar-menu-transition .riotbar-navmenu-links,#riotbar-navmenu.riotbar-menu-transition .riotbar-navmenu-touchpoints{opacity:0}#riotbar-navmenu.riotbar-show-links .riotbar-navmenu-touchpoints{display:none}#riotbar-navmenu.riotbar-show-links .riotbar-navmenu-links{display:block}.riotbar-not-responsive #riotbar-navmenu.riotbar-has-links:hover .riotbar-navmenu-dropdown{visibility:visible;transform:translateX(0);opacity:1}.riotbar-not-responsive #riotbar-navmenu.riotbar-has-links:hover .riotbar-explore-arrow{transform:rotate(180deg)}@media (min-width:1025px){.riotbar-mobile-responsive #riotbar-navmenu.riotbar-has-links:hover .riotbar-navmenu-dropdown{visibility:visible;transform:translateX(0);opacity:1}.riotbar-mobile-responsive #riotbar-navmenu.riotbar-has-links:hover .riotbar-explore-arrow{transform:rotate(180deg)}}@media (max-width:1024px){.riotbar-mobile-responsive #riotbar-navmenu{content:'sidebar'}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-left-column,.riotbar-mobile-responsive #riotbar-navmenu .riotbar-right-column{border:0 none;float:none;margin:1em auto;padding:0;width:auto}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-left-column:first-child,.riotbar-mobile-responsive #riotbar-navmenu .riotbar-right-column:first-child{margin-top:0}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-left-column:last-child,.riotbar-mobile-responsive #riotbar-navmenu .riotbar-right-column:last-child{margin-bottom:0}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-navmenu-dropdown{transform:translateX(-100%);width:248px}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-explore-label,.riotbar-mobile-responsive #riotbar-navmenu.riotbar-has-links .riotbar-explore-label{display:none}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-explore-arrow{background:0 0;display:block;font-size:26px;left:45px;line-height:1;margin:0;position:absolute;text-align:center;transition:none;top:12px;width:26px}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-explore-arrow,.riotbar-mobile-responsive #riotbar-navmenu .riotbar-explore-arrow:hover{color:#c9aa71}.riotbar-mobile-responsive #riotbar-navmenu .riotbar-explore-arrow:before{content:'☰';display:block}.riotbar-mobile-responsive #riotbar-navmenu.riotbar-click-active .riotbar-navmenu-dropdown{visibility:visible;transform:translateX(0);opacity:1}.riotbar-mobile-responsive #riotbar-navmenu.riotbar-click-active .riotbar-explore-arrow{top:10px;transform:rotate(0deg)}.riotbar-mobile-responsive #riotbar-navmenu.riotbar-click-active .riotbar-explore-arrow:before{content:'×'}}#riotbar-account{float:left;white-space:nowrap}#riotbar-account .riotbar-anonymous-link{cursor:pointer;display:inline-block;margin:16px 15px;text-transform:uppercase;transition:color 1s cubic-bezier(.06,.81,0,.98);vertical-align:middle}#riotbar-account .riotbar-anonymous-link[data-riotbar-link-id=signup]{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/account/sprites-s2a5147f733.png) 0 -293px;color:#b2d9db;float:right;height:41px;line-height:28px;margin:5px 0 0 17px;padding:6px 0 0 0;position:relative;text-align:center;width:129px;z-index:0}.i18n-hu #riotbar-account .riotbar-anonymous-link[data-riotbar-link-id=signup]{font-size:13px;letter-spacing:-.6px}#riotbar-account .riotbar-anonymous-link[data-riotbar-link-id=signup]:active{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/account/sprites-s2a5147f733.png) 0 -181px;color:#005a82}#riotbar-account .riotbar-anonymous-link[data-riotbar-link-id=signup]:before{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/account/sprites-s2a5147f733.png) 0 -237px;content:'';height:100%;left:0;opacity:0;position:absolute;transition:opacity 1s cubic-bezier(.06,.81,0,.98);top:0;width:100%;z-index:-1}#riotbar-account .riotbar-anonymous-link[data-riotbar-link-id=signup]:after{border-left:2px solid #262626;content:'';height:30px;left:-15px;position:absolute;top:5px}#riotbar-account .riotbar-anonymous-link[data-riotbar-link-id=signup]:hover:before{opacity:1}#riotbar-account.riotbar-login-image [data-riotbar-link-id=login]{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/account/sprites-s2a5147f733.png) 0 -136px;color:transparent;font-size:0;height:30px;margin-top:10px;margin-bottom:10px;width:30px}#riotbar-account.riotbar-login-image [data-riotbar-link-id=login]:hover{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/account/sprites-s2a5147f733.png) 0 -91px}#riotbar-account .riotbar-summoner-name{color:#f1e6d0;font-size:18px;font-weight:700;text-shadow:1px 1px 1px rgba(0,0,0,.7);text-transform:uppercase}#riotbar-account .riotbar-summoner-region{color:#a09a8e;font-size:10px;margin-top:-2px;text-transform:uppercase;transition:color 1s cubic-bezier(.06,.81,0,.98)}@media (max-width:640px){.riotbar-mobile-responsive #riotbar-account .riotbar-anonymous-link{display:none}.riotbar-mobile-responsive #riotbar-account .riotbar-anonymous-link.riotbar-account-action{display:inline-block}}#riotbar-account-bar{border-left:2px solid #262626;cursor:pointer;float:right;height:30px;margin:10px 0;padding:0 4px 0 10px}#riotbar-account-bar .riotbar-summoner-icon{border:2px solid;border-color:#8F7514 #C9A932;border-radius:100%;float:left;height:30px;margin-right:10px;width:30px}#riotbar-account-bar .riotbar-summoner-info{float:left;margin:-3px 11px -10px 0}#riotbar-account-bar .riotbar-account-arrow{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/bar/dropdown-trigger.png?1484769719) no-repeat center top;float:left;height:5px;margin:15px 0 0 0;transition:transform .5s ease-out;width:8px}#riotbar-account-bar.active .riotbar-account-arrow{transform:rotate(180deg)}.riotbar-not-responsive #riotbar-account-bar:hover .riotbar-summoner-region{color:#f1e6d0}.riotbar-not-responsive #riotbar-account-bar:hover .riotbar-account-arrow{transform:rotate(180deg)}@media (min-width:1025px){.riotbar-mobile-responsive #riotbar-account-bar:hover .riotbar-summoner-region{color:#f1e6d0}.riotbar-mobile-responsive #riotbar-account-bar:hover .riotbar-account-arrow{transform:rotate(180deg)}}@media (max-width:640px){.riotbar-mobile-responsive #riotbar-account-bar{border-left:none}.riotbar-mobile-responsive #riotbar-account-bar .riotbar-summoner-info{display:none}}#riotbar-account-dropdown-plugins{height:50px;position:absolute;right:0;top:12px}#riotbar-account-dropdown{background:#111;border-top:2px solid #262626;box-shadow:-3px 3px 6px rgba(0,0,0,.5);right:-5px;margin:0;opacity:0;overflow:hidden;padding:18px;position:absolute;text-align:left;transform:translateY(-5%);transition:transform .5s,opacity .5s;top:50px;visibility:hidden;z-index:10}#riotbar-account-dropdown .riotbar-account-info{border-bottom:1px solid #262626;display:none;margin-bottom:18px;padding-bottom:18px}#riotbar-account-dropdown .riotbar-account-info .riotbar-summoner-name{max-width:175px;overflow:hidden;text-overflow:ellipsis}@media (max-width:640px){.riotbar-mobile-responsive #riotbar-account-dropdown .riotbar-account-info{display:block}}#riotbar-account.active #riotbar-account-dropdown{opacity:1;transform:translateX(0);visibility:visible;width:320px}@media (min-width:1025px){#riotbar-account-dropdown{width:248px}#riotbar-account:hover #riotbar-account-dropdown{opacity:1;transform:translateX(0);visibility:visible}}@media (max-width:1024px){.riotbar-mobile-responsive #riotbar-account-dropdown{content:'sidebar';transform:none;transition:width .5s,opacity .5s;width:0}}#riotbar-account-dropdown-links{font-size:0;position:relative;white-space:normal}#riotbar-account-dropdown-links a.riotbar-account-link{cursor:pointer;display:block;font-size:18px;margin:18px 0;text-transform:uppercase;transition:color 1s cubic-bezier(.06,.81,0,.98);width:212px}#riotbar-account-dropdown-links a.riotbar-account-link .riotbar-link-subtext{color:#a09a8e;display:block;font-family:helvetica,arial,sans-serif;font-size:11px;text-transform:none}#riotbar-account-dropdown-links a.riotbar-account-link:first-child{margin-top:0}#riotbar-account-dropdown-links a.riotbar-account-link:last-child{margin-bottom:0}#riotbar-account-warning{background:rgba(0,0,0,.7);color:#d3cba1;font-family:Tahoma,Verdana,Segoe,sans-serif;font-size:13px;line-height:20px;text-shadow:0 0 3px #000,0 0 5px #000;padding:10px 210px 10px 10px;position:absolute;width:100%;margin:0 -5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#riotbar-account-warning a{color:#d3cba1}#riotbar-account-warning a span{color:#9FC0C7}#riotbar-account-warning a:hover span{color:#71B5BD}@media screen and (min-width:960px){#riotbar-account-warning{text-align:center;padding-left:210px}}#riotbar-service-status{float:left;height:30px;margin:10px 10px 10px 0;position:relative}.service-status-indicator{height:30px;width:30px;position:relative}#riotbar-service-status-icon{cursor:pointer;height:30px;width:30px;background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -80px;text-indent:-9999px;text-align:left;overflow:hidden}#riotbar-service-status-icon.severity-info{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -80px}#riotbar-service-status-icon.severity-info:hover{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -40px}#riotbar-service-status-icon.severity-info.active{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 0}#riotbar-service-status-icon.severity-warn{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -320px}#riotbar-service-status-icon.severity-warn:hover{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -280px}#riotbar-service-status-icon.severity-warn.active{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -240px}#riotbar-service-status-icon.severity-error{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -200px}#riotbar-service-status-icon.severity-error:hover{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -160px}#riotbar-service-status-icon.severity-error.active{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -120px}#riotbar-service-status-messages{position:absolute;z-index:10;display:none;width:350px;left:-230px;top:48px;border-radius:5px;background-color:#192D3A;background:linear-gradient(#1F394B,#0D1417);border:1px solid #213744;border-color:#7e744e #b6a671 #55513a #b6a671;box-shadow:inset 0 0 3px 1px rgba(0,0,0,.3),-1px 1px 10px 0 rgba(0,0,0,.8);color:#fff}#riotbar-service-status-messages:before{content:"";display:block;background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -360px;height:10px;width:10px;position:absolute;top:-5px;right:100px}#riotbar-service-status-messages.active{display:block}#riotbar-service-status-messages .status-message{border-bottom:1px solid #4A5355;border-bottom:1px solid rgba(47,96,109,.3);padding:10px;position:relative}#riotbar-service-status-messages .status-message:last-child{border-bottom:none}#riotbar-service-status-messages .status-message.closed .message-toggle{transform:rotate(180deg)}#riotbar-service-status-messages .status-message.closed .message-text{display:none}#riotbar-service-status-messages .status-message .message-summary{cursor:pointer;position:relative}#riotbar-service-status-messages .status-message .message-toggle{position:absolute;top:2px;left:0;height:16px;width:16px;border-radius:10px;border:1px solid #7e744e;border-color:#7e744e #b6a671;background:transparent url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/bar/dropdown-trigger.png?1484769719) no-repeat 50% 50%}#riotbar-service-status-messages .status-message .severity-indicator{position:absolute;top:-5px;right:-5px;height:30px;width:30px;-moz-transform:scale(.75,.75);-ms-transform:scale(.75,.75);-webkit-transform:scale(.75,.75);transform:scale(.75,.75)}#riotbar-service-status-messages .status-message .severity-indicator.severity-info{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -80px}#riotbar-service-status-messages .status-message .severity-indicator.severity-warn{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -320px}#riotbar-service-status-messages .status-message .severity-indicator.severity-error{background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/service-status/sprites-s83d00d90c2.png) 0 -200px}#riotbar-service-status-messages .status-message .message-title{margin:0 30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E4DFD3;font-weight:700}#riotbar-service-status-messages .status-message a.message-text{display:block;margin:4px 10px 0 30px;color:#9B9480;font-family:Tahoma,Verdana,Segoe,sans-serif;font-weight:100;font-size:12px;line-height:1.4em}#riotbar-service-status-messages .status-message a.message-text:active,#riotbar-service-status-messages .status-message a.message-text:hover{color:#C1BBA9}#riotbar-account-anonymous #riotbar-service-status{top:9px}#riotbar-locale{float:right;position:relative;font-family:Tahoma,Verdana,Segoe,sans-serif;font-size:13px;color:#9FC0C7}#riotbar-locale a:link,#riotbar-locale a:visited{color:#93A3AA;text-decoration:none}#riotbar-locale a:active,#riotbar-locale a:hover{color:#71B5BD}#riotbar-locale-switch-trigger{text-align:right;text-shadow:0 0 3px #000,0 0 5px #000;height:20px;line-height:20px;margin:.25em 0;white-space:nowrap;position:relative;cursor:pointer;padding-right:20px}#riotbar-locale-switch-trigger:after{content:" ";display:block;position:absolute;background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/bar/dropdown-trigger-blue.png?1484769719) no-repeat 50% 50%;height:100%;width:20px;right:0;top:0}#riotbar-locale-switch-trigger .language{color:#71B5BD}#riotbar-locale-switch-dropdown{background-color:#1F394B;background:linear-gradient(#1F394B,#0D1417);border:1px solid #314148;border-color:#314148 #2d3d42 #1f292c #232f33;border-radius:4px;padding:10px;display:none;width:200px;float:right}#riotbar-locale-switch-dropdown.active{display:block}#riotbar-locale-switch-dropdown .region-list{list-style:none;margin:0;padding:0}#riotbar-locale-switch-dropdown .riotbar-locale-languages{display:none;margin:.5em .8em 0;*zoom:1}#riotbar-locale-switch-dropdown .riotbar-locale-languages.active{display:block}#riotbar-locale-switch-dropdown .riotbar-locale-languages:after,#riotbar-locale-switch-dropdown .riotbar-locale-languages:before{content:" ";display:table}#riotbar-locale-switch-dropdown .riotbar-locale-languages:after{clear:both}#riotbar-locale-switch-dropdown .locale-list{list-style:none;margin:0;padding:0;line-height:1.75em}#riotbar-locale-switch-dropdown .locale-list li{float:left;width:50%}#riotbar-region-switcher{position:relative}#riotbar-region-switcher.active #riotbar-region-dropdown-trigger{border-radius:4px 4px 0 0}#riotbar-region-switcher.active #riotbar-region-dropdown-trigger:after{transform:rotate(180deg)}#riotbar-region-switcher.active #riotbar-region-dropdown{display:block}#riotbar-region-dropdown-trigger{background-color:#2D4F69;background:linear-gradient(#2D4F69,#17252A);border:1px solid #2D4F69;border-radius:4px;padding:.25em .5em;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;color:#FFF}#riotbar-region-dropdown-trigger:hover{cursor:pointer;color:#FFF;background-color:#396181;background:linear-gradient(#396181,#17282F)}#riotbar-region-dropdown-trigger:after{content:" ";display:block;position:absolute;background:url(https://cdn.leagueoflegends.com/riotbar/prod/1.6.38/images/bar/dropdown-trigger.png?1484769719) no-repeat 50% 50%;height:100%;width:20px;right:0;top:0}#riotbar-region-dropdown{background-color:#13212C;background:linear-gradient(#13212C,#0A1012);border:1px solid #2D4F69;border-radius:0 0 4px 4px;padding:4px 0;position:absolute;width:100%;margin-top:-1px;display:none}#riotbar-region-dropdown .riotbar-region-option{padding:.15em .5em;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#riotbar-region-dropdown .riotbar-region-option.disabled,#riotbar-region-dropdown .riotbar-region-option.disabled:active,#riotbar-region-dropdown .riotbar-region-option.disabled:hover{color:#FFF;cursor:default}#riotbar-region-dropdown .riotbar-region-option:active,#riotbar-region-dropdown .riotbar-region-option:hover{color:#FFF}</style><style type="text/css">#apollojs-backdrop{width:100%;height:100%;position:absolute;z-index:100;background-color:rgba(0,0,0,.3);display:none;top:0;left:0;cursor:pointer}.apollojs-modal,.riot-apollo.apollojs-modal,body .toolbar_dropdown{display:none;position:absolute!important;z-index:200!important;background-color:#fff}.apollojs-modal.warning,.riot-apollo.apollojs-modal.warning,body .toolbar_dropdown.warning{padding:10px;max-width:600px}.apollojs-modal.warning .modal-footer,.riot-apollo.apollojs-modal.warning .modal-footer,body .toolbar_dropdown.warning .modal-footer{text-align:right;padding:9px 15px;background-color:#f5f5f5}#apollo-unsafe-link-modal{width:80%;max-width:700px;display:none}#apollo-unsafe-link-modal .modal-body .content{margin-left:0!important}#apollo-unsafe-link-modal h2{margin-top:0;margin-bottom:.6em}#apollo-unsafe-link-modal .modal-footer a{font-size:1.2em;margin-right:10px}#apollo-unsafe-link-modal .modal-footer .btn{margin-left:20px}#apollo-unsafe-link-modal .opt-out{float:left;margin:0}#apollo-oembed-content-modal .modal-body .content{text-align:center;min-height:200px}#apollo-oembed-content-modal .modal-body p{clear:left}#apollo-oembed-content-modal .modal-body p.unsafe-link{word-wrap:break-word;overflow:hidden}#apollo-oembed-content-modal .modal-footer .offsite-link-url{font-size:20px;margin-right:10px}div.board-details section{margin-bottom:20px}div.board-details section h2{font-size:1.7em;line-height:1.3em}div.board-details section textarea{width:100%;min-height:70px}div.board-details section.details .right-buttons{float:right}div.board-details section.details .right-buttons .btn{border:1px solid #000;padding:0 10px}nav.apollo-board-navigation p{text-align:center}nav.apollo-board-navigation ul{list-style-type:none;margin:0}.riot-moderators div.actions{cursor:pointer}.riot-moderators .riot-moderators-masthead{position:relative;height:40px;margin-bottom:10px}.riot-moderators .riot-moderators-masthead h1{float:left;margin-bottom:0}.riot-moderators .riot-moderators-masthead h2{float:right;margin-bottom:0}.riot-moderators div.moderator,.riot-moderators div.owner{display:inline-block;width:33%;padding:5px;vertical-align:middle;float:left}.riot-moderators div.moderator div.avatar,.riot-moderators div.owner div.avatar{display:inline-block;vertical-align:middle;margin-right:10px;float:left}.riot-moderators div.moderator div.avatar img,.riot-moderators div.owner div.avatar img{height:36px;width:36px;display:inline-block}.riot-moderators div.moderator div.username,.riot-moderators div.owner div.username{overflow:hidden;color:#cab5a2;font-size:15px}.riot-moderators div.moderator div.actions,.riot-moderators div.owner div.actions{font-size:13px}.riot-moderators .moderator-list{clear:both}.riot-moderators .adding,.riot-moderators .confirmRevoke,.riot-moderators .revoking{display:none}@media screen and (max-width:500px){.riot-moderators div.moderator,.riot-moderators div.owner,div.owner div.moderator,div.owner div.owner{width:50%}}button.pinToggle{background-color:#553621;border:1px solid #000;color:#cab5a2;cursor:pointer;font-family:Constantia,Palatino,Georgia,serif;font-size:15px;font-variant:small-caps;padding:5px 20px;outline:1px solid #553621;min-width:90px}.riot-apollo{display:block;padding:10px}.riot-apollo blockquote,.riot-apollo dd,.riot-apollo div,.riot-apollo dl,.riot-apollo dt,.riot-apollo fieldset,.riot-apollo form,.riot-apollo h1,.riot-apollo h2,.riot-apollo h3,.riot-apollo h4,.riot-apollo h5,.riot-apollo h6,.riot-apollo li,.riot-apollo ol,.riot-apollo p,.riot-apollo pre,.riot-apollo td,.riot-apollo textarea,.riot-apollo th,.riot-apollo ul{margin:0;padding:0;box-sizing:border-box}.riot-apollo:after,.riot-apollo:before{content:'';display:table}.riot-apollo:after{clear:both}.riot-apollo hr{margin:5px 0 10px;border:dotted;border-width:2px 0 0;clear:both;height:0}.riot-apollo ul,.riot-apollo ul li{list-style-position:inside}.riot-apollo ul li{display:list-item}.riot-apollo .author-avatar,.riot-apollo .avatar-rioter,.riot-apollo .current-user-avatar{width:24px;height:24px;vertical-align:middle;margin-right:5px;display:inline-block;opacity:.65}.riot-apollo .author-avatar img,.riot-apollo .avatar-rioter img,.riot-apollo .current-user-avatar img{width:24px;height:24px}.riot-apollo .avatar-rioter{display:none;background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/riot-post.png")}.riot-apollo .riot-discussion .riot-pin{display:none;background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/pin.png");background-repeat:no-repeat;background-position:center center;width:40px;height:60px;margin-left:6px;float:left}.riot-apollo .riot-discussion .riot-discussion-masthead{position:relative;height:40px;margin-bottom:10px}.riot-apollo .riot-discussion .riot-discussion-masthead h1{float:left;margin-bottom:0}.riot-apollo .riot-discussion .riot-discussion-masthead h2{float:right;margin-bottom:0}.riot-apollo .riot-discussion .riot-discussion-masthead h2 .total-comment-count{line-height:2em}.riot-apollo .riot-discussion .riot-discussion-masthead select{text-transform:uppercase}.riot-apollo .riot-discussion .riot-discussion-displayed-count{text-align:center;border-width:1px;border-style:solid;padding:5px 0;margin:10px 0}.riot-apollo .riot-discussion>.riot-collection{margin-left:10px;clear:both}.riot-apollo .riot-list-item{box-sizing:border-box;overflow:hidden;margin:10px 0 0;padding-bottom:10px}.riot-apollo .riot-list-item:after{content:"";display:table;clear:both}.riot-apollo .riot-list-item .riot-masthead span{display:block;width:100%;margin-left:8px;height:20px;background:transparent url("https://cdn.leagueoflegends.com/apollo/widgets/assets/hr.png") repeat-x}.riot-apollo .riot-list-item .riot-body-container{overflow:hidden;padding-left:10px;padding-right:10px}.riot-apollo .riot-list-item .riot-body-container:after{content:"";display:table;clear:both}.riot-apollo .riot-list-item .riot-body{margin-bottom:7px;line-height:1.2}.riot-apollo .riot-list-item .riot-body p{padding-bottom:1em}.riot-apollo .riot-list-item .riot-body p:last-child{padding-bottom:0}.riot-apollo .riot-list-item .riot-body .sticker{height:140px;width:140px}.riot-apollo .riot-list-item .riot-body span.low-quality{display:none}.riot-apollo .riot-list-item .riot-footer{overflow:hidden}.riot-apollo .riot-list-item .riot-footer:after{content:"";display:table;clear:both}.riot-apollo .riot-list-item .riot-footer p{margin:0 0 1em;float:left}.riot-apollo .riot-list-item .riot-footer p em.deleted{display:none}.riot-apollo .riot-list-item .riot-footer p img{vertical-align:middle;margin-right:2px}.riot-apollo .riot-list-item .riot-footer p.deleted{margin-left:10px;padding-top:5px}.riot-apollo .riot-list-item .riot-footer>ul{list-style-type:none;float:right;margin-top:7px!important}.riot-apollo .riot-list-item .riot-footer>ul li{margin:0;padding:0;display:inline}.riot-apollo .riot-list-item .riot-footer>ul li a,.riot-apollo .riot-list-item .riot-footer>ul li button{cursor:pointer;padding-left:10px}.riot-apollo .riot-list-item .riot-footer>span.child-count-label{border-radius:3px;padding:4px 8px;float:right;display:none}.riot-apollo .riot-comment .riot-collection{padding-bottom:0;padding-right:10px}.riot-apollo .riot-comment .riot-collection>.riot-comment{margin-left:26px}.riot-apollo .riot-comment .riot-edit-form-container,.riot-apollo .riot-comment .riot-reply-form-container{padding-left:40px;padding-top:10px;padding-right:10px;display:none;clear:both}.riot-apollo .riot-comment .riot-edit-form-container>ul.controls .riot-alert,.riot-apollo .riot-comment .riot-reply-form-container>ul.controls .riot-alert{margin-left:-35px;margin-top:-24px}.riot-apollo .riot-voting{float:left;list-style-type:none;margin-left:10px;margin-top:-3px;width:19px}.riot-apollo .riot-voting li{height:13px;min-width:1pc;white-space:nowrap;text-align:center;line-height:9px;padding-top:2px}.riot-apollo .riot-voting li.total-votes{height:auto;padding-top:4px;vertical-align:middle}.riot-apollo .riot-edit-form-container,.riot-apollo .riot-reply-form-container{box-sizing:border-box;overflow:hidden;width:100%;padding-bottom:10px;padding-top:5px;display:none}.riot-apollo .riot-edit-form-container:after,.riot-apollo .riot-reply-form-container:after{content:"";display:table;clear:both}.riot-apollo .riot-edit-form-container .expanding,.riot-apollo .riot-reply-form-container .expanding{min-height:60px}.riot-apollo .riot-edit-form-container form,.riot-apollo .riot-reply-form-container form{padding-bottom:.5em}.riot-apollo .riot-edit-form-container textarea,.riot-apollo .riot-reply-form-container textarea{display:block;padding:10px;width:100%;height:66px;margin-bottom:10px;resize:none;border-radius:0}.riot-apollo .riot-edit-form-container textarea:focus,.riot-apollo .riot-reply-form-container textarea:focus{outline:0}.riot-apollo .riot-edit-form-container p,.riot-apollo .riot-reply-form-container p{margin:0 0 .5em;float:left}.riot-apollo .riot-edit-form-container p img,.riot-apollo .riot-reply-form-container p img{vertical-align:middle;margin-right:2px}.riot-apollo .riot-edit-form-container>ul.controls,.riot-apollo .riot-reply-form-container>ul.controls{list-style-type:none;float:right;margin:0 0 .5em -22px}.riot-apollo .riot-edit-form-container>ul.controls li,.riot-apollo .riot-reply-form-container>ul.controls li{margin:0;padding:0;display:inline}.riot-apollo .riot-edit-form-container>ul.controls li .riot-alert,.riot-apollo .riot-reply-form-container>ul.controls li .riot-alert{margin-left:-91px;margin-top:0}.riot-apollo .riot-edit-form-container>ul.controls a,.riot-apollo .riot-reply-form-container>ul.controls a{cursor:pointer;padding-left:10px}.riot-apollo .riot-edit-form-container>ul.controls a.cancelEdit,.riot-apollo .riot-edit-form-container>ul.controls a.cancelReply,.riot-apollo .riot-reply-form-container>ul.controls a.cancelEdit,.riot-apollo .riot-reply-form-container>ul.controls a.cancelReply{padding-right:15px}.riot-apollo .riot-edit-form-container>ul.controls.label,.riot-apollo .riot-reply-form-container>ul.controls.label{padding:0 5px}.riot-apollo .riot-alert{border-radius:3px 3px 3px 3px;float:left;display:none;z-index:9999;position:absolute;width:265px;height:3pc;overflow:hidden;margin-left:8px;white-space:normal;text-align:left;background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/error.jpg");background-color:#fff;background-repeat:no-repeat;background-position:left top}.riot-apollo .riot-alert p{padding:8px 8px 8px 56px;font-size:14px!important}.riot-apollo .riot-alert.error429{background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/error.jpg");background-repeat:no-repeat;background-position:left top}.riot-apollo .riot-alert.error403{background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/forbidden.png");background-repeat:no-repeat;background-position:left top}.riot-apollo .riot-more{display:none;padding-left:25px;padding-top:5px}.riot-apollo .riot-more.bar{border-style:solid;border-width:1px;margin-top:10px;padding:3px 0;text-align:center}.riot-apollo a.more,.riot-apollo a.total-comments-count{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/reply.png");background-position:left 5px;background-repeat:no-repeat;margin-left:6px;text-align:left;height:18px;border:none;padding-left:1pc;display:inline-block;text-decoration:none}textarea.expanding{margin:0;box-sizing:border-box;width:100%}.riot-apollo button{padding:0;cursor:pointer}.riot-apollo button.post,.riot-apollo button.save{display:inline-block;zoom:1;*display:inline;vertical-align:baseline;margin:0 2px;outline:0;cursor:pointer;text-align:center;padding:.5em 2em .55em;border:solid 1px}.riot-apollo button.post:active,.riot-apollo button.save:active{position:relative;top:1px}.riot-apollo button.toggle-minimized{height:22px;width:22px;float:left;cursor:pointer;padding:5px 0;margin-top:-10px;margin-left:-11px;position:absolute;background-position:center center;background-repeat:no-repeat;border:none}.riot-apollo .riot-collection>.riot-comment button.toggle-minimized,.riot-apollo .riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_minus.png")}.riot-apollo .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_minus.png")}.riot-apollo .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_minus.png")}.riot-apollo .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_minus.png")}.riot-apollo button.reply{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/reply.png");background-repeat:no-repeat;border:none}.riot-apollo button.up-vote{opacity:.7;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/up.png");background-repeat:no-repeat;background-position:center center;width:17px;height:15px;cursor:pointer;border:none}.riot-apollo button.up-vote:hover{opacity:1}.riot-apollo button.down-vote{opacity:.7;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/down.png");background-repeat:no-repeat;background-position:center center;width:17px;height:15px;cursor:pointer;border:none}.riot-apollo button.down-vote:hover{opacity:1}.riot-apollo .riot-discussion.moreCommentsVisible>.riot-more{display:block}.riot-apollo .riot-discussion.authenticated .riot-discussion-login-link{display:none}.riot-apollo .riot-discussion .riot-comment.moreCommentsVisible>.riot-more,.riot-apollo .riot-discussion.authenticated>.riot-reply-form-container{display:block}.riot-apollo .riot-discussion .riot-comment.lowQualityVisible>.riot-body-container>.riot-footer,.riot-apollo .riot-discussion .riot-comment.lowQualityVisible>.riot-voting{display:none}.riot-apollo .riot-discussion .riot-comment.lowQualityVisible>.riot-body-container>.riot-body{padding-left:20px}.riot-apollo .riot-discussion .riot-comment.lowQualityVisible>.riot-body-container>.riot-body span.high-quality{display:none}.riot-apollo .riot-discussion .riot-comment.lowQualityVisible>.riot-body-container>.riot-body span.low-quality{display:inline}.riot-apollo .riot-discussion .riot-comment.deleted{display:none}.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren{display:block}.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-body-container>.riot-body,.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-voting>li{display:none}.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-body-container>.riot-footer{margin-left:10px;padding-top:5px}.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-body-container>.riot-footer p em.deleted{display:inline}.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-body-container>.riot-footer p em.timeago,.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-body-container>.riot-footer p img,.riot-apollo .riot-discussion .riot-comment.deleted.hasChildren>.riot-body-container>.riot-footer ul{display:none}.riot-apollo .riot-discussion .riot-comment.editing>.riot-edit-form-container,.riot-apollo .riot-discussion .riot-comment.replying>.riot-reply-form-container{display:block}.riot-apollo .riot-discussion .riot-comment.minimized>.riot-masthead button.toggle-minimized,.riot-apollo .riot-discussion .riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_plus.png")}.riot-apollo .riot-discussion .riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_plus.png")}.riot-apollo .riot-discussion .riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_plus.png")}.riot-apollo .riot-discussion .riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_plus.png")}.riot-apollo .riot-discussion .riot-comment.minimized.hasChildren>.riot-body-container>.riot-footer span.child-count-label{display:inline}.riot-apollo .riot-discussion .riot-comment.minimized>.riot-body-container>.riot-footer{margin-left:10px;padding-top:5px}.riot-apollo .riot-discussion .riot-comment.minimized>.riot-body-container>.riot-body,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-body-container>.riot-footer p img,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-body-container>.riot-footer ul,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-collection,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-edit-form-container,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-more,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-reply-form-container,.riot-apollo .riot-discussion .riot-comment.minimized>.riot-voting{display:none}.riot-apollo .riot-collection.hasMore .riot-more{display:block}.riot-apollo .riot-collection .riot-discussion.isSticky .riot-voting{display:none}.riot-apollo .riot-collection .riot-discussion.isSticky .riot-pin{display:block}.riot-apollo .riot-list-item.upVoted>.riot-voting .total-votes{color:green}.riot-apollo .riot-list-item.upVoted>.riot-voting button.up-vote{opacity:1;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/up-active.png");background-repeat:no-repeat;background-position:center center}.riot-apollo .riot-list-item.downVoted>.riot-voting .total-votes{color:red}.riot-apollo .riot-list-item.downVoted>.riot-voting button.down-vote{opacity:1;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/down-active.png");background-repeat:no-repeat;background-position:center center}.riot-apollo .riot-discussion .dropdown a,.riot-apollo .riot-discussion .dropdown a:hover,.riot-apollo .riot-discussion .dropdown a:visited{color:#342812}.riot-apollo .riot-discussion{background-color:#dedede;color:#2b2b2b;font-size:14px;font-family:Gill Sans W04,Gill Sans,Gill Sans MT,GillSans,Calibri,Trebuchet MS,sans-serif;line-height:1.5;width:100%;max-width:600px;text-align:left}.riot-apollo .riot-discussion h1{font-family:Adobe Garamond Pro,Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif;font-size:200%}.riot-apollo .riot-discussion h2{font-size:100%;font-weight:700}.riot-apollo .riot-discussion h2 em{font-weight:400}.riot-apollo .riot-discussion a{color:#076295}.riot-apollo .riot-discussion a:hover{color:#02a2ff}.riot-apollo .riot-discussion a:visited{color:#076295}.riot-apollo .riot-discussion ul{line-height:1.6}.riot-apollo .riot-discussion ul li{line-height:1.3}.riot-apollo .riot-discussion .riot-discussion-masthead h1 span.riot-discussion-login-link{font-size:10pt;text-transform:uppercase;letter-spacing:1px}.riot-apollo .riot-discussion .riot-discussion-masthead select{background:#fff;box-shadow:1px 1px 1px rgba(0,0,0,.3);border:1px solid #bbb;color:#222;font-weight:700;padding-left:10px;text-shadow:none}.riot-apollo .riot-discussion .riot-discussion-displayed-count{background:#f2f2f2;color:#257372;font-weight:700;font-family:Gill Sans,Gill Sans MT,GillSans,Calibri,Trebuchet MS,sans-serif;font-size:10px;border-color:none}.riot-apollo .riot-discussion .riot-more{background-color:#c8c8c8;border:none}.riot-apollo .riot-discussion .riot-more a{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#257372;font-family:Gill Sans,Gill Sans MT,GillSans,Calibri,Trebuchet MS,sans-serif;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/reply.png");background-repeat:no-repeat;padding-left:22px}.riot-apollo .riot-discussion .riot-more.bar{background-color:#c8c8c8;border:none}.riot-apollo .riot-discussion .riot-comment{background:#e9eaec}.riot-apollo .riot-discussion .riot-comment textarea{box-shadow:inset 0 0 0 5px #cbcbcb,0 6px 10px rgba(0,0,0,.1) inset,0 2px 8px 3px rgba(0,0,0,.5) inset,1px 1px 0 0 #f9f9fa,-1px -1px 0 0 #a7a7a7}.riot-apollo .riot-discussion .riot-comment .riot-masthead span{background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/hr.png")}.riot-apollo .riot-discussion .riot-comment .riot-voting{font-size:10px}.riot-apollo .riot-discussion .riot-comment .riot-voting .total-votes{font-size:9pt;font-family:helvetica,arial,sans-serif}.riot-apollo .riot-discussion .riot-comment .riot-body span.low-quality,.riot-apollo .riot-discussion .riot-comment .riot-voting li{color:#717171}.riot-apollo .riot-discussion .riot-comment .riot-body span.low-quality a{text-decoration:none}.riot-apollo .riot-discussion .riot-comment .riot-body blockquote{background:#e4e4e4;border-left:10px solid #d8d8d8;margin:1.5em 10px;padding:.5em 10px;quotes:none}.riot-apollo .riot-discussion .riot-comment .riot-body blockquote span.markdown-meta{font-size:9pt}.riot-apollo .riot-discussion .riot-comment .riot-body blockquote span.markdown-meta .timeago{font-style:italic}.riot-apollo .riot-discussion .riot-comment .riot-footer p{font-weight:700;font-size:9pt;color:#717171}.riot-apollo .riot-discussion .riot-comment .riot-footer p em{font-size:9pt;font-weight:400;color:#717171}.riot-apollo .riot-discussion .riot-comment .riot-footer p em abbr{color:#717171}.riot-apollo .riot-discussion .riot-comment .riot-footer>ul{font-size:10px}.riot-apollo .riot-discussion .riot-comment .riot-footer>ul li a,.riot-apollo .riot-discussion .riot-comment .riot-footer>ul li button{color:#257372;font-family:Gill Sans,Gill Sans MT,GillSans,Calibri,Trebuchet MS,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px}.riot-apollo .riot-discussion .riot-comment .riot-footer>ul li a:hover,.riot-apollo .riot-discussion .riot-comment .riot-footer>ul li button:hover{color:#5cb2b1}.riot-apollo .riot-discussion .riot-comment .riot-footer>span.child-count-label{border-radius:3px;font-size:9pt;color:#fff;background-color:rgba(0,0,0,.15)}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment{background-color:#dedede}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment textarea{background-color:#f2f2f2}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment>.riot-collection>.riot-comment{background-color:#e9eaec}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment>.riot-collection>.riot-comment textarea{background-color:#f2f2f2}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment{background-color:#dedede}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment textarea{background-color:#f2f2f2}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment{background-color:#e9eaec}.riot-apollo .riot-discussion .riot-comment .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment textarea{background-color:#f2f2f2}.riot-apollo .riot-edit-form-container textarea,.riot-apollo .riot-reply-form-container textarea{box-shadow:inset 0 0 0 5px #cbcbcb,0 6px 10px rgba(0,0,0,.1) inset,0 2px 8px 3px rgba(0,0,0,.5) inset,1px 1px 0 0 #f9f9fa,-1px -1px 0 0 #a7a7a7;border:none;background-color:#f2f2f2}.riot-apollo .riot-edit-form-container textarea::-webkit-input-placeholder,.riot-apollo .riot-reply-form-container textarea::-webkit-input-placeholder{color:#1a1818}.riot-apollo .riot-edit-form-container textarea:-moz-placeholder,.riot-apollo .riot-reply-form-container textarea:-moz-placeholder{color:#1a1818}.riot-apollo .riot-edit-form-container textarea:-ms-input-placeholder,.riot-apollo .riot-reply-form-container textarea:-ms-input-placeholder{color:#1a1818}.riot-apollo .riot-edit-form-container textarea:focus,.riot-apollo .riot-reply-form-container textarea:focus{box-shadow:inset 0 0 0 5px #bababa,0 6px 10px rgba(0,0,0,.1) inset,0 2px 8px 3px rgba(0,0,0,.5) inset,1px 1px 0 0 #f9f9fa,-1px -1px 0 0 #a7a7a7;border:none;background-color:#fff;-webkit-transition:background-color .2s ease-in 0,border-color .2s ease-in 0,box-shadow .2s ease-in 0;transition:background-color .2s ease-in 0,border-color .2s ease-in 0,box-shadow .2s ease-in 0}.riot-apollo .riot-edit-form-container p,.riot-apollo .riot-reply-form-container p{font-weight:700;font-size:10px}.riot-apollo .riot-edit-form-container p em,.riot-apollo .riot-reply-form-container p em{font-size:9pt;font-weight:400}.riot-apollo .riot-edit-form-container>ul.controls,.riot-apollo .riot-reply-form-container>ul.controls{font-size:9pt}.riot-apollo .riot-edit-form-container>ul.controls a,.riot-apollo .riot-reply-form-container>ul.controls a{color:#257372}.riot-apollo .riot-edit-form-container>ul.controls a:hover,.riot-apollo .riot-reply-form-container>ul.controls a:hover{color:#5cb2b1}.riot-apollo .riot-edit-form-container>ul.controls.label,.riot-apollo .riot-reply-form-container>ul.controls.label{color:#fff;background-color:#999;font-size:9pt}.riot-apollo .riot-discussion button{padding:0;cursor:pointer}.riot-apollo .riot-discussion button.post,.riot-apollo .riot-discussion button.save{box-sizing:border-box;border-style:solid;border-width:3px;border-radius:0;text-shadow:none;box-shadow:none;width:auto;font-family:Adobe Garamond Pro,Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif;font-weight:700;text-transform:uppercase;text-decoration:none;padding:6px 20px 4px;display:inline-block;text-align:center;color:#222;border-color:#f6c653 #bd6a23 #b6631f #e8ab4a;background:#d79922 url("https://cdn.leagueoflegends.com/lolkit/1.0.24/resources/images/lol-textures.jpg") no-repeat 50% -854px}.riot-apollo .riot-discussion button.post:hover,.riot-apollo .riot-discussion button.save:hover{border-color:#fdeaba #bf712c #b66521 #edbd6e;background-position:50% -886px}.riot-apollo .riot-discussion .riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_minus.png")}.riot-apollo .riot-discussion .riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_minus.png")}.riot-apollo .riot-discussion .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_minus.png")}.riot-apollo .riot-discussion .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized,.riot-apollo .riot-discussion .riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_minus.png")}.riot-apollo .riot-discussion button.reply{background-position:center center}.riot-apollo .riot-discussion button.up-vote{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/up.png");background-repeat:no-repeat;background-position:center center}.riot-apollo .riot-discussion button.down-vote{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/down.png");background-repeat:no-repeat;background-position:center center}.riot-apollo .riot-discussion button.more,.riot-apollo .riot-discussion button.reply{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/reply.png");background-repeat:no-repeat}.riot-apollo .riot-discussion button.more{background-position:left 5px;color:#27508f;font-weight:700;font-size:10px}.riot-apollo .riot-comment.isRioter>.riot-masthead span,.riot-apollo .riot-discussion.isRioter>.riot-masthead span{background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/hr-red.png")}.riot-apollo .riot-comment.isRioter.deleted>.riot-masthead span,.riot-apollo .riot-discussion.isRioter.deleted>.riot-masthead span{background-image:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/hr.png")}.riot-apollo .riot-comment.isRioter>.riot-body-container>.riot-footer span.username,.riot-apollo .riot-discussion.isRioter>.riot-body-container>.riot-footer span.username{color:#ae250f}.riot-apollo .riot-comment.isRioter.deleted>.riot-body-container>.riot-footer span.username,.riot-apollo .riot-discussion.isRioter.deleted>.riot-body-container>.riot-footer span.username{color:#717171}.riot-apollo .riot-comment.upVoted>.riot-voting button.up-vote,.riot-apollo .riot-discussion.upVoted>.riot-voting button.up-vote{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/up-active.png");background-repeat:no-repeat;background-position:center center}.riot-apollo .riot-comment.downVoted>.riot-voting button.down-vote,.riot-apollo .riot-discussion.downVoted>.riot-voting button.down-vote{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/down-active.png");background-repeat:no-repeat;background-position:center center}.riot-apollo .riot-comment.minimized>.riot-masthead button.toggle-minimized,.riot-apollo .riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized,.riot-apollo .riot-discussion.minimized>.riot-masthead button.toggle-minimized,.riot-apollo .riot-discussion>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_plus.png")}.riot-apollo .riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized,.riot-apollo .riot-discussion>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_plus.png")}.riot-apollo .riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized,.riot-apollo .riot-discussion>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_a_plus.png")}.riot-apollo .riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized,.riot-apollo .riot-discussion>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment>.riot-collection>.riot-comment.minimized button.toggle-minimized{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/collapser_b_plus.png")}#apollo-unsafe-link-modal.comment-listing{background-color:#dedede;color:#2b2b2b;font-family:Gill Sans W04,Gill Sans,Gill Sans MT,GillSans,Calibri,Trebuchet MS,sans-serif}#apollo-unsafe-link-modal.comment-listing .modal-body h2{font-family:Adobe Garamond Pro,Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif}#apollo-unsafe-link-modal.comment-listing a{color:#257372}@media screen and (max-width:600px){.riot-apollo{padding:0}.riot-apollo .rfmtoolbar{display:none}.riot-apollo .riot-comment .riot-body-container .riot-body blockquote{margin:10px 5px}.riot-apollo .riot-comment .riot-body-container .riot-footer a.delete{display:none}.riot-apollo .riot-comment .riot-edit-form-container,.riot-apollo .riot-comment .riot-reply-form-container{padding-left:10px}.riot-apollo .riot-comment .riot-edit-form-container .controls,.riot-apollo .riot-comment .riot-reply-form-container .controls{clear:left}.riot-apollo .riot-comment .riot-edit-form-container .controls a,.riot-apollo .riot-comment .riot-reply-form-container .controls a{font-size:14px}.riot-apollo .riot-comment .riot-collection>.riot-comment{margin-left:10px}#unsafe-link-modal .modal-footer{text-align:center}#unsafe-link-modal .modal-footer a:first-child{margin-bottom:10px;display:inline-block}#unsafe-link-modal .modal-footer .btn{margin-left:0}}.player-messaging.modal{position:fixed;height:500px;top:20%;z-index:1200;display:none}.player-messaging.modal .modal-body{padding:0}body .player-messaging{position:relative;margin:auto;padding:0!important;background:#060f16!important;width:90%;border:1px solid #0c2830;border-radius:0}body .player-messaging .messaging-header{position:relative;height:40px;line-height:39px;border-bottom:1px solid #0c2830}body .player-messaging .messaging-header h1{position:relative;top:1px;color:#ddd9cd;font-size:13px;line-height:39px;padding:0 18px;text-transform:uppercase;max-width:70%;word-wrap:break-word}body .player-messaging .messaging-header h1 .back-arrow{display:none}body .player-messaging .messaging-header h1 .unread-label{-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";filter:alpha(opacity=100);-moz-opacity:1;-khtml-opacity:1;opacity:1;color:#fff;font-family:Spiegel,sans-serif;font-size:10px;padding:1px 8px;margin-left:4px;background:#974412;border-radius:8px;position:relative;top:-2px;transition:opacity .5s}body .player-messaging .messaging-header h1 .unread-label.hidden{-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity:0;opacity:0}body .player-messaging .messaging-header h1.multiline{padding:9pt 15px;top:3px;line-height:15px}body .player-messaging .messaging-header nav{position:absolute;top:0;right:7px;height:100%;font-size:9pt}body .player-messaging .messaging-header nav .close-button{margin-top:8px;width:23px;height:21px}body .player-messaging .viewport{height:458px;font-family:Spiegel,sans-serif}body .player-messaging .viewport span.fromLabel{font-weight:400;color:#1f6472}body .player-messaging .viewport span.username{display:block;letter-spacing:1px;font-size:9pt;line-height:9pt;font-weight:400;color:#1f6472}body .player-messaging .viewport span.subject{display:block;font-size:9pt;line-height:9pt;color:#d3c7a9}body .player-messaging .viewport span.timeago{display:block;font-size:10px;line-height:10px;color:#1f6472}body .player-messaging .viewport .riot span.username{color:#ae2f0f}body .player-messaging .viewport .message-list{height:458px;float:left;width:250px;border-right:1px solid #0c2830;overflow-x:hidden;overflow-y:auto}body .player-messaging .viewport .message-list .player-messaging-list-item-view{border-right:1px solid #0c2830}body .player-messaging .viewport .message-list.noscroll,body .player-messaging .viewport .message-list.noscroll .player-messaging-list-item-view{border-right:0}body .player-messaging .viewport .message-list .show-more-row{width:100%;padding:10px 20px;text-align:center}body .player-messaging .viewport .message-list .show-more-row a.button{color:#ddd9cd!important;padding:5px 0}body .player-messaging .viewport .message-list .show-more-row a.button span{font-size:15px}body .player-messaging .viewport .message-list ul{margin:0;padding:0;list-style-type:none}body .player-messaging .viewport .message-list ul li{margin:0;padding:0;border-bottom:1px solid #0c2830;max-height:70px;background-color:#060f16}body .player-messaging .viewport .message-list ul li div.entry{height:70px;padding-top:5px;cursor:pointer}body .player-messaging .viewport .message-list ul li div.entry div.avatar{float:left;padding:5px 9pt}body .player-messaging .viewport .message-list ul li div.entry div.avatar img{width:50px}body .player-messaging .viewport .message-list ul li div.entry div.details{padding:3px 10px 0 0;height:100%}body .player-messaging .viewport .message-list ul li div.entry div.details span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px 0 6px}body .player-messaging .viewport .message-list ul li div.entry div.details span.username{text-transform:uppercase;letter-spacing:1px}body .player-messaging .viewport .message-list ul li.unread{background-color:#3395b1;background-image:-webkit-linear-gradient(#0b1721,#133744);background-image:linear-gradient(#0b1721,#133744,)}body .player-messaging .viewport .message-list ul li:hover{background-color:#0d1b22;background-image:none}body .player-messaging .viewport .message-list ul li.active{background-color:#0d1b22}body .player-messaging .viewport .reading-pane{height:458px;background-color:#0d1b22;margin-left:250px;border-left:1px solid #0c2830;overflow:auto}body .player-messaging .viewport .reading-pane .messaging-header{height:auto}body .player-messaging .viewport .reading-pane .messaging-header h1{font-family:Spiegel,sans-serif;text-transform:none;font-variant:normal;font-size:15px;color:#d3c7a9}body .player-messaging .viewport .reading-pane .messaging-header .timeago{margin:14px 7px 10px 5px;float:right}body .player-messaging .viewport .reading-pane .messaging-body{padding:9pt 15px}body .player-messaging .viewport .reading-pane .messaging-body span.username .fromLabel{font-weight:400;color:#1f6472}body .player-messaging .viewport .reading-pane .messaging-body p{padding:0;font-family:Spiegel,sans-serif;font-size:14px;color:#ddd9cd;line-height:1.5em}body .player-messaging .viewport .reading-pane.empty{background-image:url("https://cdn.leagueoflegends.com/apollo/assets/empty-state-vision-ward.png");background-repeat:no-repeat;background-position:center center}#player-messaging-mask{width:100%;height:100%;z-index:900;background-color:rgba(0,0,0,.8);position:fixed;top:0;left:0;display:none;cursor:pointer}body.tr_TR .player-messaging .messaging-header h1,body.tr_TR .player-messaging .viewport span.timeago,body.tr_TR .player-messaging .viewport span.username{text-transform:none}@media screen and (max-width:500px){body .player-messaging.modal{max-width:500px;width:100%;top:0;left:0!important;height:250px;position:absolute;overflow:hidden}body .player-messaging.modal .viewport{height:210px}}@media screen and (max-width:500px) and (min-height:450px){body .player-messaging.modal{height:25pc}body .player-messaging.modal .viewport{height:358px!important}}@media screen and (max-width:500px) and (min-height:550px){body .player-messaging.modal{height:500px}body .player-messaging.modal .viewport{height:458px!important}}@media screen and (max-width:500px) and (min-height:650px){body .player-messaging.modal{height:600px}body .player-messaging.modal .viewport{height:558px!important}}@media screen and (max-width:500px){body .player-messaging.modal .messaging-header .unread-label{font-size:9pt}body .player-messaging.modal .messaging-header .unread-label .fn-player-messages-unread-label{display:none}body .player-messaging.modal.mobile-message-visible .messaging-header .back-arrow{display:inline}body .player-messaging.modal .viewport{position:absolute;width:100%}body .player-messaging.modal .viewport .message-list{width:100%;height:100%}body .player-messaging.modal .viewport .message-list,body .player-messaging.modal .viewport .message-list .player-messaging-list-item-view{border-right:0}body .player-messaging.modal .viewport .reading-pane{height:100%;max-width:500px;position:absolute;-webkit-transition:right .3s ease-in-out;transition:right .3s ease-in-out;right:-500px;width:100%}}@media screen and (min-width:500px) and (max-height:550px){body .player-messaging.modal{top:60px;height:300px}body .player-messaging.modal .viewport,body .player-messaging.modal .viewport .message-list,body .player-messaging.modal .viewport .reading-pane{height:260px}}@media screen and (min-width:500px) and (max-height:350px){body .player-messaging.modal{height:250px}body .player-messaging.modal .viewport,body .player-messaging.modal .viewport .message-list,body .player-messaging.modal .viewport .reading-pane{height:210px}}.riot_apollo[data-poll-widget=show] input[type=radio]{margin:3px;position:relative;overflow:hidden;clip:auto;width:auto;height:auto}.riot_apollo[data-poll-widget=show] hr,.riot_apollo[data-poll-widget=show] input[type=radio][disabled]{display:none}.riot_apollo[data-poll-widget=show] h1{font-size:1.4em}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection{margin-top:.2em;border-collapse:collapse;border-top-width:1px;border-top-style:inset;border-top-color:#002c2b;width:100%}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total{height:30px}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice td.riot-athena-choice-selection-indicator,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total td.riot-athena-choice-selection-indicator{width:3%}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice td.riot-athena-choice-label,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total td.riot-athena-choice-label{width:25%;webkit-box-shadow:5px 0 6px -5px #000;box-shadow:5px 0 6px -5px #000;padding-right:5px}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice td.riot-athena-choice-bar-container,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total td.riot-athena-choice-bar-container{width:55%}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice td.riot-athena-choice-bar-container .riot-athena-bar,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total td.riot-athena-choice-bar-container .riot-athena-bar{display:inline-block;height:10px;webkit-box-shadow:inset 1px 1px 1px 0 rgba(29,125,170,.7);box-shadow:inset 1px 1px 1px 0 rgba(29,125,170,.7);background:#3a87ad;background:-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%, #3a87ad),color-stop(100%, #1d7daa));background:-webkit-linear-gradient(top,#3a87ad 0,#1d7daa 100%);background:-o-linear-gradient(top,#3a87ad 0,#1d7daa 100%);background:linear,top,#3a87ad 0,#1d7daa 100%}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice td.riot-athena-choice-selection-count,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total td.riot-athena-choice-selection-count{width:7%;text-align:right}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice td.riot-athena-choice-selection-count-label,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total td.riot-athena-choice-selection-count-label{padding-left:6px}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice.selected,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total.selected{background:#04222a}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-choice.selected td.riot-athena-choice-bar-container .riot-athena-bar,.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total.selected td.riot-athena-choice-bar-container .riot-athena-bar{box-shadow:inset 1px 1px 1px 0 rgba(102,68,90,.7);background:-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%, #bfc3c4),color-stop(100%, #919598));background:-webkit-linear-gradient(#bfc3c4,#919598);background:-o-linear-gradient(#bfc3c4,#919598);background:linear,false,#bfc3c4,#919598;background:-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%, #815675),color-stop(100%, #66445a));background:-webkit-linear-gradient(top,#815675 0,#66445a 100%);background:-o-linear-gradient(top,#815675 0,#66445a 100%);background:linear,top,#815675 0,#66445a 100%}.riot_apollo[data-poll-widget=show] table.riot-athena-result-collection tr.riot-athena-total{border-top-width:1px;border-top-style:inset}.riot_apollo[data-poll-widget=create] .riot-athena-create-question textarea{width:100%;height:3em;min-height:3em;line-height:1.6em;padding:.5em}@font-face{font-family:Beaufort;src:url("https://s3-us-west-2.amazonaws.com/apollo-dev/new-caprica/fonts/BeaufortforLOL-Regular.otf")}@font-face{font-family:Spiegel Regular;src:url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/4cfa7a3f-56df-4060-9f42-8354069818da.eot?#iefix");src:url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/4cfa7a3f-56df-4060-9f42-8354069818da.eot?#iefix") format("eot"),url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/685f4c9c-b390-418e-977e-919951e0329f.woff") format("woff"),url("http://s3-us-west-2.amazonaws.com/apollo-dev/fonts/d5544079-79e7-4178-ab45-7da208fd52ab.ttf") format("truetype"),url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/5ab26ef2-fc30-4c5e-81a6-e08584bcd7d3.svg#5ab26ef2-fc30-4c5e-81a6-e08584bcd7d3") format("svg")}@font-face{font-family:Spiegel Bold;src:url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/1a8a732f-431e-4414-aeef-ae219e6f4744.eot?#iefix");src:url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/1a8a732f-431e-4414-aeef-ae219e6f4744.eot?#iefix") format("eot"),url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/0d8719a4-62a3-4ecf-9244-d3ed8a701450.woff") format("woff"),url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/f5ce69f5-053e-4c7b-b4ce-7b97a54802a4.ttf") format("truetype"),url("https://s3-us-west-2.amazonaws.com/apollo-dev/fonts/bce4b22c-896e-48d5-980f-c0a53b82cf78.svg#bce4b22c-896e-48d5-980f-c0a53b82cf78") format("svg")}.riot-apollo.profile-hover{position:absolute;border:none;border-radius:0;padding:0;color:#94724d;max-width:none;z-index:9000;text-transform:uppercase;font-family:Spiegel Regular,sans-serif;letter-spacing:1px;font-size:9pt;-webkit-font-smoothing:antialiased;-webkit-opacity:.99}.riot-apollo.profile-hover .inner-content{position:relative;top:-33px;margin-bottom:-2pc}.riot-apollo.profile-hover .title{text-overflow:ellipsis;overflow:hidden;color:#6dc0cd;line-height:14px}.riot-apollo.profile-hover .realm-and-level{text-overflow:ellipsis;line-height:1.4em}.riot-apollo.profile-hover .full-summoner-icon{text-align:center}.riot-apollo.profile-hover .full-summoner-icon img{width:8pc;height:8pc}.riot-apollo.profile-hover .information-container{text-align:center;margin-top:5px}.riot-apollo.profile-hover h5.summoner-name{margin-top:0;text-overflow:ellipsis;overflow:hidden;color:#cab5a2;font-size:14px;font-family:Constantia,Palatino,Georgia,"serif";font-variant:small-caps;letter-spacing:1px;letter-spacing:normal}.riot-apollo.profile-hover h5.summoner-name.hu-HU{font-family:Palatino Linotype,Book Antiqua,Palatino,"serif"}.riot-apollo.profile-hover p{margin-top:.2em;font-size:.8em}.riot-apollo.profile-hover.rioter h5{color:#ed3029}.riot-apollo.profile-hover .top{background-color:#000;padding:6px;width:140px}.riot-apollo.profile-hover.rioters{border-width:4px;border-top-style:solid;border-right:0;border-bottom:0;border-left:0;border-top-color:#ed3029}.riot-apollo.profile-hover.rioters .summoner-name{color:#ed3029}.riot-apollo.profile-hover .badges{text-align:center;min-height:33px}.riot-apollo.profile-hover .badges.shown{background-color:rgba(0,0,0,.75)}.riot-apollo.profile-hover .badge{display:inline-block;margin-top:2px;width:24px;height:24px;background-position:center center;background-repeat:no-repeat;background-size:24px 24px}.riot-apollo.profile-hover .badge.b-raf{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/raf.png")}.riot-apollo.profile-hover .badge.b-s01gold{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s1gold.png")}.riot-apollo.profile-hover .badge.b-s01plat{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s1platinum.png")}.riot-apollo.profile-hover .badge.b-s02plat{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s2platinum.png")}.riot-apollo.profile-hover .badge.b-s02diam{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s2diamond.png")}.riot-apollo.profile-hover .badge.b-s03gold{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s3gold.png")}.riot-apollo.profile-hover .badge.b-s03plat{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s3platinum.png")}.riot-apollo.profile-hover .badge.b-s03diam{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s3diamond.png")}.riot-apollo.profile-hover .badge.b-s03chal{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s3challenger.png")}.riot-apollo.profile-hover .badge.b-s04gold{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s4gold.png")}.riot-apollo.profile-hover .badge.b-s04plat{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s4platinum.png")}.riot-apollo.profile-hover .badge.b-s04diam{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s4diamond.png")}.riot-apollo.profile-hover .badge.b-s04mast{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s4master.png")}.riot-apollo.profile-hover .badge.b-s04chal{background-image:url("https://cdn.leagueoflegends.com/apollo/badges/s4challenger.png")}.riot-apollo.profile-hover .arrow{background-image:url("https://cdn.leagueoflegends.com/apollo/assets/player-profile/arrow.png");width:140px;height:30px}.de_DE h5{text-transform:none}.rfmtoolbar{z-index:1;height:2pc;width:100%;border:1px solid #b4b4b4;border-bottom:none;background-color:#fff;background-image:-webkit-linear-gradient(#fff,#e0e0e0);background-image:linear-gradient(#fff,#e0e0e0,)}.rfmtoolbar,.rfmtoolbar *{box-sizing:border-box}.rfmtoolbar .button{padding:0 5px;width:2pc;height:30px;float:left;border-right:1px solid #b4b4b4;border-left:1px solid #eee;cursor:pointer;background-repeat:no-repeat;background-image:url("https://cdn.leagueoflegends.com/apollo/assets/icon_sprite_sticker.png")}.rfmtoolbar .button.gamedata.champion{background-position:-203px 0}.rfmtoolbar .button.gamedata.item{background-position:-293px 0}.rfmtoolbar .button.gamedata.summoner{background-position:-248px 0}.rfmtoolbar .button.formatting.bold{background-position:7px}.rfmtoolbar .button.formatting.italic{background-position:-20px}.rfmtoolbar .button.formatting.strikethrough{background-position:-44px}.rfmtoolbar .button.paragraph.blockquote{background-position:-105px}.rfmtoolbar .button.paragraph.unordered{background-position:-135px}.rfmtoolbar .button.paragraph.ordered{background-position:-166px}.rfmtoolbar .button.url{background-position:-74px}.rfmtoolbar .button.formatting-guide{background-position:-328px;float:right;border-left:1px solid #b4b4b4;border-right:none}.rfmtoolbar .button.sticker.slayer{background-position:-366px}.toolbar_dropdown{width:25pc;float:left;background-color:#fff;position:absolute;display:none;padding:10px 0;border:1px solid #b4b4b4;border-top:none;box-shadow:3px 3px 10px rgba(0,0,0,.4)}.toolbar_dropdown,.toolbar_dropdown *{box-sizing:border-box}.toolbar_dropdown .frame{height:300px;width:398px;padding-left:5px;overflow:auto}.toolbar_dropdown .frame .sticker{display:inline-block;width:140px;height:140px;background-repeat:no-repeat;margin-left:34px;margin-bottom:10px}.toolbar_dropdown .dragon_query{margin-bottom:10px;width:375px;padding:10px;border-radius:10px;margin-left:10px}.toolbar_dropdown .gameobj{display:inline-block;padding:3px}.oldie .toolbar_dropdown .dragon_query{width:350px}.oldie .toolbar_dropdown .frame{width:395px}.toolbar_dropdown_modal{width:100%;height:100%;position:absolute;top:0;left:0;z-index:2;display:none;cursor:pointer}.riot-apollo-tooltip dfn{position:relative;display:none}#riot-apollo-tooltip-container{max-width:200px;background:#fff;color:#000;padding:5px 10px;box-shadow:1px 1px 5px 0 rgba(0,0,0,.18);z-index:-9001}#riot-apollo-tooltip-container.active{z-index:10051}#riot-apollo-tooltip-container.hidden{position:absolute!important;display:none!important;z-index:-9001!important;left:-9001px!important}#riot-apollo-tooltip-container.caprica{color:#cab5a2;border-radius:3px;box-shadow:0 0 5px rgba(0,0,0,.9);text-shadow:1px 1px #000;border:1px solid #195657;background:#003a42;background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwM2E0MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMjFiMjAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%, #003a42),color-stop(100%, #021b20));background:-webkit-linear-gradient(top,#003a42 0%,#021b20 100%);background:-ms-linear-gradient(top,#003a42 0%,#021b20 100%);background:linear,to bottom,#003a42 0,#021b20 100%;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#003a42',endColorstr='#021b20',GradientType=0)}#apollo-user-search-modal div.riot-user-select{background-color:#000;padding:5px;height:36px}#apollo-user-search-modal div.riot-user-select div.username,#apollo-user-search-modal div.riot-user-select img{display:inline-block;vertical-align:middle}#apollo-user-search-modal input.searchText{width:350px}#apollo-user-search-modal button,#apollo-user-search-modal select{background-color:#553621;border:1px solid #000;color:#cab5a2;cursor:pointer;font-family:Constantia,Palatino,Georgia,serif;font-size:15px;font-variant:small-caps;padding:5px 20px;outline:1px solid #553621;min-width:90px}#apollo-user-search-modal div.actions{margin-top:10px;float:right}#apollo-user-search-modal div.riot-user-select:before{content:' ';display:inline-block;vertical-align:middle;height:100%}#apollo-user-search-modal .user-list{display:none;position:absolute;background-color:#000}@media screen and (max-width:500px){#apollo-user-search-modal input.searchText{width:225px}}.riot-apollo.voting ul button.up-vote{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/up.png");background-repeat:no-repeat;background-position:center center}.riot-apollo.voting ul button.down-vote{background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/down.png");background-repeat:no-repeat;background-position:center center}.riot-apollo.voting ul.upVoted.authenticated .total-votes{color:green}.riot-apollo.voting ul.upVoted.authenticated button.up-vote{opacity:1;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/up-active.png");background-repeat:no-repeat;background-position:center center}.riot-apollo.voting ul.downVoted.authenticated .total-votes{color:red}.riot-apollo.voting ul.downVoted.authenticated button.down-vote{opacity:1;background:url("https://cdn.leagueoflegends.com/apollo/widgets/assets/down-active.png");background-repeat:no-repeat;background-position:center center}</style><link rel="stylesheet" type="text/css" href="//ddragon.leagueoflegends.com/cdn/7.2.1/css/view.css"><meta class="foundation-mq-topbar"><style type="text/css" id="ki-qs1-q6"></style><style type="text/css" id="ki-qs1-q2"></style></head><body data-region="na" class="riotbar-present ember-application" style="position: relative;"><nav id="mobile-menu" class="mm-menu mm-offcanvas"><div class="mm-panels"><div class="mm-panel mm-hasnavbar mm-opened mm-current" id="mm-1"><div class="mm-navbar"><a class="mm-title">Menu</a></div><ul class="mm-listview">
+                    <li>
+<a id="ember1141" href="/en_US/" class="ember-view">        HOME
+</a>    </li>
+
+            <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-2" data-target="#mm-2"></a><span class="">
+      NA LCS
+    </span>
+    
+  </li>
+
+            <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-3" data-target="#mm-3"></a><span class="active">
+      EU LCS
+    </span>
+    
+  </li>
+
+     
+      <li class="dropdown-nav">
+        <a class="mm-next mm-fullsubopen" href="#mm-4" data-target="#mm-4"></a><span class="">
+            MORE COMPETITIONS
+        </span>
+        
+      </li>
+              <li>
+<a id="ember1240" href="/en_US/tickets" class="ember-view">        tickets
+</a>    </li>
+
+              <li>
+<a id="ember1241" href="/en_US/articles" class="ember-view">        ARTICLES
+</a>    </li>
+
+              <li>
+<a id="ember1242" href="/en_US/vods" class="ember-view">        VODs
+</a>    </li>
+
+              <li class="outlink">
+      <a target="_blank" href="http://fantasy.lolesports.com">
+        Fantasy LCS
+        <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/sprites/outlink-icon.png">
+      </a>
+    </li>
+
+<!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+   </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-2"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-1" data-target="#mm-1"></a><a class="mm-title" href="#mm-1">
+      NA LCS
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1148" href="/en_US/na-lcs/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1167" href="/en_US/na-lcs/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1174" href="/en_US/na-lcs/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1194" href="/en_US/na-lcs/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-3"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-1" data-target="#mm-1"></a><a class="mm-title" href="#mm-1">
+      EU LCS
+    </a></div><ul class="mm-listview">
+          
+<li>
+<a id="ember3835" href="/en_US/eu-lcs/eu_2017_spring/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember3836" href="/en_US/eu-lcs/eu_2017_spring/standings" class="standings-nav s t a n d i n g s - n a v active">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember3837" href="/en_US/eu-lcs/eu_2017_spring/stats" class="stats-nav s t a t s - n a v">      STATS
+</a>  </li>
+
+<li>
+<a id="ember3838" href="/en_US/eu-lcs/eu_2017_spring/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-4"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-1" data-target="#mm-1"></a><a class="mm-title" href="#mm-1">
+            MORE COMPETITIONS
+        </a></div><ul class="mm-listview">
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-5" data-target="#mm-5"></a><span class="">
+      LCK
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-6" data-target="#mm-6"></a><span class="">
+      LPL
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-7" data-target="#mm-7"></a><span class="">
+      LMS
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-8" data-target="#mm-8"></a><span class="">
+      NA Challenger
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-9" data-target="#mm-9"></a><span class="">
+      EU Challenger
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-10" data-target="#mm-10"></a><span class="">
+      World Championship
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-11" data-target="#mm-11"></a><span class="">
+      Mid-Season Invitational
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-12" data-target="#mm-12"></a><span class="">
+      All-Star Event
+    </span>
+    
+  </li>
+
+              <li>
+    <a class="mm-next mm-fullsubopen" href="#mm-13" data-target="#mm-13"></a><span class="">
+      International Wildcard
+    </span>
+    
+  </li>
+
+                <li class="outlink">
+      <a target="_blank" href="http://ulol.leagueoflegends.com">
+        uLoL Campus Series
+        <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/sprites/outlink-icon.png">
+      </a>
+    </li>
+
+                <li class="outlink">
+      <a target="_blank" href="http://2015.lolesports.com">
+        2015 REGULAR SEASON
+        <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/sprites/outlink-icon.png">
+      </a>
+    </li>
+
+        </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-5"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      LCK
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1205" href="/en_US/lck/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1206" href="/en_US/lck/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1207" href="/en_US/lck/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1208" href="/en_US/lck/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-6"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      LPL
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1209" href="/en_US/lpl-china/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1210" href="/en_US/lpl-china/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+<!---->
+<li>
+<a id="ember1211" href="/en_US/lpl-china/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-7"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      LMS
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1212" href="/en_US/lms/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1213" href="/en_US/lms/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1214" href="/en_US/lms/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1215" href="/en_US/lms/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-8"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      NA Challenger
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1216" href="/en_US/na-cs/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1217" href="/en_US/na-cs/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1218" href="/en_US/na-cs/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1219" href="/en_US/na-cs/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-9"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      EU Challenger
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1220" href="/en_US/eu-cs/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1221" href="/en_US/eu-cs/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1222" href="/en_US/eu-cs/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1223" href="/en_US/eu-cs/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-10"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      World Championship
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1224" href="/en_US/worlds/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1225" href="/en_US/worlds/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1226" href="/en_US/worlds/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1227" href="/en_US/worlds/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-11"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      Mid-Season Invitational
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1228" href="/en_US/msi/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1229" href="/en_US/msi/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1230" href="/en_US/msi/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1231" href="/en_US/msi/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-12"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      All-Star Event
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1232" href="/en_US/all-star/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1233" href="/en_US/all-star/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1234" href="/en_US/all-star/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1235" href="/en_US/all-star/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div><div class="mm-panel mm-hasnavbar mm-hidden" id="mm-13"><div class="mm-navbar"><a class="mm-btn mm-prev" href="#mm-4" data-target="#mm-4"></a><a class="mm-title" href="#mm-4">
+      International Wildcard
+    </a></div><ul class="mm-listview">
+          <li>
+<a id="ember1236" href="/en_US/iwc/current/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember1237" href="/en_US/iwc/current/standings" class="ember-view">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember1238" href="/en_US/iwc/current/stats" class="ember-view">      STATS
+</a>  </li>
+
+<li>
+<a id="ember1239" href="/en_US/iwc/current/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul></div></div></nav><div id="mm-0" class="mm-page mm-slideout"><div id="riot-apollo-tooltip-container" style="position: absolute; display: none; left: 0px; top: 0px;"></div><div id="riotbar-bar" class=" i18n-en riotbar-base-element riotbar-mobile-responsive riotbar-brand-lol" lang="en"><div class="riotbar-left-content"><div id="riotbar-navmenu"><span class="riotbar-explore">
+  <span class="riotbar-explore-arrow"></span>
+  <a class="riotbar-logo" href="http://na.leagueoflegends.com/en/">
+    <span class="riotbar-explore-label">
+      <span class="riotbar-explore-subtitle">Explore</span>
+      <br>
+      <span class="riotbar-explore-title">League<span>
+    </span>
+  </span></span></a>
+</span>
+
+<div class="riotbar-navmenu-dropdown" style="height: 718px;">
+  <div class="riotbar-navmenu-touchpoints">
+    
+  <div class="riotbar-navmenu-category riotbar-first-category">
+    
+      <div class="riotbar-category-name">
+        League of Legends
+      </div>
+    
+    
+      <div class="riotbar-left-column">
+        
+          
+          <a class="riotbar-navmenu-link" href="http://na.leagueoflegends.com/en/" data-riotbar-link-id="home" data-ping-meta="riotbar-content=navigation|riotbar-navigation=home">
+  Home
+  
+    <span class="riotbar-link-subtext">
+      Explore League of Legends
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="http://na.leagueoflegends.com/en/news/" data-riotbar-link-id="news" data-ping-meta="riotbar-content=navigation|riotbar-navigation=news">
+  News
+  
+    <span class="riotbar-link-subtext">
+      Catch up on League news
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="http://gameinfo.na.leagueoflegends.com/en/game-info/" data-riotbar-link-id="game" data-ping-meta="riotbar-content=navigation|riotbar-navigation=game">
+  Game
+  
+    <span class="riotbar-link-subtext">
+      Learn about League
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="http://universe.leagueoflegends.com/en_US/" data-riotbar-link-id="universe" data-ping-meta="riotbar-content=navigation|riotbar-navigation=universe">
+  Universe
+  
+    <span class="riotbar-link-subtext">
+      Explore the League universe
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="http://nexus.leagueoflegends.com/" data-riotbar-link-id="nexus" data-ping-meta="riotbar-content=navigation|riotbar-navigation=nexus">
+  Nexus
+  
+    <span class="riotbar-link-subtext">
+      Look behind the scenes of League
+    </span>
+  
+</a>
+
+        
+          
+          
+          
+          
+      </div>
+      <div class="riotbar-right-column">
+        
+          
+          
+          
+          
+          
+          
+          <a class="riotbar-navmenu-link riotbar-active-link" href="http://www.lolesports.com/en_US" data-riotbar-link-id="esports" data-ping-meta="riotbar-content=navigation|riotbar-navigation=esports">
+  Esports
+  
+    <span class="riotbar-link-subtext">
+      See pros battle for glory
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="http://boards.na.leagueoflegends.com/en/" data-riotbar-link-id="boards" data-ping-meta="riotbar-content=navigation|riotbar-navigation=boards">
+  Boards
+  
+    <span class="riotbar-link-subtext">
+      Connect &amp; Contribute
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="http://ulol.leagueoflegends.com/" data-riotbar-link-id="ulol" data-ping-meta="riotbar-content=navigation|riotbar-navigation=ulol">
+  University
+  
+    <span class="riotbar-link-subtext">
+      Get involved on your campus
+    </span>
+  
+</a>
+
+        
+          
+          <a class="riotbar-navmenu-link" href="https://support.riotgames.com/hc/en-us" data-riotbar-link-id="support" data-ping-meta="riotbar-content=navigation|riotbar-navigation=support">
+  Support
+  
+    <span class="riotbar-link-subtext">
+      Get the help you need
+    </span>
+  
+</a>
+
+        
+      </div>
+    
+  </div>
+
+  <div class="riotbar-navmenu-category">
+    
+      <div class="riotbar-category-name">
+        Riot Games
+      </div>
+    
+    
+      <div>
+        <a class="riotbar-navmenu-link" href="https://na.merch.riotgames.com/en/" data-riotbar-link-id="merchandise" data-ping-meta="riotbar-content=navigation|riotbar-navigation=merchandise">
+  Merchandise
+  
+    <span class="riotbar-link-subtext">
+      Equip yourself IRL
+    </span>
+  
+</a>
+
+      </div>
+    
+  </div>
+
+
+  </div>
+
+  
+</div>
+</div></div><div class=" riotbar-bar-content"><div id="riotbar-navbar" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; visibility: visible;">
+  <span class="riotbar-explore-label">
+    <span class="riotbar-explore-subtitle">Explore</span>
+    <br>
+    <span class="riotbar-explore-title">League</span>
+  </span>
+
+
+
+  
+  
+    
+    
+    <a class="riotbar-navbar-link" href="http://na.leagueoflegends.com/en/news/" data-riotbar-link-id="news">
+      News
+    </a>
+  
+    
+    <a class="riotbar-navbar-link" href="http://gameinfo.na.leagueoflegends.com/en/game-info/" data-riotbar-link-id="game">
+      Game
+    </a>
+  
+    
+    <a class="riotbar-navbar-link" href="http://universe.leagueoflegends.com/en_US/" data-riotbar-link-id="universe">
+      Universe
+    </a>
+  
+    
+    <a class="riotbar-navbar-link" href="http://nexus.leagueoflegends.com/" data-riotbar-link-id="nexus">
+      Nexus
+    </a>
+  
+    
+    <a class="riotbar-navbar-link riotbar-active-link" href="http://www.lolesports.com/en_US" data-riotbar-link-id="esports">
+      Esports
+    </a>
+  
+    
+    <a class="riotbar-navbar-link" href="http://boards.na.leagueoflegends.com/en/" data-riotbar-link-id="boards">
+      Boards
+    </a>
+  
+    
+    <a class="riotbar-navbar-link" href="http://ulol.leagueoflegends.com/" data-riotbar-link-id="ulol">
+      University
+    </a>
+  
+    
+    <a class="riotbar-navbar-link" href="https://support.riotgames.com/hc/en-us" data-riotbar-link-id="support">
+      Support
+    </a>
+  
+
+  
+    <span class="riotbar-navbar-separator"></span>
+  
+  
+    
+    <a class="riotbar-navbar-link" href="https://na.merch.riotgames.com/en/" data-riotbar-link-id="merchandise">
+      Merchandise
+    </a>
+  
+
+</div></div><div class="riotbar-right-content"><div id="riotbar-service-status" data-ping-meta="riotbar-content=service-status"></div><div id="riotbar-account">
+  <a data-riotbar-link-id="signup" class="riotbar-anonymous-link" href="http://signup.na.leagueoflegends.com/en">
+    Play Now
+  </a>
+
+  <a data-riotbar-link-id="login" class="riotbar-anonymous-link riotbar-account-action" data-riotbar-account-action="login">
+    Login
+  </a>
+
+</div></div></div><div id="riotbar-subbar" class=" i18n-en riotbar-base-element"><div class=" riotbar-pagewidth riotbar-subcontent"><div id="riotbar-locale"><div class="riotbar-locale-switch">
+  <div id="riotbar-locale-switch-trigger">
+    <span class="region">North America</span>
+    <span class="language">(English)</span>
+  </div>
+  <div id="riotbar-locale-switch-dropdown">
+    <div id="riotbar-region-switcher">
+      <div id="riotbar-region-dropdown-trigger">North America</div>
+      
+      <div id="riotbar-region-dropdown">
+        <ul class="region-list">
+          
+          <li class="riotbar-region-option disabled" id="riotbar-region-option-na" data-locale-region-id="na">
+            North America
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-eune" data-locale-region-id="eune">
+            EU Nordic &amp; East
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-euw" data-locale-region-id="euw">
+            EU West
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-lan" data-locale-region-id="lan">
+            Latin America North
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-las" data-locale-region-id="las">
+            Latin America South
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-br" data-locale-region-id="br">
+            Brazil
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-tr" data-locale-region-id="tr">
+            Turkey
+          </li>
+          
+          <li class="riotbar-region-option" id="riotbar-region-option-oce" data-locale-region-id="oce">
+            Oceania
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    
+    <div id="riotbar-language-sets">
+      
+      <div class="riotbar-locale-languages active" id="riotbar-languages-na">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://www.lolesports.com/en_US">
+              English
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-eune">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://eu.lolesports.com/en">
+              English
+            </a>
+          </li>
+        
+          <li>
+            <a href="http://eu.lolesports.com/pl">
+              Polski
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-euw">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://eu.lolesports.com/en">
+              English
+            </a>
+          </li>
+        
+          <li>
+            <a href="http://eu.lolesports.com/fr">
+              Français
+            </a>
+          </li>
+        
+          <li>
+            <a href="http://eu.lolesports.com/es">
+              Español
+            </a>
+          </li>
+        
+          <li>
+            <a href="http://eu.lolesports.com/de">
+              Deutsch
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-lan">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://lan.lolesports.com/">
+              Español
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-las">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://las.lolesports.com/">
+              Español
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-br">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://lolesports.com.br/">
+              Português
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-tr">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://www.lolespor.com/">
+              Türkçe
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+      <div class="riotbar-locale-languages" id="riotbar-languages-oce">
+        <ul class="locale-list">
+        
+          <li>
+            <a href="http://oce.lolesports.com/">
+              English
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div></div></div><div id="riotbar-alerts" class=" riotbar-alerts riotbar-base-element"></div><div id="apollo-unsafe-link-modal" class="warning apollojs-modal">
+  <div class="modal-body">
+    <h2>You are leaving Riot Games</h2>
+    <div class="content">
+      <p>Facechecking the brush is dangerous, and so is facechecking the web.  Other websites may not be as well-warded as ours, so please use your best judgement when clicking on unknown links.</p>
+      <p class="unsafe-link">
+        You are going to:  <strong><span class="unsafe-link-url"></span></strong>
+      </p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <p class="opt-out">
+      <label>Never show again: </label><input type="checkbox" class="disable-unsafe">
+    </p>
+    <a href="javascript:;" class="offsite-link-url">I understand, and I’m going in</a>
+    <a class="hide-modal" href="javascript:;">
+      <span>Cancel</span>
+    </a>
+  </div>
+</div><div id="apollo-oembed-content-modal" class="apollojs-modal warning">
+  <div class="modal-body">
+    <!-- <h2></h2> -->
+    <div class="content"></div>
+    <p><strong>Source: <span class="provider-name"></span></strong></p>
+    <p>Facechecking the brush is dangerous, and so is facechecking the web.  Other websites may not be as well-warded as ours, so please use your best judgement when clicking on unknown links.</p>
+    <p class="unsafe-link">
+       You are going to:  <strong><span class="unsafe-link-url"></span></strong>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="offsite-link-url">
+      I understand, and I’m going in</a>
+    <a class="hide-modal" href="javascript:;">
+      <span>Cancel</span>
+    </a>
+  </div>
+</div><div class="ninja rg-box-tooltip rg-display-item_tooltip" data-control="cont1" id="rg-commonbox-tooltip" style="position: fixed; left: 30px; top: 30px;"></div><div id="main-app" class="ember-view"><div id="ember1004" class="ember-view"><div class="main-nav">
+	<div class="main-nav-inner row">
+    <div class="xlarge-11 columns main-nav-inner-left">
+  <div class="columns">
+    <div class="main-logo-container">
+<a id="ember1023" href="/en_US/eu-lcs" class="ember-view active">          <img class="main-logo" src="http://am-a.akamaihd.net/image/?f=http://assets.lolesports.com/league/eu-lcs-6lk58sng.png&amp;resize=120:120">
+</a>    </div>
+    <ul class="main-nav-menu">
+                    <li>
+<a id="ember1037" href="/en_US/" class="ember-view">        HOME
+</a>    </li>
+
+            <li>
+<a id="ember1045" href="/en_US/na-lcs" class="ember-view">      NA LCS
+</a>  </li>
+
+            <li>
+<a id="ember1047" href="/en_US/eu-lcs" class="ember-view active">      EU LCS
+</a>  </li>
+
+     
+      <li class="dropdown-nav" style="min-width: 235px;">
+        <a class="">
+            MORE COMPETITIONS
+          <span class="down-arrow"></span>
+        </a>
+        <ul>
+              <li>
+<a id="ember1050" href="/en_US/lck" class="ember-view">      LCK
+</a>  </li>
+
+              <li>
+<a id="ember1052" href="/en_US/lpl-china" class="ember-view">      LPL
+</a>  </li>
+
+              <li>
+<a id="ember1054" href="/en_US/lms" class="ember-view">      LMS
+</a>  </li>
+
+              <li>
+<a id="ember1056" href="/en_US/na-cs" class="ember-view">      NA Challenger
+</a>  </li>
+
+              <li>
+<a id="ember1058" href="/en_US/eu-cs" class="ember-view">      EU Challenger
+</a>  </li>
+
+              <li>
+<a id="ember1060" href="/en_US/worlds" class="ember-view">      World Championship
+</a>  </li>
+
+              <li>
+<a id="ember1062" href="/en_US/msi" class="ember-view">      Mid-Season Invitational
+</a>  </li>
+
+              <li>
+<a id="ember1064" href="/en_US/all-star" class="ember-view">      All-Star Event
+</a>  </li>
+
+              <li>
+<a id="ember1066" href="/en_US/iwc" class="ember-view">      International Wildcard
+</a>  </li>
+
+                <li class="outlink">
+      <a target="_blank" href="http://ulol.leagueoflegends.com">
+        uLoL Campus Series
+        <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/sprites/outlink-icon.png">
+      </a>
+    </li>
+
+                <li class="outlink">
+      <a target="_blank" href="http://2015.lolesports.com">
+        2015 REGULAR SEASON
+        <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/sprites/outlink-icon.png">
+      </a>
+    </li>
+
+        </ul>
+      </li>
+              <li>
+<a id="ember1076" href="/en_US/tickets" class="ember-view">        tickets
+</a>    </li>
+
+              <li>
+<a id="ember1097" href="/en_US/articles" class="ember-view">        ARTICLES
+</a>    </li>
+
+              <li>
+<a id="ember1118" href="/en_US/vods" class="ember-view">        VODs
+</a>    </li>
+
+              <li class="outlink">
+      <a target="_blank" href="http://fantasy.lolesports.com">
+        Fantasy LCS
+        <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/img/sprites/outlink-icon.png">
+      </a>
+    </li>
+
+<!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+    </ul>
+  </div>
+</div>
+
+	</div>
+</div>
+
+<nav class="tab-bar">
+  <section class="left-small">
+    <a href="#mobile-menu" class="menu-icon"><span></span></a>
+  </section>
+
+  <section class="middle tab-bar-section">
+    <h1 class="title">
+<a id="ember1140" href="/en_US/eu-lcs" class="ember-view active">          <img class="main-logo-small" src="http://am-a.akamaihd.net/image/?f=http://assets.lolesports.com/league/eu-lcs-6lk58sng.png&amp;resize=120:120">
+</a>    </h1>
+  </section>
+</nav>
+
+
+
+
+<div id="main-container" style="min-height: 500px;">
+  <div class="league-nav-container">
+  <div class="content-container league-nav">
+    <ul>
+      
+<li>
+<a id="ember3839" href="/en_US/eu-lcs/eu_2017_spring/schedule" class="ember-view">    SCHEDULE
+</a></li>
+
+<li>
+<a id="ember3840" href="/en_US/eu-lcs/eu_2017_spring/standings" class="standings-nav s t a n d i n g s - n a v active">    TEAMS &amp; STANDINGS
+</a></li>
+
+  <li>
+<a id="ember3841" href="/en_US/eu-lcs/eu_2017_spring/stats" class="stats-nav s t a t s - n a v">      STATS
+</a>  </li>
+
+<li>
+<a id="ember3842" href="/en_US/eu-lcs/eu_2017_spring/about" class="ember-view">    ABOUT
+</a></li>
+
+    </ul>
+  </div>
+</div>
+<div id="ember5467" class="ember-view"><div id="ember5474" class="ember-view"><div id="standings" class="content-container group-stage page-section row">
+        <div class="content-container row">
+    <div class="columns toolbar-container">
+      <div class="toolbar columns ungutter">
+        
+        <h1 class="ungutter columns toolbar-header">TEAMS &amp; STANDINGS</h1>
+
+        <div class="dropdown-container">
+          
+          <div class="columns">
+            <div class="dropdown-label">SPLIT</div>
+            <a href="#" class="button dropdown tournament-dropdown" data-dropdown="drop-2">
+              2017 spring split
+              <span class="dropdown-icon"></span>
+            </a>
+            <ul id="drop-2" class="f-dropdown tournament-dropdown-menu" data-dropdown-content="" aria-hidden="true" aria-autoclose="true">
+                <li>
+<a id="ember5476" href="/en_US/eu-lcs/eu_2017_spring/standings" class="ember-view active">                    2017 spring split
+</a>                </li>
+                <li>
+<a id="ember5478" href="/en_US/eu-lcs/eu_2016_summer/standings" class="ember-view">                    2016 summer split
+</a>                </li>
+                <li>
+<a id="ember5480" href="/en_US/eu-lcs/eu_2016_spring/standings" class="ember-view">                    2016 spring split
+</a>                </li>
+            </ul>
+          </div>
+
+<!---->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+    <div class="small-12 columns standings">
+    <div class="columns small-12 standings-container">
+      <div class="row group-title">Group A</div>
+<a id="ember5500" href="/en_US/eu-lcs/eu_2017_spring/teams/g2-esports" class="ember-view">          <div data-equalizer="" class="row G2 team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  1
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/g2-esports-cbnyfbkl.png&amp;resize=100:100">
+              <span class="team-name">G2 Esports</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/g2-esports-cbnyfbkl.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">G2 Esports</div>
+                  <div class="columns small-12 record">4W-0L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                4W-0L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5521" href="/en_US/eu-lcs/eu_2017_spring/teams/misfits" class="ember-view">          <div data-equalizer="" class="row MSF team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  2
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/misfits-8fnvxt30.png&amp;resize=100:100">
+              <span class="team-name">Misfits</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/misfits-8fnvxt30.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Misfits</div>
+                  <div class="columns small-12 record">3W-1L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                3W-1L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5523" href="/en_US/eu-lcs/eu_2017_spring/teams/fnatic" class="ember-view">          <div data-equalizer="" class="row FNC team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  3
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/fnatic-i09wrkpf.png&amp;resize=100:100">
+              <span class="team-name">Fnatic</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/fnatic-i09wrkpf.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Fnatic</div>
+                  <div class="columns small-12 record">2W-2L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                2W-2L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5525" href="/en_US/eu-lcs/eu_2017_spring/teams/giants-gaming" class="ember-view">          <div data-equalizer="" class="row GIA team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  4
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/giants-gaming-96kph40s.png&amp;resize=100:100">
+              <span class="team-name">Giants</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/giants-gaming-96kph40s.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Giants</div>
+                  <div class="columns small-12 record">1W-3L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                1W-3L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5527" href="/en_US/eu-lcs/eu_2017_spring/teams/roccat" class="ember-view">          <div data-equalizer="" class="row ROC team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  5
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/roccat-bi4f8bs0.png&amp;resize=100:100">
+              <span class="team-name">ROCCAT</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/roccat-bi4f8bs0.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">ROCCAT</div>
+                  <div class="columns small-12 record">0W-4L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                0W-4L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a>    </div>
+    <div class="columns small-12 standings-container">
+      <div class="row group-title">Group B</div>
+<a id="ember5529" href="/en_US/eu-lcs/eu_2017_spring/teams/unicorns-of-love" class="ember-view">          <div data-equalizer="" class="row UOL team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  1
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/unicorns-of-love-ih8ytfi8.png&amp;resize=100:100">
+              <span class="team-name">Unicorns of Love</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/unicorns-of-love-ih8ytfi8.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Unicorns of Love</div>
+                  <div class="columns small-12 record">4W-0L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                4W-0L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5531" href="/en_US/eu-lcs/eu_2017_spring/teams/h2k" class="ember-view">          <div data-equalizer="" class="row H2K team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  2
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/h2k-6mbalx6s.png&amp;resize=100:100">
+              <span class="team-name">H2K</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/h2k-6mbalx6s.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">H2K</div>
+                  <div class="columns small-12 record">3W-1L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                3W-1L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5533" href="/en_US/eu-lcs/eu_2017_spring/teams/splyce" class="ember-view">          <div data-equalizer="" class="row SPY team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  3
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/splyce-gyo3tr9y.png&amp;resize=100:100">
+              <span class="team-name">Splyce</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/splyce-gyo3tr9y.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Splyce</div>
+                  <div class="columns small-12 record">2W-2L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                2W-2L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5535" href="/en_US/eu-lcs/eu_2017_spring/teams/vitality" class="ember-view">          <div data-equalizer="" class="row VIT team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  4
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/vitality-2eb9w6iv.png&amp;resize=100:100">
+              <span class="team-name">Team Vitality</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/vitality-2eb9w6iv.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Team Vitality</div>
+                  <div class="columns small-12 record">1W-3L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                1W-3L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a><a id="ember5537" href="/en_US/eu-lcs/eu_2017_spring/teams/origen" class="ember-view">          <div data-equalizer="" class="row OG team-row">
+            <div data-equalizer-watch="" class="columns large-1 small-3 rank" style="height: 75px;">
+                  5
+            </div>
+            <div data-equalizer-watch="" class="columns large-4 team-container show-for-large-up">
+              <img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/origen-fwyv5cpc.png&amp;resize=100:100">
+              <span class="team-name">Origen</span>
+            </div>
+            <div class="columns ungutter small-9 team-container hide-for-large-up" data-equalizer-watch="" style="height: 75px;">
+              <div class="columns small-4 ungutter"><img src="http://am-a.akamaihd.net/image/?f=https://lolstatic-a.akamaihd.net/esports-assets/production/team/origen-fwyv5cpc.png&amp;resize=100:100"></div>
+              <div class="columns small-8 ungutter">
+                <div class="columns small-12 team-name">Origen</div>
+                  <div class="columns small-12 record">0W-4L</div>
+              </div>
+            </div>
+            <div data-equalizer-watch="" class="columns large-2 points show-for-large-up">
+              &nbsp;
+            </div>
+              <div data-equalizer-watch="" class="large-2 columns record show-for-large-up">
+                0W-4L
+              </div>
+            <div data-equalizer-watch="" class="columns large-3 stats show-for-large-up">
+              &nbsp;
+            </div>
+          </div>
+</a>    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="footer">
+  <div class="footer-inner row content-container">
+    <div class="large-5 medium-7 small-12 columns">
+      <ul class="footer-menu">
+        <li>
+          <a target="_blank" href="http://NA.leagueoflegends.com/en/legal/termsofuse">
+            TERMS OF USE
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="http://NA.leagueoflegends.com/en/legal/privacy">
+            PRIVACY POLICY
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="large-3 small-12 columns">
+      <ul class="social-menu">
+        <li>
+          <a href="http://twitch.tv/riotgames" target="_blank" class="footer-twitch-icon"></a>
+        </li>
+        <li>
+          <a href="http://youtube.com/lolesports" target="_blank" class="footer-youtube-icon"></a>
+        </li>
+        <li>
+          <a href="http://twitter.com/lolesports" target="_blank" class="footer-twitter-icon"></a>
+        </li>
+        <li>
+          <a href="http://facebook.com/lolesports" target="_blank" class="footer-fb-icon"></a>
+        </li>
+        <li>
+          <a href="http://instagram.com/lolesports" target="_blank" class="footer-instagram-icon"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-inner row content-container" data-equalizer="">
+    <div class="large-6 large-push-6 small-12 columns" data-equalizer-watch="" style="height: inherit;">
+      <div class="logos-menu">
+        <a target="_blank" href="http://www.riotgames.com/" class="footer-riot-logo">
+        </a>
+        <a target="_blank" class="footer-lol-logo" href="http://NA.leagueoflegends.com/en">
+        </a>
+        <a target="_blank" href="http://www.acer.com/ac/en/US/content/acer-gaming" class="footer-sponsor-logo">
+        </a>
+        <a target="_blank" href="http://www.esrb.org/ratings/ratings_guide.jsp" class="footer-esrp-logo">
+        </a>
+        <a target="_blank" href="http://www.pegi.info/" class="footer-pegi-logo">
+        </a>
+        <span class="footer-ru-rating-logo">
+        </span>
+        <a target="_blank" href="http://portal.mj.gov.br/ClassificacaoIndicativa/jsps/DadosJogoForm.do?select_action=&amp;tbjogo_codigo=4839" class="footer-br-rating-logo">
+        </a>
+        <a target="_blank" href="http://www.usk.de/" class="footer-de-rating-logo">
+        </a>
+      </div>
+    </div>
+    <div class="large-6 large-pull-6 small-12 columns" data-equalizer-watch="" style="display: table; height: inherit;">
+      <span class="copyright-text" style="display:table-cell; vertical-align: bottom;">© 2016 Riot Games. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+</div></div></div><script>function buildRiotBarRedirect(doubleBracket) {try {var host = location.hostname,beginRegionIndex = host.indexOf("."),endRegionIndex = host.indexOf(".", beginRegionIndex + 1),/* don't need region anymore for worlds.lolesports.comnewHost = host.substring(0, beginRegionIndex)+ (doubleBracket ? ".{{region}}." : ".{region}.")+ host.substring(endRegionIndex + 1);*/newHost = host;var port = location.port;if (port.length > 0) {port = ":" + port;}return location.protocol + "//"+ newHost+ port+ "/"+ (doubleBracket ? "{{locale}}" : "{locale}")} catch (e) {return undefined;}}/* Dynamically binds allstar locales if on a allstar page. Very brittle. */(function () {var defaultConfig = {mobileResponsive: true,touchpoints: {activeTouchpoint: 'esports'},locale: {landingUrlPattern: buildRiotBarRedirect(true),locales: {'na' : ['en_US'],'eune' : [{'locale': 'en_PL','lang': 'en','languageName': 'English','landingUrl' : 'http://eu.lolesports.com/en'},{'locale': 'pl_PL','lang': 'pl','languageName': 'Polski','landingUrl' : 'http://eu.lolesports.com/pl'}],'euw' : [{'locale': 'en_GB','lang': 'en','languageName': 'English','landingUrl' : 'http://eu.lolesports.com/en'},{'locale': 'fr_FR','lang': 'fr','languageName': 'Français','landingUrl' : 'http://eu.lolesports.com/fr'},{'locale': 'es_ES','lang': 'es','languageName': 'Español','landingUrl' : 'http://eu.lolesports.com/es'},{'locale': 'de_DE','lang': 'de','languageName': 'Deutsch','landingUrl' : 'http://eu.lolesports.com/de'}],'lan' : [{'locale': 'es_MX','lang': 'es','languageName': 'Español','landingUrl' : 'http://lan.lolesports.com/'}],'las' : [{'locale': 'es_AR','lang': 'es','languageName': 'Español','landingUrl' : 'http://las.lolesports.com/'}],'br' : [{'locale': 'pt_BR','lang': 'pt','languageName': 'Português','landingUrl' : 'http://lolesports.com.br/'}],'tr' : [{'locale': 'tr_TR','lang': 'tr','languageName': 'Türkçe','landingUrl' : 'http://www.lolespor.com/'}],'oce' : [{'locale': 'en_AU','lang': 'en','languageName': 'English','landingUrl' : 'http://oce.lolesports.com/'}]}},cookiePolicy: { enabled: false }};var allstarsConfig = {mobileResponsive: true,touchpoints: {activeTouchpoint: 'esports'},locale: {landingUrlPattern: buildRiotBarRedirect(true),locales: {'ru' : [{'locale': 'ru_RU','lang': 'ru','languageName': 'Русский','landingUrl' : 'http://www.lolesports.com/ru_RU/all-star/vote'}],'jp' : [{'locale': 'ja_JP','lang': 'ja','languageName': '日本語','landingUrl' : 'http://www.lolesports.com/ja_JP/all-star/vote'}],'kr' : [{'locale': 'ko_KR','lang': 'ko','languageName': '한국어','landingUrl' : 'http://www.lolesports.com/kr_KR/all-star/vote'}],'na' : [{'locale': 'en_US','lang': 'en','languageName': 'English','landingUrl' : 'http://www.lolesports.com/en_US/all-star/vote'}],'eune' : [{'locale': 'en_PL','lang': 'en','languageName': 'English','landingUrl' : 'http://www.lolesports.com/en_PL/all-star/vote'},{'locale': 'pl_PL','lang': 'pl','languageName': 'Polski','landingUrl' : 'http://www.lolesports.com/pl_PL/all-star/vote'},{'locale': 'el_GR','lang': 'el','languageName': 'Ελληνικά','landingUrl' : 'http://www.lolesports.com/el_GR/all-star/vote'},{'locale': 'ro_RO','lang': 'ro','languageName': 'Română','landingUrl' : 'http://www.lolesports.com/ro_RO/all-star/vote'},{'locale': 'cs_CZ','lang': 'cs','languageName': 'Čeština','landingUrl' : 'http://www.lolesports.com/cs_CZ/all-star/vote'},{'locale': 'hu_HU','lang': 'hu','languageName': 'Magyar','landingUrl' : 'http://www.lolesports.com/hu_HU/all-star/vote'}],'euw' : [{'locale': 'en_GB','lang': 'en','languageName': 'English','landingUrl' : 'http://www.lolesports.com/en_GB/all-star/vote'},{'locale': 'fr_FR','lang': 'fr','languageName': 'Français','landingUrl' : 'http://www.lolesports.com/fr_FR/all-star/vote'},{'locale': 'es_ES','lang': 'es','languageName': 'Español','landingUrl' : 'http://www.lolesports.com/es_ES/all-star/vote'},{'locale': 'de_DE','lang': 'de','languageName': 'Deutsch','landingUrl' : 'http://www.lolesports.com/de_DE/all-star/vote'},{'locale': 'it_IT','lang': 'it','languageName': 'Italiano','landingUrl' : 'http://www.lolesports.com/it_IT/all-star/vote'}],'lan' : [{'locale': 'es_MX','lang': 'es','languageName': 'Español','landingUrl' : 'http://www.lolesports.com/es_MX/all-star/vote'}],'las' : [{'locale': 'es_AR','lang': 'es','languageName': 'Español','landingUrl' : 'http://www.lolesports.com/es_AR/all-star/vote'}],'br' : [{'locale': 'pt_BR','lang': 'pt','languageName': 'Português','landingUrl' : 'http://www.lolesports.com/pt_BR/all-star/vote'}],'tr' : [{'locale': 'tr_TR','lang': 'tr','languageName': 'Türkçe','landingUrl' : 'http://www.lolesports.com/tr_TR/all-star/vote'}],'oce' : [{'locale': 'en_AU','lang': 'en','languageName': 'English','landingUrl' : 'http://www.lolesports.com/en_AU/all-star/vote'}]}}};if (window.location && window.location.pathname &&window.location.pathname.match(/all.*star/i)) {window.riotBarConfig = allstarsConfig;} else {window.riotBarConfig = defaultConfig;}})();</script><script>document.write('<script src="https://s.lolstatic.com/riotbar/prod/latest/'+ document.documentElement.lang + '.js" ><\/script>');</script><script src="https://s.lolstatic.com/riotbar/prod/latest/en_US.js"></script><script async="async">window.assetsPath = "https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets";</script><script async="async">var Riot = Riot || {};Riot.esports = {services: {api: "http://api.lolesports.com"},allstars: {pollHost: "http://polls.leagueoflegends.com",playerPollId: "uUp311B3QBe_qJXzIZd9fQ"},livestats: "ws://livestats.proxy.lolesports.com/stats",streamTheater: "http://watch.lolesports.com"};var apolloCfg = apolloCfg || {};apolloCfg = {services: {comment: {uri: 'http://apollo.na.leagueoflegends.com/apollo/'}},features: {toolbarEnabled: true,unsafeLinkFilterEnabled: true},callbacks: {}};</script><script async="async">window.PageShortLang = (document.documentElement.lang === 'ko_KR') ?'ko' :'en';window.PageLang = document.documentElement.lang;window.PageRegion = 'na';</script><script src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/lolesports_feapp/en_US/5cf7dc06d41d800fead10a72d46f7b7ab9b47978/assets/js/app.js" async="async"></script><script type="text/javascript" src="http://ddragon.leagueoflegends.com/cdn/dragonhead.js" async="async"></script><script type="text/javascript" src="https://cdn.leagueoflegends.com/apollo/widgets/2.1.21/apollo-all.js" async="async"></script><!--GTM --><script>window.RiotCookieBar = window.RiotCookieBar || {};</script><noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-MBFKBN" height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript><script async="async">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MBFKBN');</script><!--END GTM --><script type="text/javascript" async="async" src="http://ddragon.leagueoflegends.com/realms/na.js"></script><iframe name="easyXDM_APOLLO_default3392_provider" id="easyXDM_APOLLO_default3392_provider" src="http://apollo.na.leagueoflegends.com/apollo/cors/index.html?xdm_e=http%3A%2F%2Fwww.lolesports.com&amp;xdm_c=default3392&amp;xdm_p=1" frameborder="0" style="position: absolute; top: -2000px; left: 0px;"></iframe><div id="mm-blocker" class="mm-slideout"></div><script type="text/javascript" id="">var _kiq=_kiq||[];(function(){setTimeout(function(){var a=document,b=a.getElementsByTagName("script")[0],a=a.createElement("script");a.type="text/javascript";a.async=!0;a.src="//s3.amazonaws.com/ki.js/51398/bo9.js";b.parentNode.insertBefore(a,b)},1)})();</script><script type="text/javascript" id="">(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-37673467-1","auto");if(window.localStorage){var ref=window.localStorage.getItem("referrer");ref&&(ga("set","referrer",ref),window.localStorage.removeItem("referrer"))}ga("send","pageview");</script><meta property="fb:app_id" content="667434100039720"></body></html>
