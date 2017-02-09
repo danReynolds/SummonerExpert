@@ -35,7 +35,7 @@ module Sortable
     end
 
     def list_size_message
-      size = collection.first(@list_size.to_i).length
+      size = [@list_size.to_i, collection.length].min
       size == 1 ? '' : "#{size.en.numwords} "
     end
 
