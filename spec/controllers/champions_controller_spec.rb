@@ -538,14 +538,14 @@ describe ChampionsController, type: :controller do
         champion.roles.first.tap do |role|
           role[:matchups] = role[:matchups].select do |matchup|
             matchup[:games] >= 100
-          end.first(1)
+          end.first(2)
         end
       end
 
       before :each do
         allow(controller).to receive(:champion_params).and_return(
           champion: champion.name,
-          list_size: 2
+          list_size: 10
         )
         allow(Champion).to receive(:new).and_return(champion)
         allow(champion).to receive(:find_by_role).and_return(role_data)
@@ -553,7 +553,7 @@ describe ChampionsController, type: :controller do
 
       it 'should indicate that there was not the correct number of results' do
         post action, params
-        expect(speech).to eq 'The current patch only has enough data for one counter. The best counter for Bard Support is Taric at a 57.9% win rate.'
+        expect(speech).to eq 'The current patch only has enough data for two counters. The best two counters for Bard Support are Zilean at a 57.75% win rate and Taric at a 57.9% win rate.'
       end
     end
 
