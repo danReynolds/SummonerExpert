@@ -44,7 +44,14 @@ class ItemsController < ApplicationController
   end
 
   def no_item_specified_response
-    { speech: 'What item are you looking for?' }
+    {
+      speech: 'What item are you looking for?',
+      data: {
+        google: {
+          expect_user_response: true # Used to keep mic open when a response is needed
+        }
+      }
+    }
   end
 
   def load_item
