@@ -297,11 +297,25 @@ class ChampionsController < ApplicationController
   end
 
   def ask_for_role_response
-    { speech: 'What role are they in?' }
+    {
+      speech: 'What role are they in?',
+      data: {
+        google: {
+          expect_user_response: true # Used to keep mic open when a response is needed
+        }
+      }
+    }
   end
 
   def ask_for_level_response
-    { speech: 'What level is the champion?' }
+    {
+      speech: 'What level is the champion?',
+      data: {
+        google: {
+          expect_user_response: true # Used to keep mic open when a response is needed
+        }
+      }
+    }
   end
 
   def verify_role
