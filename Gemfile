@@ -1,7 +1,6 @@
-ruby '2.3.3'
+ruby '2.3.4'
 source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-gem 'pg'
 gem 'google-cloud'
 gem 'puma', '~> 3.0'
 gem 'redis-rails'
@@ -11,6 +10,9 @@ gem 'amatch'
 gem 'linguistics'
 gem 'thread'
 gem 'keen'
+gem 'sshkit', '~> 1.13.0'
+gem 'rspec-rails', '~> 3.5'
+gem 'coveralls', require: false
 
 group :development, :test do
   gem 'pry'
@@ -18,9 +20,6 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'pry-byebug'
   gem 'byebug', platform: :mri
-  gem 'rspec-rails', '~> 3.5'
-  gem 'dotenv-rails'
-  gem 'coveralls', require: false
 end
 
 group :development do

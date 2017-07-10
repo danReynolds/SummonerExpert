@@ -1,15 +1,48 @@
-machine:
-  environment:
-    REDIS_URL: redis://localhost:6379/0/cache
-dependencies:
-  pre:
-    - sudo rm /etc/redis/redis.conf
-    - sudo ln -s /home/ubuntu/summoner_expert/redis.conf.test /etc/redis/redis.conf
-    - wget http://download.redis.io/releases/redis-3.2.0.tar.gz
-    - tar xzf redis-3.2.0.tar.gz
-    - cd redis-3.2.0 && make
-  cache_directories:
-    - redis-3.2.0
-test:
-  pre:
-    - ./redis-3.2.0/src/redis-server --port 6379 --daemonize yes
+version: 2
+jobs:
+  build:
+    working_directory: /home/circleci/SummonerExpert
+    docker:
+      - image: circleci/ruby:2.3.4
+    steps:
+      - checkout
+
+      - run:
+          name: Setup Dependencies and Database
+          command: |
+            bundle install --without development test
+
+      # Enables the remote environment necessary for deployment
+      - setup_remote_docker
+
+      - run:
+          name: Build Production Image
+          command: |
+            # Load Secrets into Environment File
+            bundle exec rake secrets:decrypt
+
+            # Generate new production tag based on Circle build
+            export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
+
+            # Build Production Image
+            docker build -f Dockerfile.test -t danreynolds/summonerexpert:$DEPLOY_TAG .
+
+            # Create nginx_default network required to run production config
+            docker network create nginx_default
+
+      - run:
+          name: Run Tests
+          command: |
+            export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
+            docker-compose -f docker-compose.yml -f docker-compose.test.yml run app rspec
+
+      - deploy:
+          name: Deploy to Production
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              # Push Image to Docker Hub
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+              # Deploy to Production
+              docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake docker:deploy
+            fi
