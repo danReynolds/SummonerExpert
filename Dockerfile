@@ -1,5 +1,5 @@
 # Base Ruby layer
-FROM ruby:2.3.3
+FROM ruby:2.3.4
 
 # Add system libraries layer
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev

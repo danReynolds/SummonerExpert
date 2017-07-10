@@ -1,15 +1,34 @@
-machine:
-  environment:
-    REDIS_URL: redis://localhost:6379/0/cache
-dependencies:
-  pre:
-    - sudo rm /etc/redis/redis.conf
-    - sudo ln -s /home/ubuntu/summoner_expert/redis.conf.test /etc/redis/redis.conf
-    - wget http://download.redis.io/releases/redis-3.2.0.tar.gz
-    - tar xzf redis-3.2.0.tar.gz
-    - cd redis-3.2.0 && make
-  cache_directories:
-    - redis-3.2.0
-test:
-  pre:
-    - ./redis-3.2.0/src/redis-server --port 6379 --daemonize yes
+version: 2
+jobs:
+  build:
+    working_directory: /home/circleci/SummonerExpert
+    docker:
+      - image: circleci/ruby:2.3.4
+        environment:
+          RAILS_ENV: test
+          RACK_ENV: test
+    steps:
+      - checkout
+          name: Setup Dependencies
+          command: |
+            bundle install
+      - run:
+          name: Run Tests
+          command: rspec
+
+      - deploy:
+          name: Deploy Check
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              exit 0
+            fi
+
+      # Enables the remote environment necessary for deployment
+      - setup_remote_docker
+
+      - deploy:
+          name: Deploy to Production
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./deploy.sh
+            fi
