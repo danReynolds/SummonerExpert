@@ -1,0 +1,13 @@
+# Base Ruby layer
+FROM ruby:2.3.4
+
+# Add system libraries layer
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+
+# Install docker-compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
+# Set Rails environment mode to test
+ENV RAILS_ENV test
+ENV RACK_ENV test
