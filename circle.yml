@@ -3,19 +3,16 @@ jobs:
   build:
     working_directory: /home/circleci/SummonerExpert
     docker:
-      - image: circleci/ruby:2.3.4
-        environment:
-          RAILS_ENV: test
-          RACK_ENV: test
+      - image: danreynolds/summonerexpert_circle:0.0.1
     steps:
       - checkout
-      - run:
-          name: Setup Dependencies
-          command: |
-            bundle install
+
+      # Enables the remote environment necessary for using docker-compose
+      - setup_remote_docker
+
       - run:
           name: Run Tests
-          command: rspec
+          command: docker-compose -f docker-compose.yml -f docker-compose.override.yml run app rspec
 
       - deploy:
           name: Deploy Check
@@ -23,9 +20,6 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               exit 0
             fi
-
-      # Enables the remote environment necessary for deployment
-      - setup_remote_docker
 
       - deploy:
           name: Deploy to Production
