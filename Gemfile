@@ -12,6 +12,7 @@ gem 'thread'
 gem 'keen'
 gem 'sshkit', '~> 1.13.0'
 gem 'rspec-rails', '~> 3.5'
+gem 'coveralls', require: false
 
 group :development, :test do
   gem 'pry'
@@ -20,7 +21,6 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'byebug', platform: :mri
   gem 'dotenv-rails'
-  gem 'coveralls', require: false
 end
 
 group :development do
