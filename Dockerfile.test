@@ -11,3 +11,16 @@ RUN chmod +x /usr/local/bin/docker-compose
 # Set Rails environment mode to test
 ENV RAILS_ENV test
 ENV RACK_ENV test
+
+# Set the working directory to /app
+RUN mkdir /app
+WORKDIR /app
+
+# Install all needed gems
+ADD Gemfile /app/Gemfile
+ADD Gemfile.lock /app/Gemfile.lock
+RUN gem install bundler
+RUN bundle install
+
+# Copy the current directory contents into the container at /app
+ADD . /app
