@@ -12,33 +12,35 @@ jobs:
           command: |
             bundle install
 
-      - run:
-        name: Tests
-        command: |
-          # Load Secrets into Environment File
-          bundle exec rake secrets:decrypt
-
-          # Generate new production tag based on Circle build
-          export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
-
-          # Build Production Image
-          docker build -f Dockerfile.prod -t danreynolds/summonerexpert:$DEPLOY_TAG .
-
-          # Create nginx_default network required to run production config
-          docker network create nginx_default
-
-          # Deploy to Production
-          docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake spec
-
-
       # Enables the remote environment necessary for deployment
       - setup_remote_docker
+
+      - run:
+          name: Build Production Image
+          command: |
+            # Load Secrets into Environment File
+            bundle exec rake secrets:decrypt
+
+            # Generate new production tag based on Circle build
+            export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
+
+            # Build Production Image
+            docker build -f Dockerfile.prod -t danreynolds/summonerexpert:$DEPLOY_TAG .
+
+            # Create nginx_default network required to run production config
+            docker network create nginx_default
+
+      - run:
+          name: Run Tests
+          command: docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake spec
 
       - deploy:
           name: Deploy to Production
           command: |
-            # Push Image to Docker Hub
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              # Push Image to Docker Hub
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
 
-            # Deploy to Production
-            docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake docker:deploy
+              # Deploy to Production
+              docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake docker:deploy
+            fi
