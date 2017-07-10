@@ -2,6 +2,8 @@ version: '3'
 services:
   app:
     image: danreynolds/summonerexpert:$DEPLOY_TAG
+    ports:
+      - 3000
     environment:
       - ENV_KEY=$ENV_KEY
       - DEPLOY_TAG=$DEPLOY_TAG

@@ -10,8 +10,6 @@ services:
   app:
     depends_on:
       - redis
-    ports:
-      - 3000
   nginx:
     image: nginx
     depends_on:
