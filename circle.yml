@@ -25,7 +25,7 @@ jobs:
             export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
 
             # Build Production Image
-            docker build -f Dockerfile -t danreynolds/summonerexpert:$DEPLOY_TAG .
+            docker build -f Dockerfile.test -t danreynolds/summonerexpert:$DEPLOY_TAG .
 
             # Create nginx_default network required to run production config
             docker network create nginx_default
@@ -34,7 +34,7 @@ jobs:
           name: Run Tests
           command: |
             export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
-            docker-compose -f docker-compose.yml -f docker-compose.development.yml run app rake spec
+            docker-compose -f docker-compose.yml -f docker-compose.test.yml run app rspec
 
       - deploy:
           name: Deploy to Production
