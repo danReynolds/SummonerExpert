@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: Run Tests
-          command: docker-compose -f docker-compose.yml -f docker-compose.override.yml run app rspec
+          command: docker-compose -f docker-compose.yml -f docker-compose.test.yml run app rspec
 
       - deploy:
           name: Deploy Check

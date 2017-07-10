@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    environment:
+      - REDIS_PASSWORD=$REDIS_PASSWORD
+    volumes:
+      - .:/app
+    build: .

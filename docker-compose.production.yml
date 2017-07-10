@@ -6,6 +6,8 @@ services:
       - ENV_KEY=$ENV_KEY
       - DEPLOY_TAG=$DEPLOY_TAG
       - REDIS_PASSWORD=$REDIS_PASSWORD
+    env_file:
+      - .env
   nginx:
     ports:
       - 80
