@@ -11,6 +11,7 @@ gem 'linguistics'
 gem 'thread'
 gem 'keen'
 gem 'sshkit', '~> 1.13.0'
+gem 'rspec-rails', '~> 3.5'
 
 group :development, :test do
   gem 'pry'
@@ -18,7 +19,6 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'pry-byebug'
   gem 'byebug', platform: :mri
-  gem 'rspec-rails', '~> 3.5'
   gem 'dotenv-rails'
   gem 'coveralls', require: false
 end
