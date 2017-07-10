@@ -12,7 +12,7 @@ services:
       - redis
     env_file:
       - .env
-    expose:
+    ports:
       - 3000
   nginx:
     image: nginx
