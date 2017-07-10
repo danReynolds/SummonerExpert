@@ -14,4 +14,4 @@ docker login -u $DOCKER_USER -p $DOCKER_PASS
 docker network create nginx_default
 
 # Deploy to Production
-docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rspec
+docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake spec
