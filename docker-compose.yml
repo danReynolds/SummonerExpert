@@ -1,0 +1,25 @@
+version: '3'
+services:
+  redis:
+    ports:
+      - 6379:6379
+      - 80
+    command: [redis-server, /usr/local/etc/redis/redis.conf, --requirepass, $REDIS_PASSWORD]
+    image: "redis:latest"
+    volumes:
+      - redis:/var/lib/redis/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./dump.rdb:/usr/local/etc/redis/dump.rdb
+  app:
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    ports:
+      - 3000
+  nginx:
+    image: nginx
+    depends_on:
+      - app
+volumes:
+  redis:

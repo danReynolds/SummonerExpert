@@ -16,7 +16,13 @@ Rails.application.configure do
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :redis_store, ENV['REDIS_URL']
+    config.cache_store = :redis_store, {
+      host: 'redis',
+      port: 6379,
+      db: 0,
+      password: ENV['REDIS_PASSWORD'],
+      namespace: 'cache'
+    }
     config.public_file_server.headers = {
       'Cache-Control' => 'public, max-age=172800'
     }
@@ -33,10 +39,6 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
-
-  # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
-
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
