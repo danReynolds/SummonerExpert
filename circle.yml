@@ -7,19 +7,8 @@ jobs:
     steps:
       - checkout
 
-      # Enables the remote environment necessary for using docker-compose
+      # Enables the remote environment necessary for deployment
       - setup_remote_docker
-
-      - run:
-          name: Run Tests
-          command: docker-compose -f docker-compose.yml -f docker-compose.test.yml run app rspec
-
-      - deploy:
-          name: Deploy Check
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              exit 0
-            fi
 
       - deploy:
           name: Deploy to Production
