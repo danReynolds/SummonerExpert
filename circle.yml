@@ -9,6 +9,7 @@ jobs:
           RACK_ENV: test
     steps:
       - checkout
+      - run:
           name: Setup Dependencies
           command: |
             bundle install
