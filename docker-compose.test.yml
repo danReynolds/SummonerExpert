@@ -4,5 +4,3 @@ services:
     environment:
       - REDIS_PASSWORD=$REDIS_PASSWORD
     build: .
-    volumes:
-      - .:/app
