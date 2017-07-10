@@ -16,7 +16,6 @@ require './lib/action_router.rb'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-Dotenv::Railtie.load if Rails.env.development?
 
 module SummonerExpert
   class Application < Rails::Application

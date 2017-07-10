@@ -20,7 +20,6 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'pry-byebug'
   gem 'byebug', platform: :mri
-  gem 'dotenv-rails'
 end
 
 group :development do
