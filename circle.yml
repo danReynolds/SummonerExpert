@@ -32,7 +32,9 @@ jobs:
 
       - run:
           name: Run Tests
-          command: docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake spec
+          command: |
+            export DEPLOY_TAG="${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1:0:7}"
+            docker-compose -f docker-compose.yml -f docker-compose.production.yml run app rake spec
 
       - deploy:
           name: Deploy to Production
