@@ -1,9 +1,6 @@
 version: '3'
 services:
   redis:
-    ports:
-      - 6379:6379
-      - 80
     command: [redis-server, /usr/local/etc/redis/redis.conf, --requirepass, $REDIS_PASSWORD]
     image: "redis:latest"
     volumes:
@@ -15,7 +12,7 @@ services:
       - redis
     env_file:
       - .env
-    ports:
+    expose:
       - 3000
   nginx:
     image: nginx

@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    image: danreynolds/summonerexpert:$DEPLOY_TAG
+    environment:
+      - ENV_KEY=$ENV_KEY
+      - DEPLOY_TAG=$DEPLOY_TAG
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+networks:
+  webnet:

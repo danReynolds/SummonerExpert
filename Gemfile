@@ -10,6 +10,7 @@ gem 'amatch'
 gem 'linguistics'
 gem 'thread'
 gem 'keen'
+gem 'sshkit', '~> 1.13.0'
 
 group :development, :test do
   gem 'pry'

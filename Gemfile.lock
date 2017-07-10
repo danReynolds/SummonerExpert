@@ -218,6 +218,9 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (4.1.0)
     newrelic_rpm (3.16.2.321)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
@@ -333,6 +336,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.13.1)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     term-ansicolor (1.4.0)
       tins (~> 1.0)
     thor (0.19.4)
@@ -373,6 +379,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5)
   spring
   spring-watcher-listen (~> 2.0.0)
+  sshkit (~> 1.13.0)
   thread
   tzinfo-data
 
