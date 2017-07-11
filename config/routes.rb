@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'application#status'
 
+  get '/.well-known/acme-challenge/D_yF14gneIiGzMult-n_VaGxi8BvPpNsrhtK_eFBZwc' => 'application#letsencrypt'
+
   namespace :champions do
     post :title
     post :description
