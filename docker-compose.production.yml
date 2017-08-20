@@ -5,6 +5,7 @@ services:
     ports:
       - 3000
     volumes:
+      - ./.env:/app/.env
       - logs:/app/log/
     environment:
       - ENV_KEY=$ENV_KEY
