@@ -1,18 +1,21 @@
 class Summoner
   include ActiveModel::Validations
-  attr_accessor :id, :name
+  include RiotApi
+  attr_accessor :id, :name, :region
 
   validates :id, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true
+  validates :region, inclusion: RiotApi::REGIONS
 
-  def initialize(attributes = {})
-    @id = attributes[:id]
-    @name = attributes[:name]
+  def initialize(**args)
+    args.each do |key, value|
+      instance_variable_set("@#{key}", value)
+    end
+
+    @id = RiotApi.get_summoner_id(name: @name, region: @region) unless @id
   end
 
   def error_message
-    errors.messages.map do |key, value|
-      "#{key} #{value.first}"
-    end.en.conjunction(article: false)
+    errors.messages.values.map(&:first).en.conjunction(article: false)
   end
 end

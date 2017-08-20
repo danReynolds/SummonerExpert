@@ -1,4 +1,5 @@
 .env
+./data
 .dockerignore
 *.md
 .git

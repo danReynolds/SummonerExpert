@@ -1,18 +1,17 @@
-ruby '2.3.4'
 source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-gem 'google-cloud'
 gem 'puma', '~> 3.0'
 gem 'redis-rails'
 gem 'newrelic_rpm'
 gem 'rollbar'
 gem 'amatch'
 gem 'linguistics'
-gem 'thread'
 gem 'keen'
 gem 'sshkit', '~> 1.13.0'
 gem 'rspec-rails', '~> 3.5'
+gem 'whenever'
 gem 'coveralls', require: false
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem 'pry'
@@ -23,11 +22,10 @@ group :development, :test do
 end
 
 group :development do
+  gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

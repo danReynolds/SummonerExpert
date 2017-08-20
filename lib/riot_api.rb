@@ -7,6 +7,9 @@ module RiotApi
     @api_key = ENV['RIOT_API_KEY']
     @api = load_api('riot_api')
 
+    # Default tags to use for requesting champions
+    DEFAULT_TAGS = [:allytips, :blurb, :enemytips, :info, :spells, :stats, :tags, :lore]
+
     # Constants related to the Riot Api
     TOP = 'Top'.freeze
     JUNGLE = 'Jungle'.freeze
@@ -14,12 +17,14 @@ module RiotApi
     ADC = 'ADC'.freeze
     MIDDLE = 'Middle'.freeze
     ROLES = [TOP, JUNGLE, SUPPORT, ADC, MIDDLE]
-    ABILITIES = {
-      first: 0,
-      second: 1,
-      third: 2,
-      fourth: 3
+
+    QUEUES = {
+      RANKED_SOLO_5x5: 'Solo Queue',
+      RANKED_FLEX_SR: 'Flex Queue'
     }.freeze
+
+    REGIONS = %w(br1 eun1 euw1 jp1 kr la1 la2 na1 oc1 ru tr1)
+
     STATS = {
       armor: 'armor',
       attackdamage: 'attack damage',
@@ -34,8 +39,13 @@ module RiotApi
     }.freeze
 
     class << self
-      def get_champions
-        fetch_response(@api[:champions])
+      def get_champions(**args)
+        args[:tags] ||= DEFAULT_TAGS.map do |tag|
+          "&tags=#{tag}"
+        end.join('')
+
+        url = replace_url(@api[:champions], args)
+        fetch_response(url)
       end
 
       def get_items
@@ -48,26 +58,26 @@ module RiotApi
       end
 
       def get_summoner_stats(args)
-        url = replace_url(@api[:summoner][:ranked], args)
-        id = args[:id].to_s
+        url = replace_url(@api[:summoner][:description], args)
+        return unless queue_stats = fetch_response(url)
 
-        return unless stats = fetch_response(url)
-
-        stats[id].map do |division|
-          division[:entries].detect do |entry|
-            entry[:playerOrTeamId] == id
-          end.merge(
-            queue: RankedMode.new(mode: division[:queue].to_sym).mode,
-            tier: division[:tier].downcase.capitalize
-          )
+        queue_stats.inject({}) do |queues, queue_stat|
+          queues.tap do
+            queues[queue_stat['queueType']] = queue_stat.slice(
+              'leaguePoints', 'wins', 'losses', 'rank', 'hotStreak', 'inactive',
+              'tier'
+            )
+          end
         end
       end
 
       def get_summoner_id(args)
-        name = URI.encode(args[:name])
-        url = "#{replace_url(@api[:summoner][:id], args)}/#{name}"
-        return unless response = fetch_response(url)
-        response.values.first[:id].to_i
+        Rails.cache.fetch(name: args[:name], region: args[:region]) do
+          name = URI.encode(args[:name])
+          url = "#{replace_url(@api[:summoner][:id], args)}/#{name}"
+          return unless response = fetch_response(url)
+          response['id']
+        end
       end
     end
   end

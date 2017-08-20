@@ -2,7 +2,10 @@
 FROM ruby:2.3.4
 
 # Add system libraries layer
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
+RUN apt-get update -qq && apt-get install -y cron vim
+
+# Allow crontab to be executed
+RUN chmod 600 /etc/crontab
 
 # Set the working directory to /app
 RUN mkdir /app

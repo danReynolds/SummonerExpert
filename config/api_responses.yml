@@ -1,0 +1,190 @@
+champions:
+  title:
+    - '{name} has the illustrious title of {title}.'
+    - 'That champ and I go way back, if I had to call him anything it would be {name}, {title}.'
+    - '{name} has the title of {title}.'
+  lore:
+    - 'I will tell you about the history of {name}. This is all I know: {lore}'
+    - '{name} has such an interesting past. Here it is, stop me if you have heard it: {lore}'
+  ability:
+    - "{champion_name}'s {position} ability is called {ability_name}. {description}"
+    - "Here is a description of {ability_name}, {champion_name}'s {position} ability: {description}"
+  allytips:
+    - "Here's something you should know about {name}: {tip}"
+    - "Many times have I fought with {name} by my side. This is what I would take to heart: {tip}"
+    - "I know {name} personally, you should know the following: {tip}"
+  enemytips:
+    - "I have seen {name} fall in battle before and this is what I would recommend: {tip}"
+    - "While strong, {name} is not invincible. Remember the following: {tip}"
+  ability_order:
+    - 'The {metric} ability order for {name} {role} in {elo} is {ability_order}.'
+    - 'As {name} {role}, the {metric} ability ordering is {ability_order} in {elo}.'
+  role_performance_summary:
+    - '{name} is doing {position_change} this patch in {role} and is ranked {position} out of {total_positions} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} division.'
+    - '{name} got {position_change} this patch and is ranked {position} out of {total_positions} in {role} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} divison.'
+  ranking:
+    empty:
+      normal:
+        complete:
+          - 'No champions were requested.'
+        incomplete:
+          - 'There are no champions available playing {role} in {elo} division in the current patch.'
+      offset:
+        complete:
+          - 'No champions were requested.'
+        incomplete:
+          - 'The current patch only has data for {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. There are no champions beginning at the {list_position} position.'
+    single:
+      normal:
+        complete:
+          - 'The champion with the {list_order} {position} playing {role} in {elo} division is {names}.'
+        incomplete:
+          - 'The current patch only has data for {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. The champion with the {list_order} {position} playing {role} in {elo} is {names}.'
+      offset:
+        complete:
+          - 'The champion with the {list_position} {list_order} {position} playing {role} in {elo} division is {names}.'
+        incomplete:
+          - 'The current patch only has data for {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. The {list_position} {list_order} {position} champion playing {role} in {elo} is {names}.'
+    multiple:
+      normal:
+        complete:
+          - 'The {filtered_size} champions with the {list_order} {position} playing {role} in {elo} division are {names}.'
+        incomplete:
+          - 'The current patch only has enough data for {filtered_size} champions. The {filtered_size} champions with the {list_order} {position} playing {role} in {elo} division are {names}.'
+      offset:
+        complete:
+          - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {role} in {elo} division are {names}.'
+        incomplete:
+          - 'The current patch only has enough data for {real_size} champions. The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {role} in {elo} division are {names}.'
+  cooldown:
+    - "The cooldown of {name}'s {ability_position} ability, {ability_name}, is {ability_cooldown} seconds at rank {rank}."
+    - "{name}'s {ability_position} ability, {ability_name}, has a cooldown of {ability_cooldown} seconds at rank {rank}."
+  matchup:
+    solo_role:
+      general:
+        - '{name1} and {name2} have {champ1_result} and {champ2_result} {position} respectively playing {role1} in {elo} division.'
+      winrate:
+        - '{name1} has a {champ1_result}% {position} against {name2} playing {role1} in {elo} division.'
+    duo_role:
+      general:
+        - '{name1} averages {champ1_result} {position} in {role1}, {match_result} than {name2} who averages {champ2_result} {position} when playing {role2} in {elo} division.'
+      winrate:
+        - '{name1} averages a {champ1_result}% {position} in {role1}, {match_result} than {name2} playing {role2} in {elo} division.'
+    synergy:
+      general:
+        - '{name1} averages {champ1_result} {position} in {role1} when playing with {name2} {role2} in {elo}.'
+      winrate:
+        - '{name1} averages a {champ1_result}% {position} in {role1} when playing alongside {name2} {role2} in {elo}.'
+  matchup_ranking:
+    empty:
+      normal:
+        complete:
+          - 'No champions were requested.'
+      offset:
+        complete:
+          - 'No champions were requested.'
+        incomplete:
+          - 'The current patch only has data for {real_size} {real_size_champion_conjugation} playing {unnamed_role} in {elo} division. There are no champions beginning at the {list_position} position.'
+    single:
+      normal:
+        complete:
+          solo_role:
+            - 'The champion with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division is {names}.'
+          duo_role:
+            - 'The champion with the {list_order} {position} playing {unnamed_role} against {name} {named_role} from {elo} division is {names}.'
+          synergy:
+            - 'The champion with the {list_order} {position} playing {unnamed_role} with {name} {named_role} from {elo} division is {names}.'
+        incomplete:
+          - 'The current patch only has enough data for a single champion. The single champion with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division is {names}.'
+      offset:
+        complete:
+          solo_role:
+            - 'The champion with the {list_position} {list_order} {position} playing {unnamed_role} against {name} from {elo} division is {names}.'
+          duo_role:
+            - 'The champion with the {list_position} {list_order} {position} playing {unnamed_role} against {name} {named_role} from {elo} division is {names}.'
+          synergy:
+            - 'The champion with the {list_position} {list_order} {position} playing {unnamed_role} with {name} {named_role} from {elo} division is {names}.'
+        incomplete:
+          - 'The current patch only has enough data for a single champion beginning at the {list_position} position. The single champion with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division is {names}.'
+    multiple:
+      normal:
+        complete:
+          solo_role:
+            - 'The champions with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division are {names}.'
+          duo_role:
+            - 'The champions with the {list_order} {position} playing {unnamed_role} against {name} {named_role} from {elo} division are {names}.'
+          synergy:
+            - 'The champions with the {list_order} {position} playing {unnamed_role} with {name} {named_role} from {elo} division are {names}.'
+        incomplete:
+          solo_role:
+            - 'The current patch only has enough data for {filtered_size} champions. The {filtered_size} champions with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division are {names}.'
+          duo_role:
+            - 'The current patch only has enough data for {filtered_size} champions. The {filtered_size} champions with the {list_order} {position} playing {unnamed_role} against {name} {named_role} from {elo} division are {names}.'
+          synergy:
+            - 'The current patch only has enough data for {filtered_size} champions. The {filtered_size} champions with the {list_order} {position} playing {unnamed_role} with {name} {named_role} from {elo} division are {names}.'
+      offset:
+        complete:
+          solo_role:
+            - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division are {names}.'
+          duo_role:
+            - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {unnamed_role} against {name} {named_role} from {elo} division are {names}.'
+          synergy:
+            - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {unnamed_role} with {name} {named_role} from {elo} division are {names}.'
+        incomplete:
+          solo_role:
+            - 'The current patch only has enough data for {real_size} champions. The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {unnamed_role} against {name} from {elo} division are {names}.'
+          duo_role:
+            - 'The current patch only has enough data for {real_size} champions. The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {unnamed_role} against {name} {named_role} from {elo} division are {names}.'
+          synergy:
+            - 'The current patch only has enough data for {real_size} champions. The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {unnamed_role} with {name} {named_role} from {elo} division are {names}.'
+  build:
+    - 'The {metric} build for {name} {role} in {elo} division is {item_names}.'
+  stats:
+    - '{name} has {stat} {stat_name} at level {level}.'
+items:
+  build:
+    - 'The items used to build {name} are {item_names}.'
+  description:
+    - "I have seen many champions use {name} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
+summoners:
+  description:
+    - "{name} is ranked {elo} {rank} in {queue}. The summoner currently has a {winrate}% win rate and is {hot_streak} a hot streak."
+errors:
+  matchups:
+    duo_role_no_matchup:
+      - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division.'
+    solo_role_no_matchup:
+      - 'I cannot find any matchup information on {name1} and {name2} playing {role1} in {elo} division.'
+    multiple_shared_roles:
+      - '{name1} and {name2} have matchups for multiple roles in {elo} division. Please specify roles for one or both champions.'
+    no_shared_roles:
+      - 'I cannot find matchup information for {name1} and {name2} for any role combination in {elo} division.'
+  matchup_ranking:
+    empty:
+      duo_roles:
+        - 'There are no matchup rankings for champions playing {unnamed_role} with {name} {named_role} in {elo} division.'
+      named_role:
+        - 'There are no matchup rankings for {name} {named_role}.'
+      unnamed_role:
+        - 'There are no matchup rankings for champions playing {unnamed_role} with {name}.'
+      no_roles:
+        - "There are multiple matchup rankings for {name}, please specify {name}'s role."
+  role_performance:
+    does_not_play:
+      - 'I do not have any information on {name} playing {role}.'
+    plays_multiple_roles:
+      - '{name} plays multiple roles, please specify a role.'
+  cooldown:
+    rank:
+      - 'A valid ability rank is between 1 and 5.'
+      - 'Only ranks between 1 and 5 can be specified.'
+  stats:
+    level:
+      - 'A valid champion level is between 1 and 18.'
+      - 'Only levels between 1 and 18 can be specified.'
+application:
+  patch:
+    - 'All data is currently based off of patch {patch}.'
+    - 'All information is using patch {patch}.'
+  reset:
+    - 'Conversation reset! Nothing said previously will affect our current conversation.'

@@ -18,3 +18,13 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+set :environment, "development"
+
+ENV.each { |k, v| env(k, v) }
+
+every 1.day, at: "7:00 pm" do
+  rake "champion_gg:all"
+  rake "riot:all"
+  command "echo $(date) > /app/scheduler.txt"
+end

@@ -4,6 +4,8 @@ services:
     image: danreynolds/summonerexpert:$DEPLOY_TAG
     ports:
       - 3000
+    volumes:
+      - logs:/app/log/
     environment:
       - ENV_KEY=$ENV_KEY
       - DEPLOY_TAG=$DEPLOY_TAG
@@ -19,9 +21,11 @@ services:
         aliases:
           - SUMMONEREXPERT
     volumes:
+      - redis:/data
       - logs:/etc/nginx/log/
       - ./nginx.upstream.conf:/etc/nginx/conf.d/default.conf
 volumes:
+  redis:
   logs:
 networks:
   nginx_default:

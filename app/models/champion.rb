@@ -1,29 +1,36 @@
 class Champion < Collection
   include ActiveModel::Validations
-  COLLECTION = Rails.cache.read(:champions).values.map { |data| data[:name] }
+
+  COLLECTION = Rails.cache.read(collection_key.pluralize)
+  STAT_PER_LEVEL = :perlevel
   ACCESSORS = [
-    :name, :roles, :stats, :tags, :title, :passive, :spells, :allytips,
-    :enemytips, :key, :id
+    :name, :title, :lore, :passive, :allytips, :enemytips, :id, :blurb
   ].freeze
   ACCESSORS.each do |accessor|
     attr_accessor accessor
   end
 
-  validates :name, presence: true
-  validates :name, inclusion: { in: COLLECTION }
+  ABILITIES = {
+    first: 0,
+    second: 1,
+    third: 2,
+    fourth: 3
+  }.freeze
 
-  def find_by_role(role)
-    if role.blank?
-      return @roles.length == 1 ? @roles.first : nil
-    end
+  validates :name, presence: true, inclusion: COLLECTION.values
 
-    @roles.detect do |role_data|
-      role_data[:role] == role
-    end
+  def ability(ability_position)
+    @data['spells'][ABILITIES[ability_position]].slice(
+      :cooldown,
+      :sanitizedDescription,
+      :name
+    )
   end
 
-  def win_percent(role)
-    return unless role = find_by_role(role)
-    role[:patchWin].last.round(2)
+  def stat(stat_key, level)
+    stats = @data['stats']
+    stat = stats[stat_key]
+    stat_per_level = stats["#{stat_key}#{STAT_PER_LEVEL}"]
+    stat + stat_per_level * (level - 1)
   end
 end

@@ -27,7 +27,17 @@ module SummonerExpert
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.middleware.insert_after Rack::ETag, ActionRouter
-    config.autoload_paths += %W(#{config.root}/lib)
+
+    # In development autoload of paths is enabled, meaning that requires are done
+    # lazily so not as to burden startup of a rails console for example. In
+    # production we want to eager load additional files so that they are already
+    # required which also prevents threading problems.
+    if Rails.env.production?
+      config.eager_load_paths += %W(#{config.root}/lib)
+    else
+      config.autoload_paths += %W(#{config.root}/lib)
+    end
+
     config.api_only = true
   end
 end

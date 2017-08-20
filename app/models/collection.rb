@@ -1,30 +1,30 @@
-class Collection
-  SIMILARITY_THRESHOLD = 0.7
+include CollectionHelper
 
-  def initialize(attributes = {})
-    @name = attributes[:name].strip
-    search_key = Hash.new
+class Collection
+  def initialize(**args)
+    # Fuzzy match the name for the collection
+    @name = args[:name].strip
+    @name = CollectionHelper::match_collection(
+      args[:name].strip,
+      Rails.cache.read(collection_key.pluralize).values
+    )
+
+    search_key = {}
     search_key[collection_key] = @name
 
-    if data = Rails.cache.read(search_key) || match_collection(@name, self.class::COLLECTION)
+    if @data = Rails.cache.read(search_key)
       self.class::ACCESSORS.each do |key|
-        instance_variable_set("@#{key}", data[key])
+        instance_variable_set("@#{key}", @data[key])
       end
     end
   end
 
-  def match_collection(name, collection)
-    matcher = Matcher::Matcher.new(name)
-    search_key = Hash.new
-
-    if match = matcher.find_match(collection, SIMILARITY_THRESHOLD)
-      search_key[collection_key] = match.result
-      Rails.cache.read(search_key)
-    end
+  def collection_key
+    self.class.collection_key
   end
 
-  def collection_key
-    self.class.to_s.downcase.pluralize.to_sym
+  def self.collection_key
+    self.to_s.downcase
   end
 
   def error_message

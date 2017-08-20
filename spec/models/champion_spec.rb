@@ -24,45 +24,4 @@ RSpec.describe Champion, type: :model do
       end
     end
   end
-
-  describe '#find_by_role' do
-    let(:champion) { Champion.new(name: 'Bard') }
-
-    context 'with a role provided' do
-      let(:role) { 'Support' }
-      context 'with a matching role' do
-        it 'should return the data for that role' do
-          expect(champion.find_by_role(role)).to eq(champion.roles.first)
-        end
-      end
-
-      context 'without a matching role' do
-        let(:role) { 'Made up role' }
-
-        it 'should return no data' do
-          expect(champion.find_by_role(role)).to eq nil
-        end
-      end
-    end
-
-    context 'without a role provided' do
-      let(:role) { '' }
-
-      context 'with multiple roles' do
-        before :each do
-          champion.roles << champion.roles.first
-        end
-
-        it 'should return no data' do
-          expect(champion.find_by_role(role)).to eq nil
-        end
-      end
-
-      context 'with only one role' do
-        it 'should return the data for that role' do
-          expect(champion.find_by_role(role)).to eq(champion.roles.first)
-        end
-      end
-    end
-  end
 end

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  redis:
+    command: [redis-server, /usr/local/etc/redis/redis.conf, --requirepass, $REDIS_PASSWORD]
+    image: "redis:latest"
+    volumes:
+      - ./data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+  app:
+    environment:
+      - CI=$CI
+      - COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+      - CIRCLE_BRANCH=$CIRCLE_BRANCH
+      - CI_BRANCH=$CIRCLE_BRANCH
+    env_file:
+      - .env
+    build: .
+    depends_on:
+      - redis
+  nginx:
+    image: nginx
+    depends_on:
+      - app

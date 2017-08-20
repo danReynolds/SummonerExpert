@@ -1,13 +1,13 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-02-08T16:10:34.242Z",
-	"__export_source": "insomnia.desktop.app:v4.0.9",
+	"__export_date": "2017-07-29T20:13:32.210Z",
+	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
 			"_id": "wrk_6d555102de1a469aa75025d23e488d2b",
 			"parentId": null,
-			"modified": 1483401589474,
+			"modified": 1499654623812,
 			"created": 1481786661099,
 			"name": "summoner_expert",
 			"description": "",
@@ -17,432 +17,566 @@
 		{
 			"_id": "env_0d851fcce733473faf2afa9cce713676",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589473,
+			"modified": 1499654623807,
 			"created": 1481786758469,
 			"name": "Base Environment",
 			"data": {},
+			"color": null,
 			"_type": "environment"
 		},
 		{
 			"_id": "jar_30a5e3c7960c4635a8f667027e901e22",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1486568006016,
+			"modified": 1499654623807,
 			"created": 1481786758558,
 			"name": "Default Jar",
 			"cookies": [],
 			"_type": "cookie_jar"
 		},
 		{
-			"_id": "req_2e0b78dced0245b597503925353df8db",
+			"_id": "req_dada373cb4e4427b85a2cfaee9c59e64",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1486404348206,
-			"created": 1486404289271,
+			"modified": 1501292528008,
+			"created": 1481786672032,
 			"url": "{{ url }}",
-			"name": "lcs/standings",
+			"name": "champions/title",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"a66c4148-69c9-435a-8371-2ca182ef67b4\",\n  \"timestamp\": \"2017-02-06T18:05:43.598Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who is winning the LCS in NA?\",\n    \"action\": \"competitions/standings\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"competition\": \"LCS\",\n      \"region\": \"na\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lcs\",\n        \"parameters\": {\n          \"competition.original\": \"LCS\",\n          \"competition\": \"LCS\",\n          \"region.original\": \"NA\",\n          \"region\": \"na\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"2b515a9a-eaf0-4123-9cdf-8921c4278c50\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"lcs/standings\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: a6fdcb3e-dcbe-4fd0-b3d4-4373a844c8c2\"\n  },\n  \"sessionId\": \"95bcfd3e-53e7-4fbc-9ca8-6454421879bd\"\n}"
+				"text": " {\n  \"id\": \"012f4430-c330-4122-b0dc-21a24ae1f872\",\n  \"timestamp\": \"2016-12-16T05:30:13.648Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the title of Sona?\",\n    \"action\": \"champions/title\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Sonas\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5a3e784d-0dae-42fc-bce9-957c07af09f9\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/title\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Sona's title is Maven of the Strings\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Sona's title is Maven of the Strings\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_6ade5e63139c4584a659e71a4bc7d7d1"
 				}
 			],
 			"authentication": {},
-			"metaSortKey": -1486404289271,
-			"_type": "request"
-		},
-		{
-			"_id": "req_30337ed27c9444deb392be7f6b1ff2be",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1486570164131,
-			"created": 1482600505061,
-			"url": "{{ url }}",
-			"name": "champions/counters",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"07f9a83a-69e1-4812-a15f-77222d39b083\",\n  \"timestamp\": \"2017-01-25T06:45:31.508Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Second best counter Jayce Top\",\n    \"action\": \"champions/counters\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jayce\",\n      \"lane\": \"Top\",\n      \"list_order\": \"best\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"counters\",\n        \"parameters\": {\n          \"lane.original\": \"Top\",\n          \"order.original\": \"worst\",\n          \"list_position.original\": \"Second\",\n          \"list_size\": \"\",\n          \"list_order.original\": \"best\",\n          \"rank.original\": \"\",\n          \"list_position\": \"2\",\n          \"list_order\": \"best\",\n          \"rank\": \"\",\n          \"list_size.original\": \"\",\n          \"champion.original\": \"Jayce\",\n          \"lane\": \"Top\",\n          \"champion\": \"Jayce\",\n          \"order\": \"worst\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/counters\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 5e65555c-7410-4683-be86-89041884be31\"\n  },\n  \"sessionId\": \"20de7667-e229-43c4-80d9-a3e538b96781\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1482600505061,
-			"_type": "request"
-		},
-		{
-			"_id": "req_3b5d82d24e82457aad34441bcd0b07b4",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589471,
-			"created": 1482188086561,
-			"url": "{{ url }}",
-			"name": "champions/build",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"f8b175f9-f2d7-4b32-8d79-1e225bcc219e\",\n  \"timestamp\": \"2016-12-19T22:54:30.706Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How do I build Twitch ADC?\",\n    \"action\": \"champions/build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Bard\",\n      \"lane\": \"Support\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"61d64176-8c08-4bf3-935d-a0397f7f3d1d\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/build\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: b79fbc2d-8eb3-4529-b025-b76f5437b4cc\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1482188086561,
-			"_type": "request"
-		},
-		{
-			"_id": "req_420d468a6f164a43bfa8d832e3e318fb",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589470,
-			"created": 1481917417587,
-			"url": "{{ url }}",
-			"name": "champions/enemy_tips",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"3a258edd-d6b3-4803-b485-02779f67ce6e\",\n  \"timestamp\": \"2016-12-16T19:43:15.319Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play against LeBlanc?\",\n    \"action\": \"champions/enemy_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Leblanc\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"3d65f174-bd6b-4d59-be1b-a0fdc9f2c198\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/enemy_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\\\"Here's a tip for playing against LeBlanc:\\nStunning or silencing LeBlanc will prevent her from activating the return part of Distortion.\\\"\\n\"\n        }\n      ]\n    },\n    \"score\": 0.76\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1481917417587,
+			"metaSortKey": -1481786672032,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
 			"_id": "req_4ccd25e96e2044a39fdaeb0305b2739d",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589469,
+			"modified": 1501219342601,
 			"created": 1481915657521,
 			"url": "{{ url }}",
 			"name": "champions/cooldown",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"1547b5ec-13cf-49a6-8306-a95c9d58ce30\",\n  \"timestamp\": \"2016-12-16T19:13:17.883Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the cooldown of Yasuo's r at rank 3?\",\n    \"action\": \"champions/cooldown\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"ability\": \"fourth\",\n      \"champion\": \"Yasuo\",\n      \"rank\": \"Rank 3\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"7c13bfd9-fd64-458b-8c23-406df4875b01\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/cooldown\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\\n        Yasuo's fourth ability cooldown is\\n        0 seconds at rank 3.\\n      \",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\\n        Yasuo's fourth ability cooldown is\\n        0 seconds at rank 3.\\n      \"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"8657d1b0-6a17-44c6-a371-3533bfbd19dc\",\n  \"timestamp\": \"2017-07-28T05:22:18.729Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"what is the cooldown of ahri ult at rank 2\",\n    \"action\": \"champions/cooldown\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"ability_position\": \"fourth\",\n      \"name\": \"ahri\",\n      \"rank\": \"Rank 2\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"cooldown\",\n        \"parameters\": {\n          \"name.original\": \"ahri\",\n          \"ability_position\": \"fourth\",\n          \"ability_position.original\": \"ult\",\n          \"name\": \"ahri\",\n          \"rank\": \"Rank 2\",\n          \"rank.original\": \"rank 2\",\n          \"champion.original\": \"ahri\",\n          \"champion\": \"ahri\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"7c13bfd9-fd64-458b-8c23-406df4875b01\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/cooldown_v2\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_f62183f57b7f478e98b483c79ce80e33"
 				}
 			],
 			"authentication": {},
 			"metaSortKey": -1481915657521,
-			"_type": "request"
-		},
-		{
-			"_id": "req_4e326c5687454d7ea772a5ae3298a349",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484533423237,
-			"created": 1481917460884,
-			"url": "{{ url }}",
-			"name": "champions/description",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"6a307391-d309-46f8-9b8a-5a5a8e2cc6ee\",\n  \"timestamp\": \"2016-12-16T19:44:28.133Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Tell me about Katarina\",\n    \"action\": \"champions/description\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Katarina\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"17d44705-8abb-46e7-b61e-97af0819362f\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/description\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Katarina is a Assassin and Mage. Driven by an intense killer instinct, Katarina uses her talents as an assassin for the glory of Noxus, and the continued elevation of her family. While her fervor drives her to ever-greater feats, it can sometimes lead her astray.From ...\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Katarina is a Assassin and Mage. Driven by an intense killer instinct, Katarina uses her talents as an assassin for the glory of Noxus, and the continued elevation of her family. While her fervor drives her to ever-greater feats, it can sometimes lead her astray.From ...\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1481917460884,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
 			"_id": "req_653ffbc0b2cc4404bd70e4eed4e0b6bd",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589465,
+			"modified": 1501310672158,
 			"created": 1481917042270,
 			"url": "{{ url }}",
 			"name": "champions/ability",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"d13c0ccd-c465-4812-8083-19e9089667d8\",\n  \"timestamp\": \"2016-12-16T19:37:09.612Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is Ivern's second ability?\",\n    \"action\": \"champions/ability\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"ability\": \"second\",\n      \"champion\": \"Ivern\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"1c370fa4-4e6e-41ab-90b6-649b5f83f47b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/ability\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Ivern's second ability is called\\nBrushmaker.In brush, Ivern's attacks are ranged and deal bonus magic damage. Ivern can activate this ability to create a patch of brush.\\n\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Ivern's second ability is called\\nBrushmaker.In brush, Ivern's attacks are ranged and deal bonus magic damage. Ivern can activate this ability to create a patch of brush.\\n\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"741fd0e4-8363-40c6-956d-3fa05edd4bea\",\n  \"timestamp\": \"2017-07-29T06:44:11.93Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"zac build\",\n    \"action\": \"champions/build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"PLATINUM_PLUS\",\n      \"metric\": \"highestCount\",\n      \"name\": \"zac\",\n      \"role\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"championsbuild_v2-followup-2\",\n        \"parameters\": {\n          \"name.original\": \"zac\",\n          \"role\": \"\",\n          \"metric\": \"highestCount\",\n          \"metric.original\": \"\",\n          \"name\": \"zac\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 2\n      },\n      {\n        \"name\": \"build\",\n        \"parameters\": {\n          \"name.original\": \"zac\",\n          \"role\": \"\",\n          \"metric\": \"highestCount\",\n          \"metric.original\": \"\",\n          \"name\": \"zac\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 5\n      },\n      {\n        \"name\": \"championsbuild_v2-followup\",\n        \"parameters\": {\n          \"name.original\": \"zac\",\n          \"role\": \"\",\n          \"metric\": \"highestCount\",\n          \"metric.original\": \"\",\n          \"name\": \"zac\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 2\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"61d64176-8c08-4bf3-935d-a0397f7f3d1d\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"webhookResponseTime\": 405,\n      \"intentName\": \"champions/build_v2\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"The most frequent build for Zac Jungle in Platinum plus division is Enchantment: Cinderhulk, Ninja Tabi, Spirit Visage, Thornmail, Gargoyle Stoneplate, and Warmog's Armor.\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"The most frequent build for Zac Jungle in Platinum plus division is Enchantment: Cinderhulk, Ninja Tabi, Spirit Visage, Thornmail, Gargoyle Stoneplate, and Warmog's Armor.\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_b31f24c280814d55ab4109b73cdab22a"
 				}
 			],
 			"authentication": {},
 			"metaSortKey": -1481917042270,
-			"_type": "request"
-		},
-		{
-			"_id": "req_70e709bed44d44dba272397747057ae0",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589464,
-			"created": 1482192290015,
-			"url": "{{ url }}",
-			"name": "champions/matchup",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"2a14f0b3-2793-483a-ad93-be1fb79bcd90\",\n  \"timestamp\": \"2016-12-24T17:27:51.696Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How does Heimerdinger do against Azir?\",\n    \"action\": \"champions/matchup\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Heimerdinger\",\n      \"champion1\": \"Azir\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"champion1\": \"Azir\",\n          \"champion1.original\": \"Azir\",\n          \"champion.original\": \"Heimerdinger\",\n          \"lane\": \"\",\n          \"champion\": \"Heimerdinger\"\n        },\n        \"lifespan\": 2\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"0ff94e9f-bf7d-47d6-9737-31577326f2d4\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/matchup\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"What role is Heimerdinger in?\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"What role is Heimerdinger in?\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1482192290015,
-			"_type": "request"
-		},
-		{
-			"_id": "req_76fb69be6a6c438fa2c948845e1fc935",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484775232637,
-			"created": 1482120899865,
-			"url": "{{url}}",
-			"name": "champions/lane",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"66827f75-87cd-4c6a-b7e2-f8bc88a2e2f3\",\n  \"timestamp\": \"2016-12-19T21:51:45.811Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Support\",\n    \"action\": \"champions/lane\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Jax\",\n      \"lane\": \"Top\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/lane\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 4558b022-6510-4bc2-a100-5df3131986b4\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1482120899865,
-			"_type": "request"
-		},
-		{
-			"_id": "req_7cd5d9c73dca4175b0aea1c3fcd5fe62",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484173733570,
-			"created": 1483470077177,
-			"url": "{{ url }}",
-			"name": "items/show",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"29c86ade-734a-4a97-aada-692db2b89ca0\",\n  \"timestamp\": \"2017-01-03T20:00:49.236Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of Ruined King do?\",\n    \"action\": \"items/show\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"item\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: cd8e53c5-2a8e-4e13-baf6-01b41284b1df\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}\n"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1483470077177,
-			"_type": "request"
-		},
-		{
-			"_id": "req_8a9b75d53d5e479e96ace9d7ef3845db",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1486570228905,
-			"created": 1484257755665,
-			"url": "{{ url }}",
-			"name": "summoners/show",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"aa3606ab-f191-4234-b55c-8796708a70e6\",\n  \"timestamp\": \"2017-01-12T21:48:59.443Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"look up mordequess\",\n    \"action\": \"summoners/show\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"summoner\": \"mordequess\",\n\t  \"region\": \"na\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"mordequess\",\n          \"summoner\": \"mordequess\",\n          \"champion.original\": \"lookup mordequess\",\n          \"lane\": \"\",\n          \"champion\": \"lookup mordequess\"\n        },\n        \"lifespan\": 4\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"b89e6c2a-3925-4cd5-89c1-5e77b3a0ac37\",\n      \"webhookUsed\": \"false\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"19a23ebb-39ff-407c-9654-fe4b6eac9815\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1484257755665,
-			"_type": "request"
-		},
-		{
-			"_id": "req_9f008ddeeac445098da6d6e8da34269e",
-			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1486570222207,
-			"created": 1484769646719,
-			"url": "{{ url }}",
-			"name": "summoners/champion",
-			"method": "POST",
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"9089f12d-824e-4829-a45a-d54a0d011ca4\",\n  \"timestamp\": \"2017-01-18T20:02:58.722Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Is wingilote good at Jhin?\",\n    \"action\": \"summoners/champion\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Nocturne\",\n      \"summoner\": \"wingilote\",\n\t  \"region\": \"na\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"summoner.original\": \"wingilote\",\n          \"summoner\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"na\",\n          \"champion.original\": \"Jhin\",\n          \"champion\": \"Jhin\"\n        },\n        \"lifespan\": 5\n      },\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"wingilote\",\n          \"summoner\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"na\",\n          \"champion.original\": \"Jhin\",\n          \"lane\": \"\",\n          \"champion\": \"Jhin\"\n        },\n        \"lifespan\": 2\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"7e6840cd-70cb-47ad-8583-056a1cbdfc77\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/champion\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: 5481cfe7-0233-493c-b9b6-212a7c657ad6\"\n  },\n  \"sessionId\": \"20de7667-e229-43c4-80d9-a3e538b96781\"\n}"
-			},
-			"parameters": [],
-			"headers": [
-				{
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"authentication": {},
-			"metaSortKey": -1484769646719,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
 			"_id": "req_a5b3713dfaed4bcb920824015180bc37",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589463,
+			"modified": 1501219217862,
 			"created": 1481917268252,
 			"url": "{{ url }}",
 			"name": "champions/ally_tips",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"7f821f0b-5965-4b9f-9c10-8d665378e2ef\",\n  \"timestamp\": \"2016-12-16T19:39:32.83Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play with Fiora?\",\n    \"action\": \"champions/ally_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Fiora\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"98098b8e-4952-413d-9fbb-6aa604d0ebdc\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/ally_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"7f821f0b-5965-4b9f-9c10-8d665378e2ef\",\n  \"timestamp\": \"2016-12-16T19:39:32.83Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"How should I play with Fiora?\",\n    \"action\": \"champions/ally_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Fiora\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"98098b8e-4952-413d-9fbb-6aa604d0ebdc\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/ally_tips\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Grand Challenge allows Fiora to take down even the most durable opponents and then recover if successful, so do not hesitate to attack the enemy's front line.\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_f83ed5333c5248008e890337845963d7"
 				}
 			],
 			"authentication": {},
 			"metaSortKey": -1481917268252,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
-			"_id": "req_d3151971776f4ed9b4b3f6e225b81fc1",
+			"_id": "req_420d468a6f164a43bfa8d832e3e318fb",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401023088,
-			"created": 1483401008313,
+			"modified": 1501311612226,
+			"created": 1481917417587,
 			"url": "{{ url }}",
-			"name": "champions/stats",
+			"name": "champions/enemy_tips",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"5bf6fa40-30bd-450d-bef2-99e3b1ff6ab4\",\n  \"timestamp\": \"2017-01-02T23:49:13.235Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is Zed's ad at level 5?\",\n    \"action\": \"champions/stats\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Zed\",\n      \"level\": \"5\",\n      \"stat\": \"attackdamage\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"1623dc2f-f9a5-4b91-8688-e4239d7d2a86\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/stats\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: fcf0da88-a5ff-4eb1-8799-104b7f577d0a\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}"
+				"text": "{\n  \"id\": \"f81436fc-23b6-4159-8488-077affc4c669\",\n  \"timestamp\": \"2017-07-29T07:00:05.955Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"lux\",\n    \"action\": \"champions/enemy_tips\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"lux\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"enemy_tips\",\n        \"parameters\": {\n          \"name.original\": \"lux\",\n          \"name\": \"lux\"\n        },\n        \"lifespan\": 4\n      },\n      {\n        \"name\": \"championsenemy_tips-followup\",\n        \"parameters\": {\n          \"name.original\": \"lux\",\n          \"name\": \"lux\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"a1bb33cd-0100-494d-b513-a261b44fa65c\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 264,\n      \"intentName\": \"champions/enemy_tips - name\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"I have seen Lux fall in battle before and this is what I would recommend: Lux has powerful zone control abilities. Try to spread out and attack from different directions so she cannot lock down a specific area.\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"I have seen Lux fall in battle before and this is what I would recommend: Lux has powerful zone control abilities. Try to spread out and attack from different directions so she cannot lock down a specific area.\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_b9ffbfdd93934488a591a148ca0ad649"
 				}
 			],
 			"authentication": {},
-			"metaSortKey": -1483401008313,
+			"metaSortKey": -1481917417587,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
-			"_id": "req_d80c7036b7114f4b8b2e7016164ddd6a",
+			"_id": "req_4e326c5687454d7ea772a5ae3298a349",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1484006878476,
-			"created": 1482688888018,
+			"modified": 1501219197152,
+			"created": 1481917460884,
 			"url": "{{ url }}",
-			"name": "champions/ranking",
+			"name": "champions/lore",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"fae959ef-bcb9-4d72-9447-bdeeefa39cf3\",\n  \"timestamp\": \"2016-12-25T18:21:04.01Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who is the best top laner?\",\n    \"action\": \"champions/ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"lane\": \"Top\",\n      \"list_size\": \"3\",\n\t  \"list_order\": \"best\",\n\t  \"list_position\": \"1\",\n\t  \"tag\": \"Assassin\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"c30d746b-3ea6-4e26-b07e-26f6432659bd\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: afc0d19c-d450-4541-a8a9-29decb387b3c\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
+				"text": "{\n  \"id\": \"6a307391-d309-46f8-9b8a-5a5a8e2cc6ee\",\n  \"timestamp\": \"2016-12-16T19:44:28.133Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Tell me about Katarina\",\n    \"action\": \"champions/lore\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Katarina\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"17d44705-8abb-46e7-b61e-97af0819362f\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/description\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Katarina is a Assassin and Mage. Driven by an intense killer instinct, Katarina uses her talents as an assassin for the glory of Noxus, and the continued elevation of her family. While her fervor drives her to ever-greater feats, it can sometimes lead her astray.From ...\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Katarina is a Assassin and Mage. Driven by an intense killer instinct, Katarina uses her talents as an assassin for the glory of Noxus, and the continued elevation of her family. While her fervor drives her to ever-greater feats, it can sometimes lead her astray.From ...\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_5121ffcea096475b95f9a192dae09531"
 				}
 			],
 			"authentication": {},
-			"metaSortKey": -1482688888018,
+			"metaSortKey": -1481917460884,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
-			"_id": "req_dada373cb4e4427b85a2cfaee9c59e64",
+			"_id": "req_76fb69be6a6c438fa2c948845e1fc935",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483487633670,
-			"created": 1481786672032,
-			"url": "{{ url }}",
-			"name": "champions/title",
+			"modified": 1500244329265,
+			"created": 1482120899865,
+			"url": "{{url}}",
+			"name": "champions/role_performance_summary",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": " {\n  \"id\": \"012f4430-c330-4122-b0dc-21a24ae1f872\",\n  \"timestamp\": \"2016-12-16T05:30:13.648Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is the title of Sona?\",\n    \"action\": \"champions/title\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Sonas\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"5a3e784d-0dae-42fc-bce9-957c07af09f9\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/title\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"Sona's title is Maven of the Strings\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"Sona's title is Maven of the Strings\"\n        }\n      ]\n    },\n    \"score\": 0.92\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"e73bf291-8c55-4a67-9941-837aced9bf16\"\n}"
+				"text": "{\n  \"id\": \"ba40adac-a2b6-4d28-8912-84c9f6c60b9c\",\n  \"timestamp\": \"2017-07-16T22:05:41.488Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"ryze silver\",\n    \"action\": \"champions/role_performance_summary\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"SILVER\",\n      \"name\": \"Jayce\",\n      \"role\": \"TOP\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"championsrole_performance_summary_v2-followup\",\n        \"parameters\": {\n          \"name.original\": \"ryze\",\n          \"role\": \"\",\n          \"name\": \"ryze\",\n          \"elo\": \"SILVER\",\n          \"role.original\": \"\",\n          \"elo.original\": \"silver\"\n        },\n        \"lifespan\": 2\n      },\n      {\n        \"name\": \"role_performance_summary\",\n        \"parameters\": {\n          \"name.original\": \"ryze\",\n          \"role\": \"\",\n          \"name\": \"ryze\",\n          \"elo\": \"SILVER\",\n          \"role.original\": \"\",\n          \"elo.original\": \"silver\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"5d853005-a7ed-461e-b66f-3fe8e7c96467\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/role_performance_summary_v2\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"37bb2c1a-f7a7-4657-9c4c-d8968351c5fd\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_cce20b16809c4715bcc4bdde2cdcd5f5"
 				}
 			],
 			"authentication": {},
-			"metaSortKey": -1481786672032,
+			"metaSortKey": -1482120899865,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_3b5d82d24e82457aad34441bcd0b07b4",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501218005527,
+			"created": 1482188086561,
+			"url": "{{ url }}",
+			"name": "champions/build",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"a08c57f6-039b-4ced-b5ac-64abf092eb73\",\n  \"timestamp\": \"2017-07-18T13:44:24.397Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"most frequent build on Twitch ADC in silver\",\n    \"action\": \"champions/build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"SILVER\",\n      \"metric\": \"highestWinrate\",\n      \"name\": \"Cho'Gath\",\n      \"role\": \"TOP\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"build\",\n        \"parameters\": {\n          \"name.original\": \"Twitch\",\n          \"role\": \"ADC\",\n          \"metric\": \"highestCount\",\n          \"metric.original\": \"most frequent\",\n          \"name\": \"Twitch\",\n          \"elo\": \"SILVER\",\n          \"role.original\": \"ADC\",\n          \"elo.original\": \"silver\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"61d64176-8c08-4bf3-935d-a0397f7f3d1d\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/build_v2\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"37bb2c1a-f7a7-4657-9c4c-d8968351c5fd\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_4816cddc30c847538f5ebf01da230634"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482188086561,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_70e709bed44d44dba272397747057ae0",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501218376837,
+			"created": 1482192290015,
+			"url": "{{ url }}",
+			"name": "champions/matchup",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"c0b69093-f468-4a83-a3bf-df9a6d962875\",\n  \"timestamp\": \"2017-07-28T05:06:11.016Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how does blitz support synergize with mf adc\",\n    \"action\": \"champions/matchup\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"PLATINUM_PLUS\",\n      \"matchup_position\": \"winrate\",\n      \"name1\": \"Blitzcrank\",\n      \"name2\": \"Miss Fortune\",\n      \"role1\": \"SUPPORT\",\n      \"role2\": \"SYNERGY\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"matchup\",\n        \"parameters\": {\n          \"lane.original\": \"support\",\n          \"role1\": \"SUPPORT\",\n          \"name1.original\": \"blitz\",\n          \"role2\": \"SYNERGY\",\n          \"lane1.original\": \"adc\",\n          \"role1.original\": \"support\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role2.original\": \"synergize\",\n          \"lane1\": \"ADC\",\n          \"matchup_position.original\": \"\",\n          \"matchup_position\": \"winrate\",\n          \"name2\": \"Miss Fortune\",\n          \"name1\": \"Blitzcrank\",\n          \"lane\": \"SUPPORT\",\n          \"name2.original\": \"mf\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"0ff94e9f-bf7d-47d6-9737-31577326f2d4\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"intentName\": \"champions/matchup_v2\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_67facf813e9443d1928e142affe2c414"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482192290015,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
 			"_id": "req_e3313ffbf8bc499cb9ddf908d9d9cad3",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1483401589460,
+			"modified": 1501294715056,
 			"created": 1482275704759,
 			"url": "{{ url }}",
 			"name": "champions/ability_order",
+			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"06f07778-c7cc-4624-8604-d62118553223\",\n  \"timestamp\": \"2016-12-20T23:28:28.278Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What skill do I max first on Leblanc mid?\",\n    \"action\": \"champions/ability_order\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Azir\",\n      \"lane\": \"Middle\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"988464be-d423-4f29-939c-47af4c9d6676\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ability_order\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: e090f3ea-5c77-4c70-b3a6-a3ad35f8eb48\"\n  },\n  \"sessionId\": \"54cc381c-e3be-4fae-aece-ac9fef3af937\"\n}"
+				"text": "{\n  \"id\": \"e19309e7-08eb-4249-a6e8-cadf22315d11\",\n  \"timestamp\": \"2017-07-29T02:18:28.555Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"jungle\",\n    \"action\": \"champions/ability_order\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"PLATINUM_PLUS\",\n      \"metric\": \"highestCount\",\n      \"name\": \"Twitch\",\n      \"role\": \"JUNGLE\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"ability_order\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"JUNGLE\",\n          \"metric\": \"highestCount\",\n          \"metric.original\": \"\",\n          \"name\": \"Twitch\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"jungle\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 3\n      },\n      {\n        \"name\": \"championsability_order_v2-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"JUNGLE\",\n          \"metric\": \"highestCount\",\n          \"metric.original\": \"\",\n          \"name\": \"Twitch\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"jungle\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 3\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"4c2fba6b-efd4-463e-8967-fdea480bda2c\",\n      \"webhookUsed\": \"false\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ability_order_v2 - role\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "application/json",
+					"id": "pair_6dbde45225b647438d3d5122d93f35c0"
 				}
 			],
 			"authentication": {},
 			"metaSortKey": -1482275704759,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_30337ed27c9444deb392be7f6b1ff2be",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501346277863,
+			"created": 1482600505061,
+			"url": "{{ url }}",
+			"name": "champions/matchup_ranking",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"1efc7fbc-e804-44a5-8ab1-66bdf408e34f\",\n  \"timestamp\": \"2017-07-29T16:37:39.591Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"who gets the most kills against xerath mid\",\n    \"action\": \"champions/matchup_ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"PLATINUM_PLUS\",\n      \"list_order\": \"highest\",\n      \"matchup_position\": \"kills\",\n      \"name\": \"Xerath\",\n      \"role1\": \"MIDDLE\",\n      \"role2\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"matchup_ranking\",\n        \"parameters\": {\n          \"name.original\": \"xerath\",\n          \"lane.original\": \"mid\",\n          \"role1\": \"MIDDLE\",\n          \"role2\": \"\",\n          \"role1.original\": \"mid\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"list_order.original\": \"most\",\n          \"role2.original\": \"\",\n          \"name\": \"Xerath\",\n          \"list_order\": \"highest\",\n          \"matchup_position.original\": \"kills\",\n          \"matchup_position\": \"kills\",\n          \"lane\": \"MIDDLE\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"7fbc7812-0bda-452f-8a7d-1bf8bb134a4b\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"true\",\n      \"webhookResponseTime\": 686,\n      \"intentName\": \"champions/matchup_ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 0.9800000190734863\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: Webhook response was empty.\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_a4626570b4bf49898814febaf9bf48a2"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482600505061,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_d80c7036b7114f4b8b2e7016164ddd6a",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1500090985964,
+			"created": 1482688888018,
+			"url": "{{ url }}",
+			"name": "champions/ranking",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"5b0c2420-fb72-4d52-b62d-88191abc1153\",\n  \"timestamp\": \"2017-07-15T03:56:15.457Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"top lane most kills in silver\",\n    \"action\": \"champions/ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"elo\": \"SILVER\",\n      \"list_order\": \"highest\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\",\n      \"position\": \"kills\",\n      \"role\": \"TOP\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"ranking\",\n        \"parameters\": {\n          \"role\": \"TOP\",\n          \"list_position\": \"1\",\n          \"list_order\": \"highest\",\n          \"list_position.original\": \"\",\n          \"elo\": \"SILVER\",\n          \"role.original\": \"top\",\n          \"position\": \"kills\",\n          \"list_size.original\": \"\",\n          \"list_size\": \"1\",\n          \"position.original\": \"kills\",\n          \"list_order.original\": \"most\",\n          \"elo.original\": \"silver\"\n        },\n        \"lifespan\": 5\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"c30d746b-3ea6-4e26-b07e-26f6432659bd\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/ranking_v2\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"37bb2c1a-f7a7-4657-9c4c-d8968351c5fd\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_5807054707ce44e4b5f153d63fe349da"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1482688888018,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_d3151971776f4ed9b4b3f6e225b81fc1",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501292210546,
+			"created": 1483401008313,
+			"url": "{{ url }}",
+			"name": "champions/stats",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"5bf6fa40-30bd-450d-bef2-99e3b1ff6ab4\",\n  \"timestamp\": \"2017-01-02T23:49:13.235Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What is Zed's ad at level 5?\",\n    \"action\": \"champions/stats\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Zed\",\n      \"level\": \"28\",\n      \"stat\": \"attackdamage\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"1623dc2f-f9a5-4b91-8688-e4239d7d2a86\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"champions/stats\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpClientErrorException: 404 Not Found ErrorId: fcf0da88-a5ff-4eb1-8799-104b7f577d0a\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_6c1f7fad633f4d878ece8d6fd7208ce5"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1483401008313,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_7cd5d9c73dca4175b0aea1c3fcd5fe62",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501221057775,
+			"created": 1483470077177,
+			"url": "{{ url }}",
+			"name": "items/description",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"29c86ade-734a-4a97-aada-692db2b89ca0\",\n  \"timestamp\": \"2017-01-03T20:00:49.236Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of Ruined King do?\",\n    \"action\": \"items/description\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: cd8e53c5-2a8e-4e13-baf6-01b41284b1df\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}\n"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_54f2e9920459490083d864bf25b53ae2"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1483044948165.5,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_8a9b75d53d5e479e96ace9d7ef3845db",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501290986928,
+			"created": 1484257755665,
+			"url": "{{ url }}",
+			"name": "summoners/description",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"aa3606ab-f191-4234-b55c-8796708a70e6\",\n  \"timestamp\": \"2017-01-12T21:48:59.443Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"look up mordequess\",\n    \"action\": \"summoners/description\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"summoner\": \"wingilote\",\n\t  \t\"region\": \"na1\",\n\t\t\t\"queue\": \"RANKED_SOLO_5x5\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"mordequess\",\n          \"summoner\": \"mordequess\",\n          \"champion.original\": \"lookup mordequess\",\n          \"lane\": \"\",\n          \"champion\": \"lookup mordequess\"\n        },\n        \"lifespan\": 4\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"b89e6c2a-3925-4cd5-89c1-5e77b3a0ac37\",\n      \"webhookUsed\": \"false\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"19a23ebb-39ff-407c-9654-fe4b6eac9815\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_1afe282968b74901911873daef419ed2"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1484257755665,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_b86fc87162ac4da19f63e41a23d09c08",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501220953124,
+			"created": 1501220925998,
+			"url": "{{ url }}",
+			"name": "items/build",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"df404fdf-95a6-4f53-a8bb-7d00d0fda9b7\",\n  \"timestamp\": \"2017-07-28T05:48:32.497Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how do you build bork\",\n    \"action\": \"items/build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"18100ed9-b8a6-44a8-ad49-11544c667b65\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/build\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_4cdf8216f5ce402c873a56f031886f0c"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1501220925998,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_bf7ac7b747c14dc5aa360538b73a72ce",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501352786966,
+			"created": 1501352595669,
+			"url": "{{ url }}",
+			"name": "application/patch",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"d5b1d0d9-04ef-44c0-83d9-e404f34547cc\",\n  \"timestamp\": \"2017-07-29T18:24:16.878Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"patch info\",\n    \"action\": \"patch\",\n    \"actionIncomplete\": false,\n    \"parameters\": {},\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"87f45540-3b13-4791-b6f1-9e9e344ea4b2\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"application/patch\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_6ab9c38d7ef74208866e0a2dd2bf9b23"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1501352595669,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_9e10cc81509a45db9592fad21391f384",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1501353245560,
+			"created": 1501353233111,
+			"url": "{{ url }}",
+			"name": "application/reset",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"f0fd3760-56d7-4e79-b787-79b41c3b0d1c\",\n  \"timestamp\": \"2017-07-29T18:31:55.336Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"reset\",\n    \"action\": \"reset\",\n    \"actionIncomplete\": false,\n    \"parameters\": {},\n    \"contexts\": [\n      {\n        \"name\": \"item_build\",\n        \"parameters\": {\n          \"name.original\": \"bork\",\n          \"name\": \"Blade of the Ruined King\"\n        },\n        \"lifespan\": 4\n      },\n      {\n        \"name\": \"itemsbuild-followup\",\n        \"parameters\": {\n          \"name.original\": \"bork\",\n          \"name\": \"Blade of the Ruined King\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"9dfbcea2-e523-44a7-b12b-92485def1fdb\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 1380,\n      \"intentName\": \"application/reset\"\n    },\n    \"fulfillment\": {\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"14aca756-2050-4682-9ac5-53b1b0e42a81\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_3154eeefa3524170927125457c5a0b36"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1501353233111,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
 			"_type": "request"
 		},
 		{
 			"_id": "env_bc20674a273c40cd971fb807c0847e30",
 			"parentId": "env_0d851fcce733473faf2afa9cce713676",
-			"modified": 1483401589459,
+			"modified": 1499654623789,
 			"created": 1482082903253,
 			"name": "Production",
 			"data": {
 				"url": "https://summonerexpert.herokuapp.com"
 			},
+			"color": null,
 			"_type": "environment"
 		},
 		{
 			"_id": "env_f8958a56bd434a2f9acfb21e27479e89",
 			"parentId": "env_0d851fcce733473faf2afa9cce713676",
-			"modified": 1483401589453,
+			"modified": 1499654623784,
 			"created": 1482082915947,
 			"name": "Development",
 			"data": {
 				"url": "http://localhost:3000"
 			},
+			"color": null,
 			"_type": "environment"
 		}
 	]
