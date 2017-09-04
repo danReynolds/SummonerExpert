@@ -66,8 +66,28 @@ class ChampionGGApi < ExternalApi
     killingSprees: 'average killing sprees',
     totalDamageTaken: 'total damage taken',
     averageGamesScore: 'average games played',
-    totalPositions: '', # These 2 positions are useful internally but are not requested by users
+    # These 2 positions are useful internally but are not requested by users
+    totalPositions: '',
     previousOverallPerformanceScore: ''
+  }.freeze
+
+  # Champion Position value for the given elo and role
+  POSITION_DETAILS = {
+    winRate: 'win rate',
+    kills: 'kills',
+    totalDamageTaken: 'total damage taken',
+    wardsKilled: 'wards killed',
+    averageGames: 'games per summoner',
+    largestKillingSpree: 'largest killing spree',
+    assists: 'assists',
+    playRate: 'play rate',
+    gamesPlayed: 'total games played',
+    percentRolePlayed: 'percent of games',
+    goldEarned: 'gold earned',
+    deaths: 'deaths',
+    wardPlaced: 'wards placed',
+    banRate: 'ban rate',
+    minionsKilled: 'creep score'
   }.freeze
 
   class << self

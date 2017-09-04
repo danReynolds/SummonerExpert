@@ -3,7 +3,7 @@ class ChampionsController < ApplicationController
   include Utils
   before_action :load_champion, except: [:ranking, :matchup, :matchup_ranking]
   before_action :load_matchup, only: :matchup
-  before_action :load_role_performance, only: [:role_performance_summary, :build, :ability_order]
+  before_action :load_role_performance, only: [:role_performance_summary, :role_performance, :build, :ability_order]
   before_action :load_matchup_ranking, only: :matchup_ranking
 
   def ranking
@@ -178,6 +178,31 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def role_performance
+    position = champion_params[:position_details].to_sym
+    position_performance = @role_performance.send(position)
+    percentage_positions = ChampionGGApi::POSITION_DETAILS.slice(:winRate, :playRate, :percentRolePlayed, :banRate).keys
+
+    if percentage_positions.include?(position)
+      position_performance *= 100
+      position_type = :percentage
+    else
+      position_type = :absolute
+    end
+
+    args = {
+      elo: @role_performance.elo.humanize,
+      role: @role_performance.role.humanize,
+      name: @role_performance.name,
+      position: position_performance.round(2),
+      position_name: ChampionGGApi::POSITION_DETAILS[position]
+    }
+
+    render json: {
+      speech: ApiResponse.get_response({ champions: { role_performance: position_type } }, args)
+    }
+  end
+
   # Provides a summary of a champion's performance in a lane
   # including factors such as KDA, overall performance ranking, percentage played in that
   # lane and more.
@@ -338,7 +363,7 @@ class ChampionsController < ApplicationController
     params.require(:result).require(:parameters).permit(
       :name, :champion1, :ability_position, :rank, :role, :list_size, :list_position,
       :list_order, :stat, :level, :tag, :elo, :metric, :position, :name1, :name2,
-      :matchup_position, :role1, :role2
+      :matchup_position, :role1, :role2, :position_details
     )
   end
 end

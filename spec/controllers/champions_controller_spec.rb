@@ -981,6 +981,36 @@ describe ChampionsController, type: :controller do
     end
   end
 
+  describe 'POST role_performance' do
+    let(:action) { :role_performance }
+    let(:champion_params) do
+      {
+        name: 'Thresh',
+        role: 'SUPPORT',
+        elo: 'BRONZE',
+        position_details: 'goldEarned'
+      }
+    end
+
+    context 'with an absolute position details' do
+      it "should indicate the champion's absolute value for the given position" do
+        post action, params: params
+        expect(speech).to eq 'Thresh averages 9345.97 gold earned playing Support in Bronze division.'
+      end
+    end
+
+    context 'with a percentage position details' do
+      before(:each) do
+        champion_params[:positionDetails] = :banRate
+      end
+
+      it "should indicate the champion's percentage value for the given position" do
+        post action, params: params
+        expect(speech).to eq 'Thresh averages 9345.97 gold earned playing Support in Bronze division.'
+      end
+    end
+  end
+
   describe 'POST role_performance_summary' do
     let(:action) { :role_performance_summary }
     let(:champion_params) do

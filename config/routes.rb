@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post :ability
     post :cooldown
     post :role_performance_summary
+    post :role_performance
     post :build
     post :ability_order
     post :counters
