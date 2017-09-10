@@ -57,7 +57,7 @@ namespace :docker do
     on server do
       within deploy_path do
         with rails_env: deploy_env, deploy_tag: deploy_tag, env_key: env_key do
-          execute 'docker-compose', '-f', 'docker-compose.yml', '-f', 'docker-compose.production.yml', 'run', 'app', 'whenever', '--update-crontab'
+          execute 'docker-compose', '-f', 'docker-compose.yml', '-f', 'docker-compose.production.yml', 'run', 'app', 'bundle', 'exec', 'whenever', '--update-crontab'
         end
       end
     end
