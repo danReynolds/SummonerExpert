@@ -211,6 +211,16 @@ class ChampionsController < ApplicationController
     previous_overall_performance = @role_performance.position(:previousOverallPerformanceScore)
     position = overall_performance[:position]
 
+    position_change = if previous_overall_performance[:position].nil?
+      'new'
+    elsif previous_overall_performance[:position] > position
+      'doing better'
+    elsif previous_overall_performance[:position] < position
+      'doing worse'
+    else
+      'doing the same'
+    end
+
     args = {
       elo: @role_performance.elo.humanize,
       role: @role_performance.role.humanize,
@@ -220,7 +230,7 @@ class ChampionsController < ApplicationController
       kda: @role_performance.kda.values.map { |val| val.round(2) }.join('/'),
       position: position.en.ordinal,
       total_positions: overall_performance[:total_positions],
-      position_change: position - previous_overall_performance[:position] > 0 ? 'better' : 'worse'
+      position_change: position_change
     }
 
     render json: {

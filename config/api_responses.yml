@@ -25,8 +25,8 @@ champions:
     absolute:
       - '{name} averages {position} {position_name} playing {role} in {elo} division.'
   role_performance_summary:
-    - '{name} is doing {position_change} this patch in {role} and is ranked {position} out of {total_positions} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} division.'
-    - '{name} got {position_change} this patch and is ranked {position} out of {total_positions} in {role} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} divison.'
+    - '{name} is {position_change} this patch in {role} and is ranked {position} out of {total_positions} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} division.'
+    - '{name} is {position_change} this patch and is ranked {position} out of {total_positions} in {role} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} divison.'
   ranking:
     empty:
       normal:
