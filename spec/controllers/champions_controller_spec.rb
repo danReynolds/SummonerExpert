@@ -1031,56 +1031,56 @@ describe ChampionsController, type: :controller do
 
       it 'should indicate that the champion has been introduced' do
         post action, params: params
-        expect(speech).to eq 'Shyvana is new this patch in Jungle and is ranked 3rd out of 46 with a 6.08/4.91/6.72 KDA, 52.51% win rate and a 0.05% ban rate in Gold division.'
+        expect(speech).to eq 'Shyvana is new this patch in Jungle and is ranked 8th out of 45 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
       end
     end
 
     context 'with better performance' do
       before(:each) do
         allow_any_instance_of(RolePerformance).to receive(:position)
-          .with(:overallPerformanceScore).and_return({ position: 18 })
+          .with(:overallPerformanceScore).and_return({ position: 18, total_positions: 30 })
         allow_any_instance_of(RolePerformance).to receive(:position)
-          .with(:previousOverallPerformanceScore).and_return({ position: 20 })
+          .with(:previousOverallPerformanceScore).and_return({ position: 20, total_positions: 30 })
       end
 
-      it 'should indicate that the champion has been introduced' do
+      it 'should indicate that the champion is doing better' do
         post action, params: params
-        expect(speech).to eq 'Shyvana is doing worse this patch in Jungle and is ranked 18th out of  with a 6.08/4.91/6.72 KDA, 52.51% win rate and a 0.05% ban rate in Gold division.'
+        expect(speech).to eq 'Shyvana is doing better this patch in Jungle and is ranked 18th out of 30 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
       end
     end
 
     context 'with worse performance' do
       before(:each) do
         allow_any_instance_of(RolePerformance).to receive(:position)
-          .with(:overallPerformanceScore).and_return({ position: 20 })
+          .with(:overallPerformanceScore).and_return({ position: 20, total_positions: 30 })
         allow_any_instance_of(RolePerformance).to receive(:position)
-          .with(:previousOverallPerformanceScore).and_return({ position: 18 })
+          .with(:previousOverallPerformanceScore).and_return({ position: 18, total_positions: 30 })
       end
 
-      it 'should indicate that the champion has been introduced' do
+      it 'should indicate that the champion is doing worse' do
         post action, params: params
-        expect(speech).to eq 'Shyvana is doing better this patch in Jungle and is ranked 18th out of  with a 6.08/4.91/6.72 KDA, 52.51% win rate and a 0.05% ban rate in Gold division.'
+        expect(speech).to eq 'Shyvana is doing worse this patch in Jungle and is ranked 20th out of 30 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
       end
     end
 
     context 'with equal performance' do
       before(:each) do
         allow_any_instance_of(RolePerformance).to receive(:position)
-          .with(:overallPerformanceScore).and_return({ position: 20 })
+          .with(:overallPerformanceScore).and_return({ position: 20, total_positions: 30 })
         allow_any_instance_of(RolePerformance).to receive(:position)
-          .with(:previousOverallPerformanceScore).and_return({ position: 20 })
+          .with(:previousOverallPerformanceScore).and_return({ position: 20, total_positions: 30 })
       end
 
       it 'should indicate that the champion has been introduced' do
         post action, params: params
-        expect(speech).to eq 'Shyvana is doing the same this patch in Jungle and is ranked 18th out of  with a 6.08/4.91/6.72 KDA, 52.51% win rate and a 0.05% ban rate in Gold division.'
+        expect(speech).to eq 'Shyvana is doing the same this patch in Jungle and is ranked 20th out of 30 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
       end
     end
 
     context 'with a role specified' do
       it 'should return the role performance for the given role' do
         post action, params: params
-        expect(speech). to eq 'Shyvana is better this patch in Jungle and is ranked 8th out of 45 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
+        expect(speech). to eq 'Shyvana is doing worse this patch in Jungle and is ranked 8th out of 45 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
       end
     end
 
@@ -1091,7 +1091,7 @@ describe ChampionsController, type: :controller do
 
       it 'should determine the role based on the roles the champion plays' do
         post action, params: params
-        expect(speech).to eq 'Shyvana is better this patch in Jungle and is ranked 8th out of 45 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
+        expect(speech).to eq 'Shyvana is doing worse this patch in Jungle and is ranked 8th out of 45 with a 6.1/5.28/6.86 KDA, 51.87% win rate and a 0.02% ban rate in Gold division.'
       end
     end
 
