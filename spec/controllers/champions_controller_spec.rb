@@ -355,6 +355,7 @@ describe ChampionsController, type: :controller do
 
         it 'should indicate that the champions play together in multiple roles' do
           post action, params: params
+          expect(response_body.dig(:data, :google, :expect_user_response)).to eq true
           expect(speech).to eq 'Jinx and Bard have matchups for multiple roles in Gold division. Please specify roles for one or both champions.'
         end
       end
@@ -633,6 +634,7 @@ describe ChampionsController, type: :controller do
 
           it 'should ask for role specification' do
             post action, params: params
+            expect(response_body.dig(:data, :google, :expect_user_response)).to eq true
             expect(speech).to eq "There are multiple matchup rankings for Jinx, please specify Jinx's role."
           end
         end
@@ -1116,6 +1118,7 @@ describe ChampionsController, type: :controller do
 
         it 'should indicate that a role must be specified' do
           post action, params: params
+          expect(response_body.dig(:data, :google, :expect_user_response)).to eq true
           expect(speech).to eq 'Jayce plays multiple roles, please specify a role.'
         end
       end

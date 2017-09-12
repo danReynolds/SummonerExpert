@@ -10,6 +10,10 @@ shared_context 'spec setup' do
     JSON.parse(res[:body][:text])
   end
 
+  def response_body
+    JSON.parse(response.body).with_indifferent_access
+  end
+
   def speech
     JSON.parse(response.body).with_indifferent_access[:speech]
   end

@@ -2,7 +2,7 @@ class MatchupRanking < MatchupRole
   validates :name, presence: true, inclusion: { in: CHAMPIONS.values, allow_blank: true }
   validate :matchups_validator
 
-  attr_accessor :name, :matchups, :named_role, :unnamed_role
+  attr_accessor :name, :matchups, :named_role, :unnamed_role, :expect_user_response
 
   def initialize(**args)
     args[:name] = CollectionHelper::match_collection(args[:name], CHAMPIONS.values)
@@ -91,6 +91,7 @@ class MatchupRanking < MatchupRole
       elsif @role2.present?
         errors[:base] << ApiResponse.get_response({ errors: { matchup_ranking: { empty: :unnamed_role } } }, args)
       else
+        @expect_user_response = true
         errors[:base] << ApiResponse.get_response({ errors: { matchup_ranking: { empty: :no_roles } } }, args)
       end
     end

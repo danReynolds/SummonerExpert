@@ -3,7 +3,7 @@ class Matchup < MatchupRole
   validates :name2, presence: true, inclusion: { in: CHAMPIONS.values, allow_blank: true }
   validate :matchup_validator
 
-  attr_accessor :name1, :name2
+  attr_accessor :name1, :name2, :expect_user_response
 
   def initialize(**args)
     args[:name1] = CollectionHelper::match_collection(args[:name1], CHAMPIONS.values)
@@ -68,6 +68,7 @@ class Matchup < MatchupRole
       elsif @role1.present?
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :solo_role_no_matchup } }, args)
       elsif shared_matchups.length > 1
+        @expect_user_response = true
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :multiple_shared_roles } }, args)
       elsif shared_matchups.length == 0
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :no_shared_roles } }, args)

@@ -315,6 +315,24 @@ class ChampionsController < ApplicationController
     speech.gsub(HTML_TAGS, '')
   end
 
+  # Used to keep mic open when a response is needed
+  def expect_user_response
+    {
+      data: {
+        google: { expect_user_response: true }
+      }
+    }
+  end
+
+  def load_reply(collection)
+    return true if collection.valid?
+
+    reply = { speech: collection.error_message }
+    reply.merge!(expect_user_response) if collection.expect_user_response
+    render json: reply
+    return false
+  end
+
   def load_matchup
     @matchup = Matchup.new(
       name1: champion_params[:name1],
@@ -323,11 +341,7 @@ class ChampionsController < ApplicationController
       role1: champion_params[:role1],
       role2: champion_params[:role2]
     )
-
-    unless @matchup.valid?
-      render json: { speech: @matchup.error_message }
-      return false
-    end
+    load_reply(@matchup)
   end
 
   def load_matchup_ranking
@@ -337,36 +351,21 @@ class ChampionsController < ApplicationController
       role1: champion_params[:role1],
       role2: champion_params[:role2]
     )
-
-    unless @matchup_ranking.valid?
-      render json: { speech: @matchup_ranking.error_message }
-      return false
-    end
+    load_reply(@matchup_ranking)
   end
 
   def load_champion
     @champion = Champion.new(name: champion_params[:name])
-
-    unless @champion.valid?
-      render json: { speech: @champion.error_message }
-      return false
-    end
+    load_reply(@champion)
   end
 
   def load_role_performance
-    elo = champion_params[:elo]
-    role = champion_params[:role]
-
     @role_performance = RolePerformance.new(
-      elo: elo,
-      role: role,
+      elo: champion_params[:elo],
+      role: champion_params[:role],
       name: @champion.name
     )
-
-    unless @role_performance.valid?
-      render json: { speech: @role_performance.error_message }
-      return false
-    end
+    load_reply(@role_performance)
   end
 
   def champion_params

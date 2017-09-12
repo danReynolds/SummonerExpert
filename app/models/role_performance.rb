@@ -5,7 +5,7 @@ class RolePerformance
   validates :name, presence: true
   validate :role_performance_validator
 
-  attr_accessor :elo, :role, :name
+  attr_accessor :elo, :role, :name, :expect_user_response
 
   # Accessors coming directly from the data object
   RELAY_ACCESSORS = [
@@ -80,6 +80,7 @@ class RolePerformance
       if @role.present?
         errors[:base] << ApiResponse.get_response({ errors: { role_performance: :does_not_play } }, args)
       else
+        @expect_user_response = true
         errors[:base] << ApiResponse.get_response({ errors: { role_performance: :plays_multiple_roles } }, args)
       end
     end
