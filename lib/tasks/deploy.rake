@@ -52,17 +52,6 @@ namespace :docker do
     end
   end
 
-  desc 'Schedule crontab to run rake tasks'
-  task schedule: 'deploy:configs' do
-    on server do
-      within deploy_path do
-        with rails_env: deploy_env, deploy_tag: deploy_tag, env_key: env_key do
-          execute 'docker-compose', '-f', 'docker-compose.yml', '-f', 'docker-compose.production.yml', 'run', 'app', 'bundle', 'exec', 'whenever', '--update-crontab'
-        end
-      end
-    end
-  end
-
   desc 'Decrypt the latest environment variables to .env'
   task decrypt: 'deploy:configs' do
     on server do
@@ -101,5 +90,5 @@ namespace :docker do
   end
 
   desc 'pulls images, stops old containers and starts new containers'
-  task deploy: %w{docker:pull docker:decrypt docker:stop docker:start docker:schedule} # pull images manually to reduce down time
+  task deploy: %w{docker:pull docker:decrypt docker:stop docker:start} # pull images manually to reduce down time
 end
