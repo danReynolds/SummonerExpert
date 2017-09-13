@@ -328,7 +328,7 @@ class ChampionsController < ApplicationController
     return true if collection.valid?
 
     reply = { speech: collection.error_message }
-    reply.merge!(expect_user_response) if collection.expect_user_response
+    reply.merge!(expect_user_response) if collection.try(:expect_user_response)
     render json: reply
     return false
   end
