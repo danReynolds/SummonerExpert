@@ -481,9 +481,22 @@ describe ChampionsController, type: :controller do
           champion_params[:role1] = 'SYNERGY'
           champion_params[:name] = 'Sivir'
         end
+
         it 'should return the matchups for the synergy role' do
           post action, params: params
           expect(speech).to eq 'The champion with the highest win rate playing Support with Sivir Adc from Gold division is Sion.'
+        end
+      end
+
+      context 'with either role adc support' do
+        before :each do
+          champion_params[:role1] = 'ADCSUPPORT'
+          champion_params[:name] = 'Blitzcrank'
+        end
+
+        it 'should return the matchups for the synergy role' do
+          post action, params: params
+          expect(speech).to eq 'The champion with the highest win rate playing Adc against Blitzcrank Support from Gold division is Quinn.'
         end
       end
 

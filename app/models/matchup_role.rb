@@ -26,11 +26,13 @@ class MatchupRole
     synergy = ChampionGGApi::MATCHUP_ROLES[:SYNERGY]
     adc = ChampionGGApi::MATCHUP_ROLES[:DUO_CARRY]
     support = ChampionGGApi::MATCHUP_ROLES[:DUO_SUPPORT]
+    adc_support = ChampionGGApi::MATCHUP_ROLES[:ADCSUPPORT]
 
     if @role1 == synergy || @role2 == synergy
       synergy
-    elsif @role1 == adc && @role2 == support || @role1 == support && @role2 == adc
-      ChampionGGApi::MATCHUP_ROLES[:ADCSUPPORT]
+    elsif (@role1 == adc_support || @role2 == adc_support) ||
+      (@role1 == adc && @role2 == support) || (@role1 == support && @role2 == adc)
+      adc_support
     elsif @role1.present?
       @role1
     end
