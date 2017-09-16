@@ -23,7 +23,7 @@ set :environment, "production"
 
 ENV.each { |k, v| env(k, v) }
 
-every 1.day, at: "7:00 pm" do
+every 1.day, at: "8:00 pm" do
   rake "champion_gg:all"
-  command "echo Champion.gg $(date) > /app/scheduler.txt"
+  command "echo Champion.gg $(date) >> /app/scheduler.txt"
 end

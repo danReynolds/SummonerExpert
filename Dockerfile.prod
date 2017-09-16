@@ -1,5 +1,5 @@
 # Base Ruby layer
-FROM ruby:2.3.4
+FROM ruby:2.3.4-alpine
 
 # Add system libraries layer
 RUN apt-get update -qq && apt-get install -y cron vim
@@ -21,6 +21,9 @@ ADD . /app
 
 # Setup the cronjob to fetch data from Champion.gg and Riot
 RUN bundle exec whenever --update-crontab
+
+# Start cron process
+cron
 
 # Set Rails environment mode to production
 ENV RAILS_ENV production
