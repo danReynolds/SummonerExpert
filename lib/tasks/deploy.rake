@@ -63,6 +63,17 @@ namespace :docker do
     end
   end
 
+  desc 'Start the cron process'
+  task cron: 'deploy:configs' do
+    on server do
+      within deploy_path do
+        with rails_env: deploy_env, deploy_tag: deploy_tag, env_key: env_key do
+          execute 'cron'
+        end
+      end
+    end
+  end
+
   desc 'stops all Docker containers via Docker Compose'
   task stop: 'deploy:configs' do
     on server do
@@ -90,5 +101,5 @@ namespace :docker do
   end
 
   desc 'pulls images, stops old containers and starts new containers'
-  task deploy: %w{docker:pull docker:decrypt docker:stop docker:start} # pull images manually to reduce down time
+  task deploy: %w{docker:pull docker:decrypt docker:cron docker:stop docker:start} # pull images manually to reduce down time
 end

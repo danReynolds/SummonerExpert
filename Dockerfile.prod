@@ -22,9 +22,6 @@ ADD . /app
 # Setup the cronjob to fetch data from Champion.gg and Riot
 RUN bundle exec whenever --update-crontab
 
-# Start cron process
-RUN cron
-
 # Set Rails environment mode to production
 ENV RAILS_ENV production
 ENV RACK_ENV production
