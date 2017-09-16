@@ -30,4 +30,4 @@ ENV RAILS_ENV production
 ENV RACK_ENV production
 
 # Start server
-CMD ["rails","server","-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
