@@ -65,13 +65,16 @@ class ChampionsController < ApplicationController
   end
 
   def ability_order
+    order = @role_performance.ability_order(champion_params[:metric])
     args = {
       name: @champion.name,
       metric: ChampionGGApi::METRICS[champion_params[:metric].to_sym],
-      ability_order: @role_performance.ability_order(champion_params[:metric]),
+      start_order: order[:start_order].join(', '),
+      max_order: order[:max_order].join(', '),
       elo: @role_performance.elo.humanize,
       role: ChampionGGApi::ROLES[@role_performance.role.to_sym].humanize
     }
+
     render json: {
       speech: ApiResponse.get_response({ champions: :ability_order }, args)
     }

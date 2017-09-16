@@ -16,6 +16,8 @@ class RolePerformance
   RELAY_ACCESSORS.each do |accessor|
     attr_accessor accessor
   end
+  MAX_ABILITY_LEVEL = 5
+  ABILITY_VARIANT_SIZE = 3
 
   def initialize(**args)
     args.each do |key, value|
@@ -44,8 +46,26 @@ class RolePerformance
   end
 
   def ability_order(metric)
-    @role_performance['hashes']['skillorderhash'][metric]['hash']
-      .split('-')[1..-1].join(', ')
+    order = {}
+    abilities = @role_performance['hashes']['skillorderhash'][metric]['hash']
+      .split('-')[1..-1]
+
+    order[:max_order] = abilities.inject(Hash.new(0).merge!({ max_order: [] })) do |acc, ability|
+      acc[ability] += 1
+      acc.tap do
+        acc[:max_order] << ability if acc[ability] == MAX_ABILITY_LEVEL
+      end
+    end[:max_order]
+
+    abilities.size.times do |i|
+      ability_subset = abilities.first(i)
+      if ability_subset.uniq.size == ABILITY_VARIANT_SIZE
+        order[:start_order] = ability_subset
+        break
+      end
+    end
+
+    order
   end
 
   def item_ids(metric)

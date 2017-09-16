@@ -17,8 +17,8 @@ champions:
     - "I have seen {name} fall in battle before and this is what I would recommend: {tip}"
     - "While strong, {name} is not invincible. Remember the following: {tip}"
   ability_order:
-    - 'The {metric} ability order for {name} {role} in {elo} is {ability_order}.'
-    - 'As {name} {role}, the {metric} ability ordering is {ability_order} in {elo}.'
+    - 'The {metric} ability order for {name} {role} in {elo} is to start {start_order} and then max {max_order}.'
+    - 'As {name} {role}, the {metric} ability ordering has you start {start_order} and max {max_order} in {elo}.'
   role_performance:
     percentage:
       - '{name} averages a {position}% {position_name} playing {role} in {elo} division.'
