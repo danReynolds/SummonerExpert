@@ -23,7 +23,7 @@ ADD . /app
 RUN bundle exec whenever --update-crontab
 
 # Start cron process
-cron
+RUN cron
 
 # Set Rails environment mode to production
 ENV RAILS_ENV production
