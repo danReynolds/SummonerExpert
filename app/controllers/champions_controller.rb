@@ -72,7 +72,7 @@ class ChampionsController < ApplicationController
       start_order: order[:start_order].join(', '),
       max_order: order[:max_order].join(', '),
       elo: @role_performance.elo.humanize,
-      role: ChampionGGApi::ROLES[@role_performance.role.to_sym].humanize
+      role: @role_performance.role.humanize
     }
 
     render json: {
