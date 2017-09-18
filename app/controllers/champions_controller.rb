@@ -183,6 +183,16 @@ class ChampionsController < ApplicationController
 
   def role_performance
     position = champion_params[:position_details].to_sym
+    return render json: {
+      speech: ApiResponse.get_response(
+        { errors: { role_performance: :no_position_details } },
+        {
+          role: @role_performance.role.humanize,
+          name: @role_performance.name,
+        }
+      )
+    } if position.blank?
+
     position_performance = @role_performance.send(position)
     percentage_positions = ChampionGGApi::POSITION_DETAILS.slice(:winRate, :playRate, :percentRolePlayed, :banRate).keys
 

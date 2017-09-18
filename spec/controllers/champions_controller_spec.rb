@@ -1007,6 +1007,17 @@ describe ChampionsController, type: :controller do
       }
     end
 
+    context 'with no position details' do
+      before(:each) do
+        champion_params[:position_details] = ''
+      end
+
+      it 'should ask for position details' do
+        post action, params: params
+        expect(speech).to eq 'Please specify the information you want to know about Thresh Support.'
+      end
+    end
+
     context 'with an absolute position details' do
       it "should indicate the champion's absolute value for the given position" do
         post action, params: params

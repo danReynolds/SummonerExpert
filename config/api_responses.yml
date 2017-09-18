@@ -175,6 +175,8 @@ errors:
       no_roles:
         - "There are multiple matchup rankings for {name}, please specify {name}'s role."
   role_performance:
+    no_position_details:
+      - 'Please specify the information you want to know about {name} {role}.'
     does_not_play:
       - 'I do not have any information on {name} playing {role}.'
     plays_multiple_roles:
