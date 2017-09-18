@@ -194,7 +194,9 @@ class ChampionsController < ApplicationController
     } if position.blank?
 
     position_performance = @role_performance.send(position)
-    percentage_positions = ChampionGGApi::POSITION_DETAILS.slice(:winRate, :playRate, :percentRolePlayed, :banRate).keys
+    percentage_positions = ChampionGGApi::POSITION_DETAILS.slice(
+      :winRate, :playRate, :percentRolePlayed, :banRate,
+    ).keys
 
     if percentage_positions.include?(position)
       position_performance *= 100

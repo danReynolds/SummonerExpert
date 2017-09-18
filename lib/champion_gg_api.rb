@@ -82,7 +82,7 @@ class ChampionGGApi < ExternalApi
     assists: 'assists',
     playRate: 'play rate',
     gamesPlayed: 'total games played',
-    percentRolePlayed: 'percent of games',
+    percentRolePlayed: 'role percentage',
     goldEarned: 'gold earned',
     deaths: 'deaths',
     wardPlaced: 'wards placed',
