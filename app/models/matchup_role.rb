@@ -4,7 +4,7 @@
 class MatchupRole
   include CollectionHelper
   include ActiveModel::Validations
-  CHAMPIONS = Rails.cache.read(:champions)
+  CHAMPIONS = Cache.get_collection(:champions)
 
   attr_accessor :matchup_role, :role1, :role2, :elo
 

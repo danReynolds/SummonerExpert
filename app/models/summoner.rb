@@ -12,7 +12,9 @@ class Summoner
       instance_variable_set("@#{key}", value)
     end
 
-    @id = RiotApi.get_summoner_id(name: @name, region: @region) unless @id
+    @id = Cache.get_or_set_summoner_id(@name, @region) do
+      RiotApi.get_summoner_id(name: @name, region: @region)
+    end
   end
 
   def error_message

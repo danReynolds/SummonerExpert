@@ -12,7 +12,7 @@ class MatchupRanking < MatchupRole
     end
 
     @matchups = if @matchup_role = determine_matchup_role
-      Rails.cache.read(matchups: { name: @name, role: @matchup_role, elo: @elo })
+      Cache.get_champion_matchups(@name, @matchup_role, @elo)
     elsif @role2.present?
       determine_matchups_by_unnamed_role
     else
@@ -40,9 +40,7 @@ class MatchupRanking < MatchupRole
   # return the matchups for that one
   def determine_matchups_by_shared_roles
     shared_matchups = ChampionGGApi::MATCHUP_ROLES.values.inject([]) do |shared_matchups, matchup_role|
-      matchups = Rails.cache.read(
-        matchups: { name: @name, role: matchup_role, elo: @elo }
-      )
+      matchups = Cache.get_champion_matchups(@name, matchup_role, @elo)
       shared_matchups.tap { shared_matchups << matchups if matchups }
     end
     shared_matchups.first if shared_matchups.length == 1
@@ -56,22 +54,20 @@ class MatchupRanking < MatchupRole
     # ADCs and supports will have both their native role and ADCSUPPORT matchups
     # so use the unnamed role to determine which one of those is being asked for
     if @role2 == adc || @role2 == support
-      adc_matchups = Rails.cache.read(
-        matchups: { name: @name, role: adc, elo: @elo }
-      )
-      support_matchups = Rails.cache.read(
-        matchups: { name: @name, role: support, elo: @elo }
-      )
+      adc_matchups = Cache.get_champion_matchups(@name, adc, @elo)
+      support_matchups = Cache.get_champion_matchups(@name, support, @elo)
 
       return unless adc_matchups || support_matchups
       return adc_matchups if adc_matchups && @role2 == adc
       return support_matchups if support_matchups && @role2 == support
-      return Rails.cache.read(
-        matchups: { name: @name, role: ChampionGGApi::MATCHUP_ROLES[:ADCSUPPORT], elo: @elo }
+      return Cache.get_champion_matchups(
+        @name,
+        ChampionGGApi::MATCHUP_ROLES[:ADCSUPPORT],
+        @elo
       )
     end
 
-    Rails.cache.read( matchups: { name: @name, role: @role2, elo: @elo })
+    Cache.get_champion_matchups(@name, @role2, @elo)
   end
 
   def matchups_validator

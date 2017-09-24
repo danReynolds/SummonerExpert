@@ -1,7 +1,7 @@
 class Item < Collection
   include ActiveModel::Validations
 
-  COLLECTION = Rails.cache.read(collection_key.pluralize)
+  COLLECTION = Cache.get_collection(collection_key.pluralize)
   ACCESSORS = [
     :name, :sanitizedDescription
   ].freeze

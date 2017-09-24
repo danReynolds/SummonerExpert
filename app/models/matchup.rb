@@ -15,9 +15,7 @@ class Matchup < MatchupRole
 
     @matchup_role = determine_matchup_role
     @matchup = if @matchup_role
-      matchups = Rails.cache.read(
-        matchups: { name: @name1, role: @matchup_role, elo: @elo }
-      )
+      matchups = Cache.get_champion_matchups(@name1, @matchup_role, @elo)
       matchups[@name2] if matchups
     else
       @shared_matchups = find_shared_matchups
@@ -38,9 +36,7 @@ class Matchup < MatchupRole
   # Find all shared roles between the champions and return the shared roles
   def find_shared_matchups
     ChampionGGApi::MATCHUP_ROLES.values.inject([]) do |shared_matchups, matchup_role|
-      matchups = Rails.cache.read(
-        matchups: { name: @name1, role: matchup_role, elo: @elo }
-      )
+      matchups = Cache.get_champion_matchups(@name1, matchup_role, @elo)
       shared_matchups.tap do
         if matchups && matchup = matchups[@name2]
           shared_matchups << matchup

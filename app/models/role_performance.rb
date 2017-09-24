@@ -25,10 +25,10 @@ class RolePerformance
     end
 
     if @role.present?
-      @role_performance = Rails.cache.read(args)
+      @role_performance = Cache.get_champion_role_performance(@name, @role, @elo)
     else
       role_performances = ChampionGGApi::ROLES.values.map do |role|
-        { role: role, role_performance: Rails.cache.read(args.merge(role: role)) }
+        { role: role, role_performance: Cache.get_champion_role_performance(@name, role, @elo) }
       end.reject { |role_entry| role_entry[:role_performance].nil? }
 
       if role_performances.length == 1

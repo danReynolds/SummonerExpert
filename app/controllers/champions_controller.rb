@@ -7,7 +7,8 @@ class ChampionsController < ApplicationController
   before_action :load_matchup_ranking, only: :matchup_ranking
 
   def ranking
-    rankings = Rails.cache.read(champion_params.slice(:position, :elo, :role).to_h)
+    ranking_params = champion_params.slice(:position, :elo, :role).values
+    rankings = Cache.get_champion_rankings(*ranking_params)
     rankings_filter = Filterable.new({
       collection: rankings
     }.merge(champion_params.slice(:list_position, :list_size, :list_order)))
@@ -82,7 +83,7 @@ class ChampionsController < ApplicationController
 
   def build
     metric = champion_params[:metric]
-    ids_to_names = Rails.cache.read(:items)
+    ids_to_names = Cache.get_collection(:items)
     item_names = @role_performance.item_ids(metric).map do |id|
       ids_to_names[id]
     end.en.conjunction(article: false)

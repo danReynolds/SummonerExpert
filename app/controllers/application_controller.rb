@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   end
 
   def patch
-    args = { patch: Rails.cache.read(:patch) }
+    args = { patch: Cache.get_patch }
     render json: {
       speech: ApiResponse.get_response({ application: :patch }, args)
     }

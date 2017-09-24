@@ -6,13 +6,10 @@ class Collection
     @name = args[:name].strip
     @name = CollectionHelper::match_collection(
       args[:name].strip,
-      Rails.cache.read(collection_key.pluralize).values
+      Cache.get_collection(collection_key.pluralize).values
     )
 
-    search_key = {}
-    search_key[collection_key] = @name
-
-    if @data = Rails.cache.read(search_key)
+    if @data = Cache.get_collection_entry(collection_key, @name)
       self.class::ACCESSORS.each do |key|
         instance_variable_set("@#{key}", @data[key])
       end

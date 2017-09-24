@@ -72,12 +72,10 @@ module RiotApi
       end
 
       def get_summoner_id(args)
-        Rails.cache.fetch(name: args[:name], region: args[:region]) do
-          name = URI.encode(args[:name])
-          url = "#{replace_url(@api[:summoner][:id], args)}/#{name}"
-          return unless response = fetch_response(url)
-          response['id']
-        end
+        name = URI.encode(args[:name])
+        url = "#{replace_url(@api[:summoner][:id], args)}/#{name}"
+        return unless response = fetch_response(url)
+        response['id']
       end
     end
   end
