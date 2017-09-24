@@ -26,5 +26,5 @@ RUN bundle exec whenever --update-crontab
 ENV RAILS_ENV production
 ENV RACK_ENV production
 
-# Start server
-CMD ["cron", "&&", "rails", "server", "-b", "0.0.0.0"]
+# Start server with cron
+CMD cron && rails server -b 0.0.0.0
