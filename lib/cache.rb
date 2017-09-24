@@ -129,9 +129,15 @@ class Cache
     # @name the name of the summoner
     # @region the region the summoner is playing in
     # @queues the queues for the summoner
+    # @expiration the default expiration is 25 minutes, approximate duration of
+    # one game
     # Returns success or failure status
-    def set_summoner_queues(name, region, queues)
-      Rails.cache.write({ queues: { name: name, region: region } }, queues)
+    def set_summoner_queues(name, region, queues, expiration = 25.minutes)
+      Rails.cache.write(
+        { queues: { name: name, region: region } },
+        queues,
+        expires_in: expiration
+      )
     end
   end
 

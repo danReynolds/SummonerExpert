@@ -232,6 +232,17 @@ describe ChampionsController, type: :controller do
       end
     end
 
+    context 'with a stat that does not gain per level' do
+      before :each do
+        champion_params[:stat] = :movespeed
+      end
+
+      it 'should not factor in the stat per level' do
+        post action, params: params
+        expect(speech).to eq 'Nocturne has 345.0 movement speed at level 5.'
+      end
+    end
+
     context 'with an invalid level' do
       before :each do
         champion_params[:level] = '25'

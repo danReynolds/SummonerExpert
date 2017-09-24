@@ -46,7 +46,7 @@ class ChampionsController < ApplicationController
   end
 
   def stats
-    stat_key = champion_params[:stat]
+    stat_key = champion_params[:stat].to_sym
     level = champion_params[:level].to_i
 
     return render json: {
@@ -56,7 +56,7 @@ class ChampionsController < ApplicationController
     args = {
       name: @champion.name,
       level: level,
-      stat_name: RiotApi::STATS[stat_key.to_sym],
+      stat_name: RiotApi::STATS[stat_key],
       stat: @champion.stat(stat_key, level).round(2)
     }
 

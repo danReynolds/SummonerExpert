@@ -30,7 +30,7 @@ class Champion < Collection
   def stat(stat_key, level)
     stats = @data['stats']
     stat = stats[stat_key]
-    stat_per_level = stats["#{stat_key}#{STAT_PER_LEVEL}"]
+    stat_per_level = stats["#{stat_key}#{STAT_PER_LEVEL}"] || 0
     stat + stat_per_level * (level - 1)
   end
 end
