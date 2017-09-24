@@ -29,13 +29,13 @@ describe SummonersController, type: :controller do
     context 'when valid' do
       it 'should return the summoner information' do
         post action, params: params
-        expect(speech).to eq 'Wingilote is ranked Gold V in Solo Queue. The summoner currently has a 50.16% win rate and is not on a hot streak.'
+        expect(speech).to eq 'Wingilote is ranked Gold V with 84 LP in Solo Queue. The summoner currently has a 50.16% win rate and is not on a hot streak.'
       end
 
       it 'should vary the information by queue' do
         summoner_params[:queue] = 'RANKED_FLEX_SR'
         post action, params: params
-        expect(speech).to eq 'Wingilote is ranked Bronze I in Flex Queue. The summoner currently has a 60.78% win rate and is not on a hot streak.'
+        expect(speech).to eq 'Wingilote is ranked Bronze I with 28 LP in Flex Queue. The summoner currently has a 60.78% win rate and is not on a hot streak.'
       end
     end
   end

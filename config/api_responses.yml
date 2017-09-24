@@ -153,7 +153,7 @@ items:
     - "I have seen many champions use {name} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
 summoners:
   description:
-    - "{name} is ranked {elo} {rank} in {queue}. The summoner currently has a {winrate}% win rate and is {hot_streak} a hot streak."
+    - "{name} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate and is {hot_streak} a hot streak."
 errors:
   matchups:
     duo_role_no_matchup:
