@@ -3,6 +3,6 @@ summoner:
   ranked: https://{region}.api.pvp.net/api/lol/{region}/v2.5/league/by-summoner/{id}
   champions: https://{region}.api.pvp.net/api/lol/{region}/v1.3/stats/by-summoner/{id}/ranked
   id: https://{region}.api.riotgames.com/lol/summoner/v3/summoners/by-name
-  description: https://{region}.api.riotgames.com/lol/league/v3/positions/by-summoner/{id}
+  queues: https://{region}.api.riotgames.com/lol/league/v3/positions/by-summoner/{id}
 champions: https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false{tags}
 items: https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&tags=all

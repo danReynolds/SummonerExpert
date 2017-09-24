@@ -52,7 +52,14 @@ class Cache
     # @region the region the summoner is playing in
     # Returns the id of the summoner
     def get_summoner_id(name, region)
-      Rails.cache.read({ name: name, region: region })
+      Rails.cache.read(id: { name: name, region: region })
+    end
+
+    # @name the name of the summoner
+    # @region the region the summoner is playing in
+    # Returns the queues for the summoner
+    def get_summoner_queues(name, region)
+      Rails.cache.read(queues: { name: name, region: region })
     end
 
     ###
@@ -116,7 +123,15 @@ class Cache
     # @id the summoner id
     # Returns success or failure status
     def set_summoner_id(name, region, id)
-      Rails.cache.write({ name: name, region: region }, id)
+      Rails.cache.write({ id: { name: name, region: region } }, id)
+    end
+
+    # @name the name of the summoner
+    # @region the region the summoner is playing in
+    # @queues the queues for the summoner
+    # Returns success or failure status
+    def set_summoner_queues(name, region, queues)
+      Rails.cache.write({ queues: { name: name, region: region } }, queues)
     end
   end
 

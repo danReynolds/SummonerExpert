@@ -152,9 +152,12 @@ items:
   description:
     - "I have seen many champions use {name} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
 summoners:
-  description:
+  show:
     - "{name} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate and is {hot_streak} a hot streak."
 errors:
+  summoner:
+    not_active:
+      - "{name} is not currently an active player in {queue}."
   matchups:
     duo_role_no_matchup:
       - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division.'

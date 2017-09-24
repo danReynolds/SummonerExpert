@@ -18,11 +18,6 @@ module RiotApi
     MIDDLE = 'Middle'.freeze
     ROLES = [TOP, JUNGLE, SUPPORT, ADC, MIDDLE]
 
-    QUEUES = {
-      RANKED_SOLO_5x5: 'Solo Queue',
-      RANKED_FLEX_SR: 'Flex Queue'
-    }.freeze
-
     REGIONS = %w(br1 eun1 euw1 jp1 kr la1 la2 na1 oc1 ru tr1)
 
     STATS = {
@@ -57,16 +52,16 @@ module RiotApi
         fetch_response(url)[:champions].reject { |champ| champ[:id].zero? }
       end
 
-      def get_summoner_stats(args)
-        url = replace_url(@api[:summoner][:description], args)
+      def get_summoner_queues(args)
+        url = replace_url(@api[:summoner][:queues], args)
         return unless queue_stats = fetch_response(url)
 
         queue_stats.inject({}) do |queues, queue_stat|
           queues.tap do
             queues[queue_stat['queueType']] = queue_stat.slice(
               'leaguePoints', 'wins', 'losses', 'rank', 'hotStreak', 'inactive',
-              'tier'
-            )
+              'tier', 'queueType'
+            ).with_indifferent_access
           end
         end
       end

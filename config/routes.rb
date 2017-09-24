@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   end
 
   namespace :summoners do
-    post :description
-    post :champion
+    post :show
   end
 end
