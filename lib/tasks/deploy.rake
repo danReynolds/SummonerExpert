@@ -101,5 +101,5 @@ namespace :docker do
   end
 
   desc 'pulls images, stops old containers and starts new containers'
-  task deploy: %w{docker:pull docker:decrypt docker:cron docker:stop docker:start} # pull images manually to reduce down time
+  task deploy: %w{docker:pull docker:decrypt docker:stop docker:start docker:cron} # pull images manually to reduce down time
 end

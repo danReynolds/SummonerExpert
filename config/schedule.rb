@@ -19,14 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-env 'MAILTO', 'me@danreynolds.ca'
-
 set :environment, "production"
 set :output, { error: '/app/scheduler-error.log', standard: '/app/scheduler.log' }
 
 ENV.each { |k, v| env(k, v) }
 
-every 1.day, at: "04:00 am" do
+every 1.day, at: "07:20 am" do
   rake "champion_gg:all"
   rake "riot:all"
 end
