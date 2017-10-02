@@ -20,10 +20,11 @@
 # Learn more: http://github.com/javan/whenever
 
 set :environment, "production"
+set :output, { error: '/app/scheduler-error.log', standard: '/app/scheduler.log' }
 
 ENV.each { |k, v| env(k, v) }
 
-every 1.day, at: "07:00 am" do
+every 1.day, at: "02:45 am" do
   rake "champion_gg:all"
   rake "riot:all"
   command "echo Champion.gg $(date) >> /app/scheduler.txt"

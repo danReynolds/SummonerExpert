@@ -6,7 +6,8 @@ services:
       - 3000
     volumes:
       - ./.env:/app/.env
-      - ./scheduler.txt:/app/scheduler.txt
+      - ./scheduler.log:/app/scheduler.log
+      - ./scheduler-error.log:/app/scheduler-error.log
       - logs:/app/log/
     environment:
       - ENV_KEY=$ENV_KEY
