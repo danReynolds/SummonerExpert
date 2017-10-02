@@ -19,9 +19,6 @@ RUN gem install bundler && bundle install --without development test
 # Copy the current directory contents into the container at /app
 ADD . /app
 
-# Setup the cronjob to fetch data from Champion.gg and Riot
-RUN bundle exec whenever --update-crontab
-
 # Set Rails environment mode to production
 ENV RAILS_ENV production
 ENV RACK_ENV production

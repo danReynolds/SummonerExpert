@@ -63,12 +63,12 @@ namespace :docker do
     end
   end
 
-  desc 'Start the cron process'
+  desc 'Update the cron config'
   task cron: 'deploy:configs' do
     on server do
       within deploy_path do
         with rails_env: deploy_env, deploy_tag: deploy_tag, env_key: env_key do
-          execute 'docker-compose', '-f', 'docker-compose.yml', '-f', 'docker-compose.production.yml', 'run', 'app', 'cron'
+          execute 'docker-compose', '-f', 'docker-compose.yml', '-f', 'docker-compose.production.yml', 'run', 'app', 'whenever', '--update-crontab'
         end
       end
     end
