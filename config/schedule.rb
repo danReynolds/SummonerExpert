@@ -19,13 +19,16 @@
 
 # Learn more: http://github.com/javan/whenever
 
+env 'MAILTO', 'me@danreynolds.ca'
+env 'REDIS_PASSWORD', ENV['REDIS_PASSWORD']
+
 set :environment, "production"
 set :output, { error: '/app/scheduler-error.log', standard: '/app/scheduler.log' }
 
 ENV.each { |k, v| env(k, v) }
 
-every 1.day, at: "02:45 am" do
+every 1.day, at: "03:30 am" do
   rake "champion_gg:all"
   rake "riot:all"
-  command "echo Champion.gg $(date) >> /app/scheduler.txt"
+  command "echo Champion.gg $(ENV['REDIS_PASSWORD'])"
 end
