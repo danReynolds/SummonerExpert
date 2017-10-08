@@ -24,7 +24,9 @@ set :output, { error: '/app/scheduler-error.log', standard: '/app/scheduler.log'
 
 ENV.each { |k, v| env(k, v) }
 
-every 1.day, at: "07:20 am" do
+every 1.day, at: "07:40 am" do
+  command "echo Starting Nightly Redis Update at $(date) >> /app/scheduler.log"
   rake "champion_gg:all"
   rake "riot:all"
+  command "echo Finished Nightly Redis Update at $(date) >> /app/scheduler.log"
 end
