@@ -20,8 +20,9 @@ RUN bundle install
 # Copy the current directory contents into the container at /app
 ADD . /app
 
-# Turn on cache in dev environment
-RUN rails dev:cache
+# Set Rails environment mode to development
+ENV RAILS_ENV development
+ENV RACK_ENV development
 
 # Start server
-CMD ["rails","server","-b", "0.0.0.0"]
+CMD ./startup.sh
