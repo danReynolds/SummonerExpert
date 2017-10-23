@@ -76,8 +76,10 @@ class ChampionsController < ApplicationController
       role: @role_performance.role.humanize
     }
 
+    order_similarity = order[:start_order] == order[:max_order] ? :same_order : :different_order
+
     render json: {
-      speech: ApiResponse.get_response({ champions: :ability_order }, args)
+      speech: ApiResponse.get_response({ champions: { ability_order: order_similarity } }, args)
     }
   end
 

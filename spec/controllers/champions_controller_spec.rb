@@ -266,6 +266,17 @@ describe ChampionsController, type: :controller do
       }
     end
 
+    it 'should not repeat the order if they are the same' do
+      champion_params.merge!({
+        name: 'Shyvana',
+        role: 'JUNGLE',
+        elo: 'SILVER',
+        metric: 'highestCount'
+      })
+      post action, params: params
+      expect(speech).to eq 'The most frequent ability order for Shyvana Jungle in Silver is to both start and max W, Q, E.'
+    end
+
     it 'should indicate the ability ordering for the champion' do
       post action, params: params
       expect(speech).to eq 'The most frequent ability order for Azir Middle in Gold is to start W, Q, E and then max Q, W, E.'
