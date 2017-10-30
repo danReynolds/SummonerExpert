@@ -3,3 +3,4 @@
 .dockerignore
 *.md
 .git
+./pgdata
