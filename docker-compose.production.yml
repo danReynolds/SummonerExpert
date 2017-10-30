@@ -22,7 +22,7 @@ services:
     networks:
       default:
     volumes:
-      - /etc/letsencrypt/live/api.summonerexpert.com/privkey.pem:/etc/nginx/summonerexpert_privkey.pem
+      - /etc/letsencrypt/live/api.summonerexpert.com/priv.pem:/etc/nginx/summonerexpert_privkey.pem
       - /etc/letsencrypt/live/api.summonerexpert.com/chain.pem:/etc/nginx/summonerexpert_chain.pem
       - /etc/letsencrypt/live/api.summonerexpert.com/fullchain.pem:/etc/nginx/summonerexpert_fullchain.pem
       - /etc/ssl/dhparam.pem:/etc/nginx/dhparam.pem
