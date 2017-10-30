@@ -25,7 +25,7 @@ services:
       - /etc/letsencrypt/live/api.summonerexpert.com/priv.pem:/etc/nginx/summonerexpert_privkey.pem
       - /etc/letsencrypt/live/api.summonerexpert.com/chain.pem:/etc/nginx/summonerexpert_chain.pem
       - /etc/letsencrypt/live/api.summonerexpert.com/fullchain.pem:/etc/nginx/summonerexpert_fullchain.pem
-      - /etc/ssl/dhparam.pem:/etc/nginx/dhparam.pem
+      - /etc/ssl/certs/dhparam.pem:/etc/nginx/dhparam.pem
       - logs:/etc/nginx/log/
       - ./nginx.upstream.conf:/etc/nginx/conf.d/default.conf
 volumes:
