@@ -17,12 +17,10 @@ services:
       - .env
   nginx:
     ports:
-      - 80
+      - 80:80
+      - 443:443
     networks:
       default:
-      nginx_default:
-        aliases:
-          - SUMMONEREXPERT
     volumes:
       - redis:/data
       - logs:/etc/nginx/log/
@@ -30,6 +28,3 @@ services:
 volumes:
   redis:
   logs:
-networks:
-  nginx_default:
-    external: true
