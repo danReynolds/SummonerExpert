@@ -60,7 +60,7 @@ describe SummonersController, type: :controller do
 
     context 'with no role specified' do
       before :each do
-        summoner_params[:role] = ''
+        summoner_params[:list_order] = 'lowest'
       end
 
       context 'with a single role played' do
@@ -149,6 +149,17 @@ describe SummonersController, type: :controller do
       end
     end
 
+    context 'with a reverse list order' do
+      before :each do
+        summoner_params[:list_order] = 'lowest'
+      end
+
+      it 'should return the worst build' do
+        post action, params: params
+        expect(speech).to eq "Hero man has played Shyvana Adc eleven times this season and the summoner's lowest win rate build is two Rabadon's Deathcaps, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
+      end
+    end
+
     context 'with a winrate metric specified' do
       before :each do
         summoner_params[:metric] = :winrate
@@ -193,6 +204,21 @@ describe SummonersController, type: :controller do
       it 'should indicate the summoner has never completed a build' do
         post action, params: params
         expect(speech).to eq 'Hero man does not have any complete builds playing Shyvana Adc this season.'
+      end
+    end
+
+    context 'with builds with the same winrate' do
+      before :each do
+        build = @complete_build2
+        summoner_performance = @matches[2].summoner_performances.first
+        build.each_with_index do |item_id, index|
+          summoner_performance.update_attribute("item#{index}_id", item_id)
+        end
+      end
+
+      it 'should use the build that is done most frequently' do
+        post action, params: params
+        expect(speech).to eq "Hero man has played Shyvana Adc eleven times this season and the summoner's highest win rate build is two Rabadon's Deathcaps, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
       end
     end
 
