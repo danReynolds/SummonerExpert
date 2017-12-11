@@ -23,6 +23,18 @@ class ApiResponse
       end
     end
 
+    # Return the arguments for an API response given a Filterable filter
+    def filter_args(filter)
+      {
+        list_position: filter.list_position.en.ordinate,
+        real_size: filter.real_size.en.numwords,
+        requested_size: filter.requested_size.en.numwords,
+        filtered_size: filter.filtered_size.en.numwords,
+        list_order: filter.list_order,
+        filtered_position_offset: (filter.list_position + filter.filtered_size - 1).en.ordinate
+      }
+    end
+
     private
 
     def random_response(responses)

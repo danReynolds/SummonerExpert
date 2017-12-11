@@ -12,9 +12,7 @@ class MatchupRanking < MatchupRole
     end
 
     @matchups = if @matchup_role = determine_matchup_role
-      Cache.get_champion_matchups(@name, @matchup_role, @elo)
-    elsif @role2.present?
-      determine_matchups_by_unnamed_role
+      determine_matchups_by_single_role(@matchup_role)
     else
       determine_matchups_by_shared_roles
     end
@@ -47,19 +45,20 @@ class MatchupRanking < MatchupRole
   end
 
   # Use the unnamed role to try to determine the matchups
-  def determine_matchups_by_unnamed_role
+  def determine_matchups_by_single_role(role)
     adc = ChampionGGApi::MATCHUP_ROLES[:DUO_CARRY]
     support = ChampionGGApi::MATCHUP_ROLES[:DUO_SUPPORT]
 
     # ADCs and supports will have both their native role and ADCSUPPORT matchups
-    # so use the unnamed role to determine which one of those is being asked for
-    if @role2 == adc || @role2 == support
+    # so use the role to determine which one of those is being asked for
+    if role == adc || role == support
       adc_matchups = Cache.get_champion_matchups(@name, adc, @elo)
+      return adc_matchups if adc_matchups && role == adc
+
       support_matchups = Cache.get_champion_matchups(@name, support, @elo)
+      return support_matchups if support_matchups && role == support
 
       return unless adc_matchups || support_matchups
-      return adc_matchups if adc_matchups && @role2 == adc
-      return support_matchups if support_matchups && @role2 == support
       return Cache.get_champion_matchups(
         @name,
         ChampionGGApi::MATCHUP_ROLES[:ADCSUPPORT],
@@ -67,7 +66,7 @@ class MatchupRanking < MatchupRole
       )
     end
 
-    Cache.get_champion_matchups(@name, @role2, @elo)
+    Cache.get_champion_matchups(@name, role, @elo)
   end
 
   def matchups_validator

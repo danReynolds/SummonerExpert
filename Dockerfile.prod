@@ -23,5 +23,5 @@ ADD . /app
 ENV RAILS_ENV production
 ENV RACK_ENV production
 
-# Start server with cron
-CMD ./startup.sh
+# Start server with dependencies
+CMD ./startup.prod.sh

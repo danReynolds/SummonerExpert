@@ -40,6 +40,10 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
+  config.logger = ActiveSupport::Logger.new(
+    config.paths['log'].first, 1, 500 * 1024 * 1024
+  )
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.cache_store = config.cache_store = :redis_store, {

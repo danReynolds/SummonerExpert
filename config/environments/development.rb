@@ -31,6 +31,10 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.logger = ActiveSupport::Logger.new(
+    config.paths['log'].first, 1, 100 * 1024 * 1024
+  )
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

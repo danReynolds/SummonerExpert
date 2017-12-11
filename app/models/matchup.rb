@@ -52,21 +52,19 @@ class Matchup < MatchupRole
         name1: @name1,
         name2: @name2,
         elo: @elo.humanize,
-        role1: @role1.humanize,
-        role2: @role2.humanize,
-        matchup_role: @matchup_role
+        role1: @role1.try(:humanize),
+        role2: @role2.try(:humanize),
+        matchup_role: @matchup_role.try(:humanize)
       }
-
-      shared_matchups = find_shared_matchups
 
       if @role1.present? && @role2.present?
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :duo_role_no_matchup } }, args)
-      elsif @role1.present?
+      elsif @matchup_role
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :solo_role_no_matchup } }, args)
-      elsif shared_matchups.length > 1
+      elsif @shared_matchups.length > 1
         @expect_user_response = true
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :multiple_shared_roles } }, args)
-      elsif shared_matchups.length == 0
+      elsif @shared_matchups.length == 0
         errors[:base] << ApiResponse.get_response({ errors: { matchups: :no_shared_roles } }, args)
       end
     end

@@ -156,17 +156,269 @@ items:
   description:
     - "I have seen many champions use {name} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
 summoners:
-  show:
-    - "{name} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate and is {hot_streak} a hot streak."
+  performance_summary:
+    - "{name} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate."
+  champion_build:
+    no_recency:
+      - "{name} has played {champion} {role} {total_performances} this season and the summoner's {list_order} {sort_type} build is {build}."
+    recency:
+      - "{name} has played {champion} {role} {total_performances} recently and the summoner's {list_order} {sort_type} build is {build}."
+  champion_performance_summary:
+    recency:
+      - "{name} has played {champion} {role} {total_performances} recently with a {winrate}% win rate and an overall {kills}/{deaths}/{assists} KDA."
+    no_recency:
+      - "{name} has played {champion} {role} {total_performances} this season with a {winrate}% win rate and an overall {kills}/{deaths}/{assists} KDA."
+  champion_performance_position:
+    recency:
+      - "{name} has played {champion} {role} {total_performances} recently and averages {position_value} {position_name}."
+    no_recency:
+      - "{name} has played {champion} {role} {total_performances} this season and averages {position_value} {position_name}."
+  champion_matchup_ranking:
+    no_recency:
+      empty:
+        normal:
+          - '{name} has not played any games as {champion} {role} this season in ranked solo queue.'
+        offset:
+          complete:
+            - 'No champions were requested.'
+          incomplete:
+            - '{name} has only played against {real_size} {real_size_champion_conjugation} playing as {champion} {role} so far this season.'
+      single:
+        normal:
+          complete:
+            - 'The champion with the {list_order} {sort_type} playing against {name} as {champion} {role} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} {real_size_champion_conjugation} so far this season as {champion} {role}. The champion with the {list_order} {sort_type} playing against {name} as {champion} {role} is {champions}.'
+        offset:
+          complete:
+            - 'The champion with the {list_position} {list_order} {sort_type} playing against {name} as {champion} {role} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} so far this season as {champion} {role}. The champion with the {list_position} {list_order} {sort_type} playing against {name} as {champion} {role} is {champions}.'
+      multiple:
+        normal:
+          complete:
+            - "The champions with the {list_order} {sort_type} against {name} playing {champion} {role} are {champions}."
+          incomplete:
+            - "{name} has only played against {real_size} different {real_size_champion_conjugation} so far this season as {champion} {role}. The champions with the {list_order} {sort_type} playing against {name} {role} are {champions}."
+        offset:
+          complete:
+            - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {sort_type} against {name} playing {champion} {role} are {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} so far this season as {champion} {role}. The {list_position} through {filtered_position_offset} champions with the {list_order} {sort_type} against {name} playing as {champion} {role} are {champions}.'
+    recency:
+      empty:
+        normal:
+          - '{name} has not played any games as {champion} {role} recently in ranked solo queue.'
+        offset:
+          complete:
+            - 'No champions were requested.'
+          incomplete:
+            - '{name} has only played against {real_size} {real_size_champion_conjugation} playing as {champion} {role} recently.'
+      single:
+        normal:
+          complete:
+            - 'The champion with the {list_order} {sort_type} playing against {name} recently as {champion} {role} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} {real_size_champion_conjugation} recently as {champion} {role}. The champion with the {list_order} {sort_type} playing against {name} as {champion} {role} is {champions}.'
+        offset:
+          complete:
+            - 'The champion with the {list_position} {list_order} {sort_type} playing against {name} recently as {champion} {role} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} recently as {champion} {role}. The champion with the {list_position} {list_order} {sort_type} playing against {name} as {champion} {role} is {champions}.'
+      multiple:
+        normal:
+          complete:
+            - "The champions with the {list_order} {sort_type} against {name} recently playing {champion} {role} are {champions}."
+          incomplete:
+            - "{name} has only played against {real_size} different {real_size_champion_conjugation} recently as {champion} {role}. The champions with the {list_order} {sort_type} playing against {name} {role} are {champions}."
+        offset:
+          complete:
+            - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {sort_type} against {name} recently playing {champion} {role} are {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} recently as {champion} {role}. The {list_position} through {filtered_position_offset} champions with the {list_order} {sort_type} against {name} playing as {champion} {role} are {champions}.'
+  champion_performance_ranking:
+    no_recency:
+      empty:
+        normal:
+          complete:
+            - 'No champions were requested.'
+          incomplete:
+            role_specified:
+              - '{name} has not played any games as {role} this season in ranked solo queue.'
+            no_role_specified:
+              - '{name} has not played any games this season in ranked solo queue.'
+        offset:
+          complete:
+            - 'No champions were requested.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} as {role} so far this season.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} so far this season.'
+      single:
+        normal:
+          complete:
+            role_specified:
+              - 'The champion played by {name} with the {list_order} {sort_type} in {role} is {champions}.'
+            no_role_specified:
+              - 'The champion played by {name} with the {list_order} {sort_type} is {champions}.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} as {role} so far this season.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} so far this season.'
+        offset:
+          complete:
+            role_specified:
+              - 'The champion played by {name} with the {list_position} {list_order} {sort_type} in {role} is {champions}.'
+            no_role_specified:
+              - 'The champion played by {name} with the {list_position} {list_order} {sort_type} is {champions}.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} so far this season as {role}. The champion played by {name} with the {list_position} {list_order} {sort_type} as {role} is {champions}.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} so far this season. The champion played by {name} with the {list_position} {list_order} {sort_type} is {champions}.'
+      multiple:
+        normal:
+          complete:
+            role_specified:
+              - "The champions played by {name} with the summoner's {list_order} {sort_type} in {role} are {champions}."
+            no_role_specified:
+              - "The champions played by {name} with the summoner's {list_order} {sort_type} are {champions}."
+          incomplete:
+            role_specified:
+              - "{name} has only played {real_size} {real_size_champion_conjugation} so far this season as {role}. The champions played by {name} with the summoner's {list_order} {sort_type} as {role} are {champions}."
+            no_role_specified:
+              - "{name} has only played {real_size} {real_size_champion_conjugation} so far this season. The champions played by {name} with the summoner's {list_order} {sort_type} are {champions}."
+        offset:
+          complete:
+            role_specified:
+              - 'The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} in {role} are {champions}.'
+            no_role_specified:
+              - 'The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} are {champions}.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} so far this season as {role}. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} as {role} are {champions}.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} so far this season. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} are {champions}.'
+    recency:
+      empty:
+        normal:
+          complete:
+            - 'No champions were requested.'
+          incomplete:
+            role_specified:
+              - '{name} has not played any games as {role} recently in ranked solo queue.'
+            no_role_specified:
+              - '{name} has not played any games recently in ranked solo queue.'
+        offset:
+          complete:
+            - 'No champions were requested.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} as {role} recently.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} recently.'
+      single:
+        normal:
+          complete:
+            role_specified:
+              - 'The champion played by {name} recently with the {list_order} {sort_type} in {role} is {champions}.'
+            no_role_specified:
+              - 'The champion played by {name} recently with the {list_order} {sort_type} is {champions}.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} as {role} recently.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} recently.'
+        offset:
+          complete:
+            role_specified:
+              - 'The champion played by {name} recently with the {list_position} {list_order} {sort_type} in {role} is {champions}.'
+            no_role_specified:
+              - 'The champion played by {name} recently with the {list_position} {list_order} {sort_type} is {champions}.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} recently as {role}. The champion played by {name} with the {list_position} {list_order} {sort_type} as {role} is {champions}.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} recently. The champion played by {name} with the {list_position} {list_order} {sort_type} is {champions}.'
+      multiple:
+        normal:
+          complete:
+            role_specified:
+              - "The champions played by {name} recently with the summoner's {list_order} {sort_type} in {role} are {champions}."
+            no_role_specified:
+              - "The champions played by {name} recently with the summoner's {list_order} {sort_type} are {champions}."
+          incomplete:
+            role_specified:
+              - "{name} has only played {real_size} {real_size_champion_conjugation} recently as {role}. The champions played by {name} with the summoner's {list_order} {sort_type} as {role} are {champions}."
+            no_role_specified:
+              - "{name} has only played {real_size} {real_size_champion_conjugation} recently. The champions played by {name} with the summoner's {list_order} {sort_type} are {champions}."
+        offset:
+          complete:
+            role_specified:
+              - 'The {list_position} through {filtered_position_offset} champions played by {name} recently with the {list_order} {sort_type} in {role} are {champions}.'
+            no_role_specified:
+              - 'The {list_position} through {filtered_position_offset} champions played by {name} recently with the {list_order} {sort_type} are {champions}.'
+          incomplete:
+            role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} recently as {role}. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} as {role} are {champions}.'
+            no_role_specified:
+              - '{name} has only played {real_size} {real_size_champion_conjugation} recently. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} are {champions}.'
 errors:
-  summoner:
+  summoners:
+    champion_matchup_ranking:
+      no_recency:
+        no_opponents:
+          - 'I could not find any opponents for {name} playing {champion} {role} this season.'
+      recency:
+        no_opponents:
+          - 'I could not find any opponents for {name} playing {champion} {role} recently.'
+    champion_build:
+      no_recency:
+        no_complete_builds:
+          - '{name} does not have any complete builds playing {champion} {role} this season.'
+      recency:
+        no_complete_builds:
+          - '{name} does not have any complete builds playing {champion} {role} recently.'
+    does_not_play:
+      champion:
+        role_specified:
+          recency:
+            - '{name} has not played any games recently as {champion} {role}.'
+          no_recency:
+            - '{name} has not played any games this season as {champion} {role}.'
+        no_role_specified:
+          recency:
+            - '{name} has not played any games recently as {champion}.'
+          no_recency:
+            - '{name} has not played any games this season as {champion}.'
+      no_champion:
+        role_specified:
+          recency:
+            - '{name} has not played any games recently as {role} in ranked solo queue.'
+          no_recency:
+            - '{name} has not played any games this season as {role} in ranked solo queue.'
+        no_role_specified:
+          recency:
+            - '{name} has not played any games recently in ranked solo queue.'
+          no_recency:
+            - '{name} has not played any games this season in ranked solo queue.'
+    multiple_roles:
+      recency:
+        - '{name} has played {champion} {total_performances} recently this season across {roles}. Which role do you want to know about?'
+      no_recency:
+        - '{name} has played {champion} {total_performances} this season across {roles}. Which role do you want to know about?'
     not_active:
-      - "{name} is not currently an active player in {queue}."
+      recency:
+        - "{name} is not an active player in ranked recently."
+      no_recency:
+        - "{name} is not an active player in ranked this season."
   matchups:
     duo_role_no_matchup:
       - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division.'
     solo_role_no_matchup:
-      - 'I cannot find any matchup information on {name1} and {name2} playing {role1} in {elo} division.'
+      - 'I cannot find any matchup information on {name1} and {name2} playing {matchup_role} in {elo} division.'
     multiple_shared_roles:
       - '{name1} and {name2} have matchups for multiple roles in {elo} division. Please specify roles for one or both champions.'
     no_shared_roles:

@@ -1,0 +1,12 @@
+hub_account: danreynolds
+app_name: summonerexpert
+remote_path: /home/dan/app
+dockerfile: Dockerfile.prod
+remote_files:
+  - docker-compose.yml
+  - docker-compose.production.yml
+  - nginx.conf
+  - nginx.upstream.conf
+  - redis.conf
+pre:
+  - rake db:migrate

@@ -71,7 +71,7 @@ class ChampionGGApi < ExternalApi
     previousOverallPerformanceScore: ''
   }.freeze
 
-  # Champion Position value for the given elo and role
+  # Champion position details
   POSITION_DETAILS = {
     winRate: 'win rate',
     kills: 'kills',

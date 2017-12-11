@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password:
+  pool: 25
+
+development:
+  <<: *default
+  database: summonerexpert_development
+
+test:
+  <<: *default
+  database: summonerexpert_test
+
+production:
+  <<: *default
+  database: summonerexpert_production

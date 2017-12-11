@@ -5,8 +5,8 @@ class Filterable
   }.freeze
 
   ACCESSORS = [
-    :list_position, :list_size, :list_order, :collection, :sort_value,
-    :filtered_size
+    :list_position, :list_size, :list_order, :collection, :sort_method,
+    :filtered_size, :reverse
   ].freeze
   ACCESSORS.each do |accessor|
     attr_accessor accessor
@@ -16,7 +16,9 @@ class Filterable
     list_position: 1,
     list_size: 1,
     list_order: ORDER[:desc],
-    collection: []
+    collection: [],
+    # The default sort order is best = lowest values
+    reverse: false
   }.freeze
 
   def initialize(args = {})
@@ -57,11 +59,13 @@ class Filterable
     }
   end
 
+  # Perform the filter using the specified sorting method, list size and position
+  # constraints
   def filter
     collection = @collection
-    collection = collection.sort_by(&@sort_value) if @sort_value
+    collection = collection.sort_by(&@sort_method) if @sort_method
+    collection.reverse! if @list_order.to_sym == ORDER[:lowest] || @reverse
     collection = collection[((@list_position) - 1)..-1] || []
-    collection.reverse! if @list_order.to_sym == ORDER[:lowest]
 
     collection.first(requested_size).tap do |filtered_collection|
       @filtered_size = filtered_collection.size

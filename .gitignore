@@ -16,6 +16,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/tmp/.pids
 *.env
 
 # Ignore Byebug command history file.
@@ -25,3 +26,5 @@ creds.data
 gactions
 /scripts/*
 coverage/*
+pgdata
+todo.md

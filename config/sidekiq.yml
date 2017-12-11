@@ -1,0 +1,6 @@
+---
+:pidfile: tmp/pids/sidekiq.pid
+:queues:
+  - high
+  - default
+  - low

@@ -2,11 +2,20 @@ class ExternalApi
   class << self
     attr_accessor :api
 
-    def fetch_response(endpoint)
+    def fetch_response(endpoint, error_codes = [])
       append_symbol = endpoint.include?('?') ? '&' : '?'
       uri = URI("#{endpoint}#{append_symbol}api_key=#{@api_key}")
       response = Net::HTTP.get_response(uri)
-      return nil unless response.code.to_i == 200
+      code = response.code.to_i
+
+      if code != 200
+        puts "Error: #{code}"
+        if error_codes.include?(code)
+          raise Exception.new({ uri: endpoint, code: code })
+        else
+          return nil
+        end
+      end
 
       body = JSON.parse(response.body)
       if body.is_a?(Hash)

@@ -27,6 +27,9 @@ ENV.each { |k, v| env(k, v) }
 every 1.day, at: "07:40 am" do
   command "echo Starting Nightly Redis Update at $(date) >> /app/scheduler.log"
   rake "champion_gg:all"
-  rake "riot:all"
-  command "echo Finished Nightly Redis Update at $(date) >> /app/scheduler.log"
+  rake "riot:daily"
+end
+
+every 1.hour do
+  rake "riot:hourly"
 end

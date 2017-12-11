@@ -8,3 +8,6 @@ services:
     build: .
     ports:
       - 3000:3000
+  db:
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data

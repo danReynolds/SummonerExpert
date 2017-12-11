@@ -1,8 +1,8 @@
 # Base Ruby layer
-FROM ruby:2.3.4
+FROM ruby:2.4
 
 # Add system libraries layer
-RUN apt-get update -qq && apt-get install -y cron vim
+RUN apt-get update -qq && apt-get install -y cron vim postgresql postgresql-contrib libpq-dev
 
 # Allow crontab to be executed
 RUN chmod 600 /etc/crontab
@@ -17,12 +17,8 @@ ADD Gemfile.lock /app/Gemfile.lock
 RUN gem install bundler
 RUN bundle install
 
-# Copy the current directory contents into the container at /app
-ADD . /app
+# Turn on cache in dev environment
+RUN rails dev:cache
 
-# Set Rails environment mode to development
-ENV RAILS_ENV development
-ENV RACK_ENV development
-
-# Start server
+# Start server with dependencies
 CMD ./startup.sh

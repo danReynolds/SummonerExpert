@@ -1,5 +1,7 @@
 version: '3'
 services:
+  db:
+    image: postgres
   redis:
     command: [redis-server, /usr/local/etc/redis/redis.conf, --requirepass, $REDIS_PASSWORD]
     image: "redis:latest"
@@ -9,6 +11,7 @@ services:
   app:
     depends_on:
       - redis
+      - db
   nginx:
     image: nginx
     depends_on:

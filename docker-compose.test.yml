@@ -6,6 +6,8 @@ services:
     volumes:
       - ./data:/data
       - ./redis.conf:/usr/local/etc/redis/redis.conf
+  db:
+    image: postgres
   app:
     environment:
       - CI=$CI
@@ -15,8 +17,11 @@ services:
     env_file:
       - .env
     build: .
+    volumes:
+      - .:/app
     depends_on:
       - redis
+      - db
   nginx:
     image: nginx
     depends_on:

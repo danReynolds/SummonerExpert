@@ -1,4 +1,10 @@
+require 'sidekiq/web'
+# https://github.com/mperham/sidekiq/wiki/Monitoring#forbidden
+
 Rails.application.routes.draw do
+  Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
+  mount Sidekiq::Web => '/sidekiq'
+
   root to: 'application#status'
   post :patch, to: 'application#patch'
   post :reset, to: 'application#reset'
@@ -27,6 +33,11 @@ Rails.application.routes.draw do
   end
 
   namespace :summoners do
-    post :show
+    post :performance_summary
+    post :champion_performance_summary
+    post :champion_performance_position
+    post :champion_performance_ranking
+    post :champion_matchup_ranking
+    post :champion_build
   end
 end

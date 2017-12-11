@@ -9,19 +9,32 @@ jobs:
       - checkout
 
       - run:
-          name: Install Dependencies
+          name: Download DeployManager
+          command: docker pull danreynolds/deploymanager:0.0.25
+
+      - run:
+          name: Install native libraries
+          command: sudo apt-get update -qq && sudo apt-get install -y build-essential postgresql libpq-dev
+
+      - run:
+          name: Install dependencies
           command: gem install bundler && bundle
 
       - run:
           name: Load environment variables
-          command: bundle exec rake secrets:decrypt
+          command: touch .env && ./deploymanager "rake secrets:decrypt"
 
+      - run:
+          name: Setup database
+          command: |
+            docker-compose -f docker-compose.test.yml run app rake db:setup
+            docker-compose -f docker-compose.test.yml run app rake db:migrate
       - run:
           name: Run Tests
           command: docker-compose -f docker-compose.test.yml run app rspec
 
       - deploy:
-          name: Deploy to Production
+          name: Deploy to production
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./deploy.sh

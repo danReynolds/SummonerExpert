@@ -9,6 +9,22 @@ class Cache
       Rails.cache.read(:patch)
     end
 
+    # @id the id of the summoner to lookup
+    # Returns the queue information for that summoner
+    def get_summoner_rank(id)
+      Rails.cache.read(summoner: id)
+    end
+
+    # Returns the current match index that has been cached up to
+    def get_match_index
+      Rails.cache.read(:match_index)
+    end
+
+    # Returns the end match index that is known to exist for all games
+    def get_end_match_index
+      Rails.cache.read(:end_match_index)
+    end
+
     # @collection_key the plural collection identifier such as champions, items
     # Returns a hash of all collection names mapped to their ids
     def get_collection(collection_key)
@@ -48,20 +64,6 @@ class Cache
       Rails.cache.read({ name: name, role: role, elo: elo })
     end
 
-    # @name the name of the summoner
-    # @region the region the summoner is playing in
-    # Returns the id of the summoner
-    def get_summoner_id(name, region)
-      Rails.cache.read(id: { name: name, region: region })
-    end
-
-    # @name the name of the summoner
-    # @region the region the summoner is playing in
-    # Returns the queues for the summoner
-    def get_summoner_queues(name, region)
-      Rails.cache.read(queues: { name: name, region: region })
-    end
-
     ###
     ### Setting Information into the Cache
     ###
@@ -70,6 +72,26 @@ class Cache
     # Returns success or failure status
     def set_patch(patch_number)
       Rails.cache.write(:patch, patch_number)
+    end
+
+    # @id the id of the summoner to lookup
+    # @queue_data the queue data for the summoner in ranked
+    # Returns the queue information for that summoner
+    def set_summoner_rank(id, queue_data)
+      # Use 15 minutes as the expiration time since that is the earliest FF time
+      Rails.cache.write({ summoner: id }, queue_data, expires_in: 15.minutes)
+    end
+
+    # @match_index the match index that has been cached up to
+    # Returns the current match index that has been cached up to
+    def set_match_index(match_index)
+      Rails.cache.write(:match_index, match_index)
+    end
+
+    # @end_match_index the match index that is the last game known to exist
+    # Returns the end match index that is known to exist for all games
+    def set_end_match_index(end_match_index)
+      Rails.cache.write(:end_match_index, end_match_index)
     end
 
     # @name the name of the champion
@@ -116,28 +138,6 @@ class Cache
       search_params = {}
       search_params[collection_key] = entry_name
       Rails.cache.write(search_params, entry_info)
-    end
-
-    # @name the name of the summoner
-    # @region the region the summoner is playing in
-    # @id the summoner id
-    # Returns success or failure status
-    def set_summoner_id(name, region, id)
-      Rails.cache.write({ id: { name: name, region: region } }, id)
-    end
-
-    # @name the name of the summoner
-    # @region the region the summoner is playing in
-    # @queues the queues for the summoner
-    # @expiration the default expiration is 25 minutes, approximate duration of
-    # one game
-    # Returns success or failure status
-    def set_summoner_queues(name, region, queues, expiration = 25.minutes)
-      Rails.cache.write(
-        { queues: { name: name, region: region } },
-        queues,
-        expires_in: expiration
-      )
     end
   end
 

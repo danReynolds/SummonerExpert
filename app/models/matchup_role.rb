@@ -33,8 +33,8 @@ class MatchupRole
     elsif (@role1 == adc_support || @role2 == adc_support) ||
       (@role1 == adc && @role2 == support) || (@role1 == support && @role2 == adc)
       adc_support
-    elsif @role1.present?
-      @role1
+    else
+      [@role1, @role2].find(&:present?)
     end
   end
 end
