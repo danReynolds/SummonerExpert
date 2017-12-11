@@ -267,7 +267,7 @@ class SummonersController < ApplicationController
 
     if options[:with_role]
       unless role.present?
-        roles = summoner_performances.map(&:role).uniq
+        roles = summoner_performances.map(&:role).uniq & ChampionGGApi::ROLES.keys.map(&:to_s)
         if roles.length == 1
           role = roles.first
         else

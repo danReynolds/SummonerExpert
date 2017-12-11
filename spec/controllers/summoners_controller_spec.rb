@@ -9,12 +9,6 @@ describe SummonersController, type: :controller do
     allow(controller).to receive(:summoner_params).and_return(summoner_params)
   end
 
-  describe 'load summoner' do
-    let(:summoner_params) do
-      { name: 'Hero man', region: 'NA1', champion: 'Tristana', role: 'DUO_CARRY' }
-    end
-  end
-
   describe 'POST champion_build' do
     let(:action) { :champion_build }
     let(:summoner_params) do
