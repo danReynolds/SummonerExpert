@@ -60,7 +60,7 @@ describe SummonersController, type: :controller do
 
     context 'with no role specified' do
       before :each do
-        summoner_params[:list_order] = 'lowest'
+        summoner_params[:role] = ''
       end
 
       context 'with a single role played' do
