@@ -6,7 +6,6 @@ remote_files:
   - docker-compose.yml
   - docker-compose.production.yml
   - nginx.conf
-  - nginx.upstream.conf
   - redis.conf
 pre:
   - rake db:migrate
