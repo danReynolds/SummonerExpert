@@ -39,7 +39,7 @@ class SummonerPerformance < ActiveRecord::Base
   end
 
   def victorious?
-    team == match.winning_team
+    team_id == match.winning_team_id
   end
 
   def items
