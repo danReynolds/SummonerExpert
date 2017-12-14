@@ -149,33 +149,33 @@ namespace :riot do
       .order('summoner_performances.created_at DESC').limit(200)
       .select('summoners.account_id', 'summoners.region')
 
-    end_match_index = recent_players.inject(Cache.get_end_match_index) do |end_index, summoner|
+    recent_game_ids = recent_players.map do |summoner|
       matches_data = RiotApi::RiotApi.get_recent_matches(
         region: summoner.region, id: summoner.account_id
       )
       if matches_data
         recent_matches = matches_data['matches']
-        local_max_index = recent_matches.sort_by { |game| game['gameId'] }[recent_matches.length / 2]['gameId']
-        end_index = local_max_index if end_index.nil? || local_max_index > end_index
+        recent_matches.sort_by { |match| match['gameId'] }.last
       end
-      end_index
-    end
+    end.compact.sort
 
-    # If the system has caught up to < the most recent 150000 games, then only
-    # do that remaining amount
     match_index = Cache.get_match_index
+    end_match_index = Cache.get_end_match_index
+    # Use the median recent game id in case there are large outliers
+    new_end_match_index = [recent_game_ids[recent_game_ids.length / 2], end_match_index].max
     batch_size = [end_match_index - match_index, MATCH_BATCH_SIZE].min
     new_start_match_index = match_index + batch_size
 
     Cache.set_match_index(new_start_match_index)
-    Cache.set_end_match_index(end_match_index)
+    Cache.set_end_match_index(new_end_match_index)
 
     # If the new end match index is a lot larger than expected it is probably an error
-    if end_match_index > new_start_match_index + END_MATCH_INDEX_THRESHOLD
+    if new_end_match_index > end_match_index + END_MATCH_INDEX_THRESHOLD
       DataDog.event(
         DataDog::EVENTS[:RIOT_MATCHES_ERROR],
         end_index: end_match_index,
-        new_start_index: new_start_match_index
+        new_start_index: new_start_match_index,
+        game_ids: recent_game_ids
       )
     end
 
