@@ -183,8 +183,8 @@ namespace :riot do
       DataDog::EVENTS[:RIOT_MATCHES],
       matches_processed: new_start_match_index - match_index,
       new_start_index: new_start_match_index,
-      end_index: end_match_index,
-      matches_remaining: end_match_index - new_start_match_index
+      new_end_match_index: new_end_match_index,
+      matches_remaining: new_end_match_index - new_start_match_index
     )
 
     batch_size.times do |i|
