@@ -155,7 +155,7 @@ namespace :riot do
       )
       if matches_data
         recent_matches = matches_data['matches']
-        recent_matches.sort_by { |match| match['gameId'] }.last
+        recent_matches.map { |match| match['gameId'] }.sort.last
       end
     end.compact.sort
 
