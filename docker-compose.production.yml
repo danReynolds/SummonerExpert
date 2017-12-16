@@ -27,6 +27,9 @@ services:
       - /etc/ssl/certs/dhparam.pem:/etc/nginx/dhparam.pem
       - logs:/etc/nginx/log/
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  letsencrypt:
+    image: certbot/certbot:latest
 volumes:
   logs:
   pgdata:
+  letsencrypt:
