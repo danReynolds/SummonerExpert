@@ -205,7 +205,14 @@ class SummonersController < ApplicationController
     when :KDA
       ->(performance_data) do
         group_by_index, performances = performance_data
-        [performances.map(&:kda).sum / performances.count, performances.count, group_by_index]
+        kda_performances = performances.map(&:kda).reject do |kda|
+          kda.nan? || kda == Float::INFINITY
+        end
+        [
+          kda_performances.sum / performances.count,
+          performances.count,
+          group_by_index
+        ]
       end
     when :winrate
       ->(performance_data) do

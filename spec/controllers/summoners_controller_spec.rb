@@ -177,9 +177,33 @@ describe SummonersController, type: :controller do
         @matches.first.summoner_performances.first.update!(kills: 100000000)
       end
 
-      it 'should use KDA as the build metric' do
-        post action, params: params
-        expect(speech).to eq "Hero man has played Shyvana Adc eleven times this season and the summoner's highest KDA build is two Rabadon's Deathcaps, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
+      context 'with all valid KDA performances' do
+        it 'should use KDA as the build metric' do
+          post action, params: params
+          expect(speech).to eq "Hero man has played Shyvana Adc eleven times this season and the summoner's highest KDA build is two Rabadon's Deathcaps, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
+        end
+      end
+
+      context 'with infinite KDA performances' do
+        before :each do
+          @matches.first.summoner_performances.first.update!(deaths: 0, kills: 10, assists: 0)
+        end
+
+        it 'should filter out zero performances' do
+          post action, params: params
+          expect(speech).to eq "Hero man has played Shyvana Adc eleven times this season and the summoner's highest KDA build is Rabadon's Deathcap, Statikk Shiv, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
+        end
+      end
+
+      context 'with NAN KDA performances' do
+        before :each do
+          @matches.first.summoner_performances.first.update!(deaths: 0, kills: 0, assists: 0)
+        end
+
+        it 'should filter out zero performances' do
+          post action, params: params
+          expect(speech).to eq "Hero man has played Shyvana Adc eleven times this season and the summoner's highest KDA build is Rabadon's Deathcap, Statikk Shiv, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
+        end
       end
     end
 
