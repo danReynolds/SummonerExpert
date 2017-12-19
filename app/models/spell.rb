@@ -9,5 +9,7 @@ class Spell < Collection
     attr_accessor accessor
   end
 
-  validates :name, presence: true, inclusion: COLLECTION.values
+  unless COLLECTION.empty?
+    validates :name, presence: true, inclusion: COLLECTION.values
+  end
 end
