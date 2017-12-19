@@ -7,6 +7,7 @@ class DataDog
     CHAMPIONGG_CHAMPION_PERFORMANCE: 'Champion GG Performance Event',
     RIOT_CHAMPIONS: 'Riot Champions Event',
     RIOT_ITEMS: 'Riot Items Event',
+    RIOT_SPELLS: 'Riot Spells Event',
     RIOT_MATCHES: 'Riot Matches Event',
     RIOT_MATCHES_ERROR: 'Riot Matches Error Event'
   }

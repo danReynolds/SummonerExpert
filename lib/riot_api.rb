@@ -115,6 +115,10 @@ module RiotApi
         fetch_response(@api[:items])
       end
 
+      def get_spells
+        fetch_response(@api[:spells])
+      end
+
       def get_match(args)
         url = replace_url(@api[:match], args)
         fetch_response(url, ERROR_CODES)

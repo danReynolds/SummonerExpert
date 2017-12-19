@@ -122,7 +122,7 @@ namespace :champion_gg do
 end
 
 namespace :riot do
-  task daily: [:cache_champions, :cache_items]
+  task daily: [:cache_champions, :cache_items, :cache_spells]
   task hourly: [:store_matches]
 
   def remove_tags(description)
@@ -163,7 +163,7 @@ namespace :riot do
     end_match_index = Cache.get_end_match_index
     # Use the median recent game id in case there are large outliers
     new_end_match_index = [recent_game_ids[recent_game_ids.length / 2], end_match_index].max
-    batch_size = [end_match_index - match_index, MATCH_BATCH_SIZE].min
+    batch_size = [new_end_match_index - match_index, MATCH_BATCH_SIZE].min
     new_start_match_index = match_index + batch_size
 
     Cache.set_match_index(new_start_match_index)
@@ -181,7 +181,7 @@ namespace :riot do
 
     DataDog.event(
       DataDog::EVENTS[:RIOT_MATCHES],
-      matches_processed: new_start_match_index - match_index,
+      matches_processed: batch_size,
       new_start_index: new_start_match_index,
       new_end_match_index: new_end_match_index,
       matches_remaining: new_end_match_index - new_start_match_index
@@ -190,6 +190,20 @@ namespace :riot do
     batch_size.times do |i|
       MatchWorker.perform_async(match_index + i)
     end
+  end
+
+  desc 'Cache spells'
+  task cache_spells: :environment do
+    spells = RiotApi::RiotApi.get_spells.values.select do |spell|
+      spell['name']
+    end
+    cache_collection(:spells, spells)
+
+    spells.each do |spell_data|
+      Cache.set_collection_entry(:spell, spell_data['name'], spell_data)
+    end
+
+    DataDog.event(DataDog::EVENTS[:RIOT_SPELLS])
   end
 
   desc 'Cache items'

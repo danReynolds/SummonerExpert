@@ -7,4 +7,5 @@ summoner:
   queues: https://{region}.api.riotgames.com/lol/league/v3/positions/by-summoner/{id}
 champions: https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false{tags}
 items: https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&tags=all
+spells: https://na1.api.riotgames.com/lol/static-data/v3/summoner-spells?locale=en_US&dataById=true&tags=all
 match: https://na1.api.riotgames.com/lol/match/v3/matches/{id}
