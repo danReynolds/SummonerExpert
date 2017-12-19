@@ -17,6 +17,7 @@ tmp/*
 !/log/.keep
 !/tmp/.keep
 !/tmp/.pids
+!tmp/pids
 *.env
 
 # Ignore Byebug command history file.
