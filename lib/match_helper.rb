@@ -46,9 +46,9 @@ class MatchHelper
 
           summoner = Summoner.create_with(
             account_id: player_params['accountId'],
-            name: player_params['summonerName'],
-            region: player_params['currentPlatformId']
-          ).find_or_create_by(summoner_id: player_params['summonerId'])
+            region: player_params['currentPlatformId'],
+            summoner_id: player_params['summonerId']
+          ).find_or_create_by(name: player_params['summonerName'])
 
           match.first_blood_summoner = summoner if stats['firstBloodKill']
           match.first_tower_summoner = summoner if stats['firstTowerKill']
