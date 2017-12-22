@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-12-11T04:27:19.663Z",
+	"__export_date": "2017-12-22T22:04:14.709Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -587,7 +587,7 @@
 		{
 			"_id": "req_adbd92c820914d2ca5dd48b7ce602752",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1512966381858,
+			"modified": 1513468586261,
 			"created": 1509909890439,
 			"url": "{{ url }}",
 			"name": "summoners/champion_performance_summary",
@@ -595,7 +595,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"df89b7c1-846a-44c1-b784-f939a4fc1aba\",\n  \"timestamp\": \"2017-11-05T19:30:36.515Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how is StaRxPAuL's shyvana?\",\n    \"action\": \"summoners/champion_performance_summary\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Shyvana\",\n      \"role\": \"\",\n      \"name\": \"StaRxPAuL\",\n      \"region\": \"NA1\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_performance_summary\",\n        \"parameters\": {\n          \"name.original\": \"StaRxPAuL\",\n          \"lane.original\": \"\",\n          \"name\": \"StaRxPAuL\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"champion.original\": \"shyvana\",\n          \"lane\": \"\",\n          \"champion\": \"Shyvana\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"26ec6722-a7b6-41ed-aa1d-bb3911ad15ca\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoner/champion_performance_summary\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"30b972fb-1b3b-40b1-8d8f-82ab5b1ddf4a\"\n}"
+				"text": "{\n  \"id\": \"df89b7c1-846a-44c1-b784-f939a4fc1aba\",\n  \"timestamp\": \"2017-11-05T19:30:36.515Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how is StaRxPAuL's shyvana?\",\n    \"action\": \"summoners/champion_performance_summary\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Ryze\",\n      \"role\": \"TOP\",\n      \"name\": \"wingilote\",\n      \"region\": \"NA1\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_performance_summary\",\n        \"parameters\": {\n          \"name.original\": \"StaRxPAuL\",\n          \"lane.original\": \"\",\n          \"name\": \"StaRxPAuL\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"champion.original\": \"shyvana\",\n          \"lane\": \"\",\n          \"champion\": \"Shyvana\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"26ec6722-a7b6-41ed-aa1d-bb3911ad15ca\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoner/champion_performance_summary\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"30b972fb-1b3b-40b1-8d8f-82ab5b1ddf4a\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -645,7 +645,7 @@
 		{
 			"_id": "req_58468147d11440609e75f7af6b9ef8ab",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1512966334102,
+			"modified": 1513972698011,
 			"created": 1510437793207,
 			"url": "{{ url }}",
 			"name": "summoners/champion_performance_ranking",
@@ -653,7 +653,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"a495cde2-1b6b-4e2e-a2c9-62c3e06b4e08\",\n  \"timestamp\": \"2017-11-11T22:06:06.888Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"chips and dip2 top 3 champions\",\n    \"action\": \"summoners/champion_performance_ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"list_order\": \"highest\",\n      \"list_position\": \"1\",\n      \"list_size\": 3,\n      \"metric\": \"KDA\",\n      \"name\": \"StaRxPAuL\",\n      \"position_details\": \"\",\n      \"region\": \"NA1\",\n      \"role\": \"\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_champion_performance_ranking\",\n        \"parameters\": {\n          \"name.original\": \"chips and dip2\",\n          \"role\": \"\",\n          \"list_position.original\": \"\",\n          \"region.original\": \"\",\n          \"position_details\": \"\",\n          \"list_size\": 3,\n          \"position_details.original\": \"\",\n          \"list_order.original\": \"top\",\n          \"list_position\": \"1\",\n          \"metric\": \"\",\n          \"metric.original\": \"\",\n          \"name\": \"chips and dip2\",\n          \"list_order\": \"highest\",\n          \"role.original\": \"\",\n          \"list_size.original\": \"3\",\n          \"region\": \"NA1\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"750901ac-403f-4c0d-a9c6-f3aa5b250194\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/champion_performance_ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"dde95941-4b56-4c19-928f-b94cd966644b\"\n}"
+				"text": "{\n  \"id\": \"d63e3f2b-b83c-4c1d-a607-01cefd377759\",\n  \"timestamp\": \"2017-12-14T08:21:47.96Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"wingilote's top champion\",\n    \"action\": \"summoners/champion_performance_ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"list_order\": \"highest\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\",\n      \"metric\": \"KDA\",\n      \"name\": \"Elekktric\",\n      \"position_details\": \"\",\n      \"recency\": \"\",\n      \"region\": \"NA1\",\n      \"role\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_champion_performance_ranking\",\n        \"parameters\": {\n          \"name.original\": \"wingilote\",\n          \"role\": \"\",\n          \"recency.original\": \"\",\n          \"list_position.original\": \"\",\n          \"region.original\": \"\",\n          \"position_details\": \"\",\n          \"list_size\": \"1\",\n          \"recency\": \"\",\n          \"position_details.original\": \"\",\n          \"list_order.original\": \"top\",\n          \"list_position\": \"1\",\n          \"metric\": \"\",\n          \"metric.original\": \"\",\n          \"name\": \"wingilote\",\n          \"list_order\": \"highest\",\n          \"role.original\": \"\",\n          \"list_size.original\": \"\",\n          \"region\": \"NA1\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"750901ac-403f-4c0d-a9c6-f3aa5b250194\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/champion_performance_ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 0.9100000262260437\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"9874d669-0170-4a86-b8d2-fe568369bc11\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -674,15 +674,15 @@
 		{
 			"_id": "req_47c0a709848b47af9b16105733045820",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1512966281948,
+			"modified": 1513977118847,
 			"created": 1510528634618,
 			"url": "{{ url }}",
-			"name": "summoners/champion_matchup_ranking",
+			"name": "summoners/champion_counters",
 			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"7207d5d5-71ad-4177-a525-c70b52d3ea82\",\n  \"timestamp\": \"2017-11-12T23:16:31.926Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"best counter to Mordequess's Garen\",\n    \"action\": \"summoners/champion_matchup_ranking\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Shyvana\",\n      \"list_order\": \"highest\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\",\n      \"matchup_role\": \"\",\n      \"name\": \"StaRxPAuL\",\n      \"position_details\": \"\",\n      \"role\": \"\",\n      \"metric\": \"\",\n\t\t\t\"region\": \"NA1\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_matchup_ranking\",\n        \"parameters\": {\n          \"name.original\": \"Mordequess\",\n          \"summoner_metric.original\": \"\",\n          \"role\": \"\",\n          \"list_position.original\": \"\",\n          \"position_details\": \"\",\n          \"list_size\": \"1\",\n          \"position_details.original\": \"\",\n          \"list_order.original\": \"best\",\n          \"summoner_metric\": \"\",\n          \"list_position\": \"1\",\n          \"matchup_role.original\": \"\",\n          \"name\": \"mordequess\",\n          \"list_order\": \"highest\",\n          \"role.original\": \"\",\n          \"list_size.original\": \"\",\n          \"champion.original\": \"Garen\",\n          \"matchup_role\": \"\",\n          \"champion\": \"Garen\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"e1678442-9c8e-4cac-a776-e87f2ca0ad78\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoner/champion_matchup_ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"dde95941-4b56-4c19-928f-b94cd966644b\"\n}"
+				"text": "{\n  \"id\": \"7207d5d5-71ad-4177-a525-c70b52d3ea82\",\n  \"timestamp\": \"2017-11-12T23:16:31.926Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"best counter to Mordequess's Garen\",\n    \"action\": \"summoners/champion_counters\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Tristana\",\n      \"list_order\": \"highest\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\",\n      \"matchup_role\": \"\",\n      \"name\": \"Elekktric\",\n      \"position_details\": \"\",\n      \"role\": \"\",\n      \"metric\": \"\",\n\t\t\t\"region\": \"NA1\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_matchup_ranking\",\n        \"parameters\": {\n          \"name.original\": \"Mordequess\",\n          \"summoner_metric.original\": \"\",\n          \"role\": \"\",\n          \"list_position.original\": \"\",\n          \"position_details\": \"\",\n          \"list_size\": \"1\",\n          \"position_details.original\": \"\",\n          \"list_order.original\": \"best\",\n          \"summoner_metric\": \"\",\n          \"list_position\": \"1\",\n          \"matchup_role.original\": \"\",\n          \"name\": \"mordequess\",\n          \"list_order\": \"highest\",\n          \"role.original\": \"\",\n          \"list_size.original\": \"\",\n          \"champion.original\": \"Garen\",\n          \"matchup_role\": \"\",\n          \"champion\": \"Garen\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"e1678442-9c8e-4cac-a776-e87f2ca0ad78\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoner/champion_matchup_ranking\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"dde95941-4b56-4c19-928f-b94cd966644b\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -703,7 +703,7 @@
 		{
 			"_id": "req_7b63fe0dd65942e4bb4a5644cee24ce0",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1512966260732,
+			"modified": 1513239358468,
 			"created": 1511060277249,
 			"url": "{{ url }}",
 			"name": "summoners/champion_build",
@@ -711,7 +711,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"bdacc1cf-3930-4c36-9e0b-8618c1382f40\",\n  \"timestamp\": \"2017-11-19T02:57:39.266Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does wingilote build on Ryze Mid\",\n    \"action\": \"summoners/champion_build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Kha'Zix\",\n      \"metric\": \"winrate\",\n      \"name\": \"Vikaden\",\n      \"list_order\": \"highest\",\n      \"role\": \"\",\n\t\t\t\"region\": \"NA1\",\n\t\t\t\"position_details\": \"\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_build\",\n        \"parameters\": {\n          \"name.original\": \"wingilote\",\n          \"role\": \"MIDDLE\",\n          \"order.original\": \"\",\n          \"metric\": \"winrate\",\n          \"metric.original\": \"\",\n          \"name\": \"wingilote\",\n          \"role.original\": \"Mid\",\n          \"champion.original\": \"Ryze\",\n          \"champion\": \"Ryze\",\n          \"order\": \"highest\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"1ae92324-38c8-4d5d-9d4f-7cf8a70240f6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoner/champion_build\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"3151eab1-704d-4c3e-a65a-07e112f61697\"\n}"
+				"text": "{\n  \"id\": \"bdacc1cf-3930-4c36-9e0b-8618c1382f40\",\n  \"timestamp\": \"2017-11-19T02:57:39.266Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does wingilote build on Ryze Mid\",\n    \"action\": \"summoners/champion_build\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"champion\": \"Kled\",\n      \"metric\": \"winrate\",\n      \"name\": \"wingilote\",\n      \"list_order\": \"highest\",\n      \"role\": \"\",\n\t\t\t\"region\": \"NA1\",\n\t\t\t\"position_details\": \"\",\n\t\t\t\"recency\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_build\",\n        \"parameters\": {\n          \"name.original\": \"wingilote\",\n          \"role\": \"MIDDLE\",\n          \"order.original\": \"\",\n          \"metric\": \"winrate\",\n          \"metric.original\": \"\",\n          \"name\": \"wingilote\",\n          \"role.original\": \"Mid\",\n          \"champion.original\": \"Ryze\",\n          \"champion\": \"Ryze\",\n          \"order\": \"highest\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"1ae92324-38c8-4d5d-9d4f-7cf8a70240f6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoner/champion_build\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"3151eab1-704d-4c3e-a65a-07e112f61697\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -723,6 +723,64 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1511060277249,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_30ce41068c034a41ae0239e056507763",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1513973115962,
+			"created": 1513972537768,
+			"url": "{{ url }}",
+			"name": "summoners/champion_bans",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"f1fd1d35-4099-4e25-9d99-0682270517a2\",\n  \"timestamp\": \"2017-12-22T20:04:51.614Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"who should wingilote ban in order to get lots of kills as Kled Top?\",\n    \"action\": \"summoners/champion_bans\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Elekktric\",\n      \"list_order\": \"highest\",\n      \"champion\": \"Tristana\",\n      \"metric\": \"\",\n      \"role\": \"\",\n      \"list_position\": \"1\",\n      \"list_size\": \"1\",\n      \"recency\": \"\",\n      \"region\": \"NA1\",\n      \"position_details\": \"kills\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_champion_bans\",\n        \"parameters\": {\n          \"name.original\": \"wingilote\",\n          \"role\": \"TOP\",\n          \"recency.original\": \"\",\n          \"list_position.original\": \"\",\n          \"position_details\": \"kills\",\n          \"region.original\": \"\",\n          \"list_size\": \"1\",\n          \"position_details.original\": \"kills\",\n          \"recency\": \"\",\n          \"list_order.original\": \"\",\n          \"list_position\": \"1\",\n          \"metric\": \"\",\n          \"metric.original\": \"\",\n          \"list_order\": \"highest\",\n          \"name\": \"wingilote\",\n          \"role.original\": \"Top?\",\n          \"list_size.original\": \"\",\n          \"region\": \"NA1\",\n          \"champion.original\": \"Kled\",\n          \"champion\": \"Kled\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"043e40eb-5ace-47bb-b818-565dbdcce265\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 185,\n      \"intentName\": \"summoners/champion_bans\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"031238e1-cb4b-4dc3-b249-62e9ef21d81d\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_821fb025bce24ffd815829ac8e389a08"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1513972537768,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_f53d537f333a4a518f703648caaed82f",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1513979726114,
+			"created": 1513979282540,
+			"url": "{{ url }}",
+			"name": "summoners/champion_spells",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"30572c60-1a95-4c44-a405-d1bfa4381ca1\",\n  \"timestamp\": \"2017-12-22T21:55:06.786Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"summoners spells that get wingilote the most kills playing Jax top\",\n    \"action\": \"summoners/champion_spells\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"list_order\": \"highest\",\n      \"name\": \"Elekktric\",\n      \"champion\": \"Tristana\",\n      \"role\": \"\",\n      \"list_position\": \"1\",\n      \"region\": \"NA1\",\n      \"recency\": \"\",\n      \"position_details\": \"kills\",\n      \"metric\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_champion_spells\",\n        \"parameters\": {\n          \"name.original\": \"wingilote\",\n          \"role\": \"TOP\",\n          \"summoner_recency.original\": \"\",\n          \"recency.original\": \"\",\n          \"list_position.original\": \"\",\n          \"summoner_recency\": \"\",\n          \"position_details\": \"kills\",\n          \"region.original\": \"\",\n          \"position_details.original\": \"kills\",\n          \"recency\": \"\",\n          \"list_order.original\": \"most\",\n          \"list_position\": \"1\",\n          \"metric\": \"\",\n          \"metric.original\": \"\",\n          \"summoner.original\": \"mordequess\",\n          \"name\": \"wingilote\",\n          \"list_order\": \"highest\",\n          \"role.original\": \"top\",\n          \"summoner\": \"mordequess\",\n          \"region\": \"NA1\",\n          \"champion.original\": \"Jax\",\n          \"champion\": \"Jax\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"d7bf1fcf-1623-494c-9b19-3162f6e024bf\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 303,\n      \"intentName\": \"summoners/champion_spells\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"031238e1-cb4b-4dc3-b249-62e9ef21d81d\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_ce95af81da7744c380a10e6eff428fcc"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1513979282540,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,
@@ -756,11 +814,11 @@
 		{
 			"_id": "env_9c6792b304f04d69aed2837dca777d01",
 			"parentId": "env_0d851fcce733473faf2afa9cce713676",
-			"modified": 1512340986849,
+			"modified": 1513465876458,
 			"created": 1509342227545,
 			"name": "New Environment",
 			"data": {
-				"url": "https://104.197.76.80"
+				"url": "https://35.192.221.17"
 			},
 			"color": null,
 			"_type": "environment"

@@ -6,7 +6,7 @@ class SummonersController < ApplicationController
   before_action only: [:champion_performance_summary, :champion_performance_position] do
     process_performance_request(with_role: true, with_champion: true)
   end
-  before_action only: [:champion_build, :champion_matchup_ranking] do
+  before_action only: [:champion_build, :champion_counters, :champion_bans, :champion_spells] do
     process_performance_request(with_role: true, with_champion: true, with_sorting: true)
   end
 
@@ -27,6 +27,64 @@ class SummonersController < ApplicationController
     render json: {
       speech: ApiResponse.get_response(dig_set(*@namespace), args)
     }
+  end
+
+  def champion_spells
+    champion = Champion.new(name: summoner_params[:champion])
+    args = @processed_request[:args]
+    performance_spells = @processed_request[:performances].group_by do |performance|
+      [performance.spell1_id, performance.spell2_id].sort
+    end
+
+    spell_filter = Filterable.new({
+      collection: performance_spells,
+      sort_method: performance_ranking_sort(@processed_request[:sort_type]),
+      reverse: true,
+      list_size: 1
+    }.merge(summoner_params.slice(:list_order, :list_position)))
+    filtered_spells = spell_filter.filter
+    filter_types = spell_filter.filter_types
+
+    args.merge!(ApiResponse.filter_args(spell_filter))
+    ids_to_names = Cache.get_collection(:spells)
+    spells = if filtered_spells.empty?
+      []
+    else
+      filtered_spells.first.first.map { |spell_id| ids_to_names[spell_id] }
+    end
+
+    args.merge!({
+      spells: spells.en.conjunction(article: false),
+      real_size_combination_conjugation: 'combination'.en.pluralize(spell_filter.real_size)
+    })
+    namespace = dig_set(*@namespace, *@processed_request[:namespace], *filter_types.values)
+    render json: { speech: ApiResponse.get_response(namespace, args) }
+  end
+
+  def champion_bans
+    champion = Champion.new(name: summoner_params[:champion])
+    args = @processed_request[:args]
+    performance_bans = @processed_request[:performances].group_by { |performance| performance.ban.champion_id }
+
+    ban_filter = Filterable.new({
+      collection: performance_bans,
+      sort_method: performance_ranking_sort(@processed_request[:sort_type]),
+      reverse: true
+    }.merge(summoner_params.slice(:list_order, :list_size, :list_position)))
+    filtered_bans = ban_filter.filter
+    filter_types = ban_filter.filter_types
+
+    args.merge!(ApiResponse.filter_args(ban_filter))
+    ids_to_names = Cache.get_collection(:champions)
+    champions = filtered_bans.map { |performance_data| ids_to_names[performance_data.first] }
+
+    args.merge!({
+      champions: champions.en.conjunction(article: false),
+      real_size_champion_conjugation: 'champion'.en.pluralize(ban_filter.real_size)
+    })
+
+    namespace = dig_set(*@namespace, *@processed_request[:namespace], *filter_types.values)
+    render json: { speech: ApiResponse.get_response(namespace, args) }
   end
 
   def champion_build
@@ -64,12 +122,12 @@ class SummonersController < ApplicationController
     render json: { speech: ApiResponse.get_response(namespace, args) }
   end
 
-  def champion_matchup_ranking
+  def champion_counters
     args = @processed_request[:args]
-    matchup_rankings = @processed_request[:performances].map(&:opponent)
+    counters = @processed_request[:performances].map(&:opponent)
       .compact.group_by(&:champion_id).to_a
 
-    if matchup_rankings.empty?
+    if counters.empty?
       namespace = dig_set(
         :errors, *@namespace, *dig_list(@processed_request[:namespace]), :no_opponents
       )
@@ -77,7 +135,7 @@ class SummonersController < ApplicationController
     end
 
     matchup_filter = Filterable.new({
-      collection: matchup_rankings,
+      collection: counters,
       sort_method: performance_ranking_sort(@processed_request[:sort_type]),
       reverse: true
     }.merge(summoner_params.slice(:list_order, :list_size, :list_position)))

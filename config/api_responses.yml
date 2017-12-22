@@ -173,7 +173,99 @@ summoners:
       - "{name} has played {champion} {role} {total_performances} recently and averages {position_value} {position_name}."
     no_recency:
       - "{name} has played {champion} {role} {total_performances} this season and averages {position_value} {position_name}."
-  champion_matchup_ranking:
+  champion_spells:
+    no_recency:
+      empty:
+        normal:
+          - '{name} has not played any games as {champion} {role} this season in ranked solo queue.'
+        offset:
+          - '{name} only has used {real_size} spell {real_size_combination_conjugation} playing as {champion} {role} so far this season.'
+      single:
+        normal:
+          - 'The spell combination used by {name} that gives the summoner playing {champion} {role} the {list_order} {sort_type} is {spells}.'
+        offset:
+          - 'The spell combination used by {name} that gives the summoner playing {champion} {role} the {list_position} {list_order} {sort_type} is {spells}.'
+    recency:
+      empty:
+        normal:
+          - '{name} has not played any games as {champion} {role} recently in ranked solo queue.'
+        offset:
+          - '{name} only has used {real_size} spell {real_size_combination_conjugation} playing as {champion} {role} recently this season.'
+      single:
+        normal:
+          complete:
+            - 'The spell combination used by {name} that gives the summoner playing {champion} {role} the {list_order} {sort_type} is {spells}.'
+          incomplete:
+            - '{name} has only used {real_size} spell {real_size_combination_conjugation} recently as {champion} {role}. The spell combo used by {name} with the {list_order} {sort_type} playing {name} as {champion} {role} is {spells}.'
+        offset:
+          complete:
+            - 'The spell combination used by {name} that gives the summoner playing {champion} {role} the {list_position} {list_order} {sort_type} is {spells}.'
+          incomplete:
+            - '{name} has only used {real_size} different spell {real_size_combination_conjugation} recently as {champion} {role}. The spell combo used by {name} that gives gives the {list_position} {list_order} {sort_type} is {spells}.'
+  champion_bans:
+    no_recency:
+      empty:
+        normal:
+          - '{name} has not played any games as {champion} {role} this season in ranked solo queue.'
+        offset:
+          complete:
+            - 'No bans were requested.'
+          incomplete:
+            - '{name} has only banned {real_size} {real_size_champion_conjugation} playing as {champion} {role} so far this season.'
+      single:
+        normal:
+          complete:
+            - 'The ban by {name} playing {champion} {role} that gives the summoner the {list_order} {sort_type} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} {real_size_champion_conjugation} so far this season as {champion} {role}. The ban by {name} with the {list_order} {sort_type} is {champions}.'
+        offset:
+          complete:
+            - 'The ban by {name} that gives the summoner playing {champion} {role} the {list_position} {list_order} {sort_type} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} so far this season as {champion} {role}. The ban by {name} that gives the summoner the {list_position} {list_order} {sort_type} is {champions}.'
+      multiple:
+        normal:
+          complete:
+            - 'The bans by {name} playing {champion} {role} that give the summoner the {list_order} {sort_type} are {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} so far this season as {champion} {role}. The bans by {name} that give the summoner the {list_order} {sort_type} are {champions}.'
+        offset:
+          complete:
+            - 'The {list_position} through {filtered_position_offset} bans that give {name} playing {champion} {role} the {list_order} {sort_type} are {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} so far this season as {champion} {role}. The {list_position} through {filtered_position_offset} bans that give {name} the {list_order} {sort_type} are {champions}.'
+    recency:
+      empty:
+        normal:
+          - '{name} has not played any games as {champion} {role} recently in ranked solo queue.'
+        offset:
+          complete:
+            - 'No bans were requested.'
+          incomplete:
+            - '{name} has only banned {real_size} {real_size_champion_conjugation} playing as {champion} {role} recently.'
+      single:
+        normal:
+          complete:
+            - 'The ban by {name} playing {champion} {role} that gives the summoner the {list_order} {sort_type} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} {real_size_champion_conjugation} recently as {champion} {role}. The ban by {name} with the {list_order} {sort_type} is {champions}.'
+        offset:
+          complete:
+            - 'The ban by {name} that gives the summoner playing {champion} {role} the {list_position} {list_order} {sort_type} is {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} recently as {champion} {role}. The ban by {name} that gives the summoner the {list_position} {list_order} {sort_type} is {champions}.'
+      multiple:
+        normal:
+          complete:
+            - 'The bans by {name} playing {champion} {role} that give the summoner the {list_order} {sort_type} are {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} recently as {champion} {role}. The bans by {name} that give the summoner the {list_order} {sort_type} are {champions}.'
+        offset:
+          complete:
+            - 'The {list_position} through {filtered_position_offset} bans that give {name} playing {champion} {role} the {list_order} {sort_type} are {champions}.'
+          incomplete:
+            - '{name} has only played against {real_size} different {real_size_champion_conjugation} recently as {champion} {role}. The {list_position} through {filtered_position_offset} bans that give {name} the {list_order} {sort_type} are {champions}.'
+  champion_counters:
     no_recency:
       empty:
         normal:
@@ -367,7 +459,7 @@ summoners:
               - '{name} has only played {real_size} {real_size_champion_conjugation} recently. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} are {champions}.'
 errors:
   summoners:
-    champion_matchup_ranking:
+    champion_counters:
       no_recency:
         no_opponents:
           - 'I could not find any opponents for {name} playing {champion} {role} this season.'

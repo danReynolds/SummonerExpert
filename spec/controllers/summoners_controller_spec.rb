@@ -9,6 +9,460 @@ describe SummonersController, type: :controller do
     allow(controller).to receive(:summoner_params).and_return(summoner_params)
   end
 
+  describe 'POST champion_spells' do
+    let(:action) { :champion_spells }
+    let(:summoner_params) do
+      {
+        name: 'Hero man',
+        champion: 'Shyvana',
+        region: 'NA1',
+        role: 'DUO_CARRY',
+        list_order: 'highest',
+        metric: '',
+        position_details: '',
+        recency: ''
+      }
+    end
+
+    before :each do
+      match_data = [
+        { match: { win: true }, summoner_performance: { spell1_id: 3, spell2_id: 4, champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { spell1_id: 3, spell2_id: 4, champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { spell1_id: 3, spell2_id: 4, champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { spell1_id: 3, spell2_id: 4, champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { spell1_id: 3, spell2_id: 4, champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: false }, summoner_performance: { spell1_id: 4, spell2_id: 6, champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: false }, summoner_performance: { spell1_id: 4, spell2_id: 6, champion_id: 102, role: 'DUO_CARRY' } },
+      ]
+
+      @matches = create_list(:match, match_data.length)
+      summoner = create(:summoner, name: 'Hero man')
+
+      @matches.each_with_index do |match, i|
+        summoner_performance = match.summoner_performances.first
+        opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+        winning_team = match_data[i][:match][:win] ? summoner_performance.team : opposing_team
+        match.update!(winning_team: winning_team)
+        summoner_performance.update!(match_data[i][:summoner_performance].merge({ summoner_id: summoner.id }))
+      end
+    end
+
+    context 'without recency' do
+      context 'with no spell combinations' do
+        context 'with no position offset' do
+          before :each do
+            summoner_params[:name] = 'inactive player'
+          end
+
+          it 'should indicate the summoner never plays that champion' do
+            post action, params: params
+            expect(speech).to eq 'inactive player is not an active player in ranked this season.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 100
+          end
+
+          it 'should indicate that no spell combinations were requested' do
+            post action, params: params
+            expect(speech).to eq 'Hero man only has used two spell combinations playing as Shyvana Adc so far this season.'
+          end
+        end
+      end
+
+      context 'with a single spell combination' do
+        context 'with no position offset' do
+          it 'should determine the single spell combination' do
+            post action, params: params
+            expect(speech).to eq 'The spell combination used by Hero man that gives the summoner playing Shyvana Adc the highest win rate is Exhaust and Flash.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          it 'should determine the single spell combination at that offset' do
+            post action, params: params
+            expect(speech).to eq 'The spell combination used by Hero man that gives the summoner playing Shyvana Adc the second highest win rate is Flash and Ghost.'
+          end
+        end
+      end
+    end
+
+    context 'with recency' do
+      before :each do
+        summoner_params[:recency] = :recently
+      end
+
+      context 'with no spell combinations' do
+        context 'with no position offset' do
+          before :each do
+            summoner_params[:name] = 'inactive player'
+          end
+
+          it 'should indicate the summoner never plays that champion' do
+            post action, params: params
+            expect(speech).to eq 'inactive player is not an active player in ranked recently.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 100
+          end
+
+          it 'should indicate that no spell combinations were requested' do
+            post action, params: params
+            expect(speech).to eq 'Hero man only has used two spell combinations playing as Shyvana Adc recently this season.'
+          end
+        end
+      end
+
+      context 'with a single spell combination' do
+        context 'with no position offset' do
+          it 'should determine the single spell combination' do
+            post action, params: params
+            expect(speech).to eq 'The spell combination used by Hero man that gives the summoner playing Shyvana Adc the highest win rate is Exhaust and Flash.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          it 'should determine the single spell combination at that offset' do
+            post action, params: params
+            expect(speech).to eq 'The spell combination used by Hero man that gives the summoner playing Shyvana Adc the second highest win rate is Flash and Ghost.'
+          end
+        end
+      end
+    end
+  end
+
+  describe 'POST champion_bans' do
+    let(:action) { :champion_bans }
+    let(:summoner_params) do
+      {
+        name: 'Hero man',
+        champion: 'Shyvana',
+        region: 'NA1',
+        role: 'DUO_CARRY',
+        list_order: 'highest',
+        list_size: 1,
+        metric: '',
+        position_details: '',
+        recency: ''
+      }
+    end
+
+    before :each do
+      match_data = [
+        { match: { win: true }, ban: { champion_id: 42 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, ban: { champion_id: 42 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, ban: { champion_id: 42 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, ban: { champion_id: 42 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, ban: { champion_id: 42 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, ban: { champion_id: 45 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: true }, ban: { champion_id: 45 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: false }, ban: { champion_id: 41 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: false }, ban: { champion_id: 41 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: false }, ban: { champion_id: 41 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+        { match: { win: false }, ban: { champion_id: 41 }, summoner_performance: { champion_id: 102, role: 'DUO_CARRY' } },
+      ]
+
+      @matches = create_list(:match, match_data.length)
+      summoner = create(:summoner, name: 'Hero man')
+
+      @matches.each_with_index do |match, i|
+        summoner_performance = match.summoner_performances.first
+        opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+        winning_team = match_data[i][:match][:win] ? summoner_performance.team : opposing_team
+        match.update!(winning_team: winning_team)
+        summoner_performance.update!(match_data[i][:summoner_performance].merge({ summoner_id: summoner.id }))
+        summoner_performance.ban.update!(match_data[i][:ban])
+      end
+    end
+
+    context 'without recency' do
+      context 'with no champions returned' do
+        context 'with no position offset' do
+          before :each do
+            summoner_params[:name] = 'inactive player'
+          end
+
+          it 'should indicate the summoner has not played any games as that champion this season' do
+            post action, params: params
+            expect(speech).to eq 'inactive player is not an active player in ranked this season.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 100
+          end
+
+          context 'with complete results' do
+            before :each do
+              summoner_params[:list_size] = 0
+            end
+
+            it 'should indicate that they did not ask for any bans' do
+              post action, params: params
+              expect(speech).to eq 'No bans were requested.'
+            end
+          end
+
+          context 'with incomplete results' do
+            it 'should indicate that the summoner has not banned enough champions' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only banned three champions playing as Shyvana Adc so far this season.'
+            end
+          end
+        end
+      end
+
+      context 'with a single champion returned' do
+        context 'with no position offset' do
+          context 'with complete results' do
+            it 'should specify the a ban' do
+              post action, params: params
+              expect(speech).to eq 'The ban by Hero man playing Shyvana Adc that gives the summoner the highest win rate is Corki.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:name] = 'inactive player'
+            end
+
+            it 'should indicate that the summoner has not played that champion this season' do
+              post action, params: params
+              expect(speech).to eq 'inactive player is not an active player in ranked this season.'
+            end
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          context 'with complete results' do
+            it 'should return the offset ban' do
+              post action, params: params
+              expect(speech).to eq 'The ban by Hero man that gives the summoner playing Shyvana Adc the second highest win rate is Veigar.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_position] = 100
+            end
+
+            it 'should indicate the summoner has not banned enough champions' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only banned three champions playing as Shyvana Adc so far this season.'
+            end
+          end
+        end
+      end
+
+      context 'with multiple champions returned' do
+        before :each do
+          summoner_params[:list_size] = 2
+        end
+
+        context 'without a position offset' do
+          context 'with complete results' do
+            it 'should specify the bans' do
+              post action, params: params
+              expect(speech).to eq 'The bans by Hero man playing Shyvana Adc that give the summoner the highest win rate are Corki and Veigar.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 5
+            end
+
+            it 'should return the bans indicating it is incomplete' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only played against three different champions so far this season as Shyvana Adc. The bans by Hero man that give the summoner the highest win rate are Corki, Veigar, and Gangplank.'
+            end
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          context 'with complete results' do
+            it 'should specify all the bans' do
+              post action, params: params
+              expect(speech).to eq 'The second through third bans that give Hero man playing Shyvana Adc the highest win rate are Veigar and Gangplank.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 5
+            end
+
+            it 'should return the bans indicating that it is incomplete' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only played against three different champions so far this season as Shyvana Adc. The second through third bans that give Hero man the highest win rate are Veigar and Gangplank.'
+            end
+          end
+        end
+      end
+    end
+
+    context 'with recency' do
+      before :each do
+        summoner_params[:recency] = 'recently'
+      end
+
+      context 'with no champions returned' do
+        context 'with no position offset' do
+          before :each do
+            summoner_params[:name] = 'inactive player'
+          end
+
+          it 'should indicate the summoner has not played any games as that champion this season' do
+            post action, params: params
+            expect(speech).to eq 'inactive player is not an active player in ranked recently.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 100
+          end
+
+          context 'with complete results' do
+            before :each do
+              summoner_params[:list_size] = 0
+            end
+
+            it 'should indicate that they did not ask for any bans' do
+              post action, params: params
+              expect(speech).to eq 'No bans were requested.'
+            end
+          end
+
+          context 'with incomplete results' do
+            it 'should indicate that the summoner has not banned enough champions' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only banned three champions playing as Shyvana Adc recently.'
+            end
+          end
+        end
+      end
+
+      context 'with a single champion returned' do
+        context 'with no position offset' do
+          context 'with complete results' do
+            it 'should specify the a ban' do
+              post action, params: params
+              expect(speech).to eq 'The ban by Hero man playing Shyvana Adc that gives the summoner the highest win rate is Corki.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:name] = 'inactive player'
+            end
+
+            it 'should indicate that the summoner has not played that champion this season' do
+              post action, params: params
+              expect(speech).to eq 'inactive player is not an active player in ranked recently.'
+            end
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          context 'with complete results' do
+            it 'should return the offset ban' do
+              post action, params: params
+              expect(speech).to eq 'The ban by Hero man that gives the summoner playing Shyvana Adc the second highest win rate is Veigar.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_position] = 100
+            end
+
+            it 'should indicate the summoner has not banned enough champions' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only banned three champions playing as Shyvana Adc recently.'
+            end
+          end
+        end
+      end
+
+      context 'with multiple champions returned' do
+        before :each do
+          summoner_params[:list_size] = 2
+        end
+
+        context 'without a position offset' do
+          context 'with complete results' do
+            it 'should specify the bans' do
+              post action, params: params
+              expect(speech).to eq 'The bans by Hero man playing Shyvana Adc that give the summoner the highest win rate are Corki and Veigar.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 5
+            end
+
+            it 'should return the bans indicating it is incomplete' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only played against three different champions recently as Shyvana Adc. The bans by Hero man that give the summoner the highest win rate are Corki, Veigar, and Gangplank.'
+            end
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          context 'with complete results' do
+            it 'should specify all the bans' do
+              post action, params: params
+              expect(speech).to eq 'The second through third bans that give Hero man playing Shyvana Adc the highest win rate are Veigar and Gangplank.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 5
+            end
+
+            it 'should return the bans indicating that it is incomplete' do
+              post action, params: params
+              expect(speech).to eq 'Hero man has only played against three different champions recently as Shyvana Adc. The second through third bans that give Hero man the highest win rate are Veigar and Gangplank.'
+            end
+          end
+        end
+      end
+    end
+  end
+
   describe 'POST champion_build' do
     let(:action) { :champion_build }
     let(:summoner_params) do
@@ -311,8 +765,8 @@ describe SummonersController, type: :controller do
     end
   end
 
-  describe 'POST champion_matchup_ranking' do
-    let(:action) { :champion_matchup_ranking }
+  describe 'POST champion_counters' do
+    let(:action) { :champion_counters }
     let(:summoner_params) do
       {
         name: 'Hero man',
