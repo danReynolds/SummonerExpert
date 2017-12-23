@@ -157,20 +157,21 @@ namespace :riot do
         recent_matches = matches_data['matches']
         recent_matches.map { |match| match['gameId'] }.sort.last
       end
-    end.compact.sort
+    end.compact.sort.reverse
 
     match_index = Cache.get_match_index
     end_match_index = Cache.get_end_match_index
-    # Use the median recent game id in case there are large outliers
-    new_end_match_index = [recent_game_ids[recent_game_ids.length / 2], end_match_index].max
+    new_end_match_index = recent_game_ids.find do |id|
+      id < end_match_index + END_MATCH_INDEX_THRESHOLD
+    end || end_match_index
     batch_size = [new_end_match_index - match_index, MATCH_BATCH_SIZE].min
     new_start_match_index = match_index + batch_size
 
     Cache.set_match_index(new_start_match_index)
     Cache.set_end_match_index(new_end_match_index)
 
-    # If the new end match index is a lot larger than expected it is probably an error
-    if new_end_match_index > end_match_index + END_MATCH_INDEX_THRESHOLD
+    # Notify when no new match end index was found
+    if new_end_match_index == end_match_index
       DataDog.event(
         DataDog::EVENTS[:RIOT_MATCHES_ERROR],
         end_index: end_match_index,
