@@ -22,12 +22,27 @@ class SummonerPerformance < ActiveRecord::Base
       (performances.select(&:victorious?).count / performances.count.to_f * 100).round(2)
     end
 
-    def aggregate_performance(performances, metrics)
+    def aggregate_performance_positions(performances, positions)
       performances.inject({}) do |acc, performance|
         acc.tap do
-          metrics.each do |metric|
-            acc[metric] ||= []
-            acc[metric] << performance.send(metric)
+          positions.each do |position|
+            acc[position] ||= []
+            acc[position] << performance.send(position)
+          end
+        end
+      end
+    end
+
+    def aggregate_performance_metric(performances, metric)
+      case metric
+      when :count
+        { count: performances.count }
+      when :winrate
+        { winrate: performances.select(&:victorious?).length / performances.length.to_f * 100 }
+      when :KDA
+        aggregate_performance_positions(performances, [:kills, :deaths, :assists]).inject({}) do |acc, (metric, value)|
+          acc.tap do
+            acc[metric] = value.sum / value.count.to_f
           end
         end
       end

@@ -9,6 +9,182 @@ describe SummonersController, type: :controller do
     allow(controller).to receive(:summoner_params).and_return(summoner_params)
   end
 
+  describe 'POST champion_matchups' do
+    let(:action) { :champion_matchups }
+    let(:summoner_params) do
+      {
+        name: 'Hero man',
+        champion: 'Shyvana',
+        champion2: 'Udyr',
+        region: 'NA1',
+        role: 'JUNGLE',
+        list_order: 'highest',
+        metric: '',
+        position_details: '',
+        recency: ''
+      }
+    end
+
+    before :each do
+      @matches = create_list(:match, 2)
+      match_data = [
+        { match: { win: true }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, opponent: { champion_id: 77 } },
+        { match: { win: false }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, opponent: { champion_id: 50 } },
+      ]
+      summoner = create(:summoner, name: 'Hero man')
+      @matches.each_with_index do |match, i|
+        summoner_performance = match.summoner_performances.first
+        opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+        if match_data[i][:match][:win]
+          match.update!(winning_team: summoner_performance.team)
+        else
+          match.update!(winning_team: opposing_team)
+        end
+        summoner_performance.update!(
+          match_data[i][:summoner_performance].merge({ summoner_id: summoner.id })
+        )
+        opposing_team.summoner_performances.first
+          .update!(match_data[i][:opponent].merge({ role: match_data[i][:summoner_performance][:role] }))
+      end
+    end
+
+    context 'without recency' do
+      context 'with no games against that champion' do
+        before :each do
+          summoner_params[:champion2] = 'Bard'
+        end
+
+        it 'should indicate that the summoner has not played against that champion' do
+          post action, params: params
+          expect(speech).to eq 'I could not find any matches for Hero man playing Shyvana Jungle against Bard so far this season.'
+        end
+      end
+
+      context 'with no position or metric' do
+        it 'should indicte the win rate the summoner gets playing that matchup' do
+          post action, params: params
+          expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr this season with a 100.0% win rate.'
+        end
+      end
+
+      context 'with a position' do
+        before :each do
+          summoner_params[:position_details] = :kills
+        end
+
+        it 'should indicate the kills the summoner gets playing that matchup' do
+          post action, params: params
+          expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr this season and averages 2.0 kills.'
+        end
+      end
+
+      context 'with a metric' do
+        context 'with a KDA metric' do
+          before :each do
+            summoner_params[:metric] = :KDA
+          end
+
+          it 'should indicate the KDA the summoner gets playing that matchup' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr this season with an overall 2.0/3.0/7.0 KDA.'
+          end
+        end
+
+        context 'with a count metric' do
+          before :each do
+            summoner_params[:metric] = :count
+          end
+
+          it 'should indicate the count the summoner gets playing that matchup' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr this season.'
+          end
+        end
+
+        context 'with a winrate metric' do
+          before :each do
+            summoner_params[:metric] = :winrate
+          end
+
+          it 'should indicate the win rate the summoner gets playing that matchup' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr this season with a 100.0% win rate.'
+          end
+        end
+      end
+    end
+
+    context 'with recency' do
+      before :each do
+        summoner_params[:recency] = :recently
+      end
+
+      context 'with no games against that champion' do
+        before :each do
+          summoner_params[:champion2] = 'Bard'
+        end
+
+        it 'should indicate that the summoner has not played against that champion recently' do
+          post action, params: params
+          expect(speech).to eq 'I could not find any matches for Hero man playing Shyvana Jungle against Bard recently.'
+        end
+      end
+
+      context 'with no position or metric' do
+        it 'should indicte the win rate the summoner gets playing that matchup' do
+          post action, params: params
+          expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr recently with a 100.0% win rate.'
+        end
+      end
+
+      context 'with a position' do
+        before :each do
+          summoner_params[:position_details] = :kills
+        end
+
+        it 'should indicate the kills the summoner gets playing that matchup' do
+          post action, params: params
+          expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr recently and averages 2.0 kills.'
+        end
+      end
+
+      context 'with a metric' do
+        context 'with a KDA metric' do
+          before :each do
+            summoner_params[:metric] = :KDA
+          end
+
+          it 'should indicate the KDA the summoner gets playing that matchup' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr recently with an overall 2.0/3.0/7.0 KDA.'
+          end
+        end
+
+        context 'with a count metric' do
+          before :each do
+            summoner_params[:metric] = :count
+          end
+
+          it 'should indicate the count the summoner gets playing that matchup' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr recently.'
+          end
+        end
+
+        context 'with a winrate metric' do
+          before :each do
+            summoner_params[:metric] = :winrate
+          end
+
+          it 'should indicate the win rate the summoner gets playing that matchup' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr recently with a 100.0% win rate.'
+          end
+        end
+      end
+    end
+  end
+
   describe 'POST champion_spells' do
     let(:action) { :champion_spells }
     let(:summoner_params) do
@@ -1935,7 +2111,8 @@ describe SummonersController, type: :controller do
         role: 'DUO_CARRY',
         position_details: 'kills',
         region: 'NA1',
-        recency: ''
+        recency: '',
+        metric: ''
       }
     end
 
@@ -1950,6 +2127,39 @@ describe SummonersController, type: :controller do
         role: 'DUO_CARRY',
         summoner: summoner_performance.summoner
       )
+    end
+
+    context 'with a winrate metric specified' do
+      before :each do
+        summoner_params[:metric] = :winrate
+      end
+
+      it 'should indicate the winrate for the summoner playing that champion' do
+        post action, params: params
+        expect(speech).to eq 'Hero man has played Tristana Adc two times this season and has a 100.0% overall win rate.'
+      end
+    end
+
+    context 'with a count metric specified' do
+      before :each do
+        summoner_params[:metric] = :count
+      end
+
+      it 'should indicate the count for the summoner playing that champion' do
+        post action, params: params
+        expect(speech).to eq 'Hero man has played Tristana Adc two times this season.'
+      end
+    end
+
+    context 'with a KDA metric specified' do
+      before :each do
+        summoner_params[:metric] = :KDA
+      end
+
+      it 'should indicate the KDA for the summoner playing that champion' do
+        post action, params: params
+        expect(speech).to eq 'Hero man has played Tristana Adc two times this season and averages a 2.0/3.0/7.0 KDA.'
+      end
     end
 
     context 'with no games played as that champion' do

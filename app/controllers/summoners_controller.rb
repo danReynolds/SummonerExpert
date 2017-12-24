@@ -3,10 +3,13 @@ class SummonersController < ApplicationController
   include Utils
   before_action :load_summoner, :load_namespace
   before_action only: [:champion_performance_ranking] { process_performance_request(with_sorting: true) }
-  before_action only: [:champion_performance_summary, :champion_performance_position] do
+  before_action only: [:champion_performance_summary] do
     process_performance_request(with_role: true, with_champion: true)
   end
-  before_action only: [:champion_build, :champion_counters, :champion_bans, :champion_spells] do
+  before_action only: [
+  :champion_build, :champion_counters, :champion_bans, :champion_spells,
+  :champion_matchups, :champion_performance_position
+  ] do
     process_performance_request(with_role: true, with_champion: true, with_sorting: true)
   end
 
@@ -26,6 +29,31 @@ class SummonersController < ApplicationController
 
     render json: {
       speech: ApiResponse.get_response(dig_set(*@namespace), args)
+    }
+  end
+
+  def champion_matchups
+    champion = Champion.new(name: summoner_params[:champion])
+    opponent_champion = Champion.new(name: summoner_params[:champion2])
+    args = @processed_request[:args].merge({ champion2: opponent_champion.name })
+    sort_type = @processed_request[:sort_type]
+    performances = @processed_request[:performances].select do |performance|
+      performance.opponent.try(:champion_id) == opponent_champion.id
+    end
+
+    if performances.empty?
+      namespace = dig_set(:errors, *@namespace, *dig_list(@processed_request[:namespace]), :no_matchups)
+      return render json: { speech: ApiResponse.get_response(namespace, args) }
+    end
+
+    position_data = determine_position_data(sort_type, performances)
+    args.merge!(position_data[:args])
+
+    render json: {
+      speech: ApiResponse.get_response(
+        dig_set(*@namespace, @processed_request[:namespace], position_data[:namespace]),
+        args
+      )
     }
   end
 
@@ -128,9 +156,7 @@ class SummonersController < ApplicationController
       .compact.group_by(&:champion_id).to_a
 
     if counters.empty?
-      namespace = dig_set(
-        :errors, *@namespace, *dig_list(@processed_request[:namespace]), :no_opponents
-      )
+      namespace = dig_set(:errors, *@namespace, *dig_list(@processed_request[:namespace]), :no_opponents)
       return render json: { speech: ApiResponse.get_response(namespace, args) }
     end
 
@@ -181,16 +207,18 @@ class SummonersController < ApplicationController
   end
 
   def champion_performance_position
-    position = summoner_params[:position_details].to_sym
     args = @processed_request[:args]
+    sort_type = @processed_request[:sort_type]
     performances = @processed_request[:performances]
-    aggregate_performance = SummonerPerformance::aggregate_performance(performances, [position])
 
-    args[:position_name] = RiotApi::POSITION_DETAILS[position]
-    args[:position_value] = (aggregate_performance[position].sum / performances.count).round(2)
+    position_data = determine_position_data(sort_type, performances)
+    args.merge!(position_data[:args])
 
     render json: {
-      speech: ApiResponse.get_response(dig_set(*@namespace, @processed_request[:namespace]), args)
+      speech: ApiResponse.get_response(
+        dig_set(*@namespace, @processed_request[:namespace], position_data[:namespace]),
+        args
+      )
     }
   end
 
@@ -198,12 +226,12 @@ class SummonersController < ApplicationController
     positions = [:kills, :deaths, :assists]
     args = @processed_request[:args]
     performances = @processed_request[:performances]
-    aggregate_performance = SummonerPerformance::aggregate_performance(performances, positions)
 
+    aggregate_performance = SummonerPerformance::aggregate_performance_positions(performances, positions)
+    args[:winrate] = SummonerPerformance::winrate(performances)
     positions.each do |position|
       args[position] = (aggregate_performance[position].sum / performances.count).round(2)
     end
-    args[:winrate] = SummonerPerformance::winrate(performances)
 
     render json: {
       speech: ApiResponse.get_response(dig_set(*@namespace, @processed_request[:namespace]), args)
@@ -215,7 +243,7 @@ class SummonersController < ApplicationController
   def summoner_params
     params.require(:result).require(:parameters).permit(
       :name, :region, :champion, :queue, :role, :position_details, :metric,
-      :list_order, :list_size, :list_position, :recency
+      :list_order, :list_size, :list_position, :recency, :champion2
     )
   end
 
@@ -251,6 +279,23 @@ class SummonersController < ApplicationController
       )
     }
     false
+  end
+
+  def determine_position_data(sort_type, performances)
+    total_performances = performances.length
+
+    Hash.new({ args: {} }). tap do |position|
+      position[:args][:total_performances] = "#{total_performances.to_i.en.numwords} #{'time'.pluralize(total_performances)}"
+      if RiotApi::POSITION_METRICS.include?(sort_type)
+        position[:args].merge!(SummonerPerformance::aggregate_performance_metric(performances, sort_type))
+        position[:namespace] = sort_type
+      else
+        position_value = (SummonerPerformance::aggregate_performance_positions(performances, [sort_type])
+          .values.first.sum / performances.count.to_f).round(2)
+        position[:args].merge!(position_value: position_value)
+        position[:namespace] = :position
+      end
+    end
   end
 
   def performance_ranking_sort(sort_type)

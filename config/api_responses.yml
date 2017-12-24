@@ -158,6 +158,25 @@ items:
 summoners:
   performance_summary:
     - "{name} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate."
+  champion_matchups:
+    no_recency:
+      position:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} this season and averages {position_value} {sort_type}."
+      count:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} this season."
+      winrate:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} this season with a {winrate}% {sort_type}."
+      KDA:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} this season with an overall {kills}/{deaths}/{assists} {sort_type}."
+    recency:
+      position:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} recently and averages {position_value} {sort_type}."
+      count:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} recently."
+      winrate:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} recently with a {winrate}% {sort_type}."
+      KDA:
+        - "{name} has played {champion} {role} {total_performances} against {champion2} recently with an overall {kills}/{deaths}/{assists} {sort_type}."
   champion_build:
     no_recency:
       - "{name} has played {champion} {role} {total_performances} this season and the summoner's {list_order} {sort_type} build is {build}."
@@ -170,9 +189,23 @@ summoners:
       - "{name} has played {champion} {role} {total_performances} this season with a {winrate}% win rate and an overall {kills}/{deaths}/{assists} KDA."
   champion_performance_position:
     recency:
-      - "{name} has played {champion} {role} {total_performances} recently and averages {position_value} {position_name}."
+      position:
+        - "{name} has played {champion} {role} {total_performances} recently and averages {position_value} {sort_type}."
+      count:
+        - "{name} has played {champion} {role} {total_performances} recently."
+      KDA:
+        - "{name} has played {champion} {role} {total_performances} recently and averages a {kills}/{deaths}/{assists} {sort_type}."
+      winrate:
+        - "{name} has played {champion} {role} {total_performances} recently and has a {winrate}% overall {sort_type}."
     no_recency:
-      - "{name} has played {champion} {role} {total_performances} this season and averages {position_value} {position_name}."
+      position:
+        - "{name} has played {champion} {role} {total_performances} this season and averages {position_value} {sort_type}."
+      count:
+        - "{name} has played {champion} {role} {total_performances} this season."
+      KDA:
+        - "{name} has played {champion} {role} {total_performances} this season and averages a {kills}/{deaths}/{assists} {sort_type}."
+      winrate:
+        - "{name} has played {champion} {role} {total_performances} this season and has a {winrate}% overall {sort_type}."
   champion_spells:
     no_recency:
       empty:
@@ -459,6 +492,13 @@ summoners:
               - '{name} has only played {real_size} {real_size_champion_conjugation} recently. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} are {champions}.'
 errors:
   summoners:
+    champion_matchups:
+      no_recency:
+        no_matchups:
+          - 'I could not find any matches for {name} playing {champion} {role} against {champion2} so far this season.'
+      recency:
+        no_matchups:
+          - 'I could not find any matches for {name} playing {champion} {role} against {champion2} recently.'
     champion_counters:
       no_recency:
         no_opponents:
