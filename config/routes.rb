@@ -42,5 +42,6 @@ Rails.application.routes.draw do
     post :champion_bans
     post :champion_spells
     post :champion_matchups
+    post :teammates
   end
 end

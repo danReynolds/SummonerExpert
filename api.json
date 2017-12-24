@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2017-12-23T22:46:49.552Z",
+	"__export_date": "2017-12-24T16:46:11.876Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -810,6 +810,35 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1514062683505,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_434b7be48f544aeba476ee565d0e43e4",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1514130732634,
+			"created": 1514130265573,
+			"url": "{{ url }}",
+			"name": "summoners/teammates",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"c29d6aab-a130-42b0-bbcd-868d1684565c\",\n  \"timestamp\": \"2017-12-24T15:51:40.049Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Which summoner does dyrus get the best KDA with\",\n    \"action\": \"summoners/teammates\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Clinkzs\",\n      \"list_order\": \"highest\",\n      \"metric\": \"KDA\",\n      \"list_size\": \"1\",\n      \"region\": \"NA1\",\n      \"champion\": \"Morgana\",\n      \"list_position\": \"1\",\n      \"role\": \"\",\n      \"recency\": \"\",\n      \"position_details\": \"\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_teammates\",\n        \"parameters\": {\n          \"name.original\": \"dyrus\",\n          \"role\": \"\",\n          \"recency.original\": \"\",\n          \"list_position.original\": \"\",\n          \"position_details\": \"\",\n          \"region.original\": \"\",\n          \"list_size\": \"1\",\n          \"position_details.original\": \"\",\n          \"recency\": \"\",\n          \"list_order.original\": \"best\",\n          \"list_position\": \"1\",\n          \"metric\": \"KDA\",\n          \"metric.original\": \"KDA\",\n          \"list_order\": \"highest\",\n          \"name\": \"dyrus \",\n          \"role.original\": \"\",\n          \"list_size.original\": \"\",\n          \"region\": \"NA1\",\n          \"champion.original\": \"\",\n          \"champion\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"48e3b40d-f55c-4cbb-b6b1-afa75dedb4e4\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 278,\n      \"intentName\": \"summoner/teammates\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"031238e1-cb4b-4dc3-b249-62e9ef21d81d\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_073b6201d4e44ba6b31c7d12eada7353"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1514130265573,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,

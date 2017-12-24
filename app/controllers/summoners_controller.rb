@@ -8,7 +8,7 @@ class SummonersController < ApplicationController
   end
   before_action only: [
   :champion_build, :champion_counters, :champion_bans, :champion_spells,
-  :champion_matchups, :champion_performance_position
+  :champion_matchups, :champion_performance_position, :teammates
   ] do
     process_performance_request(with_role: true, with_champion: true, with_sorting: true)
   end
@@ -30,6 +30,43 @@ class SummonersController < ApplicationController
     render json: {
       speech: ApiResponse.get_response(dig_set(*@namespace), args)
     }
+  end
+
+  def teammates
+    champion = Champion.new(name: summoner_params[:champion])
+    args = @processed_request[:args]
+
+    teammate_performances = @processed_request[:performances].inject({}) do |acc, performance|
+      acc.tap do |_|
+        performance.team.summoner_performances.each do |team_performance|
+          summoner_id = team_performance.summoner_id
+          if summoner_id != @summoner.id
+            acc[summoner_id] ||= []
+            acc[summoner_id] << performance
+          end
+        end
+      end
+    end
+
+    teammate_filter = Filterable.new({
+      collection: teammate_performances,
+      sort_method: performance_ranking_sort(@processed_request[:sort_type]),
+      reverse: true
+    }.merge(summoner_params.slice(:list_order, :list_position, :list_size)))
+    filtered_teammates = teammate_filter.filter
+    filter_types = teammate_filter.filter_types
+    args.merge!(ApiResponse.filter_args(teammate_filter))
+
+    teammates = filtered_teammates.map do |id, _|
+      Summoner.find(id).name
+    end
+
+    args.merge!({
+      summoners: teammates.en.conjunction(article: false),
+      real_size_summoner_conjugation: 'summoner'.en.pluralize(teammate_filter.real_size)
+    })
+    namespace = dig_set(*@namespace, *@processed_request[:namespace], *filter_types.values)
+    render json: { speech: ApiResponse.get_response(namespace, args) }
   end
 
   def champion_matchups

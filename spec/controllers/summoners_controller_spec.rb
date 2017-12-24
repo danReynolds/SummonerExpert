@@ -9,6 +9,282 @@ describe SummonersController, type: :controller do
     allow(controller).to receive(:summoner_params).and_return(summoner_params)
   end
 
+  describe 'POST teammates' do
+    let(:action) { :teammates }
+    let(:summoner_params) do
+      {
+        name: 'Hero man',
+        champion: 'Shyvana',
+        region: 'NA1',
+        role: 'JUNGLE',
+        list_order: 'highest',
+        metric: '',
+        position_details: '',
+        recency: ''
+      }
+    end
+
+    before :each do
+      @matches = create_list(:match, 5)
+      summoner = create(:summoner, name: 'Hero man')
+      teammate_summoner = create(:summoner, name: 'Teammate man')
+      other_summoner = create(:summoner, name: 'Other man')
+      match_data = [
+        { match: { win: true }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, teammate: { summoner_id: teammate_summoner.id } },
+        { match: { win: true }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, teammate: { summoner_id: teammate_summoner.id } },
+        { match: { win: true }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, teammate: { summoner_id: teammate_summoner.id } },
+        { match: { win: true }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, teammate: { summoner_id: other_summoner.id } },
+        { match: { win: true }, summoner_performance: { champion_id: 102, role: 'JUNGLE' }, teammate: { summoner_id: other_summoner.id } },
+      ]
+      @matches.each_with_index do |match, i|
+        summoner_performance = match.team1.summoner_performances.first
+        teammate_performance = match.team1.summoner_performances.last
+        opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+        if match_data[i][:match][:win]
+          match.update!(winning_team: summoner_performance.team)
+        else
+          match.update!(winning_team: opposing_team)
+        end
+        summoner_performance.update!(
+          match_data[i][:summoner_performance].merge({ summoner_id: summoner.id })
+        )
+        teammate_performance.update!(match_data[i][:teammate])
+      end
+    end
+
+    context 'without recency' do
+      context 'with no summoners returned' do
+        context 'with no position offset' do
+          before :each do
+            summoner_params[:name] = 'Inactive player'
+          end
+
+          it 'should indicate the summoner has not played any games' do
+            post action, params: params
+            expect(speech).to eq 'Inactive player is not an active player in ranked this season.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 10000
+          end
+
+          it 'should indicate that the summoner has not played enough games' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has only played with seventeen summoners playing as Shyvana Jungle so far this season.'
+          end
+        end
+      end
+
+      context 'with a single summoner returned' do
+        before :each do
+          summoner_params[:list_size] = 1
+        end
+
+        context 'with no position offset' do
+          it 'should return the single teammate' do
+            post action, params: params
+            expect(speech).to eq 'The teammate who has helped Hero man get the highest win rate so far this season playing Shyvana Jungle is Teammate man.'
+          end
+        end
+
+        context 'with a position offset' do
+          context 'with complete results' do
+            before :each do
+              summoner_params[:list_position] = 2
+            end
+
+            it 'should return the single teammate' do
+              post action, params: params
+              expect(speech).to eq 'The second teammate who has helped Hero man get the highest win rate so far this season playing Shyvana Jungle is Other man.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_position] = 17
+              summoner_params[:list_size] = 2
+            end
+
+            it 'should return the single teammate, indicating that it could not return all requested' do
+              post action, params: params
+              expect(speech).to start_with 'Hero man has only played with seventeen summoners so far this season as Shyvana Jungle. The seventeenth summoner who has helped Hero man get the highest win rate is'
+            end
+          end
+        end
+      end
+
+      context 'with multiple summoners returned' do
+        before :each do
+          summoner_params[:list_size] = 2
+        end
+
+        context 'with no position offset' do
+          context 'with complete results' do
+            it 'should determine the best teammates' do
+              post action, params: params
+              expect(speech).to eq 'The teammates who have helped Hero man get the highest win rate so far this season playing Shyvana Jungle are Teammate man and Other man.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 100
+            end
+
+            it 'should return the teammates, indicating that the list is incomplete' do
+              post action, params: params
+              expect(speech).to start_with 'Hero man has only played with seventeen summoners so far this season as Shyvana Jungle. The summoners who have helped Hero man get the highest win rate are Teammate man, Other man'
+            end
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          context 'with complete results' do
+            it 'should return the summoners at the offset' do
+              post action, params: params
+              expect(speech).to start_with 'The second through third teammates who have helped Hero man get the highest win rate so far this season playing Shyvana Jungle are Other man and'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 100
+            end
+
+            it 'should return the summoners, indicating this is not the full list' do
+              post action, params: params
+              expect(speech).to start_with 'Hero man has only played with seventeen summoners so far this season as Shyvana Jungle. The second through seventeenth'
+            end
+          end
+        end
+      end
+    end
+
+    context 'with recency' do
+      before :each do
+        summoner_params[:recency] = :recently
+      end
+
+      context 'with no summoners returned' do
+        context 'with no position offset' do
+          before :each do
+            summoner_params[:name] = 'Inactive player'
+          end
+
+          it 'should indicate the summoner has not played any games' do
+            post action, params: params
+            expect(speech).to eq 'Inactive player is not an active player in ranked recently.'
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 10000
+          end
+
+          it 'should indicate that the summoner has not played enough games' do
+            post action, params: params
+            expect(speech).to eq 'Hero man has only played with seventeen summoners playing as Shyvana Jungle recently.'
+          end
+        end
+      end
+
+      context 'with a single summoner returned' do
+        before :each do
+          summoner_params[:list_size] = 1
+        end
+
+        context 'with no position offset' do
+          it 'should return the single teammate' do
+            post action, params: params
+            expect(speech).to eq 'The teammate who has helped Hero man get the highest win rate recently playing Shyvana Jungle is Teammate man.'
+          end
+        end
+
+        context 'with a position offset' do
+          context 'with complete results' do
+            before :each do
+              summoner_params[:list_position] = 2
+            end
+
+            it 'should return the single teammate' do
+              post action, params: params
+              expect(speech).to eq 'The second teammate who has helped Hero man get the highest win rate recently playing Shyvana Jungle is Other man.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_position] = 17
+              summoner_params[:list_size] = 2
+            end
+
+            it 'should return the single teammate, indicating that it could not return all requested' do
+              post action, params: params
+              expect(speech).to start_with 'Hero man has only played with seventeen summoners recently as Shyvana Jungle. The seventeenth summoner who has helped Hero man get the highest win rate is'
+            end
+          end
+        end
+      end
+
+      context 'with multiple summoners returned' do
+        before :each do
+          summoner_params[:list_size] = 2
+        end
+
+        context 'with no position offset' do
+          context 'with complete results' do
+            it 'should determine the best teammates' do
+              post action, params: params
+              expect(speech).to eq 'The teammates who have helped Hero man get the highest win rate recently playing Shyvana Jungle are Teammate man and Other man.'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 100
+            end
+
+            it 'should return the teammates, indicating that the list is incomplete' do
+              post action, params: params
+              expect(speech).to start_with 'Hero man has only played with seventeen summoners recently as Shyvana Jungle. The summoners who have helped Hero man get the highest win rate are Teammate man, Other man'
+            end
+          end
+        end
+
+        context 'with a position offset' do
+          before :each do
+            summoner_params[:list_position] = 2
+          end
+
+          context 'with complete results' do
+            it 'should return the summoners at the offset' do
+              post action, params: params
+              expect(speech).to start_with 'The second through third teammates who have helped Hero man get the highest win rate recently playing Shyvana Jungle are Other man and'
+            end
+          end
+
+          context 'with incomplete results' do
+            before :each do
+              summoner_params[:list_size] = 100
+            end
+
+            it 'should return the summoners, indicating this is not the full list' do
+              post action, params: params
+              expect(speech).to start_with 'Hero man has only played with seventeen summoners recently as Shyvana Jungle. The second through seventeenth'
+            end
+          end
+        end
+      end
+    end
+  end
+
   describe 'POST champion_matchups' do
     let(:action) { :champion_matchups }
     let(:summoner_params) do
