@@ -38,11 +38,11 @@ class SummonerPerformance < ActiveRecord::Base
       when :count
         { count: performances.count }
       when :winrate
-        { winrate: performances.select(&:victorious?).length / performances.length.to_f * 100 }
+        { winrate: (performances.select(&:victorious?).length / performances.length.to_f * 100).round(2) }
       when :KDA
         aggregate_performance_positions(performances, [:kills, :deaths, :assists]).inject({}) do |acc, (metric, value)|
           acc.tap do
-            acc[metric] = value.sum / value.count.to_f
+            acc[metric] = (value.sum / value.count.to_f).round(2)
           end
         end
       end
