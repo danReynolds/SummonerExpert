@@ -21,18 +21,18 @@ services:
     networks:
       default:
     volumes:
-      - /etc/letsencrypt/live/api.summonerexpert.com/priv.pem:/etc/nginx/summonerexpert_privkey.pem
-      - /etc/letsencrypt/live/api.summonerexpert.com/chain.pem:/etc/nginx/summonerexpert_chain.pem
-      - /etc/letsencrypt/live/api.summonerexpert.com/fullchain.pem:/etc/nginx/summonerexpert_fullchain.pem
       - /etc/ssl/certs/dhparam.pem:/etc/nginx/dhparam.pem
       - logs:/etc/nginx/log/
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - letsencrypt:/usr/share/nginx/html
+      - webroot:/usr/share/nginx/html
+      - letsencrypt:/etc/nginx
   letsencrypt:
     image: certbot/certbot:latest
     volumes:
-      - letsencrypt:/usr/share/nginx/html
+      - webroot:/usr/share/nginx/html
+      - letsencrypt:/etc/letsencrypt/live/api.summonerexpert.com
 volumes:
   logs:
   pgdata:
+  webroot:
   letsencrypt:
