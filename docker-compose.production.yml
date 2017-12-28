@@ -21,11 +21,11 @@ services:
     networks:
       default:
     volumes:
-      - /etc/ssl/certs/dhparam.pem:/etc/nginx/dhparam.pem
       - logs:/etc/nginx/log/
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - webroot:/usr/share/nginx/html
-      - letsencrypt:/etc/nginx
+      - letsencrypt:/etc/nginx/letsencrypt
+      - /etc/ssl/certs/dhparam.pem:/etc/nginx/letsencrypt/dhparam.pem
   letsencrypt:
     image: certbot/certbot:latest
     volumes:

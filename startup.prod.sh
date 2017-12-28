@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm -f tmp/pids/server.pid
 source .env
 whenever --update-crontab
 cron
