@@ -608,6 +608,9 @@ errors:
         - "{name} is not an active player in ranked recently."
       no_recency:
         - "{name} is not an active player in ranked this season."
+    performance_summary:
+      no_queue_data:
+        - 'I could not find any information on {name} from Riot in ranked solo queue. You may not have played enough games or they may be having issues. Sorry about that, try again later.'
   matchups:
     duo_role_no_matchup:
       - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division.'
