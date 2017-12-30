@@ -34,7 +34,7 @@ class SummonersController < ApplicationController
     })
 
     render json: {
-      speech: ApiResponse.get_response(dig_set(:errors, *@namespace), args)
+      speech: ApiResponse.get_response(dig_set(*@namespace), args)
     }
   end
 
