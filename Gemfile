@@ -16,6 +16,7 @@ gem 'sidekiq'
 gem  'sidekiq-throttled'
 gem 'dogapi'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'sentry-raven'
 
 group :development, :test do
   gem 'factory_bot_rails'
