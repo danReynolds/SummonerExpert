@@ -4,7 +4,7 @@ class MatchWorker
   include RiotApi
 
   sidekiq_throttle({
-   threshold: { limit: 1400, period: 10.seconds }
+   threshold: { limit: 450, period: 10.seconds }
  })
 
   def perform(game_id)
