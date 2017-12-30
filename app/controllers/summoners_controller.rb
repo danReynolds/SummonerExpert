@@ -17,15 +17,14 @@ class SummonersController < ApplicationController
     name = @summoner.name
     queue = @summoner.queue(summoner_params[:queue])
 
-    args = {
-      name: name,
+    args.merge!({
       lp: queue.lp,
       rank: queue.rank,
       winrate: queue.winrate,
       hot_streak: queue.hot_streak ? 'on' : 'not on',
       elo: queue.elo.humanize,
       queue: queue.name
-    }
+    })
 
     render json: {
       speech: ApiResponse.get_response(dig_set(*@namespace), args)
