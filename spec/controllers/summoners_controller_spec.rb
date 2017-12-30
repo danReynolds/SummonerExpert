@@ -1186,6 +1186,17 @@ describe SummonersController, type: :controller do
       Cache.set_summoner_rank(summoner.summoner_id, nil)
     end
 
+    context 'with no queue data' do
+      before :each do
+        allow_any_instance_of(Summoner).to receive(:queue).and_return(RankedQueue.new(nil))
+      end
+
+      it 'should inform the user their queue data could not be found' do
+        post action, params: params
+        expect(speech).to eq 'I could not find any information on Wingilote from Riot in ranked solo queue. You may not have played enough games or they may be having issues. Sorry about that, try again later.'
+      end
+    end
+
     context 'when cached' do
       it 'should not make an API request' do
         post action, params: params

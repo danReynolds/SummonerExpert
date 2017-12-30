@@ -16,6 +16,13 @@ class SummonersController < ApplicationController
   def performance_summary
     name = @summoner.name
     queue = @summoner.queue(summoner_params[:queue])
+    args = { name: name }
+
+    unless queue.valid?
+      return render json: {
+        speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :no_queue_data), args)
+      }
+    end
 
     args.merge!({
       lp: queue.lp,
@@ -27,7 +34,7 @@ class SummonersController < ApplicationController
     })
 
     render json: {
-      speech: ApiResponse.get_response(dig_set(*@namespace), args)
+      speech: ApiResponse.get_response(dig_set(:errors, *@namespace), args)
     }
   end
 
@@ -319,7 +326,6 @@ class SummonersController < ApplicationController
 
   def determine_position_data(sort_type, performances)
     total_performances = performances.length
-
     Hash.new({ args: {} }). tap do |position|
       position[:args][:total_performances] = "#{total_performances.to_i.en.numwords} #{'time'.pluralize(total_performances)}"
       if RiotApi::POSITION_METRICS.include?(sort_type)
