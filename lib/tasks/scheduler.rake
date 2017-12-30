@@ -10,7 +10,7 @@ include ActionView::Helpers::SanitizeHelper
 # The API limit is 500 requests every 10 seconds = 180000 every hour
 # Leave a percentage of requests that can be run per hour for manual requests
 # made by the client and testing
-MATCH_BATCH_SIZE = 100000
+MATCH_BATCH_SIZE = 500000
 
 END_MATCH_INDEX_THRESHOLD = 500000
 
