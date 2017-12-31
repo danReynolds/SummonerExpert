@@ -5,7 +5,7 @@ class MatchWorker
 
   sidekiq_throttle({
    threshold: { limit: 450, period: 10.seconds }
- })
+  })
 
   def perform(game_id)
     # Skip if the game is somehow already saved

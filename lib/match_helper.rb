@@ -45,7 +45,7 @@ class MatchHelper
           stats = summoner_params['stats']
 
           summoner = Summoner.find_by_name(player_params['summonerName']) ||
-            Summoner.find_by_id(player_params['summonerId']) ||
+            Summoner.find_by_summoner_id(player_params['summonerId']) ||
             Summoner.create!(
               account_id: player_params['accountId'],
               region: player_params['currentPlatformId'],
