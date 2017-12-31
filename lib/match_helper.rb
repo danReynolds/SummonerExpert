@@ -50,7 +50,7 @@ class MatchHelper
               account_id: player_params['accountId'],
               region: player_params['currentPlatformId'],
               summoner_id: player_params['summonerId'],
-              name: player_params['summonerName'])
+              name: player_params['summonerName']
             )
 
           match.first_blood_summoner = summoner if stats['firstBloodKill']
