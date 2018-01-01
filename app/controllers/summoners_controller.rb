@@ -447,7 +447,7 @@ class SummonersController < ApplicationController
 
   def load_summoner
     @summoner = Summoner.find_by(
-      name: summoner_params[:name],
+      name: summoner_params[:name].strip,
       region: summoner_params[:region]
     )
 
