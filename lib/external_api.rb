@@ -8,14 +8,7 @@ class ExternalApi
       response = Net::HTTP.get_response(uri)
       code = response.code.to_i
 
-      if code != 200
-        puts "Error: #{code}"
-        if error_codes.include?(code)
-          raise Exception.new({ uri: endpoint, code: code })
-        else
-          return nil
-        end
-      end
+      raise Exception.new({ uri: endpoint, code: code }) if code != 200
 
       body = JSON.parse(response.body)
       if body.is_a?(Hash)
