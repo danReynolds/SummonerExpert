@@ -28,12 +28,14 @@ module RiotApi
     SERVICE_UNAVAILABLE = 503
     BAD_REQUEST = 400
     FORBIDDEN = 403
+    NOT_FOUND = 404
     ERROR_CODES = [
       RATE_LIMIT_EXCEEDED,
       INTERNAL_SERVER_ERROR,
       SERVICE_UNAVAILABLE,
       BAD_REQUEST,
-      FORBIDDEN
+      FORBIDDEN,
+      NOT_FOUND
     ]
 
     # Constants related to the Riot Api
