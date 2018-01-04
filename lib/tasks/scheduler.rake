@@ -10,7 +10,7 @@ include ActionView::Helpers::SanitizeHelper
 # The API limit is 500 requests every 10 seconds = 180000 every hour
 # Leave a percentage of requests that can be run per hour for manual requests
 # made by the client and testing
-MATCH_BATCH_SIZE = 75000
+MATCH_BATCH_SIZE = 150000
 
 # Use recent players to determine the new end match index
 PLAYER_POOL_SIZE = 300
@@ -128,7 +128,7 @@ end
 
 namespace :riot do
   task daily: [:cache_champions, :cache_items, :cache_spells]
-  task half_hourly: [:store_matches]
+  task hourly: [:store_matches]
 
   def remove_tags(description)
     prepared_text = description.split("<br>")

@@ -30,6 +30,6 @@ every 1.day, at: "07:40 am" do
   rake "riot:daily"
 end
 
-every 30.minutes do
-  rake "riot:half_hourly"
+every 1.hour do
+  rake "riot:hourly"
 end
