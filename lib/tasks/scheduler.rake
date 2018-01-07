@@ -176,7 +176,12 @@ namespace :riot do
     Cache.set_end_match_index(new_end_match_index)
 
     batch_size.times do |i|
-      MatchWorker.perform_async(match_index + i)
+      # Game ids are given in order of game creation, but they
+      # may not become available from the API until the games are completed
+      # if an older game finishes earlier, it could appear first and cause
+      # the earlier game to be skipped by this job. Delay by an hour to ensure
+      # all games are ready.
+      MatchWorker.perform_in(1.hour, match_index + i)
     end
 
     # Notify when no new match end index was found
