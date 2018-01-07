@@ -63,7 +63,7 @@ class SummonersController < ApplicationController
     filter_types = teammate_filter.filter_types
     args.merge!(ApiResponse.filter_args(teammate_filter))
 
-    teammates = filtered_teammates.map do |id|
+    teammates = filtered_teammates.map do |id, _|
       Summoner.find(id).name
     end
 
