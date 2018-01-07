@@ -30,7 +30,7 @@ every 1.day, at: "07:40 am" do
   rake "riot:daily"
 end
 
-every 1.day at: "8:15 am" do
+every 1.day at: "9:30 am" do
   rake "riot:store_matches_fix"
 end
 
