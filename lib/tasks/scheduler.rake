@@ -175,6 +175,10 @@ namespace :riot do
     Cache.set_match_index(new_start_match_index)
     Cache.set_end_match_index(new_end_match_index)
 
+    batch_size.times do |i|
+      MatchWorker.perform_async(match_index + i)
+    end
+
     # Notify when no new match end index was found
     if new_end_match_index == end_match_index
       DataDog.event(
@@ -192,10 +196,30 @@ namespace :riot do
       new_end_match_index: new_end_match_index,
       matches_remaining: new_end_match_index - new_start_match_index
     )
+  end
 
-    batch_size.times do |i|
-      MatchWorker.perform_async(match_index + i)
+  # Temporary nightly fixup task to save matchups that were somehow missed.
+  # Ongoing investigation into why they were missed.
+  desc 'Store matches fix'
+  task store_matches_fix: :environment do
+    match_index = Cache.get_fixup_match_index
+    end_match_index = Cache.get_end_match_index
+
+    retry_range = (match_index..end_match_index)
+    retry_games = retry_range.to_a - Match.where(game_id: retry_range).pluck(:game_id)
+
+    retry_games.each do |game_id|
+      MatchWorker.perform_async(game_id, true)
     end
+
+    Cache.set_fixup_match_index(end_match_index)
+
+    DataDog.event(
+      DataDog::EVENTS[:RIOT_MATCHES_FIX],
+      fixup_match_index: match_index,
+      end_match_index: end_match_index,
+      matches_processed: batch_size
+    )
   end
 
   desc 'Cache spells'

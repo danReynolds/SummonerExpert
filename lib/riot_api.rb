@@ -28,12 +28,16 @@ module RiotApi
     SERVICE_UNAVAILABLE = 503
     BAD_REQUEST = 400
     FORBIDDEN = 403
+    NOT_FOUND = 404
     ERROR_CODES = [
       RATE_LIMIT_EXCEEDED,
       INTERNAL_SERVER_ERROR,
       SERVICE_UNAVAILABLE,
       BAD_REQUEST,
       FORBIDDEN,
+    ]
+    IGNORE_CODES = [
+      NOT_FOUND
     ]
 
     # Constants related to the Riot Api
@@ -121,7 +125,7 @@ module RiotApi
 
       def get_match(args)
         url = replace_url(@api[:match], args)
-        fetch_response(url, ERROR_CODES)
+        fetch_response(url, ERROR_CODES, IGNORE_CODES)
       end
 
       def get_recent_matches(args)

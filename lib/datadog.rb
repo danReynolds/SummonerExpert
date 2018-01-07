@@ -9,7 +9,8 @@ class DataDog
     RIOT_ITEMS: 'Riot Items Event',
     RIOT_SPELLS: 'Riot Spells Event',
     RIOT_MATCHES: 'Riot Matches Event',
-    RIOT_MATCHES_ERROR: 'Riot Matches Error Event'
+    RIOT_MATCHES_ERROR: 'Riot Matches Error Event',
+    RIOT_MATCHES_FIX: 'Riot Matches Fix Event'
   }
 
   class << self

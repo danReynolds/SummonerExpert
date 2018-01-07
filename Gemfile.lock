@@ -104,7 +104,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
-    newrelic_rpm (3.16.2.321)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -251,7 +250,6 @@ DEPENDENCIES
   keen
   linguistics
   listen (~> 3.0.5)
-  newrelic_rpm
   pg
   pry
   pry-byebug
@@ -272,4 +270,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.16.0
+   1.16.1

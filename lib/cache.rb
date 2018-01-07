@@ -20,6 +20,12 @@ class Cache
       Rails.cache.read(:match_index)
     end
 
+    # Returns the current fixup match index that has been cached up to in the
+    # past 24 hours
+    def get_fixup_match_index
+      Rails.cache.read(:fixup_match_index)
+    end
+
     # Returns the end match index that is known to exist for all games
     def get_end_match_index
       Rails.cache.read(:end_match_index)
@@ -86,6 +92,12 @@ class Cache
     # Returns the current match index that has been cached up to
     def set_match_index(match_index)
       Rails.cache.write(:match_index, match_index)
+    end
+
+    # @match_index the match index that has been cached up to over 24 hours
+    # Returns the current match index that has been cached up to
+    def set_fixup_match_index(match_index)
+      Rails.cache.write(:fixup_match_index, match_index)
     end
 
     # @end_match_index the match index that is the last game known to exist
