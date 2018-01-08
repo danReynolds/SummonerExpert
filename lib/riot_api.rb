@@ -35,9 +35,9 @@ module RiotApi
       SERVICE_UNAVAILABLE,
       BAD_REQUEST,
       FORBIDDEN,
-      NOT_FOUND
     ]
     IGNORE_CODES = [
+      NOT_FOUND
     ]
 
     # Constants related to the Riot Api
