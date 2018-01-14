@@ -74,8 +74,8 @@ class MatchupRanking < MatchupRole
       args = {
         name: @name,
         elo: @elo.humanize,
-        named_role: @role1.humanize,
-        unnamed_role: @role2.humanize,
+        named_role: @role1.try(:humanize),
+        unnamed_role: @role2.try(:humanize),
         matchup_role: @matchup_role
       }
 
