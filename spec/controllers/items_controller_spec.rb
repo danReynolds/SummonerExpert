@@ -15,9 +15,22 @@ describe ItemsController, type: :controller do
       { name: 'Blade of the Ruined King' }
     end
 
-    it 'should specify the items needed to build the item' do
-      post action, params: params
-      expect(speech).to eq 'The items used to build Blade of the Ruined King are Bilgewater Cutlass and Recurve Bow.'
+    context 'when it builds from something' do
+      it 'should specify the items needed to build the item' do
+        post action, params: params
+        expect(speech).to eq 'The items used to build Blade of the Ruined King are Bilgewater Cutlass and Recurve Bow.'
+      end
+    end
+
+    context 'when it does not build from something' do
+      before :each do
+        item_params[:name] = 'Boots of Speed'
+      end
+
+      it 'should specify that the item does not build from anything' do
+        post action, params: params
+        expect(speech).to eq 'Boots of Speed does not build from anything, from what I can tell.'
+      end
     end
   end
 

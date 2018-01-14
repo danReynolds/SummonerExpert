@@ -553,6 +553,11 @@ summoners:
             no_role_specified:
               - '{name} has only played {real_size} {real_size_champion_conjugation} recently. The {list_position} through {filtered_position_offset} champions played by {name} with the {list_order} {sort_type} are {champions}.'
 errors:
+  items:
+    build:
+      empty:
+        - '{name} does not build from anything, from what I can tell.'
+        - 'Well I do not believe {name} does actually build from anything.'
   summoners:
     champion_matchups:
       no_recency:

@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   include RiotApi
-  before_action :load_item
+  include Utils
+  before_action :load_item, :load_namespace
 
   def description
     costs = @item.costs
@@ -12,18 +13,23 @@ class ItemsController < ApplicationController
     }
 
     render json: {
-      speech: ApiResponse.get_response({ items: :description }, args)
+      speech: ApiResponse.get_response(*namespace, args)
     }
   end
 
   def build
+    item_build = @item.build
     args = {
       name: @item.name,
-      item_names: @item.build.en.conjunction(article: false)
+      item_names: item_build.en.conjunction(article: false)
     }
 
+    if item_build.empty?
+      return render json: { speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :empty), args) }
+    end
+
     render json: {
-      speech: ApiResponse.get_response({ items: :build }, args)
+      speech: ApiResponse.get_response(*namespace, args)
     }
   end
 
@@ -36,6 +42,10 @@ class ItemsController < ApplicationController
       render json: { speech: @item.error_message }
       return false
     end
+  end
+
+  def load_namespace
+    @namespace = [controller_name.to_sym, action_name.to_sym]
   end
 
   def item_params

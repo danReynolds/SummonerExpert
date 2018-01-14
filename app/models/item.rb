@@ -25,6 +25,7 @@ class Item < Collection
   end
 
   def build
-    @data['from'].map { |id| COLLECTION[id.to_i] }
+    from = @data['from'] || []
+    from.map { |id| COLLECTION[id.to_i] }
   end
 end
