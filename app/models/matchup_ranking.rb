@@ -35,16 +35,16 @@ class MatchupRanking < MatchupRole
   private
 
   # If neither role was specified, check if the champion only has one role and
-  # return the matchups for that one
+  # return the matchups for that one. Use ROLES instead of MATCHUP_ROLES
+  # since SYNERGY and ADCSUPPORT overlap with the other roles
   def determine_matchups_by_shared_roles
-    shared_matchups = ChampionGGApi::MATCHUP_ROLES.values.inject([]) do |shared_matchups, matchup_role|
+    shared_matchups = ChampionGGApi::ROLES.values.inject([]) do |shared_matchups, matchup_role|
       matchups = Cache.get_champion_matchups(@name, matchup_role, @elo)
       shared_matchups.tap { shared_matchups << matchups if matchups }
     end
     shared_matchups.first if shared_matchups.length == 1
   end
 
-  # Use the unnamed role to try to determine the matchups
   def determine_matchups_by_single_role(role)
     adc = ChampionGGApi::MATCHUP_ROLES[:DUO_CARRY]
     support = ChampionGGApi::MATCHUP_ROLES[:DUO_SUPPORT]

@@ -332,7 +332,7 @@ describe SummonersController, type: :controller do
 
         it 'should indicate that the summoner has not played against that champion' do
           post action, params: params
-          expect(speech).to eq 'I could not find any matches for Hero man playing Shyvana Jungle against Bard so far this season.'
+          expect(speech).to eq 'I could not find any matches for Hero man playing Shyvana Jungle against Bard so far this season. It would be interesting to see though.'
         end
       end
 
@@ -1193,7 +1193,7 @@ describe SummonersController, type: :controller do
 
       it 'should inform the user their queue data could not be found' do
         post action, params: params
-        expect(speech).to eq 'I could not find any information on Wingilote from Riot in ranked solo queue. You may not have played enough games or they may be having issues. Sorry about that, try again later.'
+        expect(speech).to eq 'I could not find any information on Wingilote from the Riot overlords in ranked solo queue. The summoner may not have played enough games or there may be something going on with the system. Sorry about that, try again later.'
       end
     end
 
@@ -1288,14 +1288,14 @@ describe SummonersController, type: :controller do
 
         it 'should indicate that there are no recent opponents' do
           post action, params: params
-          expect(speech).to eq 'I could not find any opponents for Hero man playing Shyvana Middle recently.'
+          expect(speech).to eq 'I could not find any matches for Hero man playing Shyvana Middle recently this season. A shame, I enjoy watching Shyvana play.'
         end
       end
 
       context 'without recency' do
         it 'should indicate that there have been no opponents this season' do
           post action, params: params
-          expect(speech).to eq 'I could not find any opponents for Hero man playing Shyvana Middle this season.'
+          expect(speech).to eq 'I could not find any games for Hero man playing Shyvana Middle this season. A shame, I enjoy watching Shyvana play.'
         end
       end
     end
@@ -2316,14 +2316,14 @@ describe SummonersController, type: :controller do
 
           it 'should indicate that the summoner has not played the champion recently' do
             post action, params: params
-            expect(speech).to eq 'Hero man has not played any games recently as Zed.'
+            expect(speech).to eq 'Hero man has not played any games recently as Zed. I would pay to see it though.'
           end
         end
 
         context 'without recency' do
           it 'should indicate that the summoner has not played the champion this season' do
             post action, params: params
-            expect(speech).to eq 'Hero man has not played any games this season as Zed.'
+            expect(speech).to eq 'Hero man has not played any games this season as Zed. I wonder if the two had a falling out.'
           end
         end
       end
@@ -2487,14 +2487,14 @@ describe SummonersController, type: :controller do
 
           it 'should indicate that the summoner has not played the champion this season recently' do
             post action, params: params
-            expect(speech).to eq 'Hero man has not played any games recently as Zed.'
+            expect(speech).to eq 'Hero man has not played any games recently as Zed. I would pay to see it though.'
           end
         end
 
         context 'without recency' do
           it 'should indicate that the summoner has not played the champion this season' do
             post action, params: params
-            expect(speech).to eq 'Hero man has not played any games this season as Zed.'
+            expect(speech).to eq 'Hero man has not played any games this season as Zed. I wonder if the two had a falling out.'
           end
         end
       end

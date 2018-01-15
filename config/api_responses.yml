@@ -1,18 +1,18 @@
 champions:
   title:
     - '{name} has the illustrious title of {title}.'
-    - 'That champ and I go way back, if I had to call him anything it would be {name}, {title}.'
-    - '{name} has the title of {title}.'
+    - 'That champ and I go way back, if I had to call them anything it would be {name}, {title}.'
+    - '{name} has the magnificient title of {title}.'
   lore:
     - 'I will tell you about the history of {name}. This is all I know: {lore}'
     - '{name} has such an interesting past. Here it is, stop me if you have heard it: {lore}'
   ability:
     - "{champion_name}'s {position} ability is called {ability_name}. {description}"
-    - "Here is a description of {ability_name}, {champion_name}'s {position} ability: {description}"
+    - "Certainly! Here is a description of {ability_name}, {champion_name}'s {position} ability: {description}"
   allytips:
     - "Here's something you should know about {name}: {tip}"
     - "Many times have I fought with {name} by my side. This is what I would take to heart: {tip}"
-    - "I know {name} personally, you should know the following: {tip}"
+    - "I know {name} personally, I would advise the following: {tip}"
   enemytips:
     - "I have seen {name} fall in battle before and this is what I would recommend: {tip}"
     - "While strong, {name} is not invincible. Remember the following: {tip}"
@@ -42,13 +42,13 @@ champions:
         complete:
           - 'No champions were requested.'
         incomplete:
-          - 'The current patch only has data for {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. There are no champions beginning at the {list_position} position.'
+          - 'The current patch only has information for {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. There are no champions beginning at the {list_position} position.'
     single:
       normal:
         complete:
           - 'The champion with the {list_order} {position} playing {role} in {elo} division is {names}.'
         incomplete:
-          - 'The current patch only has data for {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. The champion with the {list_order} {position} playing {role} in {elo} is {names}.'
+          - 'Alas, the current patch only has told me about {real_size} {real_size_champion_conjugation} playing {role} in {elo} division. The champion with the {list_order} {position} playing {role} in {elo} is {names}.'
       offset:
         complete:
           - 'The champion with the {list_position} {list_order} {position} playing {role} in {elo} division is {names}.'
@@ -72,8 +72,10 @@ champions:
     solo_role:
       general:
         - '{name1} and {name2} have {champ1_result} and {champ2_result} {position} respectively playing {role1} in {elo} division.'
+        - 'Champion {name1} and {name2} have {champ1_result} and {champ2_result} {position} respectively playing {role1} in {elo} division.'
       winrate:
-        - '{name1} has a {champ1_result}% {position} against {name2} playing {role1} in {elo} division.'
+        - 'Last I heard, {name1} has a {champ1_result}% {position} against {name2} playing {role1} in {elo} division.'
+        - '{name1} has a {champ1_result}% {position} against {name2} playing {role1} in {elo} division. Fancy that.'
     duo_role:
       general:
         - '{name1} averages {champ1_result} {position} in {role1}, {match_result} than {name2} who averages {champ2_result} {position} when playing {role2} in {elo} division.'
@@ -562,36 +564,51 @@ errors:
     champion_matchups:
       no_recency:
         no_matchups:
-          - 'I could not find any matches for {name} playing {champion} {role} against {champion2} so far this season.'
+          - 'I could not find any matches for {name} playing {champion} {role} against {champion2} so far this season. It would be interesting to see though.'
       recency:
         no_matchups:
           - 'I could not find any matches for {name} playing {champion} {role} against {champion2} recently.'
     champion_counters:
       no_recency:
         no_opponents:
-          - 'I could not find any opponents for {name} playing {champion} {role} this season.'
+          - 'I could not find any games for {name} playing {champion} {role} this season. A shame, I enjoy watching {champion} play.'
+          - "Hmph, I don't believe {name} has played {champion} {role} this season."
+          - '{name} has not played {champion} {role} so far this season.'
       recency:
         no_opponents:
-          - 'I could not find any opponents for {name} playing {champion} {role} recently.'
+          - 'I could not find any matches for {name} playing {champion} {role} recently this season. A shame, I enjoy watching {champion} play.'
+          - "Hmph, I don't believe {name} has played {champion} {role} lately."
+          - '{name} has not played {champion} {role} recently.'
     champion_build:
       no_recency:
         no_complete_builds:
           - '{name} does not have any complete builds playing {champion} {role} this season.'
+          - '{name} does not have any full builds playing {champion} {role} this season, perhaps the summoner just wins too quickly.'
+          - '{name} does not have any full builds playing {champion} {role} this season, I think we both know what that means.'
       recency:
         no_complete_builds:
-          - '{name} does not have any complete builds playing {champion} {role} recently.'
+          - '{name} does not have any complete builds playing {champion} {role} lately.'
+          - '{name} does not have any full builds playing {champion} {role} recently.'
     does_not_play:
       champion:
         role_specified:
           recency:
             - '{name} has not played any games recently as {champion} {role}.'
+            - '{name} has not played any matches recently as {champion} {role}.'
+            - "{name} has not played any matches lately as {champion} {role}. I would like to see it happen though."
           no_recency:
             - '{name} has not played any games this season as {champion} {role}.'
+            - '{name} has not played any matches this season as {champion} {role}.'
+            - '{champion} {role}? {name} has not yet shown any interest in that combination this season.'
         no_role_specified:
           recency:
-            - '{name} has not played any games recently as {champion}.'
+            - "{name} has not played any games recently as {champion}. I would pay to see it though."
+            - "{name} has not played any games recently as {champion}."
+            - "{name} has not played any games lately as {champion}."
           no_recency:
+            - '{name} has not played any games this season as {champion}. I wonder if the two had a falling out.'
             - '{name} has not played any games this season as {champion}.'
+            - '{name} does not seem to have played any games this season as {champion}.'
       no_champion:
         role_specified:
           recency:
@@ -606,53 +623,76 @@ errors:
     multiple_roles:
       recency:
         - '{name} has played {champion} {total_performances} recently this season across {roles}. Which role do you want to know about?'
+        - '{name} has tried {champion} {total_performances} recently this season across {roles}. Which one do you want to know about in particular?'
       no_recency:
         - '{name} has played {champion} {total_performances} this season across {roles}. Which role do you want to know about?'
+        - '{name} has played {champion} {total_performances} this season across {roles}. Which role are you interested in?'
     not_active:
       recency:
         - "{name} is not an active player in ranked recently."
+        - "{name} is not an active player in ranked recently. Maybe they are taking a break, I know I'd be tired after carrying that much."
+        - "{name} has not been an active player in ranked recently. I hope we didn't lose another one to that other game."
       no_recency:
         - "{name} is not an active player in ranked this season."
+        - "{name} has not been active in ranked so far."
+        - "{name} has not played in ranked yet this season. I do hope they comeback though."
     performance_summary:
       no_queue_data:
-        - 'I could not find any information on {name} from Riot in ranked solo queue. You may not have played enough games or they may be having issues. Sorry about that, try again later.'
+        - 'I could not find any information on {name} from the Riot overlords in ranked solo queue. The summoner may not have played enough games or there may be something going on with the system. Sorry about that, try again later.'
   matchups:
     duo_role_no_matchup:
-      - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division.'
+      - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division. I would ship them though.'
+      - 'I do not have any information on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division. What a fight that would be.'
+      - 'I do not have any knowledge on matchups for {name1} {role1} and {name2} {role2} playing together in {elo} division. I would pay to see it.'
+      - 'I do not have any knowledge on matchups for {name1} {role1} and {name2} {role2} facing off in {elo} division.'
     solo_role_no_matchup:
       - 'I cannot find any matchup information on {name1} and {name2} playing {matchup_role} in {elo} division.'
+      - "Hmm, I don't recall {name1} and {name2} playing {matchup_role} in {elo} division. It would certainly be interesting."
     multiple_shared_roles:
       - '{name1} and {name2} have matchups for multiple roles in {elo} division. Please specify roles for one or both champions.'
+      - 'Aha, yes I found them. In fact, {name1} and {name2} have matchups playing multiple roles in {elo} division. Can you specify roles for one or both champions?'
     no_shared_roles:
-      - 'I cannot find matchup information for {name1} and {name2} for any role combination in {elo} division.'
+      - 'I cannot find matchup information for {name1} and {name2} playing together for any role combination in {elo} division.'
+      - 'I cannot find matchup information for {name1} and {name2} for any role combination in {elo} division. Those two must really not like being around each other.'
   matchup_ranking:
     empty:
       duo_roles:
-        - 'There are no matchup rankings for champions playing {unnamed_role} with {name} {named_role} in {elo} division.'
+        - 'I have limited knowledge of champions playing {unnamed_role} with {name} {named_role} in {elo} division. That would either be a terrible or great idea.'
+        - 'I have not often heard of champions playing {unnamed_role} with {name} {named_role} in {elo} division. Grab a friend and give it a try!'
+        - 'There are very few games I know of for champions playing {unnamed_role} with {name} {named_role} in {elo} division.'
       named_role:
-        - 'There are no matchup rankings for {name} {named_role}.'
+        - 'I do not seem to have much information on {name} {named_role}. It sounds like you are trying something off meta again.'
+        - 'I do not often hear about {name} {named_role}. I will keep watching to see if it becomes popular.'
+        - 'There is not much to tell about {name} {named_role}. That champion is usually found in other positions.'
       unnamed_role:
-        - 'There are no matchup rankings for champions playing {unnamed_role} with {name}.'
+        - 'I do not have any information for champions playing {unnamed_role} with {name}. Anything can happen though, I expect the season will be full of surprises.'
+        - 'I cannot say that I have heard much about champions playing {unnamed_role} with {name}. Maybe the meta will change.'
       no_roles:
-        - "There are multiple matchup rankings for {name}, please specify {name}'s role."
+        - "{name} plays multiple roles, tell me which one you want to know about."
+        - "{name} cannot be confined to one role, which one are you thinking of?"
+        - "{name} likes to play in several positions. Which role are you looking for?"
   role_performance:
     no_position_details:
       - 'Please specify the information you want to know about {name} {role}.'
     does_not_play:
       - 'I do not have any information on {name} playing {role}.'
+      - 'Well, I do not believe I know much about {name} playing {role} so far this season. It could still happen though.'
     plays_multiple_roles:
       - '{name} plays multiple roles, please specify a role.'
+      - '{name} likes to play multiple roles, Which one do you want to know about?'
   cooldown:
     rank:
-      - 'A valid ability rank is between 1 and 5.'
+      - 'A valid ability rank is generally between 1 and 5.'
       - 'Only ranks between 1 and 5 can be specified.'
   stats:
     level:
-      - 'A valid champion level is between 1 and 18.'
-      - 'Only levels between 1 and 18 can be specified.'
+      - 'A valid champion level is between 1 and 18, at least for now.'
+      - 'Only levels between 1 and 18 can be specified. '
 application:
   patch:
     - 'All data is currently based off of patch {patch}.'
     - 'All information is using patch {patch}.'
+    - '{patch} is the current one. I hope your champions were buffed!'
+    - '{patch}. They nerfed one of my favorites.'
   reset:
     - 'Conversation reset! Nothing said previously will affect our current conversation.'
