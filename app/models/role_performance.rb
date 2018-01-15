@@ -11,7 +11,7 @@ class RolePerformance
   RELAY_ACCESSORS = [
     :winRate, :kills, :totalDamageTaken, :wardsKilled, :averageGames,
     :largestKillingSpree, :assists, :playRate, :gamesPlayed, :percentRolePlayed,
-    :goldEarned, :deaths, :wardPlaced, :banRate, :minionsKilled
+    :goldEarned, :deaths, :wardPlaced, :banRate, :minionsKilled, :totalHeal, :totalDamageDealt
   ].freeze
   RELAY_ACCESSORS.each do |accessor|
     attr_accessor accessor
