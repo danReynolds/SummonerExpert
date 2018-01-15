@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
     }
 
     render json: {
-      speech: ApiResponse.get_response(*@namespace, args)
+      speech: ApiResponse.get_response(dig_set(*@namespace), args)
     }
   end
 
@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
     end
 
     render json: {
-      speech: ApiResponse.get_response(*@namespace, args)
+      speech: ApiResponse.get_response(dig_set(*@namespace), args)
     }
   end
 
