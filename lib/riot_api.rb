@@ -13,8 +13,9 @@ module RiotApi
     # Default tags to use for requesting champions
     DEFAULT_TAGS = [:allytips, :blurb, :enemytips, :info, :spells, :stats, :tags, :lore]
 
-    # Current season as defined by season indicated in matches API
-    ACTIVE_SEASON = 9
+    # Current season as defined by season indicated in matches API for season 2017/pre season
+    # and season 2018
+    ACTIVE_SEASONS = [9, 10, 11]
 
     # Matches are based off of Ranked Solo Queue
     RANKED_QUEUE_ID = 420

@@ -13,7 +13,7 @@ class MatchWorker
       match_data = RiotApi.get_match(id: game_id)
       # Check that it is a ranked game for the current season
       if (match_data && match_data['queueId'] == RiotApi::RANKED_QUEUE_ID &&
-        match_data['seasonId'] == RiotApi::ACTIVE_SEASON)
+        RiotApi::ACTIVE_SEASONS.include?(match_data['seasonId']))
         Raven.capture_exception(Exception.new("Found on retry: #{game_id}")) if fixup
         MatchHelper.store_match(match_data)
       end
