@@ -394,11 +394,11 @@ class SummonersController < ApplicationController
     summoner_performances = if starting_time.present? && ending_time.present?
       args[:starting_time] = starting_time
       args[:ending_time] = ending_time
-      @summoner.summoner_performances.where(filter).where('created_at > ?', starting_time)
+      @summoner.summoner_performances.where(filter).where('created_at >= ?', starting_time)
         .where('created_at <= ?', ending_time)
     elsif starting_time.present?
       args[:starting_time] = starting_time
-      @summoner.summoner_performances.where(filter).where('created_at > ?', starting_time)
+      @summoner.summoner_performances.where(filter).where('created_at >= ?', starting_time)
     elsif ending_time.present?
       args[:ending_time] = ending_time
       @summoner.summoner_performances.where(filter).where('created_at <= ?', ending_time)
@@ -436,7 +436,7 @@ class SummonersController < ApplicationController
   def load_summoner
     @summoner = Summoner.find_by(
       name: summoner_params[:name].strip,
-      region: summoner_params[:region]
+      region: RiotApi::NA
     )
 
     unless @summoner.try(:valid?)

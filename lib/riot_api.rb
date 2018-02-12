@@ -50,6 +50,7 @@ module RiotApi
     ROLES = [TOP, JUNGLE, SUPPORT, ADC, MIDDLE]
 
     REGIONS = %w(BR1 EUN1 EUW1 JP1 KR LA1 LA2 NA1 NA2 OC1 RU TR1)
+    NA = 'NA1'
 
     STATS = {
       armor: 'armor',

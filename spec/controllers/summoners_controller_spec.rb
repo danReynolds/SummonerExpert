@@ -7,6 +7,7 @@ describe SummonersController, type: :controller do
 
   before :each do
     allow(controller).to receive(:summoner_params).and_return(summoner_params)
+    Timecop.freeze(Time.new(2018, 2, 7))
     @today = "#{Time.now.strftime("%Y-%m-%d")}/#{(Time.now + 1.day).strftime("%Y-%m-%d")}"
   end
 
