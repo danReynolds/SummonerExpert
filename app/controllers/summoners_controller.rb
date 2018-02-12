@@ -410,6 +410,7 @@ class SummonersController < ApplicationController
         .where('created_at <= ?', ending_time)
     else
       @summoner.summoner_performances.where(filter)
+        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
     end
 
     unless role.present?
