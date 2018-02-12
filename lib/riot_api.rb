@@ -17,6 +17,10 @@ module RiotApi
     # and season 2018
     ACTIVE_SEASONS = [9, 10, 11]
 
+    # While the API did not start returning season 11 until about a week later,
+    # the date people care about is the official start of the season 01/16/2018
+    SEASON_START_DATE = Date.new(2018, 1, 16)
+
     # Matches are based off of Ranked Solo Queue
     RANKED_QUEUE_ID = 420
 

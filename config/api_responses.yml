@@ -241,7 +241,7 @@ summoners:
           - '{summoner} has only played against {real_size} {real_size_champion_conjugation} {starting_time} {ending_time} {:as:champion} {role}. The ban that gives the {list_order} {sort_type} is {champions}.'
       offset:
         complete:
-          - 'The ban by {summoner} that gives the summoner playing {champion} {role} the {list_position} {list_order} {sort_type} {recently} is {champions}.'
+          - 'The ban by {summoner} that gives the summoner playing {champion} {role} the {list_position} {list_order} {sort_type} {starting_time} {ending_time} is {champions}.'
         incomplete:
           - '{summoner} has only played against {real_size} different {real_size_champion_conjugation} {starting_time} {ending_time} {:as:champion} {role}. The ban that gives the summoner the {list_position} {list_order} {sort_type} is {champions}.'
     multiple:
@@ -343,7 +343,7 @@ errors:
     does_not_play:
       - '{summoner} has not played any games {starting_time} {ending_time} {:as:champion} {role}.'
       - '{summoner} has not played any matches {starting_time} {ending_time} {:as:champion} {role}.'
-      - "{summoner} has not played any games recently {:as:champion}. I would pay to see it though."
+      - "{summoner} has not played any games {starting_time} {ending_time} {:as:champion}. I would pay to see it though."
       - "{summoner} has not played any matches {starting_time} {ending_time} {:as:champion} {role}. I would like to see it happen though."
     multiple_roles:
       - '{summoner} has played {champion} {total_performances} {starting_time} {ending_time} this season {role}. Which role do you want to know about?'

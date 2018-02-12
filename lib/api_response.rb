@@ -9,7 +9,7 @@ class ApiResponse
         prefix_match = replaced_response.match(/{:(.*):#{key}}/)
         entity_val = Entities.send(key, val)
         entity_val = "#{prefix_match.captures.first} #{entity_val}" if prefix_match
-        replaced_response.gsub(/{(?::.*:)?#{key}}/, entity_val) rescue binding.pry
+        replaced_response.gsub(/{(?::.*:)?#{key}}/, entity_val)
       end
       replaced_response.gsub(/{(?::|\w)+}/, '').split(' ').join(' ').gsub(/\s\./, '.')
     end

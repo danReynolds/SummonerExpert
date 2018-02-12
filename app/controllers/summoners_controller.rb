@@ -394,14 +394,20 @@ class SummonersController < ApplicationController
     summoner_performances = if starting_time.present? && ending_time.present?
       args[:starting_time] = starting_time
       args[:ending_time] = ending_time
-      @summoner.summoner_performances.where(filter).where('created_at >= ?', starting_time)
+      @summoner.summoner_performances.where(filter)
+        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
+        .where('created_at >= ?', starting_time)
         .where('created_at <= ?', ending_time)
     elsif starting_time.present?
       args[:starting_time] = starting_time
-      @summoner.summoner_performances.where(filter).where('created_at >= ?', starting_time)
+      @summoner.summoner_performances.where(filter)
+        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
+        .where('created_at >= ?', starting_time)
     elsif ending_time.present?
       args[:ending_time] = ending_time
-      @summoner.summoner_performances.where(filter).where('created_at <= ?', ending_time)
+      @summoner.summoner_performances.where(filter)
+        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
+        .where('created_at <= ?', ending_time)
     else
       @summoner.summoner_performances.where(filter)
     end
