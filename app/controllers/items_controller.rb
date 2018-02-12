@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   def description
     costs = @item.costs
     args = {
-      name: @item.name,
+      item: @item.name,
       description: @item.sanitizedDescription,
       total_cost: costs['total'],
       sell_cost: costs['sell']
@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
   def build
     item_build = @item.build
     args = {
-      name: @item.name,
+      item: @item.name,
       item_names: item_build.en.conjunction(article: false)
     }
 

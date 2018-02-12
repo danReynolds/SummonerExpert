@@ -94,7 +94,7 @@ class RolePerformance
   private
 
   def role_performance_validator
-    args = { name: @name, elo: @elo.humanize, role: @role.humanize }
+    args = { champion: @name, elo: @elo.humanize, role: @role.humanize }
 
     if errors.empty? && @role_performance.nil?
       if @role.present?

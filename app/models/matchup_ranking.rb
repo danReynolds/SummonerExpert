@@ -72,7 +72,7 @@ class MatchupRanking < MatchupRole
   def matchups_validator
     if errors.messages.empty? && @matchups.nil?
       args = {
-        name: @name,
+        champion: @name,
         elo: @elo.humanize,
         named_role: @role1.try(:humanize),
         unnamed_role: @role2.try(:humanize),

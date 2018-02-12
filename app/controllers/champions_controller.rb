@@ -21,9 +21,9 @@ class ChampionsController < ApplicationController
 
     args = {
       position: ChampionGGApi::POSITIONS[champion_params[:position].to_sym],
-      role: champion_params[:role].humanize,
+      role: champion_params[:role],
       elo: champion_params[:elo].humanize,
-      names: filtered_rankings.en.conjunction(article: false),
+      champions: filtered_rankings.en.conjunction(article: false),
       real_size: real_size.en.numwords,
       requested_size: rankings_filter.requested_size.en.numwords,
       filtered_size: filtered_size.en.numwords,
@@ -54,7 +54,7 @@ class ChampionsController < ApplicationController
     } if level < 0 || level > 18
 
     args = {
-      name: @champion.name,
+      champion: @champion.name,
       level: level,
       stat_name: RiotApi::STATS[stat_key],
       stat: @champion.stat(stat_key, level).round(2)
@@ -68,12 +68,12 @@ class ChampionsController < ApplicationController
   def ability_order
     order = @role_performance.ability_order(champion_params[:metric])
     args = {
-      name: @champion.name,
+      champion: @champion.name,
       metric: ChampionGGApi::METRICS[champion_params[:metric].to_sym],
       start_order: order[:start_order].join(', '),
       max_order: order[:max_order].join(', '),
       elo: @role_performance.elo.humanize,
-      role: @role_performance.role.humanize
+      role: @role_performance.role
     }
 
     order_similarity = order[:start_order] == order[:max_order] ? :same_order : :different_order
@@ -92,9 +92,9 @@ class ChampionsController < ApplicationController
 
     args = {
       elo: @role_performance.elo.humanize,
-      role: @role_performance.role.humanize,
+      role: @role_performance.role,
       item_names: item_names,
-      name: @role_performance.name,
+      champion: @role_performance.name,
       metric: ChampionGGApi::METRICS[metric.to_sym]
     }
 
@@ -128,8 +128,8 @@ class ChampionsController < ApplicationController
       elo: @matchup.elo.humanize,
       role1: role1.humanize,
       role2: role2.humanize,
-      name1: @matchup.name1,
-      name2: @matchup.name2,
+      champion1: @matchup.name1,
+      champion2: @matchup.name2,
       match_result: champ1_result > champ2_result ? 'higher' : 'lower'
     }
 
@@ -162,8 +162,8 @@ class ChampionsController < ApplicationController
       position: ChampionGGApi::MATCHUP_POSITIONS[matchup_position.to_sym],
       unnamed_role: @matchup_ranking.unnamed_role.humanize,
       named_role: @matchup_ranking.named_role.humanize,
-      name: @matchup_ranking.name,
-      names: filtered_rankings.en.conjunction(article: false),
+      champion: @matchup_ranking.name,
+      champions: filtered_rankings.en.conjunction(article: false),
       real_size_champion_conjugation: 'champion'.en.pluralize(rankings_filter.real_size)
     }.merge(filter_args)
 
@@ -185,8 +185,8 @@ class ChampionsController < ApplicationController
       speech: ApiResponse.get_response(
         { errors: { role_performance: :no_position_details } },
         {
-          role: @role_performance.role.humanize,
-          name: @role_performance.name,
+          role: @role_performance.role,
+          champion: @role_performance.name,
         }
       )
     } if position.blank?
@@ -205,8 +205,8 @@ class ChampionsController < ApplicationController
 
     args = {
       elo: @role_performance.elo.humanize,
-      role: @role_performance.role.humanize,
-      name: @role_performance.name,
+      role: @role_performance.role,
+      champion: @role_performance.name,
       position: position_performance.round(2),
       position_name: ChampionGGApi::POSITION_DETAILS[position]
     }
@@ -236,8 +236,8 @@ class ChampionsController < ApplicationController
 
     args = {
       elo: @role_performance.elo.humanize,
-      role: @role_performance.role.humanize,
-      name: @role_performance.name,
+      role: @role_performance.role,
+      champion: @role_performance.name,
       win_rate: "#{(@role_performance.winRate * 100).round(2)}%",
       ban_rate: "#{(@role_performance.banRate * 100).round(2)}%",
       kda: @role_performance.kda.values.map { |val| val.round(2) }.join('/'),
@@ -257,8 +257,8 @@ class ChampionsController < ApplicationController
     args = {
       position: ability_position,
       description: ability[:sanitizedDescription],
-      champion_name: @champion.name,
-      ability_name: ability[:name]
+      champion: @champion.name,
+      ability: ability[:name]
     }
 
     render json: {
@@ -276,10 +276,10 @@ class ChampionsController < ApplicationController
     } if rank < 1 || rank > 5
 
     args = {
-      name: @champion.name,
+      champion: @champion.name,
       rank: rank,
       ability_position: ability_position,
-      ability_name: ability[:name],
+      ability: ability[:name],
       ability_cooldown: ability[:cooldown][rank].to_i
     }
 
@@ -289,7 +289,7 @@ class ChampionsController < ApplicationController
   end
 
   def lore
-    args = { name: @champion.name, lore: @champion.blurb }
+    args = { champion: @champion.name, lore: @champion.blurb }
 
     render json: {
       speech: ApiResponse.get_response({ champions: :lore }, args)
@@ -297,7 +297,7 @@ class ChampionsController < ApplicationController
   end
 
   def title
-    args = { title: @champion.title, name: @champion.name }
+    args = { title: @champion.title, champion: @champion.name }
     render json: {
       speech: ApiResponse.get_response({ champions: :title }, args)
     }
@@ -305,7 +305,7 @@ class ChampionsController < ApplicationController
 
   def ally_tips
     tip = remove_html_tags(@champion.allytips.sample.to_s)
-    args = { name: @champion.name, tip: tip }
+    args = { champion: @champion.name, tip: tip }
 
     render json: {
       speech: ApiResponse.get_response({ champions: :allytips }, args)
@@ -314,7 +314,7 @@ class ChampionsController < ApplicationController
 
   def enemy_tips
     tip = remove_html_tags(@champion.enemytips.sample.to_s)
-    args = { name: @champion.name, tip: tip }
+    args = { champion: @champion.name, tip: tip }
 
     render json: {
       speech: ApiResponse.get_response({ champions: :enemytips }, args)

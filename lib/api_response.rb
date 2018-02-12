@@ -5,15 +5,19 @@ class ApiResponse
 
   class << self
     def replace_response(response, args)
-      args.inject(response) do |replaced_response, (key, val)|
-        replaced_response.gsub(/{#{key}}/, val.to_s)
+      replaced_response = args.inject(response) do |replaced_response, (key, val)|
+        prefix_match = replaced_response.match(/{:(.*):#{key}}/)
+        entity_val = Entities.send(key, val)
+        entity_val = "#{prefix_match.captures.first} #{entity_val}" if prefix_match
+        replaced_response.gsub(/{(?::.*:)?#{key}}/, entity_val) rescue binding.pry
       end
+      replaced_response.gsub(/{(?::|\w)+}/, '').split(' ').join(' ').gsub(/\s\./, '.')
     end
 
     def get_response(namespace, args = {}, responses = API_RESPONSES)
       if namespace.class == Hash && responses.class == HashWithIndifferentAccess
         key = namespace.keys.first
-        get_response(namespace[key], args, responses[key])
+        get_response(namespace[key] || namespace, args, responses[key] || responses)
       else
         if responses.class == HashWithIndifferentAccess
           replace_response(random_response(responses[namespace]), args)

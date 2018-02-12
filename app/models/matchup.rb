@@ -49,8 +49,8 @@ class Matchup < MatchupRole
   def matchup_validator
     if errors.messages.empty? && @matchup.nil?
       args = {
-        name1: @name1,
-        name2: @name2,
+        champion1: @name1,
+        champion2: @name2,
         elo: @elo.humanize,
         role1: @role1.try(:humanize),
         role2: @role2.try(:humanize),
