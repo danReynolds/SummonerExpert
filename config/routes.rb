@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   post :patch, to: 'application#patch'
   post :reset, to: 'application#reset'
 
+  namespace :feedback do
+    post :bug
+    post :feature
+  end
+
   namespace :champions do
     post :title
     post :ally_tips

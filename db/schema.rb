@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028221812) do
+ActiveRecord::Schema.define(version: 20180213073704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20171028221812) do
     t.integer  "summoner_performance_id"
     t.index ["champion_id"], name: "index_bans_on_champion_id", using: :btree
     t.index ["summoner_performance_id"], name: "index_bans_on_summoner_performance_id", unique: true, using: :btree
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "message"
+    t.string   "feedback_type"
   end
 
   create_table "matches", force: :cascade do |t|
