@@ -158,6 +158,11 @@ items:
   description:
     - "I have seen many champions use {item} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
 summoners:
+  summoner_matchups:
+    uneven:
+      - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My money is definitely on {favored} this time.'
+    even:
+      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}.'
   performance_summary:
     - "{summoner} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate."
   teammates:

@@ -2,7 +2,8 @@ class SummonersController < ApplicationController
   include RiotApi
   include Utils
 
-  before_action :load_summoner, :load_namespace
+  before_action :load_summoner, except: [:summoner_matchups]
+  before_action :load_namespace
   before_action only: [:champion_performance_ranking] { process_performance_request(with_sorting: true) }
   before_action only: [:champion_performance_summary] do
     process_performance_request(with_champion: true)
@@ -261,7 +262,7 @@ class SummonersController < ApplicationController
 
     render json: {
       speech: ApiResponse.get_response(
-        dig_set(*@namespace, @processed_request[:namespace], position_data[:namespace]),
+        dig_set(*@namespace, position_data[:namespace]),
         args
       )
     }
@@ -279,7 +280,48 @@ class SummonersController < ApplicationController
     end
 
     render json: {
-      speech: ApiResponse.get_response(dig_set(*@namespace, @processed_request[:namespace]), args)
+      speech: ApiResponse.get_response(dig_set(*@namespace), args)
+    }
+  end
+
+  def summoner_matchups
+    summoner = Summoner.find_by(
+      name: summoner_params[:summoner].strip,
+      region: RiotApi::NA
+    )
+    summoner2 = Summoner.find_by(
+      name: summoner_params[:summoner2].strip,
+      region: RiotApi::NA
+    )
+    champion = Champion.new(name: summoner_params[:champion])
+    champion2 = Champion.new(name: summoner_params[:champion2])
+    args = {
+      champion: champion.name,
+      champion2: champion2.name,
+      summoner: summoner.name,
+      summoner2: summoner2.name
+    }
+    rating = StrategyEngine.run(
+      summoner: summoner,
+      summoner2: summoner2,
+      champion: champion,
+      champion2: champion2,
+      role: summoner_params[:role]
+    )
+    args.merge!(rating)
+
+    even_type = if rating[:own_rating] > rating[:opposing_rating] + StrategyEngine::RATING_THRESHOLD
+      args[:favored] = summoner.name
+      :uneven
+    elsif rating[:own_rating] < rating[:opposing_rating] - StrategyEngine::RATING_THRESHOLD
+      args[:favored] = summoner2.name
+      :uneven
+    else
+      :even
+    end
+
+    render json: {
+      speech: ApiResponse.get_response(dig_set(*@namespace, even_type), args)
     }
   end
 
@@ -288,7 +330,8 @@ class SummonersController < ApplicationController
   def summoner_params
     params.require(:result).require(:parameters).permit(
       :name, :region, :champion, :queue, :role, :position_details, :metric,
-      :list_order, :list_size, :list_position, :champion2, :time
+      :list_order, :list_size, :list_position, :champion2, :time, :summoner,
+      :summoner2
     )
   end
 
@@ -366,6 +409,8 @@ class SummonersController < ApplicationController
     role = summoner_params[:role].to_sym
     champion = summoner_params[:champion]
     args = { summoner: @summoner.name }
+    args[:starting_time] = starting_time if starting_time
+    args[:ending_time] = ending_time if ending_time
     filter = {}
     filter[:role] = role if role.present?
 
@@ -391,27 +436,8 @@ class SummonersController < ApplicationController
       end
     end
 
-    summoner_performances = if starting_time.present? && ending_time.present?
-      args[:starting_time] = starting_time
-      args[:ending_time] = ending_time
-      @summoner.summoner_performances.where(filter)
-        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
-        .where('created_at >= ?', starting_time)
-        .where('created_at <= ?', ending_time)
-    elsif starting_time.present?
-      args[:starting_time] = starting_time
-      @summoner.summoner_performances.where(filter)
-        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
-        .where('created_at >= ?', starting_time)
-    elsif ending_time.present?
-      args[:ending_time] = ending_time
-      @summoner.summoner_performances.where(filter)
-        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
-        .where('created_at <= ?', ending_time)
-    else
-      @summoner.summoner_performances.where(filter)
-        .where('created_at >= ?', RiotApi::SEASON_START_DATE)
-    end
+    summoner_performances = @summoner.summoner_performances.joins(:match).current_season.not_remake
+      .timeframe(starting_time, ending_time).where(filter)
 
     unless role.present?
       roles = summoner_performances.map(&:role).uniq & ChampionGGApi::ROLES.keys.map(&:to_s)
@@ -441,8 +467,12 @@ class SummonersController < ApplicationController
   end
 
   def load_summoner
+    name = summoner_params[:name].strip
     @summoner = Summoner.find_by(
-      name: summoner_params[:name].strip,
+      name: name,
+      region: RiotApi::NA
+    ) || Summoner.find_by(
+      name: name.downcase == name ? name.capitalize : name.downcase,
       region: RiotApi::NA
     )
 

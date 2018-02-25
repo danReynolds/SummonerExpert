@@ -17,6 +17,18 @@ class SummonerPerformance < ActiveRecord::Base
     :sight_wards_bought, :wards_placed, :wards_killed, :neutral_minions_killed,
     :neutral_minions_killed_team_jungle, :neutral_minions_killed_enemy_jungle
 
+  scope :not_remake, -> { where('matches.game_duration >= ?', Match::REMAKE_DURATION) }
+  scope :current_season, -> { where('summoner_performances.created_at >= ?', RiotApi::SEASON_START_DATE) }
+  scope :timeframe, ->(start_time = nil, end_time = nil) do
+    if start_time && end_time
+      where('summoner_performances.created_at >= ? AND summoner_performances.created_at <= ?', start_time, end_time)
+    elsif start_time
+      where('summoner_performances.created_at >= ?', start_time)
+    elsif end_time
+      where('summoner_performances.created_at <= ?', end_time)
+    end
+  end
+
   class << self
     def winrate(performances)
       (performances.select(&:victorious?).count / performances.count.to_f * 100).round(2)

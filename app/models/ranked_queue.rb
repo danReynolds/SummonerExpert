@@ -10,6 +10,8 @@ class RankedQueue
 
   validate :queue_validator
 
+  SOLO_QUEUE = 'RANKED_SOLO_5x5'
+
   QUEUES = {
     RANKED_SOLO_5x5: 'Solo Queue',
     RANKED_FLEX_SR: 'Flex Queue'

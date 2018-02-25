@@ -48,5 +48,6 @@ Rails.application.routes.draw do
     post :champion_spells
     post :champion_matchups
     post :teammates
+    post :summoner_matchups
   end
 end

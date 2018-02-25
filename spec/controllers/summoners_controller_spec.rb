@@ -11,6 +11,95 @@ describe SummonersController, type: :controller do
     @today = "#{Time.now.strftime("%Y-%m-%d")}/#{(Time.now + 1.day).strftime("%Y-%m-%d")}"
   end
 
+  describe 'POST summoner_matchups' do
+    let(:action) { :summoner_matchups }
+    let(:summoner_params) do
+      {
+        summoner: 'Hero man',
+        summoner2: 'Other man',
+        champion: 'Shyvana',
+        champion2: 'Warwick',
+        region: 'NA1',
+        role: 'JUNGLE'
+      }
+    end
+    let(:external_response) do
+      JSON.parse(File.read('external_response.json'))
+        .with_indifferent_access[:summoners][action]
+    end
+
+    before :each do
+      allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(
+        external_response
+      )
+
+      @summoner = create(:summoner, name: 'Hero man')
+      @summoner2 = create(:summoner, name: 'Other man')
+      @champion = Champion.new(name: 'Shyvana')
+      @champion2 = Champion.new(name: 'Warwick')
+    end
+
+    context 'with strong performance on that champion' do
+      before :each do
+        @matches = create_list(:match, 5)
+        match_data = [
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+        end
+      end
+
+      it 'should indicate a high confidence in victory' do
+        post action, params: params
+        expect(speech).to eq 'I would give Hero man playing Shyvana a performance rating of 96% for this matchup compared to Other man as Warwick who I would rate around 36%. My money is definitely on Hero man this time.'
+      end
+    end
+
+    context 'with even performance' do
+      before :each do
+        @matches = create_list(:match, 5)
+        match_data = [
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'JUNGLE' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'JUNGLE' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+        end
+      end
+
+      it 'should indicate that it is unsure who to favor' do
+        post action, params: params
+        expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 79% for this matchup versus Other man with 85%.'
+      end
+    end
+  end
+
   describe 'POST teammates' do
     let(:action) { :teammates }
     let(:summoner_params) do
@@ -61,7 +150,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'The teammate who has helped Hero man get the highest win rate from Wed Feb 7 00:00 to Thu Feb 8 00:00 playing Shyvana Jungle is Teammate man.'
+        expect(speech).to eq 'The teammate who has helped Hero man get the highest win rate from Wed Feb 7 at 12am to Thu Feb 8 at 12am playing Shyvana Jungle is Teammate man.'
       end
     end
 
@@ -334,7 +423,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr from Wed Feb 7 00:00 to Thu Feb 8 00:00 with a 100.0% win rate.'
+        expect(speech).to eq 'Hero man has played Shyvana Jungle one time against Udyr from Wed Feb 7 at 12am to Thu Feb 8 at 12am with a 100.0% win rate.'
       end
     end
 
@@ -459,7 +548,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'The spell combination used by Hero man from Wed Feb 7 00:00 to Thu Feb 8 00:00 that gives the summoner playing Shyvana Adc the highest win rate is Exhaust and Flash.'
+        expect(speech).to eq 'The spell combination used by Hero man from Wed Feb 7 at 12am to Thu Feb 8 at 12am that gives the summoner playing Shyvana Adc the highest win rate is Exhaust and Flash.'
       end
     end
 
@@ -570,7 +659,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'The ban by Hero man playing Shyvana Adc that gives the summoner the highest win rate from Wed Feb 7 00:00 to Thu Feb 8 00:00 is Corki.'
+        expect(speech).to eq 'The ban by Hero man playing Shyvana Adc that gives the summoner the highest win rate from Wed Feb 7 at 12am to Thu Feb 8 at 12am is Corki.'
       end
     end
 
@@ -799,7 +888,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq "Hero man has played Shyvana Adc eleven times from Wed Feb 7 00:00 to Thu Feb 8 00:00 and the summoner's highest win rate build is Rabadon's Deathcap, Statikk Shiv, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
+        expect(speech).to eq "Hero man has played Shyvana Adc eleven times from Wed Feb 7 at 12am to Thu Feb 8 at 12am and the summoner's highest win rate build is Rabadon's Deathcap, Statikk Shiv, Runaan's Hurricane, Warmog's Armor, Eye of the Equinox, and Zz'Rot Portal."
       end
     end
 
@@ -1083,7 +1172,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'The champions with the highest win rate against Hero man from Wed Feb 7 00:00 to Thu Feb 8 00:00 playing Shyvana Middle are Swain and Elise.'
+        expect(speech).to eq 'The champions with the highest win rate against Hero man from Wed Feb 7 at 12am to Thu Feb 8 at 12am playing Shyvana Middle are Swain and Elise.'
       end
     end
 
@@ -1369,7 +1458,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq "The champions played by Hero man from Wed Feb 7 00:00 to Thu Feb 8 00:00 with the summoner's highest win rate across Adc, Jungle, and Middle are Nunu and Tristana."
+        expect(speech).to eq "The champions played by Hero man from Wed Feb 7 at 12am to Thu Feb 8 at 12am with the summoner's highest win rate across Adc, Jungle, and Middle are Nunu and Tristana."
       end
     end
 
@@ -1743,7 +1832,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'Hero man has played Tristana Adc two times from Wed Feb 7 00:00 to Thu Feb 8 00:00 with a 100.0% win rate and an overall 2.0/3.0/7.0 KDA.'
+        expect(speech).to eq 'Hero man has played Tristana Adc two times from Wed Feb 7 at 12am to Thu Feb 8 at 12am with a 100.0% win rate and an overall 2.0/3.0/7.0 KDA.'
       end
     end
 
@@ -1840,7 +1929,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that the teammates are from games in the time interval' do
         post action, params: params
-        expect(speech).to eq 'Hero man has played Tristana Adc two times from Wed Feb 7 00:00 to Thu Feb 8 00:00 and averages 2.0 kills.'
+        expect(speech).to eq 'Hero man has played Tristana Adc two times from Wed Feb 7 at 12am to Thu Feb 8 at 12am and averages 2.0 kills.'
       end
     end
 

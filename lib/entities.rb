@@ -11,7 +11,8 @@ class Entities
     :item_names, :position, :champ1_result, :champ2_result, :role1, :role2, :champion1, :champion2,
     :match_result, :unnamed_role, :named_role, :position_name, :win_rate, :ban_rate,
     :kda, :total_positions, :position_change, :description, :ability, :ability_cooldown, :lore,
-    :tip, :item, :total_cost, :sell_cost, :title, :ability_position, :matchup_role, :patch, :metric
+    :tip, :item, :total_cost, :sell_cost, :title, :ability_position, :matchup_role, :patch, :metric,
+    :favored, :summoner2, :own_rating, :opposing_rating
   ].each do |entity|
     define_singleton_method(entity) do |value|
       value.to_s
@@ -28,12 +29,29 @@ class Entities
       end
     end
 
+    def own_rating(rating)
+      percentage(rating)
+    end
+
+    def opposing_rating(rating)
+      percentage(rating)
+    end
+
     def starting_time(time)
-      "from #{time.strftime("%a %b %e %R")}"
+      "from #{time_format(time)}"
     end
 
     def ending_time(time)
-      "to #{time.strftime("%a %b %e %R")}"
+      "to #{time_format(time)}"
+    end
+
+    def time_format(time)
+      format = '%a %b %e at'
+      if time.minute.zero?
+        time.strftime("#{format} %l%P")
+      else
+        time.strftime("#{format} %l:%M%P")
+      end
     end
 
     def summoners(summoners)
@@ -47,6 +65,12 @@ class Entities
 
     def random_response(values)
       values.sample
+    end
+
+    private
+
+    def percentage(fraction)
+      "#{(fraction * 100).round}%"
     end
   end
 end

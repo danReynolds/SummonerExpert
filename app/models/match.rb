@@ -15,4 +15,6 @@ class Match < ActiveRecord::Base
 
   validates_presence_of :game_id, :queue_id, :season_id, :region_id, :winning_team_id,
     :team1_id, :team2_id, :game_duration
+
+  REMAKE_DURATION = 4.minutes.seconds.to_int
 end

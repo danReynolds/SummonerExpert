@@ -38,6 +38,44 @@
         "hotStreak": true
       }
     ],
+    "summoner_matchups": [
+      {
+        "leagueName": "Kennen's Bandits",
+        "tier": "GOLD",
+        "queueType": "RANKED_SOLO_5x5",
+        "rank": "V",
+        "playerOrTeamId": "72931809",
+        "playerOrTeamName": "wingilote",
+        "leaguePoints": 84,
+        "wins": 635,
+        "losses": 631,
+        "veteran": false,
+        "inactive": false,
+        "freshBlood": true,
+        "hotStreak": false,
+        "miniSeries": {
+          "target": 2,
+          "wins": 1,
+          "losses": 1,
+          "progress": "WLN"
+        }
+      },
+      {
+        "leagueName": "Katarina's Necromancers",
+        "tier": "BRONZE",
+        "queueType": "RANKED_FLEX_SR",
+        "rank": "I",
+        "playerOrTeamId": "72931809",
+        "playerOrTeamName": "wingilote",
+        "leaguePoints": 28,
+        "wins": 31,
+        "losses": 20,
+        "veteran": false,
+        "inactive": false,
+        "freshBlood": false,
+        "hotStreak": true
+      }
+    ],
     "match": {
       "gameId": 2628959747,
       "platformId": "NA1",
