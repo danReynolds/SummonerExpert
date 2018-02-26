@@ -65,7 +65,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate a high confidence in victory' do
         post action, params: params
-        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 93% for this matchup compared to Other man as Sivir who I would rate around 56%. My money is definitely on Hero man this time.'
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 97% for this matchup compared to Other man as Sivir who I would rate around 36%. My money is definitely on Hero man this time.'
       end
     end
 
