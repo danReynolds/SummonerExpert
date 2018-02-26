@@ -13,8 +13,8 @@ class StrategyEngine
 
   class << self
     def run(args)
-      args[:performances] = args[:summoner].summoner_performances
-      args[:performances2] = args[:summoner2].summoner_performances
+      args[:performances] = args[:summoner].summoner_performances.joins(:match).current_season.not_remake
+      args[:performances2] = args[:summoner2].summoner_performances.joins(:match).current_season.not_remake
       opposing_args = args.merge({
         performances: args[:performances2],
         performances2: args[:performances],
@@ -61,13 +61,13 @@ class StrategyEngine
 
     def champion_matchup_performance(args)
       queue = args[:summoner].queue(RankedQueue::SOLO_QUEUE)
-      role = ChampionGGApi::MATCHUP_ROLES[args[:role].to_sym]
+      champion_gg_role = ChampionGGApi::MATCHUP_ROLES[args[:role].to_sym]
       matchup = Matchup.new(
         name1: args[:champion].name,
         name2: args[:champion2].name,
         elo: queue.elo,
-        role1: role,
-        role2: role
+        role1: champion_gg_role,
+        role2: champion_gg_role
       )
 
       priority = if args[:performances].length < MINIMUM_PERFORMANCES
@@ -76,8 +76,7 @@ class StrategyEngine
         PRIORITIES[:HIGHEST]
       end
 
-      matchup_performances = args[:performances].where(champion_id: args[:champion].id, role: args[:role])
-        .select { |performance| performance.opponent.champion_id == args[:champion2].id }
+      matchup_performances = args[:performances].where(champion_id: args[:champion].id, role: args[:role]).select { |performance| performance.opponent.champion_id == args[:champion2].id }
 
       own_kda = SummonerPerformance.aggregate_performance_metric(
         matchup_performances,
@@ -204,10 +203,11 @@ class StrategyEngine
 
     def champion_performance(args)
       champion_performances = args[:performances].where(champion_id: args[:champion].id, role: args[:role])
+      champion_gg_role = ChampionGGApi::MATCHUP_ROLES[args[:role].to_sym]
       queue = args[:summoner].queue(RankedQueue::SOLO_QUEUE)
       champion_role_performance = RolePerformance.new(
         elo: queue.elo,
-        role: args[:role],
+        role: champion_gg_role,
         name: args[:champion].name
       )
 
