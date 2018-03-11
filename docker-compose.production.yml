@@ -30,7 +30,7 @@ services:
     image: certbot/certbot:latest
     volumes:
       - webroot:/usr/share/nginx/html
-      - letsencrypt:/etc/letsencrypt/live/api.summonerexpert.com
+      - letsencrypt:/etc/letsencrypt
 volumes:
   logs:
   pgdata:
