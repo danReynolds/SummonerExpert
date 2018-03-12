@@ -348,7 +348,7 @@ errors:
     does_not_play:
       - '{summoner} has not played any games {starting_time} {ending_time} {:as:champion} {role}.'
       - '{summoner} has not played any matches {starting_time} {ending_time} {:as:champion} {role}.'
-      - "{summoner} has not played any games {starting_time} {ending_time} {:as:champion}. I would pay to see it though."
+      - "{summoner} has not played any games {starting_time} {ending_time} {:as:champion} {role}. I would pay to see it though."
       - "{summoner} has not played any matches {starting_time} {ending_time} {:as:champion} {role}. I would like to see it happen though."
     multiple_roles:
       - '{summoner} has played {champion} {total_performances} {starting_time} {ending_time} this season {role}. Which role do you want to know about?'
