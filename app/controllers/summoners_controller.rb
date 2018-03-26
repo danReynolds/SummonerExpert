@@ -286,7 +286,7 @@ class SummonersController < ApplicationController
 
   def current_match
     args = { summoner: @summoner.name }
-    match_data = RiotApi.get_current_match(id: @summoner.id)
+    match_data = RiotApi.get_current_match(id: @summoner.summoner_id)
 
     unless match_data
       return render json: {
