@@ -51,7 +51,7 @@ class StrategyEngine
           acc[priority] ||= { performance: 0, total: 0 }
           priority_values = acc[priority]
           performance = if value[:performance]
-            reasons << { name: name, args: value[:args] }
+            reasons << { name: name, args: value[:args] || {} }
             value[:performance]
           else
             performance_rating = calculate_rating(args, value[:factors])
