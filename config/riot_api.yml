@@ -9,3 +9,4 @@ champions: https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_
 items: https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&tags=all
 spells: https://na1.api.riotgames.com/lol/static-data/v3/summoner-spells?locale=en_US&dataById=true&tags=all
 match: https://na1.api.riotgames.com/lol/match/v3/matches/{id}
+current_match: https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/{id}

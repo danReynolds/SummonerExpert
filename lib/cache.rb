@@ -70,6 +70,12 @@ class Cache
       Rails.cache.read({ name: name, role: role, elo: elo })
     end
 
+    # @summoner_id of the player whose match rating is being queried
+    # Returns the summoners' ratings and reasons for the current match rating
+    def get_current_match_rating(summoner_id)
+      Rails.cache.read(current_match: summoner_id)
+    end
+
     ###
     ### Setting Information into the Cache
     ###
@@ -150,6 +156,13 @@ class Cache
       search_params = {}
       search_params[collection_key] = entry_name
       Rails.cache.write(search_params, entry_info)
+    end
+
+    # The summoner id whose current match rating is being cached
+    # The rating for the current match
+    # Returns success or failure status
+    def set_current_match_rating(summoner_id, rating)
+      Rails.cache.write({ current_match: summoner_id }, rating, expires_in: 5.minutes)
     end
   end
 

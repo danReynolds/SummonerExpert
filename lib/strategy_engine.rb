@@ -10,6 +10,11 @@ class StrategyEngine
   SUMMONER_COMPARISON_FACTORS = [:champion_performance, :longest_streak, :champion_matchup_performance]
   MINIMUM_PERFORMANCES = 5
   RATING_THRESHOLD = 0.1
+  INEXPERIENCE_MULTIPLIER = 0.1
+  OFF_META_CHAMPION_FACTOR = 0.4
+  OFF_META_MATCHUP_FACTOR = 0.5
+  STANDARD_WIN_RATE = 0.5
+  STANDARD_KDA = 2
 
   class << self
     def run(args)
@@ -25,8 +30,8 @@ class StrategyEngine
       })
 
       {
-        own_rating: calculate_rating(args, calculate_factors(args)),
-        opposing_rating: calculate_rating(opposing_args, calculate_factors(opposing_args))
+        own_performance: calculate_rating(args, calculate_factors(args)),
+        opposing_performance: calculate_rating(opposing_args, calculate_factors(opposing_args))
       }
     end
 
@@ -39,12 +44,20 @@ class StrategyEngine
     end
 
     def calculate_rating(args, factors)
+      reasons = []
       weighted_factors = factors.inject({}) do |acc, (name, value)|
         acc.tap do
           priority = value[:priority] || PRIORITIES[:HIGHEST]
           acc[priority] ||= { performance: 0, total: 0 }
           priority_values = acc[priority]
-          performance = value[:performance] || calculate_rating(args, value[:factors])
+          performance = if value[:performance]
+            reasons << { name: name, args: value[:args] }
+            value[:performance]
+          else
+            performance_rating = calculate_rating(args, value[:factors])
+            reasons += performance_rating[:reasons]
+            performance_rating[:rating]
+          end
           priority_values[:performance] += [1, performance].min
           priority_values[:total] += 1
         end
@@ -56,10 +69,16 @@ class StrategyEngine
           acc[:total] += local_weighting
         end
       end
-      weighted_rating[:rating] / weighted_rating[:total]
+      {
+        rating: weighted_rating[:rating] / weighted_rating[:total],
+        reasons: reasons
+      }
     end
 
+    # Sumoner personal performance against that champion compared to the overall matchup
+    # for those champions
     def champion_matchup_performance(args)
+      factors = {}
       queue = args[:summoner].queue(RankedQueue::SOLO_QUEUE)
       champion_gg_role = ChampionGGApi::MATCHUP_ROLES[args[:role].to_sym]
       matchup = Matchup.new(
@@ -69,57 +88,118 @@ class StrategyEngine
         role1: champion_gg_role,
         role2: champion_gg_role
       )
-
-      priority = if args[:performances].length < MINIMUM_PERFORMANCES
-        PRIORITIES[:LOW]
-      else
-        PRIORITIES[:HIGHEST]
-      end
-
       matchup_performances = args[:performances].where(champion_id: args[:champion].id, role: args[:role]).select { |performance| performance.opponent.champion_id == args[:champion2].id }
 
-      own_kda = SummonerPerformance.aggregate_performance_metric(
-        matchup_performances,
-        RiotApi::RiotApi::POSITION_METRICS[:KDA].to_sym
-      )
-
-      opposing_kda = {
-        kills: matchup.position('kills', matchup.name1),
-        deaths: matchup.position('deaths', matchup.name1),
-        assists: matchup.position('assists', matchup.name1)
-      }
-
-      aggregate_positions = SummonerPerformance.aggregate_performance_positions(
-        matchup_performances, [:gold_earned, :total_minions_killed]
-      ).inject({}) do |acc, (position, values)|
-        acc.tap do
-          acc[position] = (values.sum / args[:performances].length.to_f).round(2)
+      # If they have never played against the opposing champion ever as that champion
+      # then overall this matchup factor is significant factor and add associated risk
+      if matchup_performances.empty?
+        factors[:MATCHUP_NO_EXPERIENCE] = {
+          priority: PRIORITIES[:HIGHEST],
+          performance: INEXPERIENCE_MULTIPLIER
+        }
+        priority = PRIORITIES[:HIGHEST]
+      # If they have not played against that champion much then overall this matchup
+      # factor is not as significant but there is inexperience risk
+      else
+        if matchup_performances.length < MINIMUM_PERFORMANCES
+          factors[:MATCHUP_INEXPERIENCE] = {
+            priority: PRIORITIES[:HIGHEST],
+            args: {
+              total: matchup_performances.length
+            },
+            performance: INEXPERIENCE_MULTIPLIER * matchup_performances.length
+          }
+          priority = PRIORITIES[:HIGH]
+        else
+          priority = PRIORITIES[:HIGHEST]
         end
+
+        own_kda = SummonerPerformance.aggregate_performance_metric(
+          matchup_performances,
+          RiotApi::RiotApi::POSITION_METRICS[:KDA].to_sym
+        )
+
+        aggregate_positions = SummonerPerformance.aggregate_performance_positions(
+          matchup_performances, [:gold_earned, :total_minions_killed]
+        ).inject({}) do |acc, (position, values)|
+          acc.tap do
+            acc[position] = (values.sum / args[:performances].length.to_f).round(2)
+          end
+        end
+      end
+
+      if matchup.valid?
+        average_kda = {
+          kills: matchup.position('kills', matchup.name1),
+          deaths: matchup.position('deaths', matchup.name1),
+          assists: matchup.position('assists', matchup.name1)
+        }
+      # If this is not a common matchup overall then add a factor for that risk
+      # but lower the priority of this overall matchup factor since there is not
+      # much data on it either way
+      else
+        factors[:OFF_META_MATCHUP_FACTOR] = {
+          priority: PRIORITIES[:HIGHEST],
+          performance: OFF_META_MATCHUP_FACTOR
+        }
+        priority = PRIORITIES[:MEDIUM]
+      end
+
+      # If it is a meta matchup and they have played it before compare them to the meta
+      if matchup.valid? && matchup_performances.present?
+        factors.merge!({
+          MATCHUP_WIN_RATE: win_rate({
+            own: SummonerPerformance.winrate(matchup_performances),
+            opposing: (matchup.position('winrate', matchup.name1) * 100).round(2)
+          }),
+          MATCHUP_KDA: kda({
+            own: (own_kda[:kills] + own_kda[:assists]) / own_kda[:deaths].to_f,
+            opposing: (average_kda[:kills] + average_kda[:assists]) / average_kda[:deaths].to_f
+          }),
+          MATCHUP_CS: cs({
+            own: aggregate_positions[:total_minions_killed],
+            opposing: matchup.position('minionsKilled', matchup.name1)
+          }),
+          MATCHUP_GOLD: gold({
+            own: aggregate_positions[:gold_earned],
+            opposing: matchup.position('goldEarned', matchup.name1)
+          })
+        })
+      # If it is meta matchup but they have not played it, compare the meta performance
+      # to some constants
+      elsif matchup.valid?
+        factors.merge!({
+          AVERAGE_MATCHUP_WIN_RATE: win_rate({
+            own: (matchup.position('winrate', matchup.name1) * 100).round(2),
+            opposing: STANDARD_WIN_RATE * 100,
+          }),
+          AVERAGE_MATCHUP_KDA: kda({
+            own: (average_kda[:kills] + average_kda[:assists]) / average_kda[:deaths].to_f,
+            opposing: STANDARD_KDA
+          }),
+        })
+      # If it is a non-meta matchup but they have played it then compare their performance
+      # to some constants
+      elsif matchup_performances.present?
+        factors.merge!({
+          OFF_META_MATCHUP_WIN_RATE: win_rate({
+            own: SummonerPerformance.winrate(matchup_performances),
+            opposing: STANDARD_WIN_RATE * 100
+          }),
+          OFF_META_MATCHUP_KDA: kda({
+            own: (own_kda[:kills] + own_kda[:assists]) / own_kda[:deaths].to_f,
+            opposing: STANDARD_KDA
+          })
+        })
       end
 
       {
         priority: priority,
-        factors: {
-          WIN_RATE: win_rate({
-            own: SummonerPerformance.winrate(matchup_performances),
-            opposing: (matchup.position('winrate', matchup.name1) * 100).round(2)
-          }),
-          KDA: kda({
-            own: (own_kda[:kills] + own_kda[:assists]) / own_kda[:deaths].to_f,
-            opposing: (opposing_kda[:kills] + opposing_kda[:assists]) / opposing_kda[:deaths].to_f
-          }),
-          CS: cs({
-            own: aggregate_positions[:total_minions_killed],
-            opposing: matchup.position('minionsKilled', matchup.name1)
-          }),
-          GOLD: gold({
-            own: aggregate_positions[:gold_earned],
-            opposing: matchup.position('goldEarned', matchup.name1)
-          })
-        }
+        factors: factors
       }
     end
 
+    # Whether the summoner is on a winning or losing streak
     def longest_streak(args)
       streak = args[:performances].sort_by { |performance| performance.created_at }.reverse
       winning_streak = streak.first.victorious?
@@ -152,7 +232,7 @@ class StrategyEngine
       {
         priority: priority,
         factors: {
-          streak: {
+          STREAK: {
             args: {
               streak_type: winning_streak ? :winning : :losing,
               streak_length: streak_length
@@ -168,7 +248,7 @@ class StrategyEngine
       win_rate_performance = comparison[:own] / win_rate_ceiling
 
       {
-        priority: PRIORITIES[:HIGHEST],
+        priority: PRIORITIES[:HIGH],
         args: comparison,
         performance: win_rate_performance
       }
@@ -179,30 +259,76 @@ class StrategyEngine
       kda_performance = comparison[:own] / kda_ceiling
 
       {
-        priority: PRIORITIES[:HIGH],
-        args: comparison,
+        priority: PRIORITIES[:MEDIUM],
+        args: comparison.inject({}) do |acc, (key, value)|
+          acc.tap { acc[key] = value.round(2) }
+        end,
         performance: kda_performance
       }
     end
 
     def cs(comparison)
       {
-        priority: PRIORITIES[:MEDIUM],
-        args: comparison,
+        priority: PRIORITIES[:LOW],
+        args: comparison.inject({}) do |acc, (key, value)|
+          acc.tap { acc[key] = value.round(2) }
+        end,
         performance: comparison[:own] / comparison[:opposing]
       }
     end
 
     def gold(comparison)
       {
-        priority: PRIORITIES[:MEDIUM],
-        args: comparison,
+        priority: PRIORITIES[:LOW],
+        args: comparison.inject({}) do |acc, (key, value)|
+          acc.tap { acc[key] = value.round(2) }
+        end,
         performance: comparison[:own] / comparison[:opposing]
       }
     end
 
+    # Summoner personal performance on that champion compared to the champion's
+    # current meta performance
     def champion_performance(args)
+      factors = {}
       champion_performances = args[:performances].where(champion_id: args[:champion].id, role: args[:role])
+
+      # If they have not played their champion at all then it heavily weighs that factor
+      if champion_performances.empty?
+        factors[:CHAMPION_NO_EXPERIENCE] = {
+          priority: PRIORITIES[:HIGHEST],
+          performance: INEXPERIENCE_MULTIPLIER
+        }
+        priority = PRIORITIES[:HIGHEST]
+      # If they have not played their champion much it heavily weighs that factor
+      else
+        if champion_performances.length < MINIMUM_PERFORMANCES
+          factors[:CHAMPION_INEXPERIENCE] = {
+            priority: PRIORITIES[:HIGHEST],
+            args: {
+              total: champion_performances.length
+            },
+            performance: INEXPERIENCE_MULTIPLIER * champion_performances.length
+          }
+          priority = PRIORITIES[:HIGHEST]
+        else
+          priority = PRIORITIES[:HIGH]
+        end
+
+        aggregate_positions = SummonerPerformance.aggregate_performance_positions(
+          champion_performances, [:gold_earned, :total_minions_killed]
+        ).inject({}) do |acc, (position, values)|
+          acc.tap do
+            acc[position] = (values.sum / args[:performances].length.to_f).round(2)
+          end
+        end
+
+        own_kda = SummonerPerformance.aggregate_performance_metric(
+          champion_performances,
+          RiotApi::RiotApi::POSITION_METRICS[:KDA].to_sym
+        )
+      end
+
       champion_gg_role = ChampionGGApi::MATCHUP_ROLES[args[:role].to_sym]
       queue = args[:summoner].queue(RankedQueue::SOLO_QUEUE)
       champion_role_performance = RolePerformance.new(
@@ -211,46 +337,63 @@ class StrategyEngine
         name: args[:champion].name
       )
 
-      own_kda = SummonerPerformance.aggregate_performance_metric(
-        champion_performances,
-        RiotApi::RiotApi::POSITION_METRICS[:KDA].to_sym
-      )
-      opposing_kda = champion_role_performance.kda
-
-      aggregate_positions = SummonerPerformance.aggregate_performance_positions(
-        champion_performances, [:gold_earned, :total_minions_killed]
-      ).inject({}) do |acc, (position, values)|
-        acc.tap do
-          acc[position] = (values.sum / args[:performances].length.to_f).round(2)
-        end
+      if champion_role_performance.valid?
+        average_kda = champion_role_performance.kda
+      else
+        # If this champion does not overall play this role then factor in risk around
+        # playing this champion
+        factors[:OFF_META_CHAMPION] = {
+          priority: PRIORITIES[:HIGH],
+          performance: OFF_META_CHAMPION_FACTOR
+        }
       end
 
-      priority = if args[:performances].length < MINIMUM_PERFORMANCES
-        PRIORITIES[:LOW]
-      else
-        PRIORITIES[:HIGH]
+      if champion_performances.present? && champion_role_performance.valid?
+        factors.merge!({
+          CHAMPION_WIN_RATE: win_rate({
+            own: SummonerPerformance.winrate(champion_performances),
+            opposing: (champion_role_performance.winRate * 100).round(2)
+          }),
+          CHAMPION_KDA: kda({
+            own: (own_kda[:kills] + own_kda[:assists]) / own_kda[:deaths].to_f,
+            opposing: (average_kda[:kills] + average_kda[:assists]) / average_kda[:deaths].to_f
+          }),
+          CHAMPION_CS: cs({
+            own: aggregate_positions[:total_minions_killed],
+            opposing: champion_role_performance.minionsKilled
+          }),
+          CHAMPION_GOLD: gold({
+            own: aggregate_positions[:gold_earned],
+            opposing: champion_role_performance.goldEarned
+          })
+        })
+      elsif champion_performances.present?
+        factors.merge!({
+          OFF_META_CHAMPION_WIN_RATE: win_rate({
+            own: SummonerPerformance.winrate(champion_performances),
+            opposing: STANDARD_WIN_RATE * 100
+          }),
+          OFF_META_CHAMPION_KDA: kda({
+            own: (own_kda[:kills] + own_kda[:assists]) / own_kda[:deaths].to_f,
+            opposing: STANDARD_KDA
+          })
+        })
+      elsif champion_role_performance
+        factors.merge!({
+          AVERAGE_CHAMPION_WIN_RATE: win_rate({
+            own: (champion_role_performance.winRate * 100).round(2),
+            opposing: STANDARD_WIN_RATE * 100
+          }),
+          AVERAGE_CHAMPION_KDA: kda({
+            own: (average_kda[:kills] + average_kda[:assists]) / average_kda[:deaths].to_f,
+            opposing: STANDARD_KDA
+          })
+        })
       end
 
       {
         priority: priority,
-        factors: {
-          WIN_RATE: win_rate({
-            own: SummonerPerformance.winrate(champion_performances),
-            opposing: (champion_role_performance.winRate * 100).round(2)
-          }),
-          KDA: kda({
-            own: (own_kda[:kills] + own_kda[:assists]) / own_kda[:deaths].to_f,
-            opposing: (opposing_kda[:kills] + opposing_kda[:assists]) / opposing_kda[:deaths].to_f
-          }),
-          CS: cs({
-            own: aggregate_positions[:total_minions_killed],
-            opposing: champion_role_performance.minionsKilled
-          }),
-          GOLD: gold({
-            own: aggregate_positions[:gold_earned],
-            opposing: champion_role_performance.goldEarned
-          })
-        }
+        factors: factors
       }
     end
   end

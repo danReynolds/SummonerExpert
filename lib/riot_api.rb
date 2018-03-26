@@ -121,6 +121,11 @@ module RiotApi
         fetch_response(url)
       end
 
+      def get_current_match(args)
+        url = replace_url(@api[:current_match], args)
+        fetch_response(url)
+      end
+
       def get_items
         fetch_response(@api[:items])
       end

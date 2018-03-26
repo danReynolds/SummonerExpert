@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-02-25T20:00:09.852Z",
+	"__export_date": "2018-03-26T00:39:15.426Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -906,7 +906,7 @@
 		{
 			"_id": "req_0007ee28d7324570a8a60e5d894dccb7",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1519547536588,
+			"modified": 1520746875645,
 			"created": 1519082510824,
 			"url": "{{ url }}",
 			"name": "summoners/summoner_matchups",
@@ -914,7 +914,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"d71b6b64-c3c9-4501-a309-9ddbb18c78c8\",\n  \"timestamp\": \"2018-02-19T23:29:37.021Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how does wingilote playing ryze do against mordequess playing garen top\",\n    \"action\": \"summoners/summoner_matchups\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"summoner\": \"wingilote\",\n      \"champion\": \"Bard\",\n      \"champion2\": \"Lulu\",\n      \"summoner2\": \"Z4C\",\n      \"role\": \"DUO_SUPPORT\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_matchups\",\n        \"parameters\": {\n          \"champion2\": \"Garen\",\n          \"role\": \"TOP\",\n          \"champion2.original\": \"garen\",\n          \"summoner2.original\": \"mordequess\",\n          \"summoner.original\": \"wingilote\",\n          \"role.original\": \"top\",\n          \"summoner2\": \"mordequess \",\n          \"summoner\": \"wingilote\",\n          \"champion.original\": \"ryze\",\n          \"champion\": \"Ryze\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"06169ba8-5468-44b4-91e8-4755f3c0b233\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 129,\n      \"intentName\": \"summoners/summoner_matchups\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f5ea3e1c-4259-4744-a1c2-1352103b7aa0\"\n}"
+				"text": "{\n  \"id\": \"d71b6b64-c3c9-4501-a309-9ddbb18c78c8\",\n  \"timestamp\": \"2018-02-19T23:29:37.021Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how does wingilote playing ryze do against mordequess playing garen top\",\n    \"action\": \"summoners/summoner_matchups\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"summoner\": \"Elekktric\",\n      \"champion\": \"Tristana\",\n      \"champion2\": \"Vayne\",\n      \"summoner2\": \"Tighler\",\n      \"role\": \"DUO_CARRY\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoner_matchups\",\n        \"parameters\": {\n          \"champion2\": \"Garen\",\n          \"role\": \"TOP\",\n          \"champion2.original\": \"garen\",\n          \"summoner2.original\": \"mordequess\",\n          \"summoner.original\": \"wingilote\",\n          \"role.original\": \"top\",\n          \"summoner2\": \"mordequess \",\n          \"summoner\": \"wingilote\",\n          \"champion.original\": \"ryze\",\n          \"champion\": \"Ryze\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"06169ba8-5468-44b4-91e8-4755f3c0b233\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 129,\n      \"intentName\": \"summoners/summoner_matchups\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f5ea3e1c-4259-4744-a1c2-1352103b7aa0\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -926,6 +926,64 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1519082510824,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_0651802a7b2948cc80eefc9e8403d467",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1522005094669,
+			"created": 1522004493565,
+			"url": "{{ url }}",
+			"name": "summoners/current_match",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"560a3447-eca7-474b-a62e-85455d7763a8\",\n  \"timestamp\": \"2018-03-25T19:08:29.808Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how does my current match look\",\n    \"action\": \"summoners/current_match\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"wingilote\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_current_match\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"name\": \"wingilote\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summonersperformance_summary-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"0f8a0fca-3fd7-4938-a648-23c703155bb7\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 91,\n      \"intentName\": \"summoner/current_match - self\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f6e4ef3b-d3f5-44af-8a41-02f6eedeb0df\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_cdbc33751eae462f82c311f598e3e815"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1522004493565,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_ca6e0721125c4bf9aea54ad2036c9b91",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1522024743002,
+			"created": 1522024739174,
+			"url": "{{ url }}",
+			"name": "summoners/current_match_reasons",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"ed7f3500-4fd8-42e4-9334-f1506b03e039\",\n  \"timestamp\": \"2018-03-26T00:38:34.164Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"why\",\n    \"action\": \"summoners/current_match_reasons\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"wingilote\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_current_match\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"name\": \"wingilote\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"18730eda-0e81-4bf4-9247-dc548599bcb4\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 31,\n      \"intentName\": \"summoners/current_match - reasons\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f6e4ef3b-d3f5-44af-8a41-02f6eedeb0df\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_622a11cfe3894378b01cfe4fdb14fd92"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1522024739174,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,
