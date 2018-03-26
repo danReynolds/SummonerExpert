@@ -1,6 +1,54 @@
 class MatchHelper
   class << self
-    def store_match(match_data)
+    def initialize_current_match(match_data)
+
+      team1 = Team.new
+      team2 = Team.new
+
+      match = Match.new(
+        game_id: match_data['gameId'],
+        queue_id: match_data['gameQueueConfigId'],
+        region_id: match_data['platformId'],
+        team1: team1,
+        team2: team2
+      )
+
+      match_data['participants'].map.with_index do |player_params, index|
+        summoner = Summoner.find_by_name(player_params['summonerName']) ||
+          Summoner.find_by_summoner_id(player_params['summonerId']) ||
+          Summoner.new(
+            region:  match_data['platformId'],
+            summoner_id: player_params['summonerId'],
+            name: player_params['summonerName']
+          )
+
+        team_id = player_params['teamId']
+        if !team1.team_id
+          team1.team_id = team_id
+        elsif !team2.team_id && team_id != team1.team_id
+          team2.team_id = team_id
+        end
+        team = player_params['teamId'] == team1.team_id ? team1 : team2
+
+        summoner_performance  = SummonerPerformance.new(
+          team: team,
+          match: match,
+          summoner: summoner,
+          champion_id: player_params['championId'],
+          spell1_id: player_params['spell1Id'],
+          spell2_id: player_params['spell2Id'],
+          assists: 0
+        )
+        team.summoner_performances += [summoner_performance]
+      end
+
+      fix_team_roles(team1.summoner_performances)
+      fix_team_roles(team2.summoner_performances)
+
+      match
+    end
+
+    def create_match(match_data)
       team1_params, team2_params = match_data['teams']
       bans = team1_params['bans'] + team2_params['bans']
 
@@ -128,6 +176,7 @@ class MatchHelper
       performances = team.summoner_performances
       return unless team_roles_missing?(performances)
       fix_team_roles(performances)
+      performances.each { |performance| performance.save! }
     end
 
     # Roles may be incorrectly returned from Riot, in which case an attempt is made to correct
@@ -160,13 +209,13 @@ class MatchHelper
           undetermined_performances -= [determined_performance]
           performances_by_role[determined_performance.role] -= [determined_performance]
           undetermined_roles -= [role]
-          determined_performance.update!(role: role)
+          determined_performance.role = role
         end
       end
 
       # If after trying to determine roles there are still some left, assign them randomly
       undetermined_performances.each_with_index do |performance, i|
-        performance.update!(role: undetermined_roles[i])
+        performance.role = undetermined_roles[i]
       end
     end
 

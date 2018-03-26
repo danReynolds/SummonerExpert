@@ -158,6 +158,60 @@ items:
   description:
     - "I have seen many champions use {item} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
 summoners:
+  current_match_reasons:
+    description:
+      - 'Here are all the factors I considered for {summoner}:'
+      - 'These are the factors I considered for {summoner}:'
+      - 'All of these factors went into my assessment for {summoner}:'
+    MATCHUP_NO_EXPERIENCE:
+      - '{summoner} has no experience playing {champion} {role} against {opposing_champion}.'
+    MATCHUP_INEXPERIENCE:
+      - '{summoner} has limited experience in this matchup and has only played {total} games as {champion} {role} against {opposing_champion}.'
+    OFF_META_MATCHUP_FACTOR:
+      - '{summoner} is playing {champion} {role}, which is currently off meta in their elo.'
+    MATCHUP_WIN_RATE:
+      - '{summoner} has a {own}% win rate playing {champion} {role} in this matchup vs the current average of {opposing}%.'
+    MATCHUP_KDA:
+      - '{summoner} has a {own} KDA playing {champion} {role} in this matchup vs the current average of {opposing}.'
+    MATCHUP_CS:
+      - '{summoner} has {own} CS playing {champion} {role} in this matchup vs the current average of {opposing}.'
+    MATCHUP_GOLD:
+      - '{summoner} earns an average of {own} gold playing in this matchup {champion} {role} vs the current average of {opposing}.'
+    AVERAGE_MATCHUP_WIN_RATE:
+      - '{summoner} has not played this matchup as {champion} {role} before, the average win rate for {champion} {role} is {own}%.'
+    AVERAGE_MATCHUP_KDA:
+      - '{summoner} has not played this matchup as {champion} {role} before, the average KDA for {champion} {role} is {own}.'
+    OFF_META_MATCHUP_WIN_RATE:
+      - '{summoner} is playing off meta in their elo and averages a win rate of {own}% as {champion} {role}.'
+    OFF_META_MATCHUP_KDA:
+      - '{summoner} is playing off meta in their elo and averages a KDA of {own}% as {champion} {role}.'
+    STREAK:
+      - '{summoner} is on a {streak_length} game {streak_type} streak.'
+    CHAMPION_NO_EXPERIENCE:
+      - '{summoner} has not played {champion} {role} so far this season.'
+    CHAMPION_INEXPERIENCE:
+      - '{summoner} has only played a few games as {champion} {role} and may be inexperienced as the champion.'
+    CHAMPION_WIN_RATE:
+      - '{summoner} has a {own}% win rate overall playing {champion} {role} vs the current average of {opposing}%.'
+    CHAMPION_KDA:
+      - '{summoner} has a {own} KDA overall playing {champion} {role} vs the current average of {opposing}.'
+    CHAMPION_CS:
+      - '{summoner} has {own} CS overall playing {champion} {role} vs the current average of {opposing}.'
+    CHAMPION_GOLD:
+      - '{summoner} earns an average of {own} gold overall playing {champion} {role} vs the current average of {opposing}.'
+    OFF_META_CHAMPION_WIN_RATE:
+      - '{summoner} is playing an off meta role for their champion in their elo and has a {own}% win rate.'
+    OFF_META_CHAMPION_KDA:
+      - '{summoner} is playing an off meta role for their champion in their elo and has a {own} KDA.'
+    AVERAGE_CHAMPION_WIN_RATE:
+      - '{summoner} has not played {champion} {role}, the average win rate for that champion in that role is {own}%.'
+    AVERAGE_CHAMPION_KDA:
+      - '{summoner} has not played {champion} {role}, the average KDA for that champion in that role is {own}.'
+  current_match:
+    uneven:
+      - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My money is definitely on {favored} this time.'
+    even:
+      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}.'
   summoner_matchups:
     uneven:
       - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My money is definitely on {favored} this time.'
@@ -285,7 +339,7 @@ summoners:
         complete:
           - "The champions with the {list_order} {sort_type} against {summoner} {starting_time} {ending_time} playing {champion} {role} are {champions}."
         incomplete:
-          - "{summoner} has only played against {real_size} different {real_size_champion_conjugation} {starting_time} {ending_time} as {champion} {role}. The champions with the {list_order} {sort_type} playing against {summoner} {role} are {champions}."
+          - "{summoner} has only played against {real_size} different {real_size_champion_conjugation} {starting_time} {ending_time} as {champion} {role}. The champions with the {list_order} {sort_type} playing against {summoner} as {champion} {role} are {champions}."
       offset:
         complete:
           - 'The {list_position} through {filtered_position_offset} champions with the {list_order} {sort_type} against {summoner} {starting_time} {ending_time} playing {champion} {role} are {champions}.'
@@ -332,6 +386,10 @@ errors:
         - '{item} does not build from anything, from what I can tell.'
         - 'Well I do not believe {item} does actually build from anything.'
   summoners:
+    current_match:
+      no_current_match:
+        - 'I do not believe {summoner} is in a game at the moment.'
+        - 'I cannot find a live game for {summoner}.'
     champion_matchups:
       no_matchups:
         - 'I could not find any matches for {summoner} playing {champion} {role} against {champion2} {starting_time} {ending_time}. It would be interesting to see though.'
@@ -342,9 +400,9 @@ errors:
         - '{summoner} has not played {champion} {role} {starting_time} {ending_time}.'
     champion_build:
       no_complete_builds:
-        - '{summoner} does not have any complete builds playing {champion} {role} this season.'
-        - '{summoner} does not have any full builds playing {champion} {role} this season, perhaps the summoner just wins too quickly.'
-        - '{summoner} does not have any full builds playing {champion} {role} this season, I think we both know what that means.'
+        - '{summoner} does not have any complete builds {starting_time} {ending_time} playing {champion} {role}.'
+        - '{summoner} does not have any full builds {starting_time} {ending_time} playing {champion} {role}, perhaps the summoner just wins too quickly.'
+        - '{summoner} does not have any full builds {starting_time} {ending_time} playing {champion} {role}, I think we both know what that means.'
     does_not_play:
       - '{summoner} has not played any games {starting_time} {ending_time} {:as:champion} {role}.'
       - '{summoner} has not played any matches {starting_time} {ending_time} {:as:champion} {role}.'

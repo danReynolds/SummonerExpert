@@ -11,6 +11,147 @@ describe SummonersController, type: :controller do
     @today = "#{Time.now.strftime("%Y-%m-%d")}/#{(Time.now + 1.day).strftime("%Y-%m-%d")}"
   end
 
+  describe 'POST current_match' do
+    let(:action) { :current_match }
+    let(:summoner_params) do
+      {
+        name: 'wingilote',
+        region: 'NA1',
+      }
+    end
+    let(:current_match_response) do
+      JSON.parse(File.read('external_response.json'))
+        .with_indifferent_access[:summoners][action]
+    end
+    let(:summoner_queue_response) do
+      JSON.parse(File.read('external_response.json'))
+        .with_indifferent_access[:summoners][:summoner_matchups]
+    end
+
+    before :each do
+      allow(RiotApi::RiotApi).to receive(:get_current_match).and_return(
+        current_match_response
+      )
+      allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(
+        summoner_queue_response
+      )
+      @summoner = create(:summoner, name: 'wingilote')
+      @summoner2 = create(:summoner, name: 'endless white')
+      @champion = Champion.new(name: 'Miss Fortune')
+      @champion2 = Champion.new(name: 'Caitlyn')
+
+      @matches = create_list(:match, 5)
+      match_data = [
+        { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+        { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+      ]
+
+      @matches.each_with_index do |match, i|
+        summoner_performance = match.summoner_performances.first
+        @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+        if match_data[i][:match][:win]
+          match.update!(winning_team: summoner_performance.team)
+        else
+          match.update!(winning_team: @opposing_team)
+        end
+        summoner_performance.update!(match_data[i][:summoner_performance])
+        @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+      end
+    end
+
+    context 'with the summoner in game' do
+      it "should determine the performance ratings for the summoner's lane" do
+        post action, params: params
+        expect(speech).to eq 'I would give wingilote playing Miss Fortune a performance rating of 63% for this matchup compared to as who I would rate around 26%. My money is definitely on wingilote this time.'
+      end
+    end
+
+    context 'with the summoner not in game' do
+      before :each do
+        allow(RiotApi::RiotApi).to receive(:get_current_match).and_return(nil)
+      end
+
+      it 'should indicate that the summoner is not in game' do
+        post action, params: params
+        expect(speech).to eq 'I do not believe wingilote is in a game at the moment.'
+      end
+    end
+  end
+
+  describe 'POST current_match_reasons' do
+    let(:action) { :current_match_reasons }
+    let(:summoner_params) do
+      {
+        name: 'wingilote',
+        region: 'NA1',
+      }
+    end
+
+    before :each do
+      @summoner = create(:summoner, name: 'wingilote')
+      allow(Cache).to receive(:get_current_match_rating).and_return(
+        {:own_performance=>
+          {:rating=>0.88868929542452,
+           :reasons=>
+            [{:name=>:CHAMPION_WIN_RATE, :args=>{:own=>80.0, :opposing=>53.91}},
+              {:name=>:CHAMPION_KDA, :args=>{:own=>3.0, :opposing=>2.6886223520440473}},
+              {:name=>:CHAMPION_CS, :args=>{:own=>250.0, :opposing=>187.89939358402643}},
+              {:name=>:CHAMPION_GOLD, :args=>{:own=>25000.0, :opposing=>12775.482370731557}},
+              {:name=>:STREAK, :args=>{:streak_type=>:losing, :streak_length=>1}},
+              {:name=>:MATCHUP_WIN_RATE, :args=>{:own=>80.0, :opposing=>54.07}},
+              {:name=>:MATCHUP_KDA, :args=>{:own=>3.0, :opposing=>2.802169602239589}},
+              {:name=>:MATCHUP_CS, :args=>{:own=>250.0, :opposing=>188.51400651465798}},
+              {:name=>:MATCHUP_GOLD, :args=>{:own=>25000.0, :opposing=>12669.788664495114}}]},
+         :opposing_performance=>
+          {:rating=>0.6112550564363732,
+           :reasons=>
+            [{:name=>:CHAMPION_WIN_RATE, :args=>{:own=>20.0, :opposing=>48.87}},
+              {:name=>:CHAMPION_KDA, :args=>{:own=>3.0, :opposing=>2.341214808363023}},
+              {:name=>:CHAMPION_CS, :args=>{:own=>250.0, :opposing=>198.90990635925058}},
+              {:name=>:CHAMPION_GOLD, :args=>{:own=>25000.0, :opposing=>12531.021625685155}},
+              {:name=>:STREAK, :args=>{:streak_type=>:winning, :streak_length=>1}},
+              {:name=>:MATCHUP_WIN_RATE, :args=>{:own=>20.0, :opposing=>45.93}},
+              {:name=>:MATCHUP_KDA, :args=>{:own=>3.0, :opposing=>2.235953089445125}},
+              {:name=>:MATCHUP_CS, :args=>{:own=>250.0, :opposing=>199.25550488599347}},
+              {:name=>:MATCHUP_GOLD, :args=>{:own=>25000.0, :opposing=>12514.795960912052}}]},
+         :summoner=>"wingilote",
+         :champion=>"Miss Fortune",
+         :opposing_champion=>"Caitlyn",
+         :opposing_summoner=>"endless white",
+         :role=>"DUO_CARRY"}
+      )
+    end
+
+    it 'should provide the reasons from the cached current match rating' do
+      post action, params: params
+      expect(response_body).to eq ({"speech"=>"",
+       "messages"=>
+        [{"type"=>0, "speech"=>"Here are all the factors I considered for wingilote:"},
+         {"type"=>0, "speech"=>"wingilote has a 80.0% win rate overall playing Miss Fortune Adc vs the current average of 53.91%."},
+         {"type"=>0, "speech"=>"wingilote has a 3.0 KDA overall playing Miss Fortune Adc vs the current average of 2.6886223520440473."},
+         {"type"=>0, "speech"=>"wingilote has 250.0 CS overall playing Miss Fortune Adc vs the current average of 187.89939358402643."},
+         {"type"=>0, "speech"=>"wingilote earns an average of 25000.0 gold overall playing Miss Fortune Adc vs the current average of 12775.482370731557."},
+         {"type"=>0, "speech"=>"wingilote is on a 1 game losing streak."},
+         {"type"=>0, "speech"=>"wingilote has a 80.0% win rate playing Miss Fortune Adc in this matchup vs the current average of 54.07%."},
+         {"type"=>0, "speech"=>"wingilote has a 3.0 KDA playing Miss Fortune Adc in this matchup vs the current average of 2.802169602239589."},
+         {"type"=>0, "speech"=>"wingilote has 250.0 CS playing Miss Fortune Adc in this matchup vs the current average of 188.51400651465798."},
+         {"type"=>0, "speech"=>"wingilote earns an average of 25000.0 gold playing in this matchup Miss Fortune Adc vs the current average of 12669.788664495114."},
+         {"type"=>0, "speech"=>"Here are all the factors I considered for endless white:"},
+         {"type"=>0, "speech"=>"endless white has a 20.0% win rate overall playing Caitlyn Adc vs the current average of 48.87%."},
+         {"type"=>0, "speech"=>"endless white has a 3.0 KDA overall playing Caitlyn Adc vs the current average of 2.341214808363023."},
+         {"type"=>0, "speech"=>"endless white has 250.0 CS overall playing Caitlyn Adc vs the current average of 198.90990635925058."},
+         {"type"=>0, "speech"=>"endless white earns an average of 25000.0 gold overall playing Caitlyn Adc vs the current average of 12531.021625685155."},
+         {"type"=>0, "speech"=>"endless white is on a 1 game winning streak."},
+         {"type"=>0, "speech"=>"endless white has a 20.0% win rate playing Caitlyn Adc in this matchup vs the current average of 45.93%."},
+         {"type"=>0, "speech"=>"endless white has a 3.0 KDA playing Caitlyn Adc in this matchup vs the current average of 2.235953089445125."},
+         {"type"=>0, "speech"=>"endless white has 250.0 CS playing Caitlyn Adc in this matchup vs the current average of 199.25550488599347."},
+         {"type"=>0, "speech"=>"endless white earns an average of 25000.0 gold playing in this matchup Caitlyn Adc vs the current average of 12514.795960912052."}]})
+    end
+  end
+
   describe 'POST summoner_matchups' do
     let(:action) { :summoner_matchups }
     let(:summoner_params) do
@@ -35,11 +176,184 @@ describe SummonersController, type: :controller do
 
       @summoner = create(:summoner, name: 'Hero man')
       @summoner2 = create(:summoner, name: 'Other man')
+      @summoner3 = create(:summoner, name: 'Other man 2')
       @champion = Champion.new(name: 'Vayne')
       @champion2 = Champion.new(name: 'Sivir')
+      @champion3 = Champion.new(name: 'Twitch')
     end
 
-    context 'with strong performance on that champion' do
+    context 'with one summoner playing an off-meta champion role combination' do
+      before :each do
+        @off_meta_champion = Champion.new(name: 'Azir')
+        summoner_params[:champion2] = @off_meta_champion.name
+      end
+
+      context 'with strong performance on the off-meta champion' do
+        before :each do
+          @matches = create_list(:match, 9)
+          match_data = [
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          ]
+
+          @matches.each_with_index do |match, i|
+            summoner_performance = match.summoner_performances.first
+            @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+            if match_data[i][:match][:win]
+              match.update!(winning_team: summoner_performance.team)
+            else
+              match.update!(winning_team: @opposing_team)
+            end
+            summoner_performance.update!(match_data[i][:summoner_performance])
+            @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+          end
+        end
+
+        it 'should balance out it being off meta' do
+          post action, params: params
+          expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 84% for this matchup versus Other man with 76%.'
+        end
+      end
+
+      context 'with weak performance on the off-meta champion' do
+        before :each do
+          @matches = create_list(:match, 9)
+          match_data = [
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          ]
+
+          @matches.each_with_index do |match, i|
+            summoner_performance = match.summoner_performances.first
+            @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+            if match_data[i][:match][:win]
+              match.update!(winning_team: summoner_performance.team)
+            else
+              match.update!(winning_team: @opposing_team)
+            end
+            summoner_performance.update!(match_data[i][:summoner_performance])
+            @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+          end
+        end
+
+        it 'should heavily favor the meta opponent' do
+          post action, params: params
+          expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 84% for this matchup compared to Other man as Azir who I would rate around 28%. My money is definitely on Hero man this time.'
+        end
+      end
+    end
+
+    context 'with few matches played against that champion by one summoner' do
+      before :each do
+        @matches = create_list(:match, 9)
+        match_data = [
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @champion2.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @champion2.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @champion2.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+        end
+      end
+
+      it 'should favor the summoner more with experience in that matchup' do
+        post action, params: params
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 88% for this matchup compared to Other man as Sivir who I would rate around 76%. My money is definitely on Hero man this time.'
+      end
+    end
+
+    context 'with few games played on that champion by one summoner' do
+      before :each do
+        @matches = create_list(:match, 6)
+        match_data = [
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+        end
+      end
+
+      it 'should favor the summoner more experienced with their champion' do
+        post action, params: params
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 75% for this matchup compared to Other man as Sivir who I would rate around 64%. My money is definitely on Hero man this time.'
+      end
+    end
+
+    context 'with no games played on that champion by one summoner' do
+      before :each do
+        @matches = create_list(:match, 6)
+        match_data = [
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+        end
+      end
+
+      it 'should heavily favor the summoner with experience on their champion' do
+        post action, params: params
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 79% for this matchup compared to Other man as Sivir who I would rate around 52%. My money is definitely on Hero man this time.'
+      end
+    end
+
+    context 'with strong performance on that champion by one summoner' do
       before :each do
         @matches = create_list(:match, 5)
         match_data = [
@@ -63,7 +377,7 @@ describe SummonersController, type: :controller do
         end
       end
 
-      it 'should indicate a high confidence in victory' do
+      it 'should favor the strong performer' do
         post action, params: params
         expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 97% for this matchup compared to Other man as Sivir who I would rate around 36%. My money is definitely on Hero man this time.'
       end
@@ -97,6 +411,40 @@ describe SummonersController, type: :controller do
       it 'should indicate that it is unsure who to favor' do
         post action, params: params
         expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 87% for this matchup versus Other man with 80%.'
+      end
+    end
+
+    context 'with one player tilted' do
+      before :each do
+        @matches = create_list(:match, 9)
+        match_data = [
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+        end
+      end
+
+      it 'should favor the non-tilted player' do
+        post action, params: params
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 62% for this matchup compared to Other man as Sivir who I would rate around 81%. My money is definitely on Other man this time.'
       end
     end
   end
@@ -1027,7 +1375,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate the summoner has never completed a build' do
         post action, params: params
-        expect(speech).to eq 'Hero man does not have any complete builds playing Shyvana Adc this season.'
+        expect(speech).to eq 'Hero man does not have any complete builds playing Shyvana Adc.'
       end
     end
 
@@ -1381,7 +1729,7 @@ describe SummonersController, type: :controller do
 
           it 'should return the list of champions indicating it is incomplete' do
             post action, params: params
-            expect(speech).to eq 'Hero man has only played against two different champions as Shyvana Middle. The champions with the highest win rate playing against Hero man Middle are Swain and Elise.'
+            expect(speech).to eq 'Hero man has only played against two different champions as Shyvana Middle. The champions with the highest win rate playing against Hero man as Shyvana Middle are Swain and Elise.'
           end
         end
       end

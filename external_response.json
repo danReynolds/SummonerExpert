@@ -2245,6 +2245,303 @@
           }
         }
       ]
+    },
+    "current_match": {
+      "gameId": 2747497183,
+      "gameStartTime": 1521932317078,
+      "platformId": "NA1",
+      "gameMode": "CLASSIC",
+      "mapId": 11,
+      "gameType": "MATCHED_GAME",
+      "gameQueueConfigId": 420,
+      "observers": {
+        "encryptionKey": "2XaTN8oWdEMEjoBC83E367v12xgHDk0i"
+      },
+      "participants": [
+        {
+          "profileIconId": 3151,
+          "championId": 43,
+          "summonerName": "Yang",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8200,
+            "perkIds": [
+              8214,
+              8243,
+              8210,
+              8237,
+              8473,
+              8472
+            ],
+            "perkSubStyle": 8400
+          },
+          "spell2Id": 3,
+          "teamId": 100,
+          "spell1Id": 4,
+          "summonerId": 35203477
+        },
+        {
+          "profileIconId": 3155,
+          "championId": 21,
+          "summonerName": "wingilote",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8200,
+            "perkIds": [
+              8229,
+              8226,
+              8234,
+              8237,
+              8304,
+              8345
+            ],
+            "perkSubStyle": 8300
+          },
+          "spell2Id": 4,
+          "teamId": 100,
+          "spell1Id": 7,
+          "summonerId": 39871901
+        },
+        {
+          "profileIconId": 3150,
+          "championId": 45,
+          "summonerName": "Librarian",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8300,
+            "perkIds": [
+              8326,
+              8304,
+              8345,
+              8347,
+              8226,
+              8234
+            ],
+            "perkSubStyle": 8200
+          },
+          "spell2Id": 14,
+          "teamId": 100,
+          "spell1Id": 4,
+          "summonerId": 72620437
+        },
+        {
+          "profileIconId": 539,
+          "championId": 2,
+          "summonerName": "Schiiimon",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8100,
+            "perkIds": [
+              8124,
+              8126,
+              8136,
+              8105,
+              9111,
+              9104
+            ],
+            "perkSubStyle": 8000
+          },
+          "spell2Id": 11,
+          "teamId": 100,
+          "spell1Id": 4,
+          "summonerId": 78109109
+        },
+        {
+          "profileIconId": 589,
+          "championId": 27,
+          "summonerName": "MonkeyClaw99",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8400,
+            "perkIds": [
+              8439,
+              8446,
+              8444,
+              8242,
+              8304,
+              8352
+            ],
+            "perkSubStyle": 8300
+          },
+          "spell2Id": 12,
+          "teamId": 100,
+          "spell1Id": 6,
+          "summonerId": 45379213
+        },
+        {
+          "profileIconId": 3185,
+          "championId": 51,
+          "summonerName": "endless white",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8000,
+            "perkIds": [
+              8021,
+              9111,
+              9104,
+              8014,
+              8473,
+              8472
+            ],
+            "perkSubStyle": 8400
+          },
+          "spell2Id": 4,
+          "teamId": 200,
+          "spell1Id": 7,
+          "summonerId": 58960472
+        },
+        {
+          "profileIconId": 7,
+          "championId": 92,
+          "summonerName": "Byukar",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8000,
+            "perkIds": [
+              8010,
+              9111,
+              9104,
+              8014,
+              8237,
+              8224
+            ],
+            "perkSubStyle": 8200
+          },
+          "spell2Id": 4,
+          "teamId": 200,
+          "spell1Id": 12,
+          "summonerId": 65251023
+        },
+        {
+          "profileIconId": 9,
+          "championId": 38,
+          "summonerName": "Mr Mad Gawsh",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8200,
+            "perkIds": [
+              8229,
+              8243,
+              8234,
+              8237,
+              8009,
+              8014
+            ],
+            "perkSubStyle": 8000
+          },
+          "spell2Id": 12,
+          "teamId": 200,
+          "spell1Id": 4,
+          "summonerId": 49699138
+        },
+        {
+          "profileIconId": 1213,
+          "championId": 141,
+          "summonerName": "JeSuisUnePlanète",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8100,
+            "perkIds": [
+              8112,
+              8143,
+              8120,
+              8105,
+              9111,
+              8014
+            ],
+            "perkSubStyle": 8000
+          },
+          "spell2Id": 11,
+          "teamId": 200,
+          "spell1Id": 4,
+          "summonerId": 23585973
+        },
+        {
+          "profileIconId": 3233,
+          "championId": 53,
+          "summonerName": "Gardy",
+          "gameCustomizationObjects": [],
+          "bot": false,
+          "perks": {
+            "perkStyle": 8400,
+            "perkIds": [
+              8439,
+              8473,
+              8472,
+              8453,
+              8347,
+              8321
+            ],
+            "perkSubStyle": 8300
+          },
+          "spell2Id": 14,
+          "teamId": 200,
+          "spell1Id": 4,
+          "summonerId": 45114258
+        }
+      ],
+      "gameLength": 1356,
+      "bannedChampions": [
+        {
+          "teamId": 100,
+          "championId": 8,
+          "pickTurn": 1
+        },
+        {
+          "teamId": 100,
+          "championId": 19,
+          "pickTurn": 2
+        },
+        {
+          "teamId": 100,
+          "championId": 202,
+          "pickTurn": 3
+        },
+        {
+          "teamId": 100,
+          "championId": 122,
+          "pickTurn": 4
+        },
+        {
+          "teamId": 100,
+          "championId": 145,
+          "pickTurn": 5
+        },
+        {
+          "teamId": 200,
+          "championId": 145,
+          "pickTurn": 6
+        },
+        {
+          "teamId": 200,
+          "championId": 26,
+          "pickTurn": 7
+        },
+        {
+          "teamId": 200,
+          "championId": 142,
+          "pickTurn": 8
+        },
+        {
+          "teamId": 200,
+          "championId": 117,
+          "pickTurn": 9
+        },
+        {
+          "teamId": 200,
+          "championId": 121,
+          "pickTurn": 10
+        }
+      ]
     }
   }
 }

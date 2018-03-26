@@ -29,4 +29,14 @@ class Collection
       "#{key} #{value.first}"
     end.en.conjunction(article: false)
   end
+
+  class << self
+    def collection
+      Cache.get_collection(collection_key.pluralize)
+    end
+
+    def find(id)
+      new(name: collection[id])
+    end
+  end
 end

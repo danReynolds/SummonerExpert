@@ -15,7 +15,7 @@ class MatchWorker
       if (match_data && match_data['queueId'] == RiotApi::RANKED_QUEUE_ID &&
         RiotApi::ACTIVE_SEASONS.include?(match_data['seasonId']))
         Raven.capture_exception(Exception.new("Found on retry: #{game_id}")) if fixup
-        MatchHelper.store_match(match_data)
+        MatchHelper.create_match(match_data)
       end
     end
   end

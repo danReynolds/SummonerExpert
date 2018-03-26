@@ -1,8 +1,8 @@
 class SummonersController < ApplicationController
   include RiotApi
   include Utils
-
   before_action :load_summoner, except: [:summoner_matchups]
+
   before_action :load_namespace
   before_action only: [:champion_performance_ranking] { process_performance_request(with_sorting: true) }
   before_action only: [:champion_performance_summary] do
@@ -284,6 +284,102 @@ class SummonersController < ApplicationController
     }
   end
 
+  def current_match
+    args = { summoner: @summoner.name }
+    match_data = RiotApi.get_current_match(id: @summoner.id)
+
+    unless match_data
+      return render json: {
+        speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :no_current_match), args)
+      }
+    end
+
+    match = MatchHelper.initialize_current_match(match_data)
+
+    performances = match.team1.summoner_performances + match.team2.summoner_performances
+    summoner_performance = performances.find { |performance| performance.summoner == @summoner }
+    opposing_performance = performances.find do |performance|
+      performance.role == summoner_performance.role && performance != summoner_performance
+    end
+    opposing_summoner = opposing_performance.summoner
+    role = summoner_performance.role
+
+    champion = Champion.find(summoner_performance.champion_id)
+    opposing_champion = Champion.find(opposing_performance.champion_id)
+
+    args.merge!({
+      champion: champion.name,
+      opposing_champion: opposing_champion.name,
+      opposing_summoner: opposing_summoner.name,
+      role: role
+    })
+
+    performance_rating = StrategyEngine.run(
+      summoner: @summoner,
+      summoner2: opposing_summoner,
+      champion: champion,
+      champion2: opposing_champion,
+      role: ChampionGGApi::MATCHUP_ROLES[role.to_sym]
+    )
+    Cache.set_current_match_rating(
+      @summoner.id,
+      performance_rating.merge(args)
+    )
+    own_performance = performance_rating[:own_performance]
+    opposing_performance = performance_rating[:opposing_performance]
+
+    args.merge!({
+      own_rating: own_performance[:rating],
+      opposing_rating: opposing_performance[:rating]
+    })
+
+    even_type = if own_performance[:rating] > opposing_performance[:rating] + StrategyEngine::RATING_THRESHOLD
+      args[:favored] = @summoner.name
+      :uneven
+    elsif own_performance[:rating] < opposing_performance[:rating] - StrategyEngine::RATING_THRESHOLD
+      args[:favored] = opposing_summoner.name
+      :uneven
+    else
+      :even
+    end
+
+    render json: {
+      speech: ApiResponse.get_response(dig_set(*@namespace, even_type), args)
+    }
+  end
+
+  def current_match_reasons
+    performance_rating = Cache.get_current_match_rating(@summoner.id)
+
+    own_args = performance_rating.slice(:summoner, :champion, :role)
+    own_reasons = performance_rating[:own_performance][:reasons].map do |reason|
+      args = reason[:args].merge(own_args)
+      ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args)
+    end
+
+    opposing_args = {
+      summoner: performance_rating[:opposing_summoner],
+      champion: performance_rating[:opposing_champion],
+      role: performance_rating[:role]
+    }
+    opposing_reasons = performance_rating[:opposing_performance][:reasons].flatten.map do |reason|
+      args = reason[:args].merge(opposing_args)
+      ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args)
+    end
+
+    render json: {
+      speech: '',
+      messages: [
+        ApiResponse.get_response(dig_set(*@namespace, :description), own_args),
+        *own_reasons,
+        ApiResponse.get_response(dig_set(*@namespace, :description), opposing_args),
+        *opposing_reasons
+      ].map do |message|
+        { type: 0, speech: message }
+      end
+    }
+  end
+
   def summoner_matchups
     summoner = Summoner.find_by(
       name: summoner_params[:summoner].strip,
@@ -301,19 +397,25 @@ class SummonersController < ApplicationController
       summoner: summoner.name,
       summoner2: summoner2.name
     }
-    rating = StrategyEngine.run(
+    performance_rating = StrategyEngine.run(
       summoner: summoner,
       summoner2: summoner2,
       champion: champion,
       champion2: champion2,
       role: summoner_params[:role]
     )
-    args.merge!(rating)
+    own_performance = performance_rating[:own_performance]
+    opposing_performance = performance_rating[:opposing_performance]
 
-    even_type = if rating[:own_rating] > rating[:opposing_rating] + StrategyEngine::RATING_THRESHOLD
+    args.merge!({
+      own_rating: own_performance[:rating],
+      opposing_rating: opposing_performance[:rating]
+    })
+
+    even_type = if own_performance[:rating] > opposing_performance[:rating] + StrategyEngine::RATING_THRESHOLD
       args[:favored] = summoner.name
       :uneven
-    elsif rating[:own_rating] < rating[:opposing_rating] - StrategyEngine::RATING_THRESHOLD
+    elsif own_performance[:rating] < opposing_performance[:rating] - StrategyEngine::RATING_THRESHOLD
       args[:favored] = summoner2.name
       :uneven
     else
