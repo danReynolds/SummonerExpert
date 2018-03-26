@@ -4,8 +4,8 @@ champions:
     - 'That champ and I go way back, if I had to call them anything it would be {champion}, {title}.'
     - '{champion} has the magnificient title of {title}.'
   lore:
-    - 'I will tell you about the history of {champion}. This is all I know: {lore}'
-    - '{champion} has such an interesting past. Here it is, stop me if you have heard it: {lore}'
+    - 'I will tell you about the history of {champion}. My records are old so it may be incomplete: {lore}'
+    - '{champion} has such an interesting past. I will tell you what I remember: {lore}'
   ability:
     - "{champion}'s {position} ability is called {ability}. {description}"
     - "Certainly! Here is a description of {ability}, {champion}'s {position} ability: {description}"

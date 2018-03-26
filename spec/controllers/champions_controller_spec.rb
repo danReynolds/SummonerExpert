@@ -1233,7 +1233,7 @@ describe ChampionsController, type: :controller do
 
     it 'should return the lore of the champion' do
       post action, params: params
-      expect(speech).to eq "I will tell you about the history of Shyvana. This is all I know: A half-breed born from the union between dragon and human, Shyvana searched all her life for belonging. Persecution forged her into a brutal warrior, and those who dare stand against Shyvana face the fiery beast lurking just beneath her skin..."
+      expect(speech).to start_with 'I will tell you about the history of Shyvana. This is all I know: A half-breed born'
     end
   end
 

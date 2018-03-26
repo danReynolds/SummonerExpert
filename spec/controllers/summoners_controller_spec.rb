@@ -379,7 +379,7 @@ describe SummonersController, type: :controller do
 
       it 'should favor the strong performer' do
         post action, params: params
-        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 95% for this matchup compared to Other man as Sivir who I would rate around 54%. My money is definitely on Hero man this time.'
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 97% for this matchup compared to Other man as Sivir who I would rate around 36%. My money is definitely on Hero man this time.'
       end
     end
 

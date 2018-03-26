@@ -289,8 +289,7 @@ class ChampionsController < ApplicationController
   end
 
   def lore
-    args = { champion: @champion.name, lore: @champion.blurb }
-
+    args = { champion: @champion.name, lore: @champion.lore }
     render json: {
       speech: ApiResponse.get_response({ champions: :lore }, args)
     }
