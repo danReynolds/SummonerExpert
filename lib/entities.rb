@@ -13,7 +13,7 @@ class Entities
     :kda, :total_positions, :position_change, :description, :ability, :ability_cooldown, :lore,
     :tip, :item, :total_cost, :sell_cost, :title, :ability_position, :matchup_role, :patch, :metric,
     :favored, :summoner2, :own_rating, :opposing_rating, :opposing_champion, :opposing_summoner, :own,
-    :opposing, :streak_type, :streak_length
+    :opposing, :streak_type, :streak_length, :total
   ].each do |entity|
     define_singleton_method(entity) do |value|
       value.to_s
