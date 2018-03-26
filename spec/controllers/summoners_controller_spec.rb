@@ -65,7 +65,7 @@ describe SummonersController, type: :controller do
     context 'with the summoner in game' do
       it "should determine the performance ratings for the summoner's lane" do
         post action, params: params
-        expect(speech).to eq 'I would give wingilote playing Miss Fortune a performance rating of 63% for this matchup compared to endless white as Caitlyn who I would rate around 26%. My best guess is that wingilote will perform well this time. Ask me why if you want to know more.'
+        expect(speech).to eq 'I would give wingilote playing Miss Fortune a performance rating of 93% for this matchup compared to endless white as Caitlyn who I would rate around 39%. My best guess is that wingilote will perform well this time. Ask me why if you want to know more.'
       end
     end
 
@@ -379,7 +379,7 @@ describe SummonersController, type: :controller do
 
       it 'should favor the strong performer' do
         post action, params: params
-        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 97% for this matchup compared to Other man as Sivir who I would rate around 36%. My money is definitely on Hero man this time.'
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 95% for this matchup compared to Other man as Sivir who I would rate around 54%. My money is definitely on Hero man this time.'
       end
     end
 
