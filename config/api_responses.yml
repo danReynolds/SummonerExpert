@@ -209,9 +209,11 @@ summoners:
       - '{summoner} has not played {champion} {role}, the average KDA for that champion in that role is {own}.'
   current_match:
     uneven:
-      - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My money is definitely on {favored} this time.'
+      - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My best guess is that {favored} will perform well this time. Ask me why if you want to know more.'
+      - 'I would have to give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. I wager that {favored} will do well in lane. You can ask me why if you want more details.'
     even:
-      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}.'
+      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}. Ask me why for details.'
+      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}. You can ask me why for a full breakdown.'
   summoner_matchups:
     uneven:
       - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My money is definitely on {favored} this time.'
