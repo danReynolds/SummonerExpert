@@ -324,7 +324,13 @@ class SummonersController < ApplicationController
 
     Cache.set_current_match_rating(
       @summoner.id,
-      performance_rating.merge(args)
+      performance_rating.merge({
+        summoner: @summoner.name,
+        champion: champion.name,
+        opposing_champion: opposing_champion.name,
+        opposing_summoner: opposing_summoner.name,
+        role: role
+      })
     )
     own_performance = performance_rating[:own_performance]
     opposing_performance = performance_rating[:opposing_performance]
@@ -352,13 +358,9 @@ class SummonersController < ApplicationController
   def current_match_reasons
     performance_rating = Cache.get_current_match_rating(@summoner.id)
 
-    own_args = {
-      summoner: performance_rating[:summoner],
-      champion: performance_rating[:champion],
-      role: ChampionGGApi::MATCHUP_ROLES[performance_rating[:role].to_sym],
-      opposing_summoner: performance_rating[:opposing_summoner],
-      opposing_champion: performance_rating[:opposing_champion]
-    }
+    own_args = performance_rating.slice(
+      :summoner, :champion, :opposing_champion, :opposing_summoner, :role
+    )
     own_reasons = performance_rating[:own_performance][:reasons].map do |reason|
       args = reason[:args].merge(own_args)
       ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args)
@@ -367,9 +369,9 @@ class SummonersController < ApplicationController
     opposing_args = {
       summoner: performance_rating[:opposing_summoner],
       champion: performance_rating[:opposing_champion],
-      role: ChampionGGApi::MATCHUP_ROLES[performance_rating[:role].to_sym],
       opposing_summoner: performance_rating[:summoner],
-      opposing_champion: performance_rating[:champion]
+      opposing_champion: performance_rating[:champion],
+      role: performance_rating[:role]
     }
     opposing_reasons = performance_rating[:opposing_performance][:reasons].flatten.map do |reason|
       args = reason[:args].merge(opposing_args)
