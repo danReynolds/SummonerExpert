@@ -168,21 +168,21 @@ summoners:
     MATCHUP_INEXPERIENCE:
       - '{summoner} has limited experience in this matchup and has only played {total} games as {champion} {role} against {opposing_champion}.'
     OFF_META_MATCHUP_FACTOR:
-      - '{summoner} is playing {champion} {role}, which is currently off meta in their elo.'
+      - "{champion} {role} against {other_champion} is not a common matchup in this elo, it is a bit of a toss up."
     MATCHUP_WIN_RATE:
-      - '{summoner} has a {own}% win rate playing {champion} {role} in this matchup vs the current average of {opposing}%.'
+      - '{summoner} has a {own}% win rate playing {champion} {role} in this matchup against {other_champion} vs the current average of {opposing}%.'
     MATCHUP_KDA:
-      - '{summoner} has a {own} KDA playing {champion} {role} in this matchup vs the current average of {opposing}.'
+      - '{summoner} has a {own} KDA playing {champion} {role} in this matchup vs the current average of {opposing} against {opposing_champion}.'
     MATCHUP_CS:
-      - '{summoner} has {own} CS playing {champion} {role} in this matchup vs the current average of {opposing}.'
+      - '{summoner} has {own} CS playing {champion} {role} in this matchup vs the current average of {opposing} against {opposing_champion}.'
     MATCHUP_GOLD:
-      - '{summoner} earns an average of {own} gold playing in this matchup {champion} {role} vs the current average of {opposing}.'
+      - '{summoner} earns an average of {own} gold playing in this matchup {champion} {role} vs the current average of {opposing} against {opposing_champion}.'
     AVERAGE_MATCHUP_WIN_RATE:
-      - '{summoner} has not played this matchup as {champion} {role} before, the average win rate for {champion} {role} is {own}%.'
+      - '{summoner} has not played this matchup as {champion} {role} before, I am going off the average win rate for {champion} {role} is {own}%.'
     AVERAGE_MATCHUP_KDA:
-      - '{summoner} has not played this matchup as {champion} {role} before, the average KDA for {champion} {role} is {own}.'
+      - '{summoner} has not played this matchup as {champion} {role} before, I will use the average KDA for {champion} {role} of {own}.'
     OFF_META_MATCHUP_WIN_RATE:
-      - '{summoner} is playing off meta in their elo and averages a win rate of {own}% as {champion} {role}.'
+      - '{summoner} is playing off meta in their elo. They average a win rate of {own}% as {champion} {role}.'
     OFF_META_MATCHUP_KDA:
       - '{summoner} is playing off meta in their elo and averages a KDA of {own}% as {champion} {role}.'
     STREAK:
@@ -190,7 +190,7 @@ summoners:
     CHAMPION_NO_EXPERIENCE:
       - '{summoner} has not played {champion} {role} so far this season.'
     CHAMPION_INEXPERIENCE:
-      - '{summoner} has only played a few games as {champion} {role} and may be inexperienced as the champion.'
+      - '{summoner} has only played a few games as {champion} {role} and may be inexperienced playing that champion.'
     CHAMPION_WIN_RATE:
       - '{summoner} has a {own}% win rate overall playing {champion} {role} vs the current average of {opposing}%.'
     CHAMPION_KDA:
@@ -200,7 +200,7 @@ summoners:
     CHAMPION_GOLD:
       - '{summoner} earns an average of {own} gold overall playing {champion} {role} vs the current average of {opposing}.'
     OFF_META_CHAMPION_WIN_RATE:
-      - '{summoner} is playing an off meta role for their champion in their elo and has a {own}% win rate.'
+      - '{summoner} is playing an off meta role for their champion in their elo. They average a {own}% win rate.'
     OFF_META_CHAMPION_KDA:
       - '{summoner} is playing an off meta role for their champion in their elo and has a {own} KDA.'
     AVERAGE_CHAMPION_WIN_RATE:
@@ -212,8 +212,9 @@ summoners:
       - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {opposing_summoner} as {opposing_champion} who I would rate around {opposing_rating}. My best guess is that {favored} will perform well this time. Ask me why if you want to know more.'
       - 'I would have to give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {opposing_summoner} as {opposing_champion} who I would rate around {opposing_rating}. I wager that {favored} will do well in lane. You can ask me why if you want more details.'
     even:
-      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}. Ask me why for details.'
-      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}. You can ask me why for a full breakdown.'
+      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {opposing_summoner} with {opposing_rating}. Ask me why for details.'
+      - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {opposing_summoner} with {opposing_rating}. Ask me why for details.'
+      - 'This one looks fairly close, I am going to give {summoner} playing {champion} a performance rating of {own_rating} for this matchup versus {opposing_summoner} as {opposing_champion} with {opposing_rating}. You can ask me why for a full breakdown.'
   summoner_matchups:
     uneven:
       - 'I would give {summoner} playing {champion} a performance rating of {own_rating} for this matchup compared to {summoner2} as {champion2} who I would rate around {opposing_rating}. My money is definitely on {favored} this time.'
@@ -221,6 +222,8 @@ summoners:
       - 'This one looks fairly close, I am going to give {summoner} a performance rating of {own_rating} for this matchup versus {summoner2} with {opposing_rating}.'
   performance_summary:
     - "{summoner} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate."
+    - "A true lord of the rift! {summoner} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner currently has a {winrate}% win rate."
+    - "Of course, {summoner} is ranked {elo} {rank} with {lp} LP in {queue}. The summoner presently has a {winrate}% win rate."
   teammates:
     empty:
       normal:

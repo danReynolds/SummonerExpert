@@ -319,7 +319,7 @@ class StrategyEngine
           champion_performances, [:gold_earned, :total_minions_killed]
         ).inject({}) do |acc, (position, values)|
           acc.tap do
-            acc[position] = (values.sum / args[:performances].length.to_f).round(2)
+            acc[position] = (values.sum / champion_performances.length.to_f).round(2)
           end
         end
 
