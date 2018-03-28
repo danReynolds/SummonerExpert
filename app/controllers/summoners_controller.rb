@@ -363,7 +363,7 @@ class SummonersController < ApplicationController
     )
     own_reasons = performance_rating[:own_performance][:reasons].map do |reason|
       args = reason[:args].merge(own_args)
-      ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args)
+      { speech: ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args), priority: reason[:priority] }
     end
 
     opposing_args = {
@@ -375,7 +375,7 @@ class SummonersController < ApplicationController
     }
     opposing_reasons = performance_rating[:opposing_performance][:reasons].flatten.map do |reason|
       args = reason[:args].merge(opposing_args)
-      ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args)
+      { speech: ApiResponse.get_response(dig_set(*@namespace, reason[:name]), args), priority: reason[:priority] }
     end
 
     render json: {
@@ -386,7 +386,7 @@ class SummonersController < ApplicationController
         ApiResponse.get_response(dig_set(*@namespace, :description), opposing_args),
         *opposing_reasons
       ].map do |message|
-        { type: 0, speech: message }
+        message.merge({ type: 0 })
       end
     }
   end
