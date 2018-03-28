@@ -30,8 +30,8 @@ class StrategyEngine
       })
 
       {
-        own_performance: calculate_rating(args, calculate_factors(args)),
-        opposing_performance: calculate_rating(opposing_args, calculate_factors(opposing_args))
+        own_performance: calculate_rating(calculate_factors(args)),
+        opposing_performance: calculate_rating(calculate_factors(opposing_args))
       }
     end
 
@@ -43,7 +43,7 @@ class StrategyEngine
       end
     end
 
-    def calculate_rating(args, factors)
+    def calculate_rating(factors)
       reasons = []
       weighted_factors = factors.inject({}) do |acc, (name, value)|
         acc.tap do
@@ -54,7 +54,7 @@ class StrategyEngine
             reasons << { name: name, args: value[:args] || {} }
             value[:performance]
           else
-            performance_rating = calculate_rating(args, value[:factors])
+            performance_rating = calculate_rating(value[:factors])
             reasons += performance_rating[:reasons]
             performance_rating[:rating]
           end
@@ -123,7 +123,7 @@ class StrategyEngine
           matchup_performances, [:gold_earned, :total_minions_killed]
         ).inject({}) do |acc, (position, values)|
           acc.tap do
-            acc[position] = (values.sum / args[:performances].length.to_f).round(2)
+            acc[position] = (values.sum / matchup_performances.length.to_f).round(2)
           end
         end
       end
