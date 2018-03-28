@@ -178,9 +178,9 @@ summoners:
     MATCHUP_GOLD:
       - '{summoner} earns an average of {own} gold playing in this matchup {champion} {role} vs the current average of {opposing} against {opposing_champion}.'
     AVERAGE_MATCHUP_WIN_RATE:
-      - '{summoner} has not played this matchup as {champion} {role} before, I am going off the average win rate for {champion} {role} is {own}%.'
+      - '{summoner} has not played this matchup as {champion} {role} before, I am going off the average win rate for {champion} {role} against {opposing_champion}, which is {own}%.'
     AVERAGE_MATCHUP_KDA:
-      - '{summoner} has not played this matchup as {champion} {role} before, I will use the average KDA for {champion} {role} of {own}.'
+      - '{summoner} has not played this matchup as {champion} {role} before, I will use the average KDA for {champion} {role} against {opposing_champion} of {own}.'
     OFF_META_MATCHUP_WIN_RATE:
       - '{summoner} is playing off meta in their elo. They average a win rate of {own}% as {champion} {role}.'
     OFF_META_MATCHUP_KDA:
