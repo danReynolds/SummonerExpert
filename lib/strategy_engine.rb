@@ -43,18 +43,19 @@ class StrategyEngine
       end
     end
 
-    def calculate_rating(factors)
+    def calculate_rating(priorities = [], factors)
       reasons = []
       weighted_factors = factors.inject({}) do |acc, (name, value)|
         acc.tap do
           priority = value[:priority] || PRIORITIES[:HIGHEST]
+          factor_priorities = priorities + [priority]
           acc[priority] ||= { performance: 0, total: 0 }
           priority_values = acc[priority]
           performance = if value[:performance]
-            reasons << { name: name, args: value[:args] || {} }
+            reasons << { priorities: factor_priorities, name: name, args: value[:args] || {} }
             value[:performance]
           else
-            performance_rating = calculate_rating(value[:factors])
+            performance_rating = calculate_rating(factor_priorities, value[:factors])
             reasons += performance_rating[:reasons]
             performance_rating[:rating]
           end
@@ -378,7 +379,7 @@ class StrategyEngine
             opposing: STANDARD_KDA
           })
         })
-      elsif champion_role_performance
+      elsif champion_role_performance.valid?
         factors.merge!({
           AVERAGE_CHAMPION_WIN_RATE: win_rate({
             own: (champion_role_performance.winRate * 100).round(2),
