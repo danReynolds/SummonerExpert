@@ -168,7 +168,7 @@ summoners:
     MATCHUP_INEXPERIENCE:
       - '{summoner} has limited experience in this matchup and has only played {total} games as {champion} {role} against {opposing_champion}.'
     OFF_META_MATCHUP_FACTOR:
-      - "{champion} {role} against {other_champion} is not a common matchup in this elo, it is a bit of a toss up."
+      - "{champion} {role} against {opposing_champion} is not a common matchup in this elo, it is a bit of a toss up."
     MATCHUP_WIN_RATE:
       - '{summoner} has a {own}% win rate playing {champion} {role} in this matchup against {other_champion} vs the current average of {opposing}%.'
     MATCHUP_KDA:
