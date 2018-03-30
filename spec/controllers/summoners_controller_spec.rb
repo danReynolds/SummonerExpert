@@ -1502,6 +1502,7 @@ describe SummonersController, type: :controller do
     context 'with no summoner information' do
       before :each do
         summoner_params[:name] = 'inactive player'
+        allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(nil)
       end
 
       it 'should indicate that the summoner does not play in that queue' do
