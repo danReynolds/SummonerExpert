@@ -583,7 +583,7 @@ class SummonersController < ApplicationController
       id = RiotApi::get_summoner_id(name: name)
       if id
         @summoner = Summoner.find_by_summoner_id(id)
-        @summoner.name = name
+        @summoner.name = name if @summoner
       end
     end
 
