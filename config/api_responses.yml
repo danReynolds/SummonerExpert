@@ -67,7 +67,7 @@ champions:
           - 'The current patch only has enough data for {real_size} champions. The {list_position} through {filtered_position_offset} champions with the {list_order} {position} playing {role} in {elo} division are {champions}.'
   cooldown:
     - "The cooldown of {champion}'s {ability_position} ability, {ability}, is {ability_cooldown} seconds at rank {rank}."
-    - "{champion}'s {ability} ability, {ability_name}, has a cooldown of {ability_cooldown} seconds at rank {rank}."
+    - "{champion}'s {ability_position} ability, {ability}, has a cooldown of {ability_cooldown} seconds at rank {rank}."
   matchup:
     solo_role:
       general:
