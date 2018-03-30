@@ -30,7 +30,7 @@ class RankedQueue
   end
 
   def elo
-    @queue['tier']
+    ChampionGGApi::ELOS[@queue['tier'].to_sym] rescue nil
   end
 
   def lp

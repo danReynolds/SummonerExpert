@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 require 'spec_contexts.rb'
 
@@ -222,6 +223,42 @@ describe SummonersController, type: :controller do
         it 'should balance out it being off meta' do
           post action, params: params
           expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 84% for this matchup versus Other man with 76%.'
+        end
+      end
+
+      context 'with a high ranking elo' do
+        before :each do
+          @matches = create_list(:match, 9)
+          match_data = [
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: true }, summoner_performance: { summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @off_meta_champion.id, summoner_id: @summoner2.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+            { match: { win: false }, summoner_performance: { summoner_id: @summoner2.id, champion_id: @off_meta_champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion3.id, summoner_id: @summoner3.id, role: 'DUO_CARRY' } },
+          ]
+
+          @matches.each_with_index do |match, i|
+            summoner_performance = match.summoner_performances.first
+            @opposing_team = summoner_performance.team == match.team1 ? match.team2 : match.team1
+            if match_data[i][:match][:win]
+              match.update!(winning_team: summoner_performance.team)
+            else
+              match.update!(winning_team: @opposing_team)
+            end
+            summoner_performance.update!(match_data[i][:summoner_performance])
+            @opposing_team.summoner_performances.first.update!(match_data[i][:opponent])
+          end
+
+          external_response[0]['tier'] = 'MASTER'
+        end
+
+        it 'should consider the high elo as platinum plus' do
+          post action, params: params
+          expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 84% for this matchup compared to Other man as Azir who I would rate around 28%. My money is definitely on Hero man this time.'
         end
       end
 

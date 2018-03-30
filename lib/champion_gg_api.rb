@@ -8,7 +8,10 @@ class ChampionGGApi < ExternalApi
     SILVER: 'SILVER',
     GOLD: 'GOLD',
     PLATINUM: 'PLATINUM',
-    PLATINUM_PLUS: 'PLATINUM_PLUS'
+    PLATINUM_PLUS: 'PLATINUM_PLUS',
+    MASTER: 'PLATINUM_PLUS',
+    DIAMOND: 'PLATINUM_PLUS',
+    CHALLENGER: 'PLATINUM_PLUS'
   }.freeze
 
   # Metric Options
