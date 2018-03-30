@@ -165,7 +165,7 @@ module RiotApi
 
       def get_summoner_id(args)
         name = URI.encode(args[:name])
-        url = "#{replace_url(@api[:summoner][:id], args)}/#{name}"
+        url = replace_url(@api[:summoner][:id], args)
         return unless response = fetch_response(url)
         response['id']
       end

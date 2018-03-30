@@ -578,13 +578,14 @@ class SummonersController < ApplicationController
 
   def load_summoner
     name = summoner_params[:name].strip
-    @summoner = Summoner.find_by(
-      name: name,
-      region: RiotApi::NA
-    ) || Summoner.find_by(
-      name: name.downcase == name ? name.capitalize : name.downcase,
-      region: RiotApi::NA
-    )
+
+    unless @summoner = Summoner.find_by(name: [name.downcase, name.capitalize], region: RiotApi::NA)
+      id = RiotApi::get_summoner_id(name: name)
+      if id
+        @summoner = Summoner.find_by_summoner_id(id)
+        @summoner.name = name
+      end
+    end
 
     unless @summoner.try(:valid?)
       speech = @summoner ? @summoner.error_message : ApiResponse.get_response(

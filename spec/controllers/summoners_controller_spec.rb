@@ -1461,11 +1461,23 @@ describe SummonersController, type: :controller do
     end
 
     before :each do
-      summoner = create(:summoner, name: 'Wingilote')
+      @summoner = create(:summoner, name: 'Wingilote')
       allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(
         external_response
       )
-      Cache.set_summoner_rank(summoner.summoner_id, nil)
+      Cache.set_summoner_rank(@summoner.summoner_id, nil)
+    end
+
+    context 'with a renamed summoner' do
+      before :each do
+        summoner_params[:name] = 'new name'
+        allow(RiotApi::RiotApi).to receive(:get_summoner_id).and_return(@summoner.summoner_id)
+      end
+
+      it 'should look them up by their new name' do
+        post action, params: params
+        expect(speech).to eq 'new name is ranked Gold V with 84 LP in Solo Queue. The summoner currently has a 50.16% win rate.'
+      end
     end
 
     context 'with no queue data' do
