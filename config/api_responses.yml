@@ -170,7 +170,7 @@ summoners:
     OFF_META_MATCHUP_FACTOR:
       - "{champion} {role} against {opposing_champion} is not a common matchup in this elo, it is a bit of a toss up."
     MATCHUP_WIN_RATE:
-      - '{summoner} has a {own}% win rate playing {champion} {role} in this matchup against {other_champion} vs the current average of {opposing}%.'
+      - '{summoner} has a {own}% win rate playing {champion} {role} in this matchup against {opposing_champion} vs the current average of {opposing}%.'
     MATCHUP_KDA:
       - '{summoner} has a {own} KDA playing {champion} {role} in this matchup vs the current average of {opposing} against {opposing_champion}.'
     MATCHUP_CS:
@@ -199,6 +199,8 @@ summoners:
       - '{summoner} has {own} CS overall playing {champion} {role} vs the current average of {opposing}.'
     CHAMPION_GOLD:
       - '{summoner} earns an average of {own} gold overall playing {champion} {role} vs the current average of {opposing}.'
+    OFF_META_CHAMPION:
+      - '{summoner} is playing {champion} {role} which is an off-meta role for the champion in their elo. Usually there is a reason that champion does not work in an off-meta role.'
     OFF_META_CHAMPION_WIN_RATE:
       - '{summoner} is playing an off meta role for their champion in their elo. They average a {own}% win rate.'
     OFF_META_CHAMPION_KDA:

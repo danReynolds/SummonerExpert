@@ -92,64 +92,65 @@ describe SummonersController, type: :controller do
 
     before :each do
       @summoner = create(:summoner, name: 'wingilote')
-      allow(Cache).to receive(:get_current_match_rating).and_return({
-        :own_performance=> {
-          :rating=>0.9332764800554418,
-          :reasons=>
-          [{:name=>:CHAMPION_WIN_RATE, :args=>{:own=>80.0, :opposing=>53.91}},
-            {:name=>:CHAMPION_KDA, :args=>{:own=>3.0, :opposing=>2.69}},
-            {:name=>:CHAMPION_CS, :args=>{:own=>250.0, :opposing=>187.9}},
-            {:name=>:CHAMPION_GOLD, :args=>{:own=>25000.0, :opposing=>12775.48}},
-            {:name=>:STREAK, :args=>{:streak_type=>:winning, :streak_length=>4}},
-            {:name=>:MATCHUP_WIN_RATE, :args=>{:own=>80.0, :opposing=>54.07}},
-            {:name=>:MATCHUP_KDA, :args=>{:own=>3.0, :opposing=>2.8}},
-            {:name=>:MATCHUP_CS, :args=>{:own=>250.0, :opposing=>188.51}},
-            {:name=>:MATCHUP_GOLD, :args=>{:own=>25000.0, :opposing=>12669.79}}]},
-            :opposing_performance=> {
-              :rating=>0.3946069932841762,
-              :reasons=>
-              [{:name=>:CHAMPION_WIN_RATE, :args=>{:own=>20.0, :opposing=>48.87}},
-                {:name=>:CHAMPION_KDA, :args=>{:own=>3.0, :opposing=>2.34}},
-                {:name=>:CHAMPION_CS, :args=>{:own=>250.0, :opposing=>198.91}},
-                {:name=>:CHAMPION_GOLD, :args=>{:own=>25000.0, :opposing=>12531.02}},
-                {:name=>:STREAK, :args=>{:streak_type=>:losing, :streak_length=>4}},
-                {:name=>:MATCHUP_WIN_RATE, :args=>{:own=>20.0, :opposing=>45.93}},
-                {:name=>:MATCHUP_KDA, :args=>{:own=>3.0, :opposing=>2.24}},
-                {:name=>:MATCHUP_CS, :args=>{:own=>250.0, :opposing=>199.26}},
-                {:name=>:MATCHUP_GOLD, :args=>{:own=>25000.0, :opposing=>12514.8}}]},
-                :summoner=>"wingilote",
-                :champion=>"Miss Fortune",
-                :opposing_champion=>"Caitlyn",
-                :opposing_summoner=>"endless white",
-                :role=>"DUO_CARRY"
-      })
+      allow(Cache).to receive(:get_current_match_rating).and_return(
+        {:own_performance=>
+        {:rating=>0.9332764800554418,
+        :reasons=>
+         [{:priorities=>[2, 2], :name=>:CHAMPION_WIN_RATE, :args=>{:own=>80.0, :opposing=>53.91}},
+          {:priorities=>[2, 3], :name=>:CHAMPION_KDA, :args=>{:own=>3.0, :opposing=>2.69}},
+          {:priorities=>[2, 4], :name=>:CHAMPION_CS, :args=>{:own=>250.0, :opposing=>187.9}},
+          {:priorities=>[2, 4], :name=>:CHAMPION_GOLD, :args=>{:own=>25000.0, :opposing=>12775.48}},
+          {:priorities=>[2, 1], :name=>:STREAK, :args=>{:streak_type=>:winning, :streak_length=>4}},
+          {:priorities=>[1, 2], :name=>:MATCHUP_WIN_RATE, :args=>{:own=>80.0, :opposing=>54.07}},
+          {:priorities=>[1, 3], :name=>:MATCHUP_KDA, :args=>{:own=>3.0, :opposing=>2.8}},
+          {:priorities=>[1, 4], :name=>:MATCHUP_CS, :args=>{:own=>250.0, :opposing=>188.51}},
+          {:priorities=>[1, 4], :name=>:MATCHUP_GOLD, :args=>{:own=>25000.0, :opposing=>12669.79}}]},
+        :opposing_performance=>
+        {:rating=>0.3946069932841762,
+        :reasons=>
+         [{:priorities=>[2, 2], :name=>:CHAMPION_WIN_RATE, :args=>{:own=>20.0, :opposing=>48.87}},
+          {:priorities=>[2, 3], :name=>:CHAMPION_KDA, :args=>{:own=>3.0, :opposing=>2.34}},
+          {:priorities=>[2, 4], :name=>:CHAMPION_CS, :args=>{:own=>250.0, :opposing=>198.91}},
+          {:priorities=>[2, 4], :name=>:CHAMPION_GOLD, :args=>{:own=>25000.0, :opposing=>12531.02}},
+          {:priorities=>[1, 1], :name=>:STREAK, :args=>{:streak_type=>:losing, :streak_length=>4}},
+          {:priorities=>[1, 2], :name=>:MATCHUP_WIN_RATE, :args=>{:own=>20.0, :opposing=>45.93}},
+          {:priorities=>[1, 3], :name=>:MATCHUP_KDA, :args=>{:own=>3.0, :opposing=>2.24}},
+          {:priorities=>[1, 4], :name=>:MATCHUP_CS, :args=>{:own=>250.0, :opposing=>199.26}},
+          {:priorities=>[1, 4], :name=>:MATCHUP_GOLD, :args=>{:own=>25000.0, :opposing=>12514.8}}]},
+        :summoner=>"wingilote",
+        :champion=>"Miss Fortune",
+        :opposing_champion=>"Caitlyn",
+        :opposing_summoner=>"endless white",
+        :role=>"DUO_CARRY"}
+      )
     end
 
     it 'should provide the reasons from the cached current match rating' do
       post action, params: params
+
       expect(response_body).to eq(
         {"speech"=>"",
          "messages"=>
-          [{"type"=>0, "speech"=>"Here are all the factors I considered for wingilote:"},
-           {"type"=>0, "speech"=>"wingilote has a 80.0% win rate overall playing Miss Fortune Adc vs the current average of 53.91%."},
-           {"type"=>0, "speech"=>"wingilote has a 3.0 KDA overall playing Miss Fortune Adc vs the current average of 2.69."},
-           {"type"=>0, "speech"=>"wingilote has 250.0 CS overall playing Miss Fortune Adc vs the current average of 187.9."},
-           {"type"=>0, "speech"=>"wingilote earns an average of 25000.0 gold overall playing Miss Fortune Adc vs the current average of 12775.48."},
-           {"type"=>0, "speech"=>"wingilote is on a 4 game winning streak."},
-           {"type"=>0, "speech"=>"wingilote has a 80.0% win rate playing Miss Fortune Adc in this matchup against vs the current average of 54.07%."},
-           {"type"=>0, "speech"=>"wingilote has a 3.0 KDA playing Miss Fortune Adc in this matchup vs the current average of 2.8 against Caitlyn."},
-           {"type"=>0, "speech"=>"wingilote has 250.0 CS playing Miss Fortune Adc in this matchup vs the current average of 188.51 against Caitlyn."},
-           {"type"=>0, "speech"=>"wingilote earns an average of 25000.0 gold playing in this matchup Miss Fortune Adc vs the current average of 12669.79 against Caitlyn."},
-           {"type"=>0, "speech"=>"Here are all the factors I considered for endless white:"},
-           {"type"=>0, "speech"=>"endless white has a 20.0% win rate overall playing Caitlyn Adc vs the current average of 48.87%."},
-           {"type"=>0, "speech"=>"endless white has a 3.0 KDA overall playing Caitlyn Adc vs the current average of 2.34."},
-           {"type"=>0, "speech"=>"endless white has 250.0 CS overall playing Caitlyn Adc vs the current average of 198.91."},
-           {"type"=>0, "speech"=>"endless white earns an average of 25000.0 gold overall playing Caitlyn Adc vs the current average of 12531.02."},
-           {"type"=>0, "speech"=>"endless white is on a 4 game losing streak."},
-           {"type"=>0, "speech"=>"endless white has a 20.0% win rate playing Caitlyn Adc in this matchup against vs the current average of 45.93%."},
-           {"type"=>0, "speech"=>"endless white has a 3.0 KDA playing Caitlyn Adc in this matchup vs the current average of 2.24 against Miss Fortune."},
-           {"type"=>0, "speech"=>"endless white has 250.0 CS playing Caitlyn Adc in this matchup vs the current average of 199.26 against Miss Fortune."},
-           {"type"=>0, "speech"=>"endless white earns an average of 25000.0 gold playing in this matchup Caitlyn Adc vs the current average of 12514.8 against Miss Fortune."}]}
+          [{"speech"=>"Here are all the factors I considered for wingilote:", "type"=>0},
+           {"speech"=>"wingilote has a 80.0% win rate overall playing Miss Fortune Adc vs the current average of 53.91%.", "priorities"=>[2, 2], "type"=>0},
+           {"speech"=>"wingilote has a 3.0 KDA overall playing Miss Fortune Adc vs the current average of 2.69.", "priorities"=>[2, 3], "type"=>0},
+           {"speech"=>"wingilote has 250.0 CS overall playing Miss Fortune Adc vs the current average of 187.9.", "priorities"=>[2, 4], "type"=>0},
+           {"speech"=>"wingilote earns an average of 25000.0 gold overall playing Miss Fortune Adc vs the current average of 12775.48.", "priorities"=>[2, 4], "type"=>0},
+           {"speech"=>"wingilote is on a 4 game winning streak.", "priorities"=>[2, 1], "type"=>0},
+           {"speech"=>"wingilote has a 80.0% win rate playing Miss Fortune Adc in this matchup against Caitlyn vs the current average of 54.07%.", "priorities"=>[1, 2], "type"=>0},
+           {"speech"=>"wingilote has a 3.0 KDA playing Miss Fortune Adc in this matchup vs the current average of 2.8 against Caitlyn.", "priorities"=>[1, 3], "type"=>0},
+           {"speech"=>"wingilote has 250.0 CS playing Miss Fortune Adc in this matchup vs the current average of 188.51 against Caitlyn.", "priorities"=>[1, 4], "type"=>0},
+           {"speech"=>"wingilote earns an average of 25000.0 gold playing in this matchup Miss Fortune Adc vs the current average of 12669.79 against Caitlyn.", "priorities"=>[1, 4], "type"=>0},
+           {"speech"=>"Here are all the factors I considered for endless white:", "type"=>0},
+           {"speech"=>"endless white has a 20.0% win rate overall playing Caitlyn Adc vs the current average of 48.87%.", "priorities"=>[2, 2], "type"=>0},
+           {"speech"=>"endless white has a 3.0 KDA overall playing Caitlyn Adc vs the current average of 2.34.", "priorities"=>[2, 3], "type"=>0},
+           {"speech"=>"endless white has 250.0 CS overall playing Caitlyn Adc vs the current average of 198.91.", "priorities"=>[2, 4], "type"=>0},
+           {"speech"=>"endless white earns an average of 25000.0 gold overall playing Caitlyn Adc vs the current average of 12531.02.", "priorities"=>[2, 4], "type"=>0},
+           {"speech"=>"endless white is on a 4 game losing streak.", "priorities"=>[1, 1], "type"=>0},
+           {"speech"=>"endless white has a 20.0% win rate playing Caitlyn Adc in this matchup against Miss Fortune vs the current average of 45.93%.", "priorities"=>[1, 2], "type"=>0},
+           {"speech"=>"endless white has a 3.0 KDA playing Caitlyn Adc in this matchup vs the current average of 2.24 against Miss Fortune.", "priorities"=>[1, 3], "type"=>0},
+           {"speech"=>"endless white has 250.0 CS playing Caitlyn Adc in this matchup vs the current average of 199.26 against Miss Fortune.", "priorities"=>[1, 4], "type"=>0},
+           {"speech"=>"endless white earns an average of 25000.0 gold playing in this matchup Caitlyn Adc vs the current average of 12514.8 against Miss Fortune.", "priorities"=>[1, 4], "type"=>0}]}
       )
     end
   end
