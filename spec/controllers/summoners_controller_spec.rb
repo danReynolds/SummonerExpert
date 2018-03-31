@@ -63,6 +63,17 @@ describe SummonersController, type: :controller do
       end
     end
 
+    context 'with a role specified' do
+      before :each do
+        summoner_params[:role] = 'DUO_SUPPORT'
+      end
+
+      it 'should determine the current match performance ratings for the summoners in the requested role' do
+        post action, params: params
+        expect(speech).to eq 'This one looks fairly close, I am going to give Yang a performance rating of 40% for this matchup versus Gardy with 45%. Ask me why for details.'
+      end
+    end
+
     context 'with the summoner in game' do
       it "should determine the performance ratings for the summoner's lane" do
         post action, params: params

@@ -285,46 +285,44 @@ class SummonersController < ApplicationController
   end
 
   def current_match
-    args = { summoner: @summoner.name }
     match_data = RiotApi.get_current_match(id: @summoner.summoner_id)
 
     unless match_data
       return render json: {
-        speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :no_current_match), args)
+        speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :no_current_match), { summoner: @summoner.name })
       }
     end
 
     match = MatchHelper.initialize_current_match(match_data)
-
     performances = match.team1.summoner_performances + match.team2.summoner_performances
-    summoner_performance = performances.find { |performance| performance.summoner == @summoner }
-    opposing_performance = performances.find do |performance|
-      performance.role == summoner_performance.role && performance != summoner_performance
-    end
+    own_summoner_performance = performances.find { |performance| performance.summoner == @summoner }
+    role = summoner_params[:role] || own_summoner_performance.role
+    queried_summoner_performance = own_summoner_performance.team.summoner_performances.find { |performance| performance.role == role }
+    queried_summoner = queried_summoner_performance.summoner
+    opposing_performance = performances.find { |performance| performance.role == role && performance != queried_summoner_performance }
     opposing_summoner = opposing_performance.summoner
-    role = summoner_performance.role
-
-    champion = Champion.find(summoner_performance.champion_id)
+    champion = Champion.find(queried_summoner_performance.champion_id)
     opposing_champion = Champion.find(opposing_performance.champion_id)
 
-    args.merge!({
+    args = {
+      summoner: queried_summoner.name,
       champion: champion.name,
       opposing_champion: opposing_champion.name,
       opposing_summoner: opposing_summoner.name,
       role: ChampionGGApi::MATCHUP_ROLES[role.to_sym]
-    })
+    }
 
     performance_rating = StrategyEngine.run(
-      summoner: @summoner,
+      summoner: queried_summoner,
       summoner2: opposing_summoner,
       champion: champion,
       champion2: opposing_champion,
       role: role
     )
     Cache.set_current_match_rating(
-      @summoner.id,
+      queried_summoner.id,
       performance_rating.merge({
-        summoner: @summoner.name,
+        summoner: queried_summoner.name,
         champion: champion.name,
         opposing_champion: opposing_champion.name,
         opposing_summoner: opposing_summoner.name,
