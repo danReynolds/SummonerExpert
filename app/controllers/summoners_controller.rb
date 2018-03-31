@@ -297,7 +297,9 @@ class SummonersController < ApplicationController
     performances = match.team1.summoner_performances + match.team2.summoner_performances
     own_summoner_performance = performances.find { |performance| performance.summoner == @summoner }
     role = summoner_params[:role] || own_summoner_performance.role
-    queried_summoner_performance = own_summoner_performance.team.summoner_performances.find { |performance| performance.role == role }
+    queried_summoner_performance = performances.find do |performance|
+      performance.role == role && performance.summoner && performance.team == own_summoner_performance.team
+    end
     queried_summoner = queried_summoner_performance.summoner
     opposing_performance = performances.find { |performance| performance.role == role && performance != queried_summoner_performance }
     opposing_summoner = opposing_performance.summoner
