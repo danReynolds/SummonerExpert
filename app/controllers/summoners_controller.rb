@@ -296,10 +296,8 @@ class SummonersController < ApplicationController
     match = MatchHelper.initialize_current_match(match_data)
     performances = match.team1.summoner_performances + match.team2.summoner_performances
     own_summoner_performance = performances.find { |performance| performance.summoner == @summoner }
-    role = summoner_params[:role] || own_summoner_performance.role
-    queried_summoner_performance = performances.find do |performance|
-      performance.role == role && performance.summoner && performance.team == own_summoner_performance.team
-    end
+    role = summoner_params[:role].present? ? summoner_params[:role] : own_summoner_performance.role
+    queried_summoner_performance = performances.find { |performance| performance.role == role && performance.team == own_summoner_performance.team }
     queried_summoner = queried_summoner_performance.summoner
     opposing_performance = performances.find { |performance| performance.role == role && performance != queried_summoner_performance }
     opposing_summoner = opposing_performance.summoner
