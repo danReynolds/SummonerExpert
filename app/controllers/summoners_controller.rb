@@ -338,7 +338,7 @@ class SummonersController < ApplicationController
     })
 
     even_type = if own_performance[:rating] > opposing_performance[:rating] + StrategyEngine::RATING_THRESHOLD
-      args[:favored] = @summoner.name
+      args[:favored] = queried_summoner.name
       :uneven
     elsif own_performance[:rating] < opposing_performance[:rating] - StrategyEngine::RATING_THRESHOLD
       args[:favored] = opposing_summoner.name

@@ -66,11 +66,34 @@ describe SummonersController, type: :controller do
     context 'with a role specified' do
       before :each do
         summoner_params[:role] = 'DUO_SUPPORT'
+        @summoner3 = create(:summoner, name: 'Yang')
+        @summoner4 = create(:summoner, name: 'Gardy')
+
+        @matches = create_list(:match, 5)
+        match_data = [
+          { match: { win: false }, summoner_performance: { summoner_id: @summoner3.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner4.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner3.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner4.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner3.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner4.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner3.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner4.id, role: 'DUO_CARRY' } },
+          { match: { win: true }, summoner_performance: { summoner_id: @summoner3.id, champion_id: @champion.id, role: 'DUO_CARRY' }, opponent: { champion_id: @champion2.id, summoner_id: @summoner4.id, role: 'DUO_CARRY' } },
+        ]
+
+        @matches.each_with_index do |match, i|
+          summoner_performance = match.summoner_performances.first
+          @opposing_team2 = summoner_performance.team == match.team1 ? match.team2 : match.team1
+          if match_data[i][:match][:win]
+            match.update!(winning_team: summoner_performance.team)
+          else
+            match.update!(winning_team: @opposing_team)
+          end
+          summoner_performance.update!(match_data[i][:summoner_performance])
+          @opposing_team2.summoner_performances.first.update!(match_data[i][:opponent])
+        end
       end
 
       it 'should determine the current match performance ratings for the summoners in the requested role' do
         post action, params: params
-        expect(speech).to eq 'This one looks fairly close, I am going to give Yang a performance rating of 40% for this matchup versus Gardy with 45%. Ask me why for details.'
+        expect(speech).to eq 'I would give Yang playing Karma a performance rating of 60% for this matchup compared to Gardy as Blitzcrank who I would rate around 30%. My best guess is that Yang will perform well this time. Ask me why if you want to know more.'
       end
     end
 
