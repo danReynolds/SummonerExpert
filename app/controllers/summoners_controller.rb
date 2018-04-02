@@ -320,7 +320,7 @@ class SummonersController < ApplicationController
       role: role
     )
     Cache.set_current_match_rating(
-      queried_summoner.id,
+      @summoner.id,
       performance_rating.merge({
         summoner: queried_summoner.name,
         champion: champion.name,
