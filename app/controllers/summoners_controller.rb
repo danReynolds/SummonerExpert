@@ -36,7 +36,7 @@ class SummonersController < ApplicationController
       rank: queue.rank,
       winrate: queue.winrate,
       hot_streak: queue.hot_streak ? 'on' : 'not on',
-      elo: queue.elo.humanize,
+      elo: queue.display_elo.humanize,
       queue: queue.name
     })
 

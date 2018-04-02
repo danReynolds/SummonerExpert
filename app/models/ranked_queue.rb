@@ -33,6 +33,10 @@ class RankedQueue
     ChampionGGApi::ELOS[@queue['tier'].to_sym] rescue nil
   end
 
+  def display_elo
+    ChampionGGApi::DISPLAY_ELOS[@queue['tier'].to_sym] rescue nil
+  end
+
   def lp
     @queue['leaguePoints']
   end

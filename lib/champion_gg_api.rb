@@ -14,6 +14,16 @@ class ChampionGGApi < ExternalApi
     CHALLENGER: 'PLATINUM_PLUS'
   }.freeze
 
+  DISPLAY_ELOS = {
+    BRONZE: 'BRONZE',
+    SILVER: 'SILVER',
+    GOLD: 'GOLD',
+    PLATINUM: 'PLATINUM',
+    MASTER: 'MASTER',
+    DIAMOND: 'DIAMOND',
+    CHALLENGER: 'CHALLENGER'
+  }.freeze
+
   # Metric Options
   # for builds and ability order performance in a role
   METRICS = {

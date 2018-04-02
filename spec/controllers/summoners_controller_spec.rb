@@ -1550,6 +1550,12 @@ describe SummonersController, type: :controller do
       expect(speech).to eq 'Wingilote is ranked Gold V with 84 LP in Solo Queue. The summoner currently has a 50.16% win rate.'
     end
 
+    it 'should use display elos for higher ranked players' do
+      external_response[0]['tier'] = 'MASTER'
+      post action, params: params
+      expect(speech).to eq 'Wingilote is ranked Master V with 84 LP in Solo Queue. The summoner currently has a 50.16% win rate.'
+    end
+
     it 'should vary the information by queue' do
       summoner_params[:queue] = 'RANKED_FLEX_SR'
       post action, params: params
