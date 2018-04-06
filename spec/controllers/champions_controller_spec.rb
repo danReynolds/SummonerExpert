@@ -1209,7 +1209,7 @@ describe ChampionsController, type: :controller do
     context 'with valid rank' do
       it 'should indicate the cooldown for the specified ability' do
         post action, params: params
-        expect(speech).to eq "The cooldown of Shyvana's first ability, Twin Bite, is 8 seconds at rank 1."
+        expect(speech).to eq "The cooldown of Shyvana's first ability, Twin Bite, is 9 seconds at rank 1."
       end
     end
 

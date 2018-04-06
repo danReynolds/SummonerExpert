@@ -280,7 +280,7 @@ class ChampionsController < ApplicationController
       rank: rank,
       ability_position: ability_position,
       ability: ability[:name],
-      ability_cooldown: ability[:cooldown][rank].to_i
+      ability_cooldown: ability[:cooldown][rank - 1].to_i
     }
 
     render json: {
