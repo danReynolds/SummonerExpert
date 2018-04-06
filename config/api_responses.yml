@@ -156,7 +156,7 @@ items:
   build:
     - 'The items used to build {item} are {item_names}.'
   description:
-    - "I have seen many champions use {item} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does: {description}"
+    - "I have seen many champions use {item} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does:"
 summoners:
   current_match_reasons:
     description:

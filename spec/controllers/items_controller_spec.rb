@@ -42,7 +42,13 @@ describe ItemsController, type: :controller do
 
     it 'should provide a comprehensive breakdown of the item' do
       post action, params: params
-      expect(speech).to eq "I have seen many champions use Guardian Angel on the field of battle. It costs 2400 gold and can be sold for 960. Here is what it does: +40 Attack Damage +30 Armor UNIQUE Passive: Upon taking lethal damage, restores 50% of base Health and 30% of maximum Mana after 4 seconds of stasis (300 second cooldown)."
+      expect(response_body).to eq ({
+        "messages" => [
+          {"speech"=>"I have seen many champions use Guardian Angel on the field of battle. It costs 2400 gold and can be sold for 960. Here is what it does:", "type"=>0},
+          {"speech"=>"+40 Attack Damage +30 Armor UNIQUE Passive: Upon taking lethal damage, restores 50% of base Health and 30% of maximum Mana after 4 seconds of stasis (300 second cooldown).", "type"=>0}
+        ],
+        "speech" => ""
+      })
     end
   end
 end

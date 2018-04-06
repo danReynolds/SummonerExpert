@@ -5,15 +5,22 @@ class ItemsController < ApplicationController
 
   def description
     costs = @item.costs
+    description_messages = @item.sanitizedDescription.split('. ').map do |message|
+      { speech: message, type: 0 }
+    end
+
     args = {
       item: @item.name,
-      description: @item.sanitizedDescription,
       total_cost: costs['total'],
       sell_cost: costs['sell']
     }
 
     render json: {
-      speech: ApiResponse.get_response(dig_set(*@namespace), args)
+      speech: '',
+      messages: [
+        { speech: ApiResponse.get_response(dig_set(*@namespace), args), type: 0 },
+        *description_messages,
+      ]
     }
   end
 
