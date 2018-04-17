@@ -191,7 +191,14 @@ class ChampionsController < ApplicationController
       )
     } if position.blank?
 
-    position_performance = @role_performance.send(position)
+    if ChampionGGApi::DAMAGE_COMPOSITIONS.include?(position)
+      position_performance = @role_performance.damage_composition(position)
+      position_name = ChampionGGApi::DAMAGE_COMPOSITIONS[position]
+    else
+      position_performance = @role_performance.send(position)
+      position_name = ChampionGGApi::POSITION_DETAILS[position]
+    end
+
     percentage_positions = ChampionGGApi::POSITION_DETAILS.slice(
       :winRate, :playRate, :percentRolePlayed, :banRate,
     ).keys
@@ -208,7 +215,7 @@ class ChampionsController < ApplicationController
       role: @role_performance.role,
       champion: @role_performance.name,
       position: position_performance.round(2),
-      position_name: ChampionGGApi::POSITION_DETAILS[position]
+      position_name: position_name
     }
 
     render json: {

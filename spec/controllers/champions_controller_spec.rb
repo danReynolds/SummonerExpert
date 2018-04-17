@@ -1039,6 +1039,17 @@ describe ChampionsController, type: :controller do
       }
     end
 
+    context 'with a damage composition position' do
+      before(:each) do
+        champion_params[:position_details] = :total
+      end
+
+      it 'should give the damage composition value' do
+        post action, params: params
+        expect(speech).to eq 'Thresh averages 8851.59 total damage dealt playing Support in Bronze division.'
+      end
+    end
+
     context 'with no position details' do
       before(:each) do
         champion_params[:position_details] = ''

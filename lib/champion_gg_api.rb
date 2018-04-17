@@ -103,6 +103,13 @@ class ChampionGGApi < ExternalApi
     minionsKilled: 'creep score'
   }.freeze
 
+  DAMAGE_COMPOSITIONS = {
+    total: 'total damage dealt',
+    totalTrue: 'total true damage dealt',
+    totalMagical: 'total magic damage dealt',
+    totalPhysical: 'total physical damage dealt'
+  }.freeze
+
   class << self
     def get_champion_roles(**args)
       url = replace_url(@api[:champion_roles], args)

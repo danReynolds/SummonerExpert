@@ -11,7 +11,8 @@ class RolePerformance
   RELAY_ACCESSORS = [
     :winRate, :kills, :totalDamageTaken, :wardsKilled, :averageGames,
     :largestKillingSpree, :assists, :playRate, :gamesPlayed, :percentRolePlayed,
-    :goldEarned, :deaths, :wardPlaced, :banRate, :minionsKilled, :totalHeal
+    :goldEarned, :deaths, :wardPlaced, :banRate, :minionsKilled, :totalHeal, :total,
+    :totalTrue, :totalMagic, :totalPhysical
   ].freeze
   RELAY_ACCESSORS.each do |accessor|
     attr_accessor accessor
@@ -77,6 +78,10 @@ class RolePerformance
       position: @role_performance['positions'][position_name.to_s],
       total_positions: @role_performance['positions']['totalPositions']
     }
+  end
+
+  def damage_composition(damage_type)
+    @role_performance['damageComposition'][damage_type.to_s]
   end
 
   def kda
