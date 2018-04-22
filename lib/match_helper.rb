@@ -179,47 +179,58 @@ class MatchHelper
       performances.each { |performance| performance.save! }
     end
 
-    # Roles may be incorrectly returned from Riot, in which case an attempt is made to correct
-    # the roles based on by order:
-    # - Normal roles for that champion
-    # - Unique spell for roles that have them
-    # - Most assists if support
-    # - Random
-    def fix_team_roles(undetermined_performances)
-      undetermined_roles = []
-      performances_by_role = ChampionGGApi::ROLES.keys.map(&:to_s).inject(Hash.new([])) do |acc, role|
-        performances = undetermined_performances.select { |performance| performance.role == role }
+    def assign_unique_roles(performances_by_role, undetermined_performances)
+      performances_by_role.each do |role, performances|
         if performances.length == 1
-          undetermined_performances -= [performances.first]
-        else
-          undetermined_roles << role
+          performance = performances.first
+          performance.role = role
+          performances_by_role.delete(role)
+          undetermined_performances.delete(performance) rescue binding.pry
         end
-        acc.tap { acc[role] = performances }
-      end
-
-      undetermined_roles.each do |role|
-        performances_for_role = performances_by_role[role]
-        determined_performance = if performances_for_role.length > 1
-          determine_performance_for_role(role, performances_for_role)
-        else
-          performance = determine_performance_for_role(role, undetermined_performances)
-        end
-
-        if determined_performance
-          undetermined_performances -= [determined_performance]
-          performances_by_role[determined_performance.role] -= [determined_performance]
-          undetermined_roles -= [role]
-          determined_performance.role = role
-        end
-      end
-
-      # If after trying to determine roles there are still some left, assign them randomly
-      undetermined_performances.each_with_index do |performance, i|
-        performance.role = undetermined_roles[i]
       end
     end
 
-    def determine_performance_for_role(undetermined_role, possible_performances)
+    def assign_inferred_roles(performances_by_role, undetermined_performances)
+      performances_by_role.each do |role, performances|
+        determined_performance = infer_performance_for_role(
+          role,
+          performances & undetermined_performances
+        ) || infer_performance_for_role(role, undetermined_performances)
+
+        if determined_performance
+          undetermined_performances.delete(determined_performance)
+          performances_by_role.delete(role)
+          determined_performance.role = role
+          assign_inferred_roles(performances_by_role, undetermined_performances)
+          break
+        end
+      end
+    end
+
+    # Roles may be incorrectly returned from Riot, in which case an attempt is made to correct
+    # the roles based on by order:
+    # - Champions that play the role
+    # - Champions that exclusively play the role
+    # - Unique spells for the role if they exist
+    # - Most assists if the role is support
+    # - Random
+    def fix_team_roles(performances)
+      undetermined_performances = performances.map(&:itself)
+      performances_by_role = ChampionGGApi::ROLES.keys.map(&:to_s).inject(Hash.new([])) do |acc, role|
+        performances = undetermined_performances.select { |performance| performance.role == role }
+        acc.tap { acc[role] = performances }
+      end
+
+      assign_unique_roles(performances_by_role, undetermined_performances)
+      assign_inferred_roles(performances_by_role, undetermined_performances)
+
+      # If after trying to determine roles there are still some left, assign them randomly
+      undetermined_performances.each_with_index do |performance, i|
+        performance.role = performances_by_role.keys[i]
+      end
+    end
+
+    def infer_performance_for_role(undetermined_role, possible_performances)
       spell_indicators = {
         JUNGLE: Spell.new(name: 'Smite').id,
         DUO_CARRY: Spell.new(name: 'Heal').id,
@@ -228,11 +239,18 @@ class MatchHelper
 
       return possible_performances.first if possible_performances.length == 1
 
-      # First determine if the champion played normally plays the undetermined role
+      # First determine if only one champion normally plays the undetermined role
       champions = Cache.get_collection(:champions)
       performances = possible_performances.select do |performance|
         champion = champions[performance.champion_id]
         Cache.get_champion_role_performance(champion, undetermined_role, ChampionGGApi::ELOS[:PLATINUM_PLUS])
+      end
+
+      return performances.first if performances.length == 1
+
+      # Next determine if any of those champions exclusively play the role
+      performances = performances.select do |performance|
+        Champion.new(id: performance.champion_id).roles.length == 1
       end
 
       return performances.first if performances.length == 1
@@ -248,7 +266,7 @@ class MatchHelper
 
       # Finally use assists as the metric if the role is support
       if (undetermined_role.to_sym == :DUO_SUPPORT)
-        return possible_performances.sort_by { |performance| performance.assists }.last
+        possible_performances.sort_by { |performance| performance.assists }.last
       end
     end
   end

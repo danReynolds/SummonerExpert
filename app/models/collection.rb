@@ -3,13 +3,19 @@ include CollectionHelper
 class Collection
   def initialize(**args)
     # Fuzzy match the name for the collection
-    @name = args[:name].strip
-    @name = CollectionHelper::match_collection(
-      args[:name].strip,
-      Cache.get_collection(collection_key.pluralize).values
-    )
+    collection_entries = Cache.get_collection(collection_key.pluralize)
+    @id = args[:id]
 
-    if @data = Cache.get_collection_entry(collection_key, @name)
+    @name = if args[:name]
+      CollectionHelper::match_collection(
+        args[:name].strip,
+        collection_entries.values
+      )
+    elsif @id
+      collection_entries[@id]
+    end
+
+    if @name && @data = Cache.get_collection_entry(collection_key, @name)
       self.class::ACCESSORS.each do |key|
         instance_variable_set("@#{key}", @data[key])
       end
