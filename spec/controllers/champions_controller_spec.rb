@@ -13,14 +13,14 @@ describe ChampionsController, type: :controller do
     let(:action) { :roles }
     let(:champion_params) do
       {
-        name: 'Bard',
+        name: 'Jax',
         elo: 'GOLD'
       }
     end
 
     it 'should list the roles the champion plays in that elo' do
       post action, params: params
-      expect(speech).to eq 'Bard is best suited to Support in Gold division.'
+      expect(speech).to eq 'Jax is best suited to Top and Jungle in Gold division.'
     end
   end
 
