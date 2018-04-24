@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-04-24T04:42:14.285Z",
+	"__export_date": "2018-04-24T06:34:55.869Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -964,7 +964,7 @@
 		{
 			"_id": "req_80d826ccc8ee4259a1aeba344fa87977",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1524544925354,
+			"modified": 1524544967230,
 			"created": 1524544548332,
 			"url": "{{ url }}",
 			"name": "champions/roles",
@@ -972,7 +972,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"82aa8bcd-5197-437b-8678-7c08a1fe8d7e\",\n  \"timestamp\": \"2018-04-24T04:35:18.689Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"what roles does bard play\",\n    \"action\": \"champions/roles\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Bard\",\n      \"elo\": \"PLATINUM_PLUS\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"elo\": \"PLATINUM_PLUS\",\n          \"champion.original\": \"bard\",\n          \"champion\": \"Bard\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"9a743309-e150-4eae-a623-c042bcbf3320\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 94,\n      \"intentName\": \"champions/roles\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4195b8f-948a-48ad-9db1-c8506b30390c\"\n}"
+				"text": "{\n  \"id\": \"82aa8bcd-5197-437b-8678-7c08a1fe8d7e\",\n  \"timestamp\": \"2018-04-24T04:35:18.689Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"what roles does bard play\",\n    \"action\": \"champions/roles\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Jax\",\n      \"elo\": \"PLATINUM_PLUS\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"elo\": \"PLATINUM_PLUS\",\n          \"champion.original\": \"bard\",\n          \"champion\": \"Bard\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"9a743309-e150-4eae-a623-c042bcbf3320\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 94,\n      \"intentName\": \"champions/roles\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4195b8f-948a-48ad-9db1-c8506b30390c\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -984,6 +984,35 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1524544548332,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_b52b9326818543d5bd526c51805a2c84",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1524545922283,
+			"created": 1524545916865,
+			"url": "{{ url }}",
+			"name": "summoners/current_match_reasons",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"b542b273-e8b1-470f-bc4b-41255dd75cdf\",\n  \"timestamp\": \"2018-04-24T04:58:05.059Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"why\",\n    \"action\": \"summoners/current_match_reasons\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"dyrus \"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_current_match\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"dyrus \",\n          \"role.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"dyrus \",\n          \"role.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summonerscurrent_match-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"dyrus \",\n          \"role.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"18730eda-0e81-4bf4-9247-dc548599bcb4\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 533,\n      \"intentName\": \"summoners/current_match - reasons\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 500 Internal Server Error\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4195b8f-948a-48ad-9db1-c8506b30390c\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_90af2edea8b94216a30f487c0fd71c2f"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1524545916865,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,
