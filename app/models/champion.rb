@@ -27,6 +27,16 @@ class Champion < Collection
     )
   end
 
+  def roles(elo = ChampionGGApi::ELOS[:PLATINUM_PLUS])
+    ChampionGGApi::ROLES.values.select do |role|
+      Cache.get_champion_role_performance(name, role, elo)
+    end
+  end
+
+  def difficulty
+    @data['info']['difficulty']
+  end
+
   def stat(stat_key, level)
     stats = @data['stats']
     stat = stats[stat_key]
