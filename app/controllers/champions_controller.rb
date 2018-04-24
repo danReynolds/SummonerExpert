@@ -5,6 +5,19 @@ class ChampionsController < ApplicationController
   before_action :load_matchup, only: :matchup
   before_action :load_role_performance, only: [:role_performance_summary, :role_performance, :build, :ability_order]
   before_action :load_matchup_ranking, only: :matchup_ranking
+  before_action :load_namespace
+
+  def roles
+    args = {
+      champion: @champion.name,
+      elo: champion_params[:elo],
+      roles: @champion.roles(champion_params[:elo])
+    }
+
+    render json: {
+      speech: ApiResponse.get_response(dig_set(*@namespace), args)
+    }
+  end
 
   def ranking
     ranking_params = champion_params.slice(:position, :elo, :role).values
@@ -385,6 +398,10 @@ class ChampionsController < ApplicationController
       name: @champion.name
     )
     load_reply(@role_performance)
+  end
+
+  def load_namespace
+    @namespace = [controller_name.to_sym, action_name.to_sym]
   end
 
   def champion_params

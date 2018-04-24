@@ -9,6 +9,21 @@ describe ChampionsController, type: :controller do
     allow(controller).to receive(:champion_params).and_return(champion_params)
   end
 
+  describe 'POST roles' do
+    let(:action) { :roles }
+    let(:champion_params) do
+      {
+        name: 'Bard',
+        elo: 'GOLD'
+      }
+    end
+
+    it 'should list the roles the champion plays in that elo' do
+      post action, params: params
+      expect(speech).to eq 'Bard is best suited to Support in Gold division.'
+    end
+  end
+
   describe 'POST ranking' do
     let(:action) { :ranking }
     let(:champion_params) do

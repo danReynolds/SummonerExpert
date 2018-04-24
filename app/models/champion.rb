@@ -33,6 +33,10 @@ class Champion < Collection
     end
   end
 
+  def difficulty
+    @data['info']['difficulty']
+  end
+
   def stat(stat_key, level)
     stats = @data['stats']
     stat = stats[stat_key]

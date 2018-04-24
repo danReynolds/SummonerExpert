@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-03-26T00:39:15.426Z",
+	"__export_date": "2018-04-24T04:42:14.285Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -413,7 +413,7 @@
 		{
 			"_id": "req_7cd5d9c73dca4175b0aea1c3fcd5fe62",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1514137987890,
+			"modified": 1522991271839,
 			"created": 1483470077177,
 			"url": "{{ url }}",
 			"name": "items/description",
@@ -421,7 +421,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"29c86ade-734a-4a97-aada-692db2b89ca0\",\n  \"timestamp\": \"2017-01-03T20:00:49.236Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of Ruined King do?\",\n    \"action\": \"items/description\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Redemption\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: cd8e53c5-2a8e-4e13-baf6-01b41284b1df\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}\n"
+				"text": "{\n  \"id\": \"29c86ade-734a-4a97-aada-692db2b89ca0\",\n  \"timestamp\": \"2017-01-03T20:00:49.236Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"What does Blade of Ruined King do?\",\n    \"action\": \"items/description\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Blade of the Ruined King\"\n    },\n    \"contexts\": [],\n    \"metadata\": {\n      \"intentId\": \"2b91a956-e2a9-4960-8488-ebe64e947bf6\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"items/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error message: org.springframework.web.client.HttpServerErrorException: 500 Internal Server Error ErrorId: cd8e53c5-2a8e-4e13-baf6-01b41284b1df\"\n  },\n  \"sessionId\": \"bb57e1ee-7961-45ac-b421-b0c2e4fdc300\"\n}\n"
 			},
 			"parameters": [],
 			"headers": [
@@ -442,7 +442,7 @@
 		{
 			"_id": "req_8a9b75d53d5e479e96ace9d7ef3845db",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1519460923851,
+			"modified": 1522419936630,
 			"created": 1484257755665,
 			"url": "{{ url }}",
 			"name": "summoners/performance_summary",
@@ -450,7 +450,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"aa3606ab-f191-4234-b55c-8796708a70e6\",\n  \"timestamp\": \"2017-01-12T21:48:59.443Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"look up mordequess\",\n    \"action\": \"summoners/performance_summary\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Wingilote\",\n\t  \t\"region\": \"NA1\",\n\t\t\t\"queue\": \"RANKED_SOLO_5x5\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"mordequess\",\n          \"summoner\": \"mordequess\",\n          \"champion.original\": \"lookup mordequess\",\n          \"lane\": \"\",\n          \"champion\": \"lookup mordequess\"\n        },\n        \"lifespan\": 4\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"b89e6c2a-3925-4cd5-89c1-5e77b3a0ac37\",\n      \"webhookUsed\": \"false\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"19a23ebb-39ff-407c-9654-fe4b6eac9815\"\n}"
+				"text": "{\n  \"id\": \"aa3606ab-f191-4234-b55c-8796708a70e6\",\n  \"timestamp\": \"2017-01-12T21:48:59.443Z\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"look up mordequess\",\n    \"action\": \"summoners/performance_summary\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"SummonerExpert\",\n\t  \t\"region\": \"NA1\",\n\t\t\t\"queue\": \"RANKED_SOLO_5x5\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"lane\",\n        \"parameters\": {\n          \"lane.original\": \"\",\n          \"summoner.original\": \"mordequess\",\n          \"summoner\": \"mordequess\",\n          \"champion.original\": \"lookup mordequess\",\n          \"lane\": \"\",\n          \"champion\": \"lookup mordequess\"\n        },\n        \"lifespan\": 4\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"b89e6c2a-3925-4cd5-89c1-5e77b3a0ac37\",\n      \"webhookUsed\": \"false\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"intentName\": \"summoners/show\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 200,\n    \"errorType\": \"success\"\n  },\n  \"sessionId\": \"19a23ebb-39ff-407c-9654-fe4b6eac9815\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -558,7 +558,7 @@
 		{
 			"_id": "req_1671bb0e7d0e44aebf30baa688628966",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1514964927784,
+			"modified": 1523955493944,
 			"created": 1504495350245,
 			"url": "{{ url }}",
 			"name": "champions/role_performance",
@@ -566,7 +566,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"572b2aad-60d5-4de8-b0ad-e34b731ef880\",\n  \"timestamp\": \"2018-01-03T07:34:56.309Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how much cs does he get\",\n    \"action\": \"\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"position_details\": \"minionsKilled\",\n      \"role\": \"\",\n      \"elo\": \"PLATINUM_PLUS\",\n      \"name\": \"Jayce\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"championsrole_performance-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"Jayce\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"position_details\": \"minionsKilled\",\n          \"position_details.original\": \"cs\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"Jayce\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"position_details\": \"minionsKilled\",\n          \"position_details.original\": \"cs\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"role_performance\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"Jayce\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"position_details\": \"minionsKilled\",\n          \"position_details.original\": \"cs\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"64267a65-101a-459f-bb78-364b8c78df81\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 184,\n      \"intentName\": \"champions/role_performance_global\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 0.6700000166893005\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4e0cca9-9304-4911-8da6-6c88b7859fd2\"\n}"
+				"text": "{\n  \"id\": \"572b2aad-60d5-4de8-b0ad-e34b731ef880\",\n  \"timestamp\": \"2018-01-03T07:34:56.309Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how much cs does he get\",\n    \"action\": \"champions/role_performance\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"position_details\": \"totalMagical\",\n      \"role\": \"TOP\",\n      \"elo\": \"GOLD\",\n      \"name\": \"Darius\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"championsrole_performance-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"Jayce\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"position_details\": \"minionsKilled\",\n          \"position_details.original\": \"cs\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"Jayce\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"position_details\": \"minionsKilled\",\n          \"position_details.original\": \"cs\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"role_performance\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"role\": \"\",\n          \"name\": \"Jayce\",\n          \"elo\": \"PLATINUM_PLUS\",\n          \"role.original\": \"\",\n          \"position_details\": \"minionsKilled\",\n          \"position_details.original\": \"cs\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"64267a65-101a-459f-bb78-364b8c78df81\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 184,\n      \"intentName\": \"champions/role_performance_global\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 0.6700000166893005\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4e0cca9-9304-4911-8da6-6c88b7859fd2\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -935,7 +935,7 @@
 		{
 			"_id": "req_0651802a7b2948cc80eefc9e8403d467",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1522005094669,
+			"modified": 1522473445272,
 			"created": 1522004493565,
 			"url": "{{ url }}",
 			"name": "summoners/current_match",
@@ -943,7 +943,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"560a3447-eca7-474b-a62e-85455d7763a8\",\n  \"timestamp\": \"2018-03-25T19:08:29.808Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how does my current match look\",\n    \"action\": \"summoners/current_match\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"wingilote\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_current_match\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"name\": \"wingilote\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summonersperformance_summary-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"0f8a0fca-3fd7-4938-a648-23c703155bb7\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 91,\n      \"intentName\": \"summoner/current_match - self\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f6e4ef3b-d3f5-44af-8a41-02f6eedeb0df\"\n}"
+				"text": "{\n  \"id\": \"560a3447-eca7-474b-a62e-85455d7763a8\",\n  \"timestamp\": \"2018-03-25T19:08:29.808Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"how does my current match look\",\n    \"action\": \"summoners/current_match\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Illaoi Akbar\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_current_match\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"name\": \"wingilote\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summonersperformance_summary-followup\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"0f8a0fca-3fd7-4938-a648-23c703155bb7\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 91,\n      \"intentName\": \"summoner/current_match - self\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f6e4ef3b-d3f5-44af-8a41-02f6eedeb0df\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -962,28 +962,28 @@
 			"_type": "request"
 		},
 		{
-			"_id": "req_ca6e0721125c4bf9aea54ad2036c9b91",
+			"_id": "req_80d826ccc8ee4259a1aeba344fa87977",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1522024743002,
-			"created": 1522024739174,
+			"modified": 1524544925354,
+			"created": 1524544548332,
 			"url": "{{ url }}",
-			"name": "summoners/current_match_reasons",
+			"name": "champions/roles",
 			"description": "",
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"ed7f3500-4fd8-42e4-9334-f1506b03e039\",\n  \"timestamp\": \"2018-03-26T00:38:34.164Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"why\",\n    \"action\": \"summoners/current_match_reasons\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"wingilote\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"summoners_current_match\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"name\": \"wingilote\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"\",\n          \"queue.original\": \"\",\n          \"name\": \"wingilote\",\n          \"region.original\": \"\",\n          \"region\": \"NA1\",\n          \"queue\": \"RANKED_SOLO_5x5\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"18730eda-0e81-4bf4-9247-dc548599bcb4\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 31,\n      \"intentName\": \"summoners/current_match - reasons\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"f6e4ef3b-d3f5-44af-8a41-02f6eedeb0df\"\n}"
+				"text": "{\n  \"id\": \"82aa8bcd-5197-437b-8678-7c08a1fe8d7e\",\n  \"timestamp\": \"2018-04-24T04:35:18.689Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"what roles does bard play\",\n    \"action\": \"champions/roles\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Bard\",\n      \"elo\": \"PLATINUM_PLUS\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"elo\": \"PLATINUM_PLUS\",\n          \"champion.original\": \"bard\",\n          \"champion\": \"Bard\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"9a743309-e150-4eae-a623-c042bcbf3320\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 94,\n      \"intentName\": \"champions/roles\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4195b8f-948a-48ad-9db1-c8506b30390c\"\n}"
 			},
 			"parameters": [],
 			"headers": [
 				{
 					"name": "Content-Type",
 					"value": "application/json",
-					"id": "pair_622a11cfe3894378b01cfe4fdb14fd92"
+					"id": "pair_0ffb101251124b6daf9c6746564dfff0"
 				}
 			],
 			"authentication": {},
-			"metaSortKey": -1522024739174,
+			"metaSortKey": -1524544548332,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,

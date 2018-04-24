@@ -185,7 +185,7 @@ class MatchHelper
           performance = performances.first
           performance.role = role
           performances_by_role.delete(role)
-          undetermined_performances.delete(performance) rescue binding.pry
+          undetermined_performances.delete(performance)
         end
       end
     end
