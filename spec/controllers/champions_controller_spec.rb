@@ -18,9 +18,20 @@ describe ChampionsController, type: :controller do
       }
     end
 
-    it 'should list the roles the champion plays in that elo' do
+    it 'should list multiple roles the champion plays in that elo' do
       post action, params: params
       expect(speech).to eq 'Jax is best suited to Top and Jungle in Gold division.'
+    end
+
+    context 'with only one role' do
+      before :each do
+        champion_params[:name] = 'Bard'
+      end
+
+      it 'should list single roles in that elo' do
+        post action, params: params
+        expect(speech).to eq 'Bard is best suited to Support in Gold division.'
+      end
     end
   end
 

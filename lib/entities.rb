@@ -26,7 +26,7 @@ class Entities
     end
 
     def roles(roles)
-      roles.map { |role| ChampionGGApi::ROLES[role.to_sym].try(:humanize) }.en.conjunction(article: false)
+      roles.map(&:humanize).en.conjunction(article: false)
     end
 
     def role(role)
