@@ -1,4 +1,8 @@
 champions:
+  roles:
+    - '{champion} is best suited to {roles} in {elo} division.'
+    - 'I know {champion} personally, the champion has a preference for {roles} in {elo} division.'
+    - 'It is recommended that {champion} plays {roles} on {elo} division.'
   title:
     - '{champion} has the illustrious title of {title}.'
     - 'That champ and I go way back, if I had to call them anything it would be {champion}, {title}.'

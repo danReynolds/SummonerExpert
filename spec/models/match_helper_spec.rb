@@ -61,6 +61,27 @@ RSpec.describe MatchHelper, type: :model do
       expect(Summoner.count).to eq 10
     end
 
+    context 'with multiple champions in the same role but only one exclusively in that role' do
+      before :each do
+        # Both Bard and Sion can support, and both Yasuo and Sion can top.
+        # Since Bard cannot do any other role, Sion cannot be put in support
+        @top_performance.update!(role: 'DUO_SUPPORT', champion_id: Champion.new(name: 'Sion').id, spell1_id: Spell.new(name: 'Teleport').id, spell2_id: Spell.new(name: 'Flash').id)
+        @jungle_performance.update!(role: 'JUNGLE', champion_id: Champion.new(name: 'Master Yi').id, spell1_id: Spell.new(name: 'Smite').id, spell2_id: Spell.new(name: 'Flash').id)
+        @mid_performance.update!(role: 'DUO_SUPPORT', champion_id: Champion.new(name: 'Yasuo').id, spell1_id: Spell.new(name: 'Ignite').id, spell2_id: Spell.new(name: 'Flash').id)
+        @adc_performance.update!(role: 'DUO_CARRY', champion_id: Champion.new(name: 'Sivir').id, spell1_id: Spell.new(name: 'Heal').id, spell2_id: Spell.new(name: 'Flash').id)
+        @support_performance.update!(role: 'DUO_SUPPORT', champion_id: Champion.new(name: 'Bard').id, spell1_id: Spell.new(name: 'Ignite').id, spell2_id: Spell.new(name: 'Flash').id)
+      end
+
+      it 'should isolate the only single-role player to their single role' do
+        fix_roles
+        expect(@top_performance.reload.role).to eq 'TOP'
+        expect(@jungle_performance.reload.role).to eq 'JUNGLE'
+        expect(@mid_performance.reload.role).to eq 'MIDDLE'
+        expect(@adc_performance.reload.role).to eq 'DUO_CARRY'
+        expect(@support_performance.reload.role).to eq 'DUO_SUPPORT'
+      end
+    end
+
     context 'with not all lanes assigned' do
       it 'should try fixing roles' do
         @adc_performance.update!(role: 'BOTTOM', champion_id: Champion.new(name: 'Tristana').id)
