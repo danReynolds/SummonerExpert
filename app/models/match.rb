@@ -13,8 +13,7 @@ class Match < ActiveRecord::Base
   has_many :summoner_performances
   has_many :summoners, through: :summoner_performances
 
-  validates_presence_of :game_id, :queue_id, :season_id, :region_id, :winning_team_id,
-    :team1_id, :team2_id, :game_duration
+  validates_presence_of :game_id, :queue_id, :season_id, :region_id, :team1_id, :team2_id, :game_duration
 
   REMAKE_DURATION = 4.minutes.seconds.to_int
 end
