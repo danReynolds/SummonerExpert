@@ -1,6 +1,5 @@
 summoner:
   matches: https://{region}.api.riotgames.com/lol/match/v3/matchlists/by-account/{id}
-  recent_matches: https://{region}.api.riotgames.com/lol/match/v3/matchlists/by-account/{id}/recent
   ranked: https://{region}.api.pvp.net/api/lol/{region}/v2.5/league/by-summoner/{id}
   champions: https://{region}.api.pvp.net/api/lol/{region}/v1.3/stats/by-summoner/{id}/ranked
   id: https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{name}

@@ -151,11 +151,11 @@ namespace :riot do
     # Use the most recently active 200 players to determine the point at which
     # no more games exist
     recent_players = SummonerPerformance.joins(:summoner)
-      .order('summoner_performances.created_at DESC').limit(PLAYER_POOL_SIZE)
+      .order('summoner_performances.id DESC').limit(PLAYER_POOL_SIZE)
       .select('summoners.account_id', 'summoners.region')
 
     recent_game_ids = recent_players.map do |summoner|
-      matches_data = RiotApi::RiotApi.get_recent_matches(
+      matches_data = RiotApi::RiotApi.get_matches(
         region: summoner.region, id: summoner.account_id
       )
       if matches_data
@@ -200,30 +200,6 @@ namespace :riot do
       new_start_index: new_start_match_index,
       new_end_match_index: new_end_match_index,
       matches_remaining: new_end_match_index - new_start_match_index
-    )
-  end
-
-  # Temporary nightly fixup task to save matchups that were somehow missed.
-  # Ongoing investigation into why they were missed.
-  desc 'Store matches fix'
-  task store_matches_fix: :environment do
-    match_index = Cache.get_fixup_match_index
-    end_match_index = Cache.get_end_match_index
-
-    retry_range = (match_index..end_match_index)
-    retry_games = retry_range.to_a - Match.where(game_id: retry_range).pluck(:game_id)
-
-    retry_games.each do |game_id|
-      MatchWorker.perform_async(game_id, true)
-    end
-
-    Cache.set_fixup_match_index(end_match_index)
-
-    DataDog.event(
-      DataDog::EVENTS[:RIOT_MATCHES_FIX],
-      fixup_match_index: match_index,
-      end_match_index: end_match_index,
-      matches_processed: batch_size
     )
   end
 
