@@ -203,30 +203,6 @@ namespace :riot do
     )
   end
 
-  # Temporary nightly fixup task to save matchups that were somehow missed.
-  # Ongoing investigation into why they were missed.
-  desc 'Store matches fix'
-  task store_matches_fix: :environment do
-    match_index = Cache.get_fixup_match_index
-    end_match_index = Cache.get_end_match_index
-
-    retry_range = (match_index..end_match_index)
-    retry_games = retry_range.to_a - Match.where(game_id: retry_range).pluck(:game_id)
-
-    retry_games.each do |game_id|
-      MatchWorker.perform_async(game_id, true)
-    end
-
-    Cache.set_fixup_match_index(end_match_index)
-
-    DataDog.event(
-      DataDog::EVENTS[:RIOT_MATCHES_FIX],
-      fixup_match_index: match_index,
-      end_match_index: end_match_index,
-      matches_processed: batch_size
-    )
-  end
-
   desc 'Cache spells'
   task cache_spells: :environment do
     spells = RiotApi::RiotApi.get_spells.values.select do |spell|
