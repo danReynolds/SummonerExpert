@@ -151,11 +151,11 @@ namespace :riot do
     # Use the most recently active 200 players to determine the point at which
     # no more games exist
     recent_players = SummonerPerformance.joins(:summoner)
-      .order('summoner_performances.created_at DESC').limit(PLAYER_POOL_SIZE)
+      .order('summoner_performances.id DESC').limit(PLAYER_POOL_SIZE)
       .select('summoners.account_id', 'summoners.region')
 
     recent_game_ids = recent_players.map do |summoner|
-      matches_data = RiotApi::RiotApi.get_recent_matches(
+      matches_data = RiotApi::RiotApi.get_matches(
         region: summoner.region, id: summoner.account_id
       )
       if matches_data

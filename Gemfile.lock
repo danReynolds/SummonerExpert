@@ -118,7 +118,7 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    puma (3.6.2)
+    puma (3.11.4)
     rack (2.0.1)
     rack-protection (2.0.0)
       rack
@@ -255,7 +255,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-stack_explorer
-  puma (~> 3.0)
+  puma (~> 3.8)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-controller-testing
   redis-rails

@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213073704) do
+ActiveRecord::Schema.define(version: 20180530073226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bans", force: :cascade do |t|
+  create_table "bans", id: :bigserial, force: :cascade do |t|
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "champion_id"
     t.integer  "order"
-    t.integer  "summoner_performance_id"
+    t.bigint   "summoner_performance_id"
     t.index ["champion_id"], name: "index_bans_on_champion_id", using: :btree
     t.index ["summoner_performance_id"], name: "index_bans_on_summoner_performance_id", unique: true, using: :btree
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20180213073704) do
     t.index ["winning_team_id"], name: "index_matches_on_winning_team_id", unique: true, using: :btree
   end
 
-  create_table "summoner_performances", force: :cascade do |t|
+  create_table "summoner_performances", id: :bigserial, force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "team_id"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 20180213073704) do
 
   create_table "summoners", force: :cascade do |t|
     t.string   "name"
-    t.integer  "account_id"
+    t.bigint   "account_id"
     t.bigint   "summoner_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20180213073704) do
     t.index ["summoner_id"], name: "index_summoners_on_summoner_id", unique: true, using: :btree
   end
 
-  create_table "teams", force: :cascade do |t|
+  create_table "teams", id: :bigserial, force: :cascade do |t|
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "team_id"

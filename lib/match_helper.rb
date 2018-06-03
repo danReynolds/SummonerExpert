@@ -71,6 +71,32 @@ class MatchHelper
           riftherald_kills: team2_params['riftHeraldKills']
         )
 
+        first_blood_team = if team1_params['firstBlood']
+          team1
+        elsif team2_params['firstBlood']
+          team2
+        end
+        first_tower_team = if team1_params['firstTower']
+          team1
+        elsif team2_params['firstTower']
+          team2
+        end
+        first_inhibitor_team = if team1_params['firstInhibitor']
+          team1
+        elsif team2_params['firstInhibitor']
+          team2
+        end
+        first_baron_team = if team1_params['firstBaron']
+          team1
+        elsif team2_params['firstBaron']
+          team2
+        end
+        first_rift_herald = if team1_params['firstRiftHerald']
+          team1
+        elsif team2_params['firstRiftHerald']
+          team2
+        end
+
         match = Match.create!(
           game_id: match_data['gameId'],
           queue_id: match_data['queueId'],
@@ -78,11 +104,11 @@ class MatchHelper
           region_id: match_data['platformId'],
           game_duration: match_data['gameDuration'],
           winning_team: team1_params['win'] == 'Win' ? team1 : team2,
-          first_blood_team: team1_params['firstBlood'] ? team1 : team2,
-          first_tower_team: team1_params['firstTower'] ? team1 : team2,
-          first_inhibitor_team: team1_params['firstInhibitor'] ? team1 : team2,
-          first_baron_team: team1_params['firstBaron'] ? team1 : team2,
-          first_rift_herald_team: team1_params['firstRiftHerald'] ? team1 : team2,
+          first_blood_team: first_blood_team,
+          first_tower_team: first_tower_team,
+          first_inhibitor_team: first_inhibitor_team,
+          first_baron_team: first_baron_team,
+          first_rift_herald_team: first_rift_herald,
           team1: team1,
           team2: team2
         )

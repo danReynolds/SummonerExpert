@@ -138,9 +138,9 @@ module RiotApi
         url = replace_url(@api[:match], args)
         fetch_response(url, ERROR_CODES, IGNORE_CODES)
       end
-
-      def get_recent_matches(args)
-        url = replace_url(@api[:summoner][:recent_matches], args)
+      
+      def get_matches(args)
+        url = replace_url(@api[:summoner][:matches], args)
         fetch_response(url)
       end
 
