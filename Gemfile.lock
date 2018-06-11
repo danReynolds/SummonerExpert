@@ -53,7 +53,6 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (9.0.6)
-    chronic (0.10.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.1)
@@ -232,8 +231,6 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    whenever (0.9.7)
-      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -269,7 +266,6 @@ DEPENDENCIES
   sshkit (~> 1.13.0)
   timecop
   tzinfo-data
-  whenever
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
