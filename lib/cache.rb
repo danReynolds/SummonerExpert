@@ -9,6 +9,12 @@ class Cache
       Rails.cache.read(:patch)
     end
 
+    # @id the id of the champion to lookup
+    # Returns similar champion ids for that champion
+    def get_champion_similarity(id)
+      Rails.cache.read(champion_similarity: id)
+    end
+
     # @id the id of the summoner to lookup
     # Returns the queue information for that summoner
     def get_summoner_rank(id)
@@ -84,6 +90,12 @@ class Cache
     # Returns success or failure status
     def set_patch(patch_number)
       Rails.cache.write(:patch, patch_number)
+    end
+
+    # @id the id of the champion to lookup
+    # Returns similar champion ids for that champion
+    def set_champion_similarity(id, similar_ids)
+      Rails.cache.write({ champion_similarity: id }, similar_ids)
     end
 
     # @id the id of the summoner to lookup
