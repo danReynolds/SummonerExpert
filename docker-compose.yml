@@ -1,18 +1,37 @@
 version: '3'
 services:
+  scheduler:
+    container_name: scheduler
+    image: danreynolds/summonerexpert-scheduler:0.0.5
+    command: cron && tail -f /dev/null
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  ml:
+    container_name: ml
+    image: danreynolds/summonerexpert_ml:0.0.9
+    volumes:
+      - jobs:/app/jobs
   db:
+    container_name: db
     image: postgres
   redis:
+    container_name: redis
     command: [redis-server, /usr/local/etc/redis/redis.conf, --requirepass, $REDIS_PASSWORD]
     image: "redis:latest"
     volumes:
       - ./data:/data
       - ./redis.conf:/usr/local/etc/redis/redis.conf
   app:
+    container_name: app
     depends_on:
       - redis
       - db
+    volumes:
+      - jobs:/app/jobs
   nginx:
+    container_name: nginx
     image: nginx
     depends_on:
       - app
+volumes:
+  jobs:
