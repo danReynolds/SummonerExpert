@@ -2,7 +2,7 @@ version: '3'
 services:
   scheduler:
     container_name: scheduler
-    image: danreynolds/summonerexpert-scheduler:0.0.17
+    image: danreynolds/summonerexpert-scheduler:0.0.20
     command: cron && tail -f /dev/null
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
