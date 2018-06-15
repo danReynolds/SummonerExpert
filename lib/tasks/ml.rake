@@ -1,3 +1,5 @@
+require 'fileutils'
+
 namespace :ml do
   namespace :similarity do
     task pre: :environment do
@@ -17,6 +19,7 @@ namespace :ml do
       "
       result = ActiveRecord::Base.connection.execute(sql)
 
+      FileUtils.mkdir_p('/app/jobs/similarity')
       File.open('/app/jobs/similarity/summoner_champions.csv', 'w+') do |f|
         result.values.each do |row|
           f.puts(row.join(','))
