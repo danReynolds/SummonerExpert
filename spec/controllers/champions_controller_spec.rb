@@ -26,7 +26,7 @@ describe ChampionsController, type: :controller do
           champion_params[:list_position] = 20
         end
 
-        it 'should detail that only the top 10 similaritys are stored' do
+        it 'should detail that only the top 10 similarities are stored' do
           post action, params: params
           expect(speech).to eq 'We only record the ten closest friends for any champion, we do not want them getting too chummy.'
         end
