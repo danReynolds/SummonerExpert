@@ -19,6 +19,29 @@ class ChampionsController < ApplicationController
     }
   end
 
+  def similarity
+    similar_champions = Cache.get_champion_similarity(@champion.id).map do |champion_id|
+      Champion.new(id: champion_id)
+    end
+
+    similarity_filter = Filterable.new({
+      collection: similar_champions
+    }.merge(champion_params.slice(:list_position, :list_size, :list_order)))
+    filtered_similarities = similarity_filter.filter
+
+    args = {
+      name: @champion.name,
+      champions: filtered_similarities.map(&:name).en.conjunction(article: false),
+      real_size_champion_conjugation: 'champion'.en.pluralize(similarity_filter.real_size)
+    }
+    args.merge!(ApiResponse.filter_args(similarity_filter))
+    namespace = dig_set(*@namespace, *similarity_filter.filter_types.values)
+
+    render json: {
+      speech: ApiResponse.get_response({ champions: namespace }, args)
+    }
+  end
+
   def ranking
     ranking_params = champion_params.slice(:position, :elo, :role).values
     rankings = Cache.get_champion_rankings(*ranking_params)

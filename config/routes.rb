@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   namespace :champions do
+    post :similarity
     post :roles
     post :title
     post :ally_tips

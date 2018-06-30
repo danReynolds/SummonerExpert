@@ -9,6 +9,131 @@ describe ChampionsController, type: :controller do
     allow(controller).to receive(:champion_params).and_return(champion_params)
   end
 
+  describe 'POST similarity' do
+    let(:action) { :similarity }
+    let(:champion_params) do
+      {
+        list_size: '3',
+        list_position: '1',
+        list_order: 'highest',
+        name: 'Jax'
+      }
+    end
+
+    context 'with no results' do
+      context 'with too high an offset' do
+        before :each do
+          champion_params[:list_position] = 20
+        end
+
+        it 'should detail that only the top 10 similaritys are stored' do
+          post action, params: params
+          expect(speech).to eq 'We only record the ten closest friends for any champion, we do not want them getting too chummy.'
+        end
+      end
+    end
+
+    context 'with a single result' do
+      context 'with no position offset' do
+        context 'with complete results' do
+          before :each do
+            champion_params[:list_size] = 1
+          end
+
+          it 'should return the most similar champion' do
+            post action, params: params
+            expect(speech).to eq 'The champion with the highest similarity to Jax is Darius.'
+          end
+        end
+
+        context 'with incomplete results' do
+          before :each do
+            allow(Cache).to receive(:get_champion_similarity).and_return([432])
+          end
+
+          it 'should indicate that the result is incomplete and return the results' do
+            post action, params: params
+            expect(speech).to eq 'We only record the ten closest friends for a champion, the champion with the highest similarity to Jax is Bard.'
+          end
+        end
+      end
+
+      context 'with a position offset' do
+        before :each do
+          champion_params[:list_position] = 2
+        end
+
+        context 'with complete results' do
+          before :each do
+            champion_params[:list_size] = 1
+          end
+
+          it 'should return the most similar champion at that offset' do
+            post action, params: params
+            expect(speech).to eq 'The champion with the second highest similarity to Jax is Master Yi.'
+          end
+        end
+
+        context 'with incomplete results' do
+          before :each do
+            allow(Cache).to receive(:get_champion_similarity).and_return([432, 74])
+          end
+
+          it 'should indicate that the result is incomplete and return the results' do
+            post action, params: params
+            expect(speech).to eq 'We only record the ten closest friends for a champion, the champion with the second highest similarity to Jax is Heimerdinger.'
+          end
+        end
+      end
+  end
+
+  context 'with multiple results' do
+    context 'with no position offset' do
+      context 'with complete results' do
+        it 'should return the most similar champions' do
+          post action, params: params
+          expect(speech).to eq 'The three champions with the highest similarity to Jax are Darius, Master Yi, and Jarvan IV.'
+        end
+      end
+
+      context 'with incomplete results' do
+        before :each do
+          allow(Cache).to receive(:get_champion_similarity).and_return([432, 76])
+        end
+
+        it 'should indicate that the result are incomplete and return the results' do
+          post action, params: params
+          expect(speech).to eq 'We only record the ten closest friends for a champion, the champions with the highest similarity to Jax are Bard and Nidalee.'
+        end
+      end
+    end
+
+    context 'with a position offset' do
+      before :each do
+        champion_params[:list_position] = 2
+      end
+
+      context 'with complete results' do
+        it 'should return the most similar champion at that offset' do
+          post action, params: params
+          expect(speech).to eq "The champions with the second through fourth highest similarity to Jax are Master Yi, Jarvan IV, and Cho'Gath."
+        end
+      end
+
+      context 'with incomplete results' do
+        before :each do
+          allow(Cache).to receive(:get_champion_similarity).and_return([432, 74, 76])
+        end
+
+        it 'should indicate that the result are incomplete and return the results' do
+          post action, params: params
+          expect(speech).to eq 'We only record the ten closest friends for a champion, the champions with the second through third highest similarity to Jax are Heimerdinger and Nidalee.'
+        end
+      end
+    end
+  end
+end
+
   describe 'POST roles' do
     let(:action) { :roles }
     let(:champion_params) do

@@ -35,6 +35,40 @@ champions:
   role_performance_summary:
     - '{champion} is {position_change} this patch in {role} and is ranked {position} out of {total_positions} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} division.'
     - '{champion} is {position_change} this patch and is ranked {position} out of {total_positions} in {role} with a {kda} KDA, {win_rate} win rate and a {ban_rate} ban rate in {elo} divison.'
+  similarity:
+    empty:
+      normal:
+        complete:
+          - 'No champions were requested.'
+        incomplete:
+          - '{name} is not friends with anyone.'
+      offset:
+        complete:
+          - 'No champions were requested.'
+        incomplete:
+          - 'We only record the ten closest friends for any champion, we do not want them getting too chummy.'
+    single:
+      normal:
+        complete:
+          - 'The champion with the {list_order} similarity to {name} is {champions}.'
+        incomplete:
+          - 'We only record the ten closest friends for a champion, the champion with the {list_order} similarity to {name} is {champions}.'
+      offset:
+        complete:
+          - 'The champion with the {list_position} {list_order} similarity to {name} is {champions}.'
+        incomplete:
+          - 'We only record the ten closest friends for a champion, the champion with the {list_position} {list_order} similarity to {name} is {champions}.'
+    multiple:
+      normal:
+        complete:
+          - 'The {filtered_size} champions with the {list_order} similarity to {name} are {champions}.'
+        incomplete:
+          - 'We only record the ten closest friends for a champion, the champions with the {list_order} similarity to {name} are {champions}.'
+      offset:
+        complete:
+          - 'The champions with the {list_position} through {filtered_position_offset} {list_order} similarity to {name} are {champions}.'
+        incomplete:
+          - 'We only record the ten closest friends for a champion, the champions with the {list_position} through {filtered_position_offset} {list_order} similarity to {name} are {champions}.'
   ranking:
     empty:
       normal:

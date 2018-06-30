@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-04-24T06:34:55.869Z",
+	"__export_date": "2018-06-30T17:36:35.025Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -964,7 +964,7 @@
 		{
 			"_id": "req_80d826ccc8ee4259a1aeba344fa87977",
 			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
-			"modified": 1524544967230,
+			"modified": 1524552960386,
 			"created": 1524544548332,
 			"url": "{{ url }}",
 			"name": "champions/roles",
@@ -972,7 +972,7 @@
 			"method": "POST",
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"id\": \"82aa8bcd-5197-437b-8678-7c08a1fe8d7e\",\n  \"timestamp\": \"2018-04-24T04:35:18.689Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"what roles does bard play\",\n    \"action\": \"champions/roles\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Jax\",\n      \"elo\": \"PLATINUM_PLUS\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"elo\": \"PLATINUM_PLUS\",\n          \"champion.original\": \"bard\",\n          \"champion\": \"Bard\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"9a743309-e150-4eae-a623-c042bcbf3320\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 94,\n      \"intentName\": \"champions/roles\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4195b8f-948a-48ad-9db1-c8506b30390c\"\n}"
+				"text": "{\n  \"id\": \"82aa8bcd-5197-437b-8678-7c08a1fe8d7e\",\n  \"timestamp\": \"2018-04-24T04:35:18.689Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"what roles does bard play\",\n    \"action\": \"champions/roles\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Thresh\",\n      \"elo\": \"PLATINUM_PLUS\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"elo\": \"PLATINUM_PLUS\",\n          \"champion.original\": \"bard\",\n          \"champion\": \"Bard\",\n          \"elo.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"9a743309-e150-4eae-a623-c042bcbf3320\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"webhookResponseTime\": 94,\n      \"intentName\": \"champions/roles\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\",\n    \"webhookTimedOut\": false\n  },\n  \"sessionId\": \"e4195b8f-948a-48ad-9db1-c8506b30390c\"\n}"
 			},
 			"parameters": [],
 			"headers": [
@@ -1013,6 +1013,35 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1524545916865,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_15151e8d25fa47a5ae6b82d5917f4f78",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1530380185404,
+			"created": 1529205952874,
+			"url": "{{ url }}",
+			"name": "champions/similarity",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"568ceda1-4c98-4bef-bcb2-770b29d6107c\",\n  \"timestamp\": \"2018-06-30T17:35:08.881Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"who is most similar to jax?\",\n    \"action\": \"champions/similarity\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"Jax\",\n      \"list_order\": \"best\",\n      \"list_size\": \"3\",\n      \"list_position\": \"1\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"championsfriendship-followup\",\n        \"parameters\": {\n          \"name.original\": \"similar to\",\n          \"list_position\": \"1\",\n          \"list_position.original\": \"\",\n          \"list_order\": \"best\",\n          \"name\": \"similar to \",\n          \"list_size.original\": \"\",\n          \"list_size\": \"3\",\n          \"list_order.original\": \"\"\n        },\n        \"lifespan\": 2\n      },\n      {\n        \"name\": \"similar\",\n        \"parameters\": {\n          \"name.original\": \"similar to\",\n          \"list_position\": \"1\",\n          \"list_position.original\": \"\",\n          \"list_order\": \"best\",\n          \"name\": \"similar to \",\n          \"list_size.original\": \"\",\n          \"list_size\": \"3\",\n          \"list_order.original\": \"\"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"champion\",\n        \"parameters\": {\n          \"name.original\": \"similar to\",\n          \"list_position\": \"1\",\n          \"list_position.original\": \"\",\n          \"list_order\": \"best\",\n          \"name\": \"similar to \",\n          \"list_size.original\": \"\",\n          \"list_size\": \"3\",\n          \"list_order.original\": \"\"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"30717010-b82d-483e-a36b-764dcc5963be\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 109,\n      \"intentName\": \"champions/similarity\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"300017a5-e3b8-9d8d-91f9-15ecb26bb5f0\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_16fd7e8462b24596b7293d0b2868f44f"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1529205952874,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,
