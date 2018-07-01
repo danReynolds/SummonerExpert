@@ -196,6 +196,9 @@ items:
   description:
     - "I have seen many champions use {item} on the field of battle. It costs {total_cost} gold and can be sold for {sell_cost}. Here is what it does:"
 summoners:
+  recommendation:
+    - 'Given {name} likes to play {champion} {role}, I recommend trying {recommended_champions} in the current meta.'
+    - 'I see that {name} likes to play {champion} {role}, I recommend giving {recommended_champions} a try in this meta.'
   current_match_reasons:
     description:
       - 'Here are all the factors I considered for {summoner}:'
@@ -431,6 +434,11 @@ errors:
         - '{item} does not build from anything, from what I can tell.'
         - 'Well I do not believe {item} does actually build from anything.'
   summoners:
+    recommendation:
+      no_queue_data:
+        - 'I could not find any information on {summoner} from the Riot overlords in ranked solo queue. The summoner may not have played enough games or there may be something going on with the system. Sorry about that, try again later.'
+      not_enough_games:
+        - '{name} has not played many games with any particular champion and I cannot make a good recommendation.'
     current_match:
       no_current_match:
         - 'I do not believe {summoner} is in a game at the moment.'

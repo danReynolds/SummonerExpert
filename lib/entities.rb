@@ -25,6 +25,10 @@ class Entities
       elo.humanize
     end
 
+    def recommended_champions(names)
+      names.en.conjunction(article: false, conjunctive: 'or')
+    end
+
     def roles(roles)
       roles.map(&:humanize).en.conjunction(article: false)
     end

@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-30T17:36:35.025Z",
+	"__export_date": "2018-06-30T21:37:12.697Z",
 	"__export_source": "insomnia.desktop.app:v5.5.2",
 	"resources": [
 		{
@@ -1042,6 +1042,35 @@
 			],
 			"authentication": {},
 			"metaSortKey": -1529205952874,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_a58f2832fabf4df58c4e0b620c31cd2a",
+			"parentId": "wrk_6d555102de1a469aa75025d23e488d2b",
+			"modified": 1530394626796,
+			"created": 1530387659899,
+			"url": "{{ url }}",
+			"name": "summoners/recommendation",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"id\": \"eff23c25-685c-4ff6-9ef2-d132e202b468\",\n  \"timestamp\": \"2018-06-30T19:40:36.581Z\",\n  \"lang\": \"en\",\n  \"result\": {\n    \"source\": \"agent\",\n    \"resolvedQuery\": \"Who should SummonerExpert play?\",\n    \"action\": \"summoners/recommendation\",\n    \"actionIncomplete\": false,\n    \"parameters\": {\n      \"name\": \"wingilote\"\n    },\n    \"contexts\": [\n      {\n        \"name\": \"recommendation\",\n        \"parameters\": {\n          \"name.original\": \"SummonerExpert\",\n          \"name\": \"SummonerExpert \"\n        },\n        \"lifespan\": 1\n      },\n      {\n        \"name\": \"summoner\",\n        \"parameters\": {\n          \"name.original\": \"SummonerExpert\",\n          \"name\": \"SummonerExpert \"\n        },\n        \"lifespan\": 1\n      }\n    ],\n    \"metadata\": {\n      \"intentId\": \"f0707414-6087-4ddd-98d9-694525e78a25\",\n      \"webhookUsed\": \"true\",\n      \"webhookForSlotFillingUsed\": \"false\",\n      \"endConversation\": true,\n      \"webhookResponseTime\": 114,\n      \"intentName\": \"summoners/recommendation\"\n    },\n    \"fulfillment\": {\n      \"speech\": \"\",\n      \"messages\": [\n        {\n          \"type\": 0,\n          \"speech\": \"\"\n        }\n      ]\n    },\n    \"score\": 1\n  },\n  \"status\": {\n    \"code\": 206,\n    \"errorType\": \"partial_content\",\n    \"errorDetails\": \"Webhook call failed. Error: 404 Not Found\"\n  },\n  \"sessionId\": \"300017a5-e3b8-9d8d-91f9-15ecb26bb5f0\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_848b39c0bdb34178878897a631515365"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1530387659899,
 			"settingStoreCookies": true,
 			"settingSendCookies": true,
 			"settingDisableRenderRequestBody": false,

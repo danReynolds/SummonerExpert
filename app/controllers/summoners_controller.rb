@@ -20,6 +20,68 @@ class SummonersController < ApplicationController
     process_performance_request(with_champion: true, with_sorting: true)
   end
 
+  # The summoner must have played at least 3 games as that champion to consider making
+  # a recommendation to them based on that champion
+  MIN_CHAMPION_THRESHOLD = 3
+  RECOMMENDED_CHAMPION_SIZE = 3
+
+  def recommendation
+    args = { name: @summoner.name }
+    performances = @summoner.summoner_performances.group(:champion_id).count.select do |champion_id, count|
+      count > MIN_CHAMPION_THRESHOLD
+    end.to_a
+
+    if performances.empty?
+      return render json: {
+        speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :not_enough_games), args)
+      }
+    end
+
+    queue = @summoner.queue
+    unless queue.valid?
+      return render json: {
+        speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :no_queue_data), args)
+      }
+    end
+
+    total_performances = performances.inject(0) do |acc, (champion_id, count)|
+      acc += count
+    end
+    selected_performance_index = Random.new.rand(1..total_performances)
+    index = 0
+    champion_id = performances.detect do |champion_id, count|
+      index += count
+      selected_performance_index <= index
+    end.first
+
+    champion = Champion.new(id: champion_id)
+    champion_role = @summoner.summoner_performances.group(:role).count.to_a
+      .max_by { |role, count| count }.first
+
+    similar_champions = Cache.get_champion_similarity(champion_id).map do |id|
+      Champion.new(id: id)
+    end
+
+    similar_champion_performances = similar_champions.map do |similar_champion|
+      RolePerformance.new(name: similar_champion.name, role: champion_role, elo: queue.elo)
+    end.select(&:valid?)
+
+    recommended_champions = similar_champion_performances.sort_by do |similar_champion_performance|
+      similar_champion_performance.position('overallPerformanceScore')[:position]
+    end
+    recommended_champions = similar_champions if recommended_champions.empty?
+
+    args.merge!({
+      champion: champion.name,
+      recommended_champions: recommended_champions.map(&:name).first(RECOMMENDED_CHAMPION_SIZE),
+      role: champion_role
+    })
+
+    render json: {
+      speech: ApiResponse.get_response(dig_set(*@namespace), args)
+    }
+  end
+
   def performance_summary
     name = @summoner.name
     queue = @summoner.queue(summoner_params[:queue])

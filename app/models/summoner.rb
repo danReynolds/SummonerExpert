@@ -5,7 +5,7 @@ class Summoner < ActiveRecord::Base
 
   validate :matchup_validator
 
-  def queue(queue_name)
+  def queue(queue_name = RankedQueue::SOLO_QUEUE)
     unless queue_data = Cache.get_summoner_rank(summoner_id)
       queue_data = RiotApi.get_summoner_queues(
         id: summoner_id, region: region
