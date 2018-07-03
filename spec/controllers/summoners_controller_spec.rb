@@ -49,7 +49,7 @@ describe SummonersController, type: :controller do
       end
       allow(Random).to receive(:new).and_return(FakeRandom.new)
       post action, params: params
-      expect(speech).to eq ''
+      expect(speech).to eq 'Given wingilote likes to play Nidalee Jungle, I recommend trying Kayn, Lee Sin, or Sejuani in the current meta.'
     end
 
     it 'should determine the recommendations for that summoner based on their played champions' do
