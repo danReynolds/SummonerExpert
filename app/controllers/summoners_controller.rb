@@ -55,8 +55,8 @@ class SummonersController < ApplicationController
     end.first
 
     champion = Champion.new(id: champion_id)
-    champion_role = @summoner.summoner_performances.group(:role).count.to_a
-      .max_by { |role, count| count }.first
+    champion_role = @summoner.summoner_performances.where(champion_id: champion.id)
+      .group(:role).count.to_a.max_by { |role, count| count }.first
 
     similar_champions = Cache.get_champion_similarity(champion_id).map do |id|
       Champion.new(id: id)
