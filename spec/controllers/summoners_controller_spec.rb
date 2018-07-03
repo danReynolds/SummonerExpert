@@ -29,10 +29,27 @@ describe SummonersController, type: :controller do
         external_response
       )
 
-      @matches = create_list(:match, 5)
+      @matches = create_list(:match, 10)
       @matches.each do |match|
         match.summoner_performances[0].update(summoner_id: @summoner.id, champion_id: @champion.id, role: 'DUO_SUPPORT')
       end
+    end
+
+    it 'should determine the role the summoner plays the champion in' do
+      @matches.first(4).each do |match|
+        match.summoner_performances.first.update(
+          champion_id: 76,
+          role: 'JUNGLE'
+        )
+      end
+      class FakeRandom
+        def rand(seed)
+          1
+        end
+      end
+      allow(Random).to receive(:new).and_return(FakeRandom.new)
+      post action, params: params
+      expect(speech).to eq ''
     end
 
     it 'should determine the recommendations for that summoner based on their played champions' do
