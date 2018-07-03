@@ -543,7 +543,7 @@ describe SummonersController, type: :controller do
 
       it 'should favor the strong performer' do
         post action, params: params
-        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 97% for this matchup compared to Other man as Sivir who I would rate around 36%. My money is definitely on Hero man this time.'
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 93% for this matchup compared to Other man as Sivir who I would rate around 56%. My money is definitely on Hero man this time.'
       end
     end
 
@@ -574,7 +574,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that it is unsure who to favor' do
         post action, params: params
-        expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 87% for this matchup versus Other man with 80%.'
+        expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 84% for this matchup versus Other man with 82%.'
       end
     end
 
