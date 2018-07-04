@@ -28,6 +28,7 @@ describe SummonersController, type: :controller do
       allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(
         external_response
       )
+      allow(Cache).to receive(:set_summoner_rank).and_return(nil)
 
       @matches = create_list(:match, 10)
       @matches.each do |match|
@@ -126,6 +127,8 @@ describe SummonersController, type: :controller do
       allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(
         summoner_queue_response
       )
+      allow(Cache).to receive(:set_current_match_rating).and_return(nil)
+      allow(Cache).to receive(:set_summoner_rank).and_return(nil)
       @summoner = create(:summoner, name: 'wingilote')
       @summoner2 = create(:summoner, name: 'endless white')
       @champion = Champion.new(name: 'Miss Fortune')
@@ -543,7 +546,7 @@ describe SummonersController, type: :controller do
 
       it 'should favor the strong performer' do
         post action, params: params
-        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 93% for this matchup compared to Other man as Sivir who I would rate around 56%. My money is definitely on Hero man this time.'
+        expect(speech).to eq 'I would give Hero man playing Vayne a performance rating of 97% for this matchup compared to Other man as Sivir who I would rate around 36%. My money is definitely on Hero man this time.'
       end
     end
 
@@ -574,7 +577,7 @@ describe SummonersController, type: :controller do
 
       it 'should indicate that it is unsure who to favor' do
         post action, params: params
-        expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 84% for this matchup versus Other man with 82%.'
+        expect(speech).to eq 'This one looks fairly close, I am going to give Hero man a performance rating of 87% for this matchup versus Other man with 80%.'
       end
     end
 
@@ -1589,7 +1592,7 @@ describe SummonersController, type: :controller do
       allow(RiotApi::RiotApi).to receive(:fetch_response).and_return(
         external_response
       )
-      Cache.set_summoner_rank(@summoner.summoner_id, nil)
+      allow(Cache).to receive(:set_summoner_rank).and_return(nil)
     end
 
     context 'with a renamed summoner' do
@@ -1615,12 +1618,9 @@ describe SummonersController, type: :controller do
       end
     end
 
-    context 'when cached' do
-      it 'should not make an API request' do
-        post action, params: params
-        post action, params: params
-        expect(RiotApi::RiotApi).to have_received(:fetch_response).once
-      end
+    it 'should cache the summoner queue' do
+      post action, params: params
+      expect(Cache).to have_received(:set_summoner_rank)
     end
 
     context 'with no summoner information' do

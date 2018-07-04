@@ -28,3 +28,4 @@ coverage/*
 pgdata
 todo.md
 factors.md
+tmp/pids/server.pid

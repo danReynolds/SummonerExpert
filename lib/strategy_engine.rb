@@ -202,7 +202,7 @@ class StrategyEngine
 
     # Whether the summoner is on a winning or losing streak
     def longest_streak(args)
-      streak = args[:performances].sort_by { |performance| performance.created_at }.reverse
+      streak = args[:performances].sort_by { |performance| performance.id }.reverse
       winning_streak = streak.first.victorious?
       streak_length = streak.take_while { |performance| performance.victorious? == winning_streak }.length
 
