@@ -36,6 +36,15 @@ describe SummonersController, type: :controller do
       end
     end
 
+    it 'should filter by role if specified' do
+      @matches.first(4).each do |match|
+        match.summoner_performances.first.update(champion_id: 76, role: 'JUNGLE')
+      end
+      summoner_params[:role] = 'JUNGLE'
+      post action, params: params
+      expect(speech).to eq 'Given wingilote likes to play Nidalee Jungle, I recommend trying Kayn, Lee Sin, or Sejuani in the current meta.'
+    end
+
     it 'should determine the role the summoner plays the champion in' do
       @matches.first(4).each do |match|
         match.summoner_performances.first.update(

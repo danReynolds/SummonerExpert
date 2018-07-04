@@ -26,12 +26,20 @@ class SummonersController < ApplicationController
   RECOMMENDED_CHAMPION_SIZE = 3
 
   def recommendation
+    role = summoner_params[:role]
     args = { name: @summoner.name }
-    performances = @summoner.summoner_performances.group(:champion_id).count.select do |champion_id, count|
+
+    performances = if role.present?
+      @summoner.summoner_performances.where(role: role)
+    else
+      @summoner.summoner_performances
+    end
+
+    grouped_performances = performances.group(:champion_id).count.select do |champion_id, count|
       count > MIN_CHAMPION_THRESHOLD
     end.to_a
 
-    if performances.empty?
+    if grouped_performances.empty?
       return render json: {
         speech: ApiResponse.get_response(dig_set(:errors, *@namespace, :not_enough_games), args)
       }
@@ -44,26 +52,28 @@ class SummonersController < ApplicationController
       }
     end
 
-    total_performances = performances.inject(0) do |acc, (champion_id, count)|
+    total_performances = grouped_performances.inject(0) do |acc, (champion_id, count)|
       acc += count
     end
     selected_performance_index = Random.new.rand(1..total_performances)
     index = 0
-    champion_id = performances.detect do |champion_id, count|
+    champion_id = grouped_performances.detect do |champion_id, count|
       index += count
       selected_performance_index <= index
     end.first
 
     champion = Champion.new(id: champion_id)
-    champion_role = @summoner.summoner_performances.where(champion_id: champion.id)
-      .group(:role).count.to_a.max_by { |role, count| count }.first
+    if role.blank?
+      role = performances.where(champion_id: champion.id)
+        .group(:role).count.to_a.max_by { |role, count| count }.first
+    end
 
     similar_champions = Cache.get_champion_similarity(champion_id).map do |id|
       Champion.new(id: id)
     end
 
     similar_champion_performances = similar_champions.map do |similar_champion|
-      RolePerformance.new(name: similar_champion.name, role: champion_role, elo: queue.elo)
+      RolePerformance.new(name: similar_champion.name, role: role, elo: queue.elo)
     end.select(&:valid?)
 
     recommended_champions = similar_champion_performances.sort_by do |similar_champion_performance|
@@ -73,8 +83,8 @@ class SummonersController < ApplicationController
 
     args.merge!({
       champion: champion.name,
-      recommended_champions: recommended_champions.map(&:name).first(RECOMMENDED_CHAMPION_SIZE),
-      role: champion_role
+      recommended_champions: recommended_champions.first(RECOMMENDED_CHAMPION_SIZE),
+      role: role
     })
 
     render json: {
