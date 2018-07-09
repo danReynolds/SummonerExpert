@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     post :feature
   end
 
+  namespace :data do
+    get :similarity
+  end
+
   namespace :champions do
     post :similarity
     post :roles
