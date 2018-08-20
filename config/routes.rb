@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :data do
     get :similarity
+    get :champion_ids_to_names
   end
 
   namespace :champions do

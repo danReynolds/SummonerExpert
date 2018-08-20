@@ -10,4 +10,10 @@ class DataController < ApplicationController
       data: similarities
     }
   end
+
+  def champion_ids_to_names
+    render json: {
+      data: Cache.get_collection(:champions)
+    }
+  end
 end
