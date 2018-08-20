@@ -11,7 +11,7 @@ class DataController < ApplicationController
     }
   end
 
-  def champion_ids_to_names
+  def champions
     render json: {
       data: Cache.get_collection(:champions)
     }
