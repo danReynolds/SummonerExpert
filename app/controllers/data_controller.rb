@@ -13,7 +13,11 @@ class DataController < ApplicationController
 
   def champions
     render json: {
-      data: Cache.get_collection(:champions)
+      data: Cache.get_collection(:champions).inject({}) do |acc, (id, name)|
+        acc.tap do
+          acc[id] = Cache.get_collection_entry(:champion, name).slice(:name, :key)
+        end
+      end
     }
   end
 end
