@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 services:
   scheduler:
     container_name: scheduler
@@ -17,6 +17,9 @@ services:
   redis:
     container_name: redis
     command: [redis-server, /usr/local/etc/redis/redis.conf, --requirepass, $REDIS_PASSWORD]
+    healthcheck:
+      test: "redis-cli -a $REDIS_PASSWORD PING | grep PONG"
+      interval: 30s
     image: "redis:latest"
     volumes:
       - ./data:/data
@@ -24,8 +27,10 @@ services:
   app:
     container_name: app
     depends_on:
-      - redis
-      - db
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_started
     volumes:
       - jobs:/app/jobs
   nginx:
